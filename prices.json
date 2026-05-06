@@ -74,5 +74,18 @@
         {"name": "Conversational Bulgarian", "level": "A2 – C1", "dur": "60 min", "g_usd": "20", "i_usd": "40", "g_eur": "19", "i_eur": "37", "g_rub": "1800", "i_rub": "3650", "g_cny": "145", "i_cny": "290"}
       ]
     }
+    {
+  "id": "japanese",
+  "title": "Japanese",
+  "flag": "🇯🇵",
+  "desc": "A journey through harmony and tradition—where ancient heritage meets cutting-edge innovation, expressed through a unique writing system and deep-rooted etiquette.",
+  "courses": [
+    {"name": "Japanese Foundations", "level": "N5 – N4", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
+    {"name": "Intermediate Kanji & Grammar", "level": "N3 – N2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
+    {"name": "JLPT Exam Prep", "level": "N5 – N1", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
+    {"name": "Business Japanese", "level": "N2 – N1", "dur": "60 min", "g_usd": "45", "i_usd": "70", "g_eur": "42", "i_eur": "65", "g_rub": "4100", "i_rub": "6400", "g_cny": "325", "i_cny": "505"},
+    {"name": "Conversational Japanese", "level": "A2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"}
+  ]
+    }
   ]
 }
