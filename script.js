@@ -12,13 +12,12 @@ async function loadCatalog() {
         if (!response.ok) throw new Error("JSON not found");
         const data = await response.json();
         courseData = data.languages;
-        
         renderLanguageNav();
         renderCatalog();
     } catch (error) {
         console.error(error);
         const container = document.getElementById('catalog-container');
-        if(container) {
+        if (container) {
             container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: Use Live Server to load prices.json</p>`;
         }
     }
@@ -47,7 +46,6 @@ function renderLanguageNav() {
         <div class="flex items-center">
             <button onclick="setLanguageFilter('${lang.title}')" 
                     class="transition-all px-2 cursor-pointer ${activeLanguage === lang.title ? 'scale-125 grayscale-0' : 'grayscale hover:grayscale-0'}">
-                <!-- UPDATED LINE BELOW -->
                 <img src="${lang.flag_url}" alt="${lang.title}" class="w-8 h-auto inline-block rounded-sm shadow-sm">
             </button>
             ${index < courseData.length - 1 ? '<span class="text-slate-200 ml-4">|</span>' : ''}
@@ -72,14 +70,12 @@ function renderCatalog() {
         section.className = 'space-y-8 mb-16 opacity-0 animate-[fadeIn_0.4s_ease-in-out_forwards]';
         
         section.innerHTML = `
-<div class="flex items-center gap-4 border-l-4 border-primary pl-6">
-                <!-- UPDATED LINE BELOW -->
+            <div class="flex items-center gap-4 border-l-4 border-primary pl-6">
                 <img src="${lang.flag_url}" alt="${lang.title}" class="w-12 h-auto rounded shadow-sm">
                 <div>
                     <h3 class="text-2xl font-bold text-on-surface">${lang.title}</h3>
                     <p class="text-slate-500 mt-1">${lang.desc || ''}</p>
                 </div>
-            </div>
             </div>
             <div class="overflow-x-auto rounded-xl border border-outline-variant/30 coral-shadow bg-white">
                 <table class="w-full text-left border-collapse">
@@ -147,21 +143,17 @@ function setCurrency(curr) {
 }
 
 function scrollLanguages(distance) {
-  const slider = document.getElementById('languageSlider');
-  if (slider) {
-    slider.scrollBy({
-      left: distance,
-      behavior: 'smooth'
-    });
-  }
+    const slider = document.getElementById('languageSlider');
+    if (slider) {
+        slider.scrollBy({ left: distance, behavior: 'smooth' });
+    }
 }
 
-// UPDATED EMAIL CLIENT (Source 1)
+// 6. CONTACT FORM
 async function sendEmailNow() {
     const btn = document.querySelector('button[onclick="sendEmailNow()"]');
     const originalText = btn ? btn.innerText : "Send Message";
     
-    // 1. Basic validation to prevent sending empty emails
     const name = document.getElementById('contact-name').value;
     const email = document.getElementById('contact-email').value;
     const message = document.getElementById('contact-message').value;
@@ -171,16 +163,13 @@ async function sendEmailNow() {
         return;
     }
 
-    if (btn) {
-        btn.innerText = "Sending...";
-        btn.disabled = true; // Prevent double-clicking
-    }
+    if (btn) { btn.innerText = "Sending..."; btn.disabled = true; }
     
     const formData = {
-        name: name,
-        email: email,
+        name,
+        email,
         subject: document.getElementById('contact-subject').value || "No Subject",
-        message: message
+        message
     };
 
     try {
@@ -192,33 +181,25 @@ async function sendEmailNow() {
 
         if (response.ok) {
             document.getElementById('contact-form').innerHTML = '<h3>Thank you! We will be in touch soon.</h3>';
-            // 2. Clear the form after success
-            document.getElementById('contact-name').value = '';
-            document.getElementById('contact-email').value = '';
-            document.getElementById('contact-subject').value = '';
-            document.getElementById('contact-message').value = '';
         } else {
-            const err = await response.text();
-            alert("Error: " + err);
+            alert("Error: " + await response.text());
         }
     } catch (error) {
         alert("Connection error. Please check your internet and try again.");
     } finally {
-        if (btn) {
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
+        if (btn) { btn.innerText = originalText; btn.disabled = false; }
     }
 }
-// 1. DATA DICTIONARY
+
+// 7. ENROL FORM
 const enrolTranslations = {
     en: {
         title: "Student Application – LinguaBridge",
-        desc: "Fill out this form to request tutoring. We’ll contact you shortly to match you with the right tutor.",
+        desc: "Fill out this form to request tutoring. We'll contact you shortly to match you with the right tutor.",
         labels: { name: "Full Name", email: "Email Address", phone: "Phone number / WhatsApp / Viber / Telegram", native: "What is your native language?", schedule: "Preferred learning schedule", goals: "Additional comments or learning goals" },
         questions: { lang: "Which language do you want to learn?", level: "What is your current level?", type: "What type of lessons are you interested in?", find: "How did you find us?", select: "-- Select from the list --", other: "Please specify:" },
         options: {
-            langs: ["Bulgarian", "Chinese", "English", "German", "Russian","", "Other"],
+            langs: ["Bulgarian", "Chinese", "English", "German", "Russian", "Other"],
             levels: ["Beginner", "Elementary (A2)", "Intermediate (B1–B2)", "Advanced (C1–C2)", "Not sure/None"],
             types: ["One-on-one live lessons", "Group lessons", "Self-paced course", "Conversation practice", "Exam preparation (e.g., TORFL, IELTS)", "Other"],
             find: ["Instagram", "Facebook", "Google Search", "Friend referral", "Other"]
@@ -255,11 +236,11 @@ const enrolTranslations = {
         success: { title: "Спасибо за вашу заявку!", msg: "Наша команда скоро свяжется с вами.", btn: "Заполнить еще раз" }
     }
 };
-// --- TUTOR FORM LOGIC ---
+
 const tutorTranslations = {
     en: {
         title: "Tutor Application – LinguaBridge",
-        desc: "Apply to become a language tutor. Fill in the form below and we’ll contact you shortly.",
+        desc: "Apply to become a language tutor. Fill in the form below and we'll contact you shortly.",
         labels: { name: "Full Name*", email: "Email Address*", phone: "Phone / WhatsApp / Telegram*", langs: "Which language(s) do you teach?*", edu: "Education and qualifications*", certs: "Do you hold any certificates? (e.g. CELTA)*", exp: "Teaching experience*", hours: "Preferred working hours*", bio: "Short intro about yourself*", cv: "Upload your CV (PDF only)*" },
         submit: "Send Application",
         success: "Thank you! Your application has been received."
@@ -275,145 +256,76 @@ function renderTutorForm(lang = 'en') {
             <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">${t.title}</h2>
             <p class="text-slate-500 mb-8">${t.desc}</p>
             <form id="tutor-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label>
-                    <input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label>
-                    <input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}</label>
-                    <input type="text" id="t-phone" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label>
-                    <input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label>
-                    <textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label>
-                    <input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.exp}</label>
-                    <textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.hours}</label>
-                    <input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100 outline-none">
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.bio}</label>
-                    <textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
-                </div>
-                <div class="flex flex-col col-span-full">
-                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.cv}</label>
-                    <input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100">
-                </div>
-                <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
-                    ${t.submit}
-                </button>
+                <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label><input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label><input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}</label><input type="text" id="t-phone" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label><input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label><textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label><input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.exp}</label><textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.hours}</label><input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.bio}</label><textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.cv}</label><input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100"></div>
+                <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">${t.submit}</button>
             </form>
         </div>
     `;
     document.getElementById('tutor-form').onsubmit = handleTutorSubmit;
 }
-// TUTOR FORM SUBMISSION HANDLER
+
 async function handleTutorSubmit(e) {
     e.preventDefault();
-
     const btn = e.target.querySelector('button');
     const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzCXUF7IcEl2RD1YOJSsNiV4KhKDuXjKOg4fzmSGX5nas6buRbsCB0ODG6lZ-z0GOksLg/exec';
-
     btn.innerText = "Uploading... Please wait";
     btn.disabled = true;
-
     const file = document.getElementById('t-cv').files[0];
-
-    if (!file) {
-        alert("No CV file selected");
-        btn.innerText = "Send Application";
-        btn.disabled = false;
-        return;
-    }
-
+    if (!file) { alert("No CV file selected"); btn.innerText = "Send Application"; btn.disabled = false; return; }
     const reader = new FileReader();
-
-    reader.onerror = () => {
-        alert("Failed to read file");
-        btn.innerText = "Send Application";
-        btn.disabled = false;
-    };
-
+    reader.onerror = () => { alert("Failed to read file"); btn.innerText = "Send Application"; btn.disabled = false; };
     reader.onload = async () => {
-    try {
-        const base64 = reader.result.split(',')[1];
-
-        const data = {
-            isTutor: true,
-            name: document.getElementById('t-name').value,
-            email: document.getElementById('t-email').value,
-            phone: document.getElementById('t-phone').value,
-            langs: document.getElementById('t-langs').value,
-            edu: document.getElementById('t-edu').value,
-            certs: document.getElementById('t-certs').value,
-            exp: document.getElementById('t-exp').value,
-            hours: document.getElementById('t-hours').value,
-            bio: document.getElementById('t-bio').value,
-            cvFile: base64,
-            cvName: document.getElementById('t-name').value + "_CV.pdf"
-        };
-
-        // no-cors means the response is opaque — we can't read res.ok or res.status.
-        // If the fetch itself doesn't throw, we treat it as success.
-        await fetch(TUTOR_URL, {
-            method: "POST",
-            mode: "no-cors",   // required for Google Apps Script
-            body: JSON.stringify(data)
-        });
-
-        // Reached here = request was sent without a network error, show success
-        document.getElementById('tutor-form-container').innerHTML = `
-            <div class="text-center py-20">
-                <h2 class="text-2xl font-bold text-primary">Application submitted!</h2>
-                <p>We will review your application and contact you soon.</p>
-            </div>
-        `;
-
-    } catch (err) {
-        // Only fires on actual network failure (offline, DNS error, etc.)
-        console.error(err);
-        alert("Submission failed. Please check your connection and try again.");
-
-        btn.innerText = "Send Application";
-        btn.disabled = false;
-    }
-};
-
+        try {
+            const data = {
+                isTutor: true,
+                name: document.getElementById('t-name').value,
+                email: document.getElementById('t-email').value,
+                phone: document.getElementById('t-phone').value,
+                langs: document.getElementById('t-langs').value,
+                edu: document.getElementById('t-edu').value,
+                certs: document.getElementById('t-certs').value,
+                exp: document.getElementById('t-exp').value,
+                hours: document.getElementById('t-hours').value,
+                bio: document.getElementById('t-bio').value,
+                cvFile: reader.result.split(',')[1],
+                cvName: document.getElementById('t-name').value + "_CV.pdf"
+            };
+            await fetch(TUTOR_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(data) });
+            document.getElementById('tutor-form-container').innerHTML = `
+                <div class="text-center py-20">
+                    <h2 class="text-2xl font-bold text-primary">Application submitted!</h2>
+                    <p>We will review your application and contact you soon.</p>
+                </div>`;
+        } catch (err) {
+            console.error(err);
+            alert("Submission failed. Please check your connection and try again.");
+            btn.innerText = "Send Application";
+            btn.disabled = false;
+        }
+    };
     reader.readAsDataURL(file);
 }
 
-// 2. RENDER THE FORM
 function renderEnrolForm(lang = 'en') {
     const container = document.getElementById('enrolment-form-container');
     if (!container) return;
-    const t = enrolTranslations[lang];
-
+    const t = enrolTranslations[lang] || enrolTranslations['en'];
     container.innerHTML = `
         <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">${t.title}</h2>
         <p class="text-slate-500 mb-8">${t.desc}</p>
         <form id="active-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Text Inputs with labels above -->
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}*</label><input type="text" id="form-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}*</label><input type="email" id="form-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
             <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}*</label><input type="text" id="form-phone" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-            
-            <!-- Dropdowns with default selection -->
             <div class="flex flex-col">
                 <label class="font-bold text-sm text-slate-600 mb-1">${t.questions.lang}*</label>
                 <select id="form-target" required onchange="handleOther(this, 'other-lang')" class="p-4 rounded-xl border border-rose-100 bg-white">
@@ -422,7 +334,6 @@ function renderEnrolForm(lang = 'en') {
                 </select>
                 <input type="text" id="other-lang" placeholder="${t.questions.other}" class="hidden mt-2 p-4 rounded-xl border border-rose-100 outline-none">
             </div>
-
             <div class="flex flex-col">
                 <label class="font-bold text-sm text-slate-600 mb-1">${t.questions.level}*</label>
                 <select id="form-level" required class="p-4 rounded-xl border border-rose-100 bg-white">
@@ -430,10 +341,8 @@ function renderEnrolForm(lang = 'en') {
                     ${t.options.levels.map(l => `<option value="${l}">${l}</option>`).join('')}
                 </select>
             </div>
-
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.native}*</label><input type="text" id="form-native" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.schedule}*</label><input type="text" id="form-schedule" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-
             <div class="flex flex-col col-span-full">
                 <label class="font-bold text-sm text-slate-600 mb-1">${t.questions.type}*</label>
                 <select id="form-type" required onchange="handleOther(this, 'other-type')" class="p-4 rounded-xl border border-rose-100 bg-white">
@@ -442,7 +351,6 @@ function renderEnrolForm(lang = 'en') {
                 </select>
                 <input type="text" id="other-type" placeholder="${t.questions.other}" class="hidden mt-2 p-4 rounded-xl border border-rose-100 outline-none">
             </div>
-
             <div class="flex flex-col col-span-full">
                 <label class="font-bold text-sm text-slate-600 mb-1">${t.questions.find}*</label>
                 <select id="form-find" required onchange="handleOther(this, 'other-find')" class="p-4 rounded-xl border border-rose-100 bg-white">
@@ -451,23 +359,13 @@ function renderEnrolForm(lang = 'en') {
                 </select>
                 <input type="text" id="other-find" placeholder="${t.questions.other}" class="hidden mt-2 p-4 rounded-xl border border-rose-100 outline-none">
             </div>
-
             <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.goals}</label><textarea id="form-goals" class="p-4 rounded-xl border border-rose-100 h-32 outline-none"></textarea></div>
-
-            <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
-                ${t.submit}
-            </button>
+            <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">${t.submit}</button>
         </form>
     `;
-
-    // Handle form submission properly with validation
-    document.getElementById('active-form').onsubmit = (e) => {
-        e.preventDefault();
-        sendToGoogle();
-    };
+    document.getElementById('active-form').onsubmit = (e) => { e.preventDefault(); sendToGoogle(); };
 }
 
-// Function to show/hide "Other" text bar
 function handleOther(selectEl, otherId) {
     const otherInput = document.getElementById(otherId);
     if (selectEl.value.includes('Other') || selectEl.value.includes('Друго') || selectEl.value.includes('Другое')) {
@@ -479,23 +377,20 @@ function handleOther(selectEl, otherId) {
     }
 }
 
-// 3. STUDENT FORM SUBMISSION
 async function sendToGoogle() {
     const btn = document.querySelector('button[type="submit"]');
     const container = document.getElementById('enrolment-form-container');
     const lang = localStorage.getItem('preferredLang') || 'en';
-    const t = enrolTranslations[lang];
-    
+    const t = enrolTranslations[lang] || enrolTranslations['en'];
     const STUDENT_URL = 'https://script.google.com/macros/s/AKfycbxyejt5JgVn4w7SIVkK3SyDUbrng0ZS_CGMbnAiV0NjEavKKWb-4nHPr34XaI3bEtIX/exec';
 
     const getVal = (id, otherId) => {
         const sel = document.getElementById(id);
         if (!sel) return "";
         const val = sel.value;
-        const otherInput = document.getElementById(otherId);
-        // Returns the 'Other' text box value if 'Other' is selected in the dropdown
-        if (val.includes('Other') || val.includes('Друго')) {
-            return otherInput ? otherInput.value : val;
+        if (val.includes('Other') || val.includes('Друго') || val.includes('Другое')) {
+            const other = document.getElementById(otherId);
+            return other ? other.value : val;
         }
         return val;
     };
@@ -509,169 +404,32 @@ async function sendToGoogle() {
         native_lang: document.getElementById('form-native').value,
         schedule: document.getElementById('form-schedule').value,
         lesson_type: getVal('form-type', 'other-type'),
-        found_via: getVal('form-find', 'other-find'), // This matches the Google Script data.found_via
+        found_via: getVal('form-find', 'other-find'),
         comments: document.getElementById('form-goals').value
     };
 
     if (btn) btn.innerText = "Submitting... Please wait";
 
     try {
-        await fetch(STUDENT_URL, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-
+        await fetch(STUDENT_URL, { method: 'POST', body: JSON.stringify(data) });
         container.innerHTML = `
             <div class="text-center py-12">
                 <div class="text-6xl mb-6">✨</div>
                 <h3 class="text-2xl font-bold text-primary mb-2">${t.success.title}</h3>
                 <p class="text-slate-500 mb-8">${t.success.msg}</p>
-                <button onclick="location.reload()" class="bg-primary/10 text-primary px-8 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all">
-                    ${t.success.btn}
-                </button>
-            </div>
-        `;
+                <button onclick="location.reload()" class="bg-primary/10 text-primary px-8 py-3 rounded-full font-bold hover:bg-primary hover:text-white transition-all">${t.success.btn}</button>
+            </div>`;
     } catch (e) {
-    console.error("Submission error:", e);
-    alert("Something went wrong. Please try again.");
+        console.error("Submission error:", e);
+        alert("Something went wrong. Please try again.");
     }
 }
 
-// Show English form by default when page loads
-// 1. The main function called by your Nav Bar buttons
-function changeGlobalLanguage(lang) {
-    localStorage.setItem('preferredLang', lang);
-
-    // ✅ APPLY UI TRANSLATIONS
-    applyUITranslations(lang);
-
-    // existing logic (KEEP)
-    if (document.getElementById('enrolment-form-container')) {
-        renderEnrolForm(lang);
-    }
-
-    if (document.getElementById('tutor-form-container')) {
-        renderTutorForm(lang);
-    }
-
-    updateSwitcherUI(lang);
-}
-
-// 2. Visual feedback (highlighting the active language)
-function updateSwitcherUI(lang) {
-    const btns = ['en', 'bg', 'ru'];
-    btns.forEach(b => {
-        const el = document.querySelector(`.lang-btn-${b}`);
-        if (el) {
-            if (b === lang) {
-                el.classList.add('bg-primary-container', 'text-white');
-                el.classList.remove('opacity-70');
-            } else {
-                el.classList.remove('bg-primary-container', 'text-white');
-                el.classList.add('opacity-70');
-            }
-        }
-    });
-}
-
-// This listener runs every time a page loads
-window.addEventListener('DOMContentLoaded', () => {
-    // 1. Determine active language
-    const savedLang = localStorage.getItem('preferredLang') || 'en';
-    
-    // 2. Initialize Catalog (if on main page)
-    if (typeof loadCatalog === "function" && document.getElementById('catalog-container')) {
-        loadCatalog();
-    }
-
-    // 3. Initialize Student Form (if on enrol_5.html)
-    if (document.getElementById('enrolment-form-container')) {
-        renderEnrolForm(savedLang);
-    }
-
-    // 4. Initialize Tutor Form (Explicitly check tutor_signup.html)
-    const tutorContainer = document.getElementById('tutor-form-container');
-    if (tutorContainer) {
-        console.log("Tutor container found, rendering form..."); // Helps you debug in F12
-        renderTutorForm(savedLang);
-    }
-    
-    // 5. Update UI flags
-    updateSwitcherUI(savedLang);
-});
-// TRANSLATION
-const uiTranslations = {
-  en: {
-    home: "Home",
-    languages: "Languages",
-    about: "About",
-    contact: "Contact",
-    enrol: "Enrol Now",
-    hero_title: "Master any <span class='text-[#ff7582]'>language</span> with ease.",
-    hero_desc: "Learn foreign languages online with private lessons — it's easy and affordable.",
-    view_courses: "View All Courses"
-  },
-  bg: {
-    home: "Начало",
-    languages: "Езици",
-    about: "За нас",
-    contact: "Контакт",
-    enrol: "Запиши се",
-    hero_title: "Овладей всеки <span class='text-[#ff7582]'>език</span> с лекота.",
-    hero_desc: "Научи чужди езици онлайн с индивидуални уроци — лесно и достъпно.",
-    view_courses: "Виж всички курсове"
-  }
-};
-
-// TRANSLATION ENGINE
-// 1. The Core Translation Function
-async function changeGlobalLanguage(lang) {
-    try {
-        // Fetch the external JSON file
-        const response = await fetch('translations.json');
-        const translations = await response.json();
-
-        // Update all elements with [data-i18n]
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                // Use .innerHTML if you have formatting (like <b>) in JSON, 
-                // otherwise .textContent is safer.
-                el.textContent = translations[lang][key]; 
-            }
-        });
-
-        // Save preference and update document metadata
-        localStorage.setItem('preferredLang', lang);
-        document.documentElement.lang = lang;
-
-        // Update the visual look of the buttons
-        updateLanguageSwitcherUI(lang);
-
-    } catch (error) {
-        console.error('Error loading translations:', error);
-    }
-}
-
-// 2. The Button Styler
-function updateLanguageSwitcherUI(lang) {
-    const buttons = ['en', 'bg', 'ru'];
-    buttons.forEach(l => {
-        const btn = document.querySelector(`.lang-btn-${l}`);
-        if (btn) {
-            if (l === lang) {
-                btn.classList.add('bg-[#ff7582]', 'text-white');
-                btn.classList.remove('opacity-70');
-            } else {
-                btn.classList.remove('bg-[#ff7582]', 'text-white');
-                btn.classList.add('opacity-70');
-            }
-        }
-    });
-}
-
-// 3. The Initializer
+// 8. SINGLE DOMContentLoaded — runs once on every page
 window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
-    changeGlobalLanguage(savedLang);
+
+    if (document.getElementById('catalog-container')) loadCatalog();
+    if (document.getElementById('enrolment-form-container')) renderEnrolForm(savedLang);
+    if (document.getElementById('tutor-form-container')) renderTutorForm(savedLang);
 });
