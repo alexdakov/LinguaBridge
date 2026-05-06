@@ -451,7 +451,7 @@ async function sendToGoogle() {
     const lang = localStorage.getItem('preferredLang') || 'en';
     const t = enrolTranslations[lang];
     
-    const STUDENT_URL = 'https://script.google.com/macros/s/AKfycbwsjXsbz7HtmD7DYP8WnzkmZ1HcblutLAV-RbA-fSyz9pAszW0FnhiBA9aA95RADWop_w/exec';
+    const STUDENT_URL = 'https://script.google.com/macros/s/AKfycbxXGUBvDUDYxzJFNbEP4V0yWt2RTDRrJ2UiZYcnQ_RcABw1WuWnWXlPVmsNRf9nYcN6/exec';
 
     const getVal = (id, otherId) => {
         const sel = document.getElementById(id);
