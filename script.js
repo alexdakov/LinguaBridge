@@ -528,7 +528,7 @@ function changeGlobalLanguage(lang) {
     }
     
     // Update the visual look of the buttons
-    updateSwitcherUI(lang);
+    updateSwitcherUI(lang);{
 }
 
 // 2. Visual feedback (highlighting the active language)
