@@ -292,7 +292,7 @@ async function handleTutorSubmit(e) {
     e.preventDefault();
 
     const btn = e.target.querySelector('button');
-    const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzrgdbjHL9-44klw6-pE8Y1L40eqstJ_L-_3bA895z9saoE91eaDeYlDWiQq7VSgSrxjg/exec';
+    const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzkb_uJg0DRnh5Cy-opkLtPJSqlace45ocw21b6nlEZHgNkoa3FWqMo6-xV_f4B_xk94g/exec';
 
     btn.innerText = "Uploading... Please wait";
     btn.disabled = true;
