@@ -505,8 +505,22 @@ async function sendToGoogle() {
 // Show English form by default when page loads
 // 1. The main function called by your Nav Bar buttons
 function changeGlobalLanguage(lang) {
-    // Save the choice so it stays the same on other pages
     localStorage.setItem('preferredLang', lang);
+
+    // ✅ APPLY UI TRANSLATIONS
+    applyUITranslations(lang);
+
+    // existing logic (KEEP)
+    if (document.getElementById('enrolment-form-container')) {
+        renderEnrolForm(lang);
+    }
+
+    if (document.getElementById('tutor-form-container')) {
+        renderTutorForm(lang);
+    }
+
+    updateSwitcherUI(lang);
+}
     
     // If we are on the enrolment page, update the form immediately
     if (document.getElementById('enrolment-form-container')) {
@@ -559,3 +573,41 @@ window.addEventListener('DOMContentLoaded', () => {
     // 5. Update UI flags
     updateSwitcherUI(savedLang);
 });
+// TRANSLATION
+const uiTranslations = {
+  en: {
+    home: "Home",
+    languages: "Languages",
+    about: "About",
+    contact: "Contact",
+    enrol: "Enrol Now",
+    hero_title: "Master any <span class='text-[#ff7582]'>language</span> with ease.",
+    hero_desc: "Learn foreign languages online with private lessons — it's easy and affordable.",
+    view_courses: "View All Courses"
+  },
+  bg: {
+    home: "Начало",
+    languages: "Езици",
+    about: "За нас",
+    contact: "Контакт",
+    enrol: "Запиши се",
+    hero_title: "Овладей всеки <span class='text-[#ff7582]'>език</span> с лекота.",
+    hero_desc: "Научи чужди езици онлайн с индивидуални уроци — лесно и достъпно.",
+    view_courses: "Виж всички курсове"
+  }
+};
+
+// TRANSLATION ENGINE
+function applyUITranslations(lang) {
+    const t = uiTranslations[lang];
+    if (!t) return;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) {
+            el.innerHTML = t[key];
+        }
+    });
+
+    document.documentElement.lang = lang;
+}
