@@ -521,15 +521,6 @@ function changeGlobalLanguage(lang) {
 
     updateSwitcherUI(lang);
 }
-    
-    // If we are on the enrolment page, update the form immediately
-    if (document.getElementById('enrolment-form-container')) {
-        renderEnrolForm(lang);
-    }
-    
-    // Update the visual look of the buttons
-    updateSwitcherUI(lang);{
-}
 
 // 2. Visual feedback (highlighting the active language)
 function updateSwitcherUI(lang) {
