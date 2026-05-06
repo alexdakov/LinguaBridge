@@ -46,8 +46,9 @@ function renderLanguageNav() {
     navHtml += courseData.map((lang, index) => `
         <div class="flex items-center">
             <button onclick="setLanguageFilter('${lang.title}')" 
-                    class="text-3xl transition-all px-2 cursor-pointer ${activeLanguage === lang.title ? 'scale-125 grayscale-0' : 'grayscale hover:grayscale-0'}">
-                ${lang.flag}
+                    class="transition-all px-2 cursor-pointer ${activeLanguage === lang.title ? 'scale-125 grayscale-0' : 'grayscale hover:grayscale-0'}">
+                <!-- UPDATED LINE BELOW -->
+                <img src="${lang.flag_url}" alt="${lang.title}" class="w-8 h-auto inline-block rounded-sm shadow-sm">
             </button>
             ${index < courseData.length - 1 ? '<span class="text-slate-200 ml-4">|</span>' : ''}
         </div>
@@ -71,12 +72,14 @@ function renderCatalog() {
         section.className = 'space-y-8 mb-16 opacity-0 animate-[fadeIn_0.4s_ease-in-out_forwards]';
         
         section.innerHTML = `
-            <div class="flex items-center gap-4 border-l-4 border-primary pl-6">
-                <div class="text-4xl">${lang.flag}</div>
+<div class="flex items-center gap-4 border-l-4 border-primary pl-6">
+                <!-- UPDATED LINE BELOW -->
+                <img src="${lang.flag_url}" alt="${lang.title}" class="w-12 h-auto rounded shadow-sm">
                 <div>
                     <h3 class="text-2xl font-bold text-on-surface">${lang.title}</h3>
                     <p class="text-slate-500 mt-1">${lang.desc || ''}</p>
                 </div>
+            </div>
             </div>
             <div class="overflow-x-auto rounded-xl border border-outline-variant/30 coral-shadow bg-white">
                 <table class="w-full text-left border-collapse">
