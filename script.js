@@ -215,7 +215,7 @@ const enrolTranslations = {
         labels: { name: "Full Name", email: "Email Address", phone: "Phone number / WhatsApp / Viber / Telegram", native: "What is your native language?", schedule: "Preferred learning schedule", goals: "Additional comments or learning goals" },
         questions: { lang: "Which language do you want to learn?", level: "What is your current level?", type: "What type of lessons are you interested in?", find: "How did you find us?", select: "-- Select from the list --", other: "Please specify:" },
         options: {
-            langs: ["Bulgarian", "Chinese", "English", "German", "Russian","Japanese", "Other"],
+            langs: ["Bulgarian", "Chinese", "English", "German", "Russian","", "Other"],
             levels: ["Beginner", "Elementary (A2)", "Intermediate (B1–B2)", "Advanced (C1–C2)", "Not sure/None"],
             types: ["One-on-one live lessons", "Group lessons", "Self-paced course", "Conversation practice", "Exam preparation (e.g., TORFL, IELTS)", "Other"],
             find: ["Instagram", "Facebook", "Google Search", "Friend referral", "Other"]
@@ -621,16 +621,54 @@ const uiTranslations = {
 };
 
 // TRANSLATION ENGINE
-function applyUITranslations(lang) {
-    const t = uiTranslations[lang];
-    if (!t) return;
+// 1. The Core Translation Function
+async function changeGlobalLanguage(lang) {
+    try {
+        // Fetch the external JSON file
+        const response = await fetch('translations.json');
+        const translations = await response.json();
 
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        if (t[key]) {
-            el.innerHTML = t[key];
+        // Update all elements with [data-i18n]
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                // Use .innerHTML if you have formatting (like <b>) in JSON, 
+                // otherwise .textContent is safer.
+                el.textContent = translations[lang][key]; 
+            }
+        });
+
+        // Save preference and update document metadata
+        localStorage.setItem('preferredLang', lang);
+        document.documentElement.lang = lang;
+
+        // Update the visual look of the buttons
+        updateLanguageSwitcherUI(lang);
+
+    } catch (error) {
+        console.error('Error loading translations:', error);
+    }
+}
+
+// 2. The Button Styler
+function updateLanguageSwitcherUI(lang) {
+    const buttons = ['en', 'bg', 'ru'];
+    buttons.forEach(l => {
+        const btn = document.querySelector(`.lang-btn-${l}`);
+        if (btn) {
+            if (l === lang) {
+                btn.classList.add('bg-[#ff7582]', 'text-white');
+                btn.classList.remove('opacity-70');
+            } else {
+                btn.classList.remove('bg-[#ff7582]', 'text-white');
+                btn.classList.add('opacity-70');
+            }
         }
     });
-
-    document.documentElement.lang = lang;
 }
+
+// 3. The Initializer
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    changeGlobalLanguage(savedLang);
+});
