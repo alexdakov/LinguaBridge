@@ -215,7 +215,7 @@ const enrolTranslations = {
         labels: { name: "Full Name", email: "Email Address", phone: "Phone number / WhatsApp / Viber / Telegram", native: "What is your native language?", schedule: "Preferred learning schedule", goals: "Additional comments or learning goals" },
         questions: { lang: "Which language do you want to learn?", level: "What is your current level?", type: "What type of lessons are you interested in?", find: "How did you find us?", select: "-- Select from the list --", other: "Please specify:" },
         options: {
-            langs: ["Bulgarian", "Chinese", "English", "German", "Russian", "Other"],
+            langs: ["Bulgarian", "Chinese", "English", "German", "Russian","Japanese", "Other"],
             levels: ["Beginner", "Elementary (A2)", "Intermediate (B1–B2)", "Advanced (C1–C2)", "Not sure/None"],
             types: ["One-on-one live lessons", "Group lessons", "Self-paced course", "Conversation practice", "Exam preparation (e.g., TORFL, IELTS)", "Other"],
             find: ["Instagram", "Facebook", "Google Search", "Friend referral", "Other"]
