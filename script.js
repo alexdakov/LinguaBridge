@@ -268,23 +268,56 @@ function renderTutorForm(lang = 'en') {
     if (!container) return;
     const t = tutorTranslations[lang] || tutorTranslations['en'];
     container.innerHTML = `
-        <h2 class="text-3xl font-bold text-slate-900 mb-2">${t.title}</h2>
-        <p class="text-slate-500 mb-10">${t.desc}</p>
-        <form id="tutor-form" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                <div class="flex flex-col"><label class="font-bold text-sm mb-1">${t.labels.name}</label><input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col"><label class="font-bold text-sm mb-1">${t.labels.email}</label><input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.phone}</label><input type="text" id="t-phone" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.langs}</label><input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.edu}</label><textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.certs}</label><input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.exp}</label><textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.hours}</label><input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.bio}</label><textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm mb-1">${t.labels.cv}</label><input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100"></div>
-            </div>
-            <button type="submit" class="w-full bg-[#FF7582] text-white p-5 rounded-full font-bold shadow-lg">${t.submit}</button>
-        </form>`;
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-rose-50">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">${t.title}</h2>
+            <p class="text-slate-500 mb-8">${t.desc}</p>
+            <form id="tutor-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label>
+                    <input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label>
+                    <input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}</label>
+                    <input type="text" id="t-phone" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label>
+                    <input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label>
+                    <textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label>
+                    <input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.exp}</label>
+                    <textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.hours}</label>
+                    <input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100 outline-none">
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.bio}</label>
+                    <textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea>
+                </div>
+                <div class="flex flex-col col-span-full">
+                    <label class="font-bold text-sm text-slate-600 mb-1">${t.labels.cv}</label>
+                    <input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100">
+                </div>
+                <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                    ${t.submit}
+                </button>
+            </form>
+        </div>
+    `;
     document.getElementById('tutor-form').onsubmit = handleTutorSubmit;
 }
 // TUTOR FORM SUBMISSION HANDLER
@@ -292,7 +325,7 @@ async function handleTutorSubmit(e) {
     e.preventDefault();
 
     const btn = e.target.querySelector('button');
-    const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzkb_uJg0DRnh5Cy-opkLtPJSqlace45ocw21b6nlEZHgNkoa3FWqMo6-xV_f4B_xk94g/exec';
+    const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzCXUF7IcEl2RD1YOJSsNiV4KhKDuXjKOg4fzmSGX5nas6buRbsCB0ODG6lZ-z0GOksLg/exec';
 
     btn.innerText = "Uploading... Please wait";
     btn.disabled = true;
@@ -315,50 +348,49 @@ async function handleTutorSubmit(e) {
     };
 
     reader.onload = async () => {
-        try {
-            const base64 = reader.result.split(',')[1];
+    try {
+        const base64 = reader.result.split(',')[1];
 
-            const data = {
-                isTutor: true,
-                name: document.getElementById('t-name').value,
-                email: document.getElementById('t-email').value,
-                phone: document.getElementById('t-phone').value,
-                langs: document.getElementById('t-langs').value,
-                edu: document.getElementById('t-edu').value,
-                certs: document.getElementById('t-certs').value,
-                exp: document.getElementById('t-exp').value,
-                hours: document.getElementById('t-hours').value,
-                bio: document.getElementById('t-bio').value,
-                cvFile: base64,
-                cvName: document.getElementById('t-name').value + "_CV.pdf"
-            };
-            const res = await fetch(TUTOR_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+        const data = {
+            isTutor: true,
+            name: document.getElementById('t-name').value,
+            email: document.getElementById('t-email').value,
+            phone: document.getElementById('t-phone').value,
+            langs: document.getElementById('t-langs').value,
+            edu: document.getElementById('t-edu').value,
+            certs: document.getElementById('t-certs').value,
+            exp: document.getElementById('t-exp').value,
+            hours: document.getElementById('t-hours').value,
+            bio: document.getElementById('t-bio').value,
+            cvFile: base64,
+            cvName: document.getElementById('t-name').value + "_CV.pdf"
+        };
 
-            if (!res.ok) {
-                throw new Error("Server error while submitting form");
-            }
+        // no-cors means the response is opaque — we can't read res.ok or res.status.
+        // If the fetch itself doesn't throw, we treat it as success.
+        await fetch(TUTOR_URL, {
+            method: "POST",
+            mode: "no-cors",   // required for Google Apps Script
+            body: JSON.stringify(data)
+        });
 
-            document.getElementById('tutor-form-container').innerHTML = `
-                <div class="text-center py-20">
-                    <h2 class="text-2xl font-bold text-primary">Application submitted!</h2>
-                    <p>We will review your application and contact you soon.</p>
-                </div>
-            `;
+        // Reached here = request was sent without a network error, show success
+        document.getElementById('tutor-form-container').innerHTML = `
+            <div class="text-center py-20">
+                <h2 class="text-2xl font-bold text-primary">Application submitted!</h2>
+                <p>We will review your application and contact you soon.</p>
+            </div>
+        `;
 
-        } catch (err) {
-            console.error(err);
-            alert("Submission failed. Please try again.");
+    } catch (err) {
+        // Only fires on actual network failure (offline, DNS error, etc.)
+        console.error(err);
+        alert("Submission failed. Please check your connection and try again.");
 
-            btn.innerText = "Send Application";
-            btn.disabled = false;
-        }
-    };
+        btn.innerText = "Send Application";
+        btn.disabled = false;
+    }
+};
 
     reader.readAsDataURL(file);
 }
