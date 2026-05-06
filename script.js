@@ -292,7 +292,7 @@ async function handleTutorSubmit(e) {
     e.preventDefault();
 
     const btn = e.target.querySelector('button');
-    const TUTOR_URL = 'https://tutor-api.alextdakov.workers.dev/';
+    const TUTOR_URL = 'https://script.google.com/macros/s/AKfycbzrgdbjHL9-44klw6-pE8Y1L40eqstJ_L-_3bA895z9saoE91eaDeYlDWiQq7VSgSrxjg/exec';
 
     btn.innerText = "Uploading... Please wait";
     btn.disabled = true;
@@ -451,7 +451,7 @@ async function sendToGoogle() {
     const lang = localStorage.getItem('preferredLang') || 'en';
     const t = enrolTranslations[lang];
     
-    const STUDENT_URL = 'https://script.google.com/macros/s/AKfycbxXGUBvDUDYxzJFNbEP4V0yWt2RTDRrJ2UiZYcnQ_RcABw1WuWnWXlPVmsNRf9nYcN6/exec';
+    const STUDENT_URL = 'https://script.google.com/macros/s/AKfycbxyejt5JgVn4w7SIVkK3SyDUbrng0ZS_CGMbnAiV0NjEavKKWb-4nHPr34XaI3bEtIX/exec';
 
     const getVal = (id, otherId) => {
         const sel = document.getElementById(id);
@@ -554,7 +554,7 @@ window.addEventListener('DOMContentLoaded', () => {
         renderEnrolForm(savedLang);
     }
 
-    // 4. Initialize Tutor Form (Explicitly check tutor_signup_5.html)
+    // 4. Initialize Tutor Form (Explicitly check tutor_signup.html)
     const tutorContainer = document.getElementById('tutor-form-container');
     if (tutorContainer) {
         console.log("Tutor container found, rendering form..."); // Helps you debug in F12
