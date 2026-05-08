@@ -149,16 +149,10 @@
                         <p class="text-xs text-slate-400 mb-1" data-i18n="portal.creds.pass">Password</p>
                         <div class="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 gap-2">
                             <span id="moodle-pass-display" class="text-sm font-mono font-semibold text-slate-700"></span>
-                            <div class="flex items-center gap-2 shrink-0">
-                                <button id="toggle-moodle-pass" class="text-slate-300 hover:text-[#FF7582] transition-colors" title="Show password">
-                                    <span class="material-symbols-outlined text-[18px]">visibility_off</span>
-                                </button>
-                                <button onclick="copyToClipboard('moodle-pass')" class="text-slate-300 hover:text-[#FF7582] transition-colors" title="Copy">
-                                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                                </button>
-                            </div>
+                            <button onclick="copyToClipboard('moodle-pass-display')" class="shrink-0 text-slate-300 hover:text-[#FF7582] transition-colors" title="Copy">
+                                <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                            </button>
                         </div>
-                        <span id="moodle-pass" class="hidden"></span>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 mt-4" data-i18n="portal.creds.note">Keep these credentials private.</p>
@@ -205,10 +199,8 @@
             document.getElementById('user-name').textContent = name;
 
             // Moodle credentials
-            const moodlePass = data.moodle_pass || '—';
             document.getElementById('moodle-user').textContent = data.moodle_user || '—';
-            document.getElementById('moodle-pass').textContent = moodlePass;
-            document.getElementById('moodle-pass-display').textContent = moodlePass;
+            document.getElementById('moodle-pass-display').textContent = data.moodle_pass || '—';
         } catch (e) {
             console.error('Profile load error:', e);
         }
@@ -219,16 +211,6 @@
         window.location.href = 'login.html';
     });
 
-    // Show/hide Moodle password
-    let passVisible = true;
-    document.getElementById('toggle-moodle-pass').addEventListener('click', () => {
-        passVisible = !passVisible;
-        const pass = document.getElementById('moodle-pass').textContent;
-        const display = document.getElementById('moodle-pass-display');
-        const icon = document.querySelector('#toggle-moodle-pass .material-symbols-outlined');
-        display.textContent = passVisible ? pass : '••••••••'; // starts visible
-        icon.textContent = passVisible ? 'visibility_off' : 'visibility';
-    });
 </script>
 
 <script>
