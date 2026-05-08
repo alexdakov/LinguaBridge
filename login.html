@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet"/>
+    <style>.glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }</style>
+</head>
+<body class="bg-[#f4fafd] flex items-center justify-center min-h-screen p-6 font-['Be_Vietnam_Pro']">
+    <div class="glass max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl border border-white">
+        <div class="text-center mb-10">
+            <img src="Media/linguabridge_logo.png" alt="Logo" class="h-12 mx-auto mb-4">
+            <h1 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] text-[#161d1f]">Welcome Back</h1>
+            <p class="text-slate-500 text-sm mt-2">Log in to access your learning bridge</p>
+        </div>
+        <form class="space-y-6">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nickname</label>
+                <input type="text" id="nickname" class="w-full px-5 py-4 rounded-2xl border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" placeholder="e.g., john_doe">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                <input type="password" class="w-full px-5 py-4 rounded-2xl border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" placeholder="••••••••">
+            </div>
+            <button type="button" onclick="handleLogin()" class="w-full bg-[#FF7582] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-rose-200 transition-all active:scale-95">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        function handleLogin() {
+            // Simulated logic: In a real app, this checks your database role
+            const email = document.querySelector('input[type="nickname"]').value;
+            if (email.includes('tutor')) { window.location.href = 'tutor-portal.html'; }
+            else { window.location.href = 'student-portal.html'; }
+        }
+    </script>
+</body>
+</html>
