@@ -26,13 +26,6 @@
         </form>
     </div>
 
-    <script>
-        function handleLogin() {
-            // Simulated logic: In a real app, this checks your database role
-            const email = document.querySelector('input[type="nickname"]').value;
-            if (email.includes('tutor')) { window.location.href = 'tutor-portal.html'; }
-            else { window.location.href = 'student-portal.html'; }
-        }
-    </script>
+    <script type="module" src="auth-handler.js"></script>
 </body>
 </html>
