@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login | LinguaBridge</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet"/>
@@ -16,26 +17,47 @@
     </style>
 </head>
 <body class="bg-[#f4fafd] flex items-center justify-center min-h-screen p-6 font-['Be_Vietnam_Pro']">
-    <div class="glass max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl border border-white">
-        <div class="text-center mb-10">
-            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-[#FF7582] transition-colors mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                Back to Home
-            </a>
-            <img src="Media/linguabridge_logo.png" alt="Logo" class="h-12 mx-auto mb-4">
-            <h1 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] text-[#161d1f]">Welcome Back</h1>
-            <p class="text-slate-500 text-sm mt-2">Log in to access your learning bridge</p>
+
+<div class="glass max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl border border-white">
+
+    <!-- Language Switcher -->
+    <div class="flex justify-center mb-8">
+        <div class="flex items-center bg-rose-50/80 py-1.5 rounded-full text-xs font-semibold gap-2 border border-rose-100/60 p-1">
+            <button onclick="setLang('en')" id="lang-en" class="cursor-pointer bg-[#FF7582] text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all">
+                <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-4 h-auto"> EN
+            </button>
+            <button onclick="setLang('bg')" id="lang-bg" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-60 hover:opacity-100 text-slate-600">
+                <img src="https://flagcdn.com/w40/bg.png" alt="Bulgarian" class="w-4 h-auto"> BG
+            </button>
+            <button onclick="setLang('ru')" id="lang-ru" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-60 hover:opacity-100 text-slate-600">
+                <img src="https://flagcdn.com/w40/ru.png" alt="Russian" class="w-4 h-auto"> RU
+            </button>
         </div>
-        <form id="login-form" class="space-y-6" onsubmit="return false;">
+    </div>
+
+    <!-- Back to Home -->
+    <div class="text-center mb-8">
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-[#FF7582] transition-colors mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            <span id="txt-back">Back to Home</span>
+        </a>
+        <img src="Media/linguabridge_logo.png" alt="Logo" class="h-12 mx-auto mb-4">
+        <h1 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] text-[#161d1f]" id="txt-title">Welcome Back</h1>
+        <p class="text-slate-500 text-sm mt-2" id="txt-subtitle">Log in to access your learning bridge</p>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div id="login-panel">
+        <form id="login-form" class="space-y-5" onsubmit="return false;">
             <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Nickname</label>
-                <input type="text" id="nickname" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" placeholder="e.g., john_doe">
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-nickname">Nickname</label>
+                <input type="text" id="nickname" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" id="txt-placeholder-nick">
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Password</label>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-password">Password</label>
                 <div class="relative">
                     <input type="password" id="password" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50 pr-14" placeholder="••••••••">
-                    <button type="button" id="toggle-password" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF7582] transition-colors" aria-label="Show password">
+                    <button type="button" id="toggle-password" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF7582] transition-colors">
                         <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -47,134 +69,348 @@
                 </div>
             </div>
 
-            <!-- Error message -->
+            <!-- Error -->
             <div id="error-msg" class="hidden flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm font-semibold px-4 py-3 rounded-2xl">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                <span id="error-text">Wrong nickname or password.</span>
+                <span id="error-text"></span>
             </div>
 
             <button id="login-btn" type="button" class="w-full bg-[#FF7582] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2">
-                Sign In
+                <span id="txt-signin">Sign In</span>
             </button>
+
+            <!-- Forgot password link -->
+            <p class="text-center text-sm text-slate-400 pt-1">
+                <button type="button" onclick="showResetPanel()" class="text-[#FF7582] font-semibold hover:underline transition-colors" id="txt-forgot">Forgot your password?</button>
+            </p>
         </form>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <!-- RESET PASSWORD PANEL -->
+    <div id="reset-panel" class="hidden">
+        <div id="reset-form-wrap" class="space-y-5">
+            <p class="text-sm text-slate-500 text-center leading-relaxed" id="txt-reset-desc">
+                Enter your nickname and we'll notify the admin to reset your password. You will be contacted once it's done.
+            </p>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-reset-nick">Your Nickname</label>
+                <input type="text" id="reset-nickname" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-reset-email">Your Email (optional)</label>
+                <input type="email" id="reset-email" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50">
+            </div>
 
-        const app = initializeApp({
-            apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
-            authDomain: "linguabridge-2574f.firebaseapp.com",
-            projectId: "linguabridge-2574f",
-            storageBucket: "linguabridge-2574f.firebasestorage.app",
-            messagingSenderId: "640116284028",
-            appId: "1:640116284028:web:06a1747abc8db8db20c7f9"
-        });
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+            <!-- Reset error -->
+            <div id="reset-error" class="hidden flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm font-semibold px-4 py-3 rounded-2xl">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                <span id="reset-error-text"></span>
+            </div>
 
-        const btn = document.getElementById('login-btn');
-        const errorMsg = document.getElementById('error-msg');
-        const errorText = document.getElementById('error-text');
-        const form = document.getElementById('login-form');
+            <button id="reset-btn" type="button" onclick="sendResetRequest()" class="w-full bg-[#FF7582] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-rose-200 transition-all active:scale-95">
+                <span id="txt-reset-send">Send Reset Request</span>
+            </button>
+            <p class="text-center">
+                <button type="button" onclick="showLoginPanel()" class="text-sm text-slate-400 hover:text-[#FF7582] font-semibold transition-colors" id="txt-back-login">← Back to Login</button>
+            </p>
+        </div>
 
-        function setLoading(loading) {
-            if (loading) {
-                btn.disabled = true;
-                btn.innerHTML = `
-                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                    </svg>
-                    Signing in…`;
-                btn.classList.add('opacity-80');
+        <!-- Reset success -->
+        <div id="reset-success" class="hidden text-center space-y-4 py-4">
+            <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
+                <svg class="w-8 h-8 text-[#FF7582]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="font-bold text-lg text-slate-800" id="txt-success-title">Request Sent!</h3>
+            <p class="text-sm text-slate-500 leading-relaxed" id="txt-success-msg">
+                Your request has been sent to our admin. Once they process it, you will be contacted with your new password.
+            </p>
+            <button type="button" onclick="showLoginPanel()" class="mt-2 text-sm text-[#FF7582] font-semibold hover:underline" id="txt-back-login2">← Back to Login</button>
+        </div>
+    </div>
+
+</div><!-- end card -->
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const app = initializeApp({
+        apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+        authDomain: "linguabridge-2574f.firebaseapp.com",
+        projectId: "linguabridge-2574f",
+        storageBucket: "linguabridge-2574f.firebasestorage.app",
+        messagingSenderId: "640116284028",
+        appId: "1:640116284028:web:06a1747abc8db8db20c7f9"
+    });
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const btn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const errorText = document.getElementById('error-text');
+    const form = document.getElementById('login-form');
+
+    function setLoading(loading) {
+        if (loading) {
+            btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>`;
+            btn.classList.add('opacity-80');
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = `<span id="txt-signin">${translations[currentLang].signin}</span>`;
+            btn.classList.remove('opacity-80');
+        }
+    }
+
+    function showError(msg) {
+        errorText.textContent = msg;
+        errorMsg.classList.remove('hidden');
+        form.classList.add('shake');
+        form.addEventListener('animationend', () => form.classList.remove('shake'), { once: true });
+    }
+
+    async function handleLogin() {
+        const nickname = document.getElementById('nickname').value.trim();
+        const password = document.getElementById('password').value;
+        const t = translations[currentLang];
+
+        errorMsg.classList.add('hidden');
+        if (!nickname || !password) { showError(t.errEmpty); return; }
+
+        setLoading(true);
+        const shadowEmail = `${nickname.toLowerCase()}@linguabridge.com`;
+
+        let userCredential;
+        try {
+            userCredential = await signInWithEmailAndPassword(auth, shadowEmail, password);
+        } catch (err) {
+            setLoading(false);
+            const code = err.code;
+            if (['auth/user-not-found','auth/wrong-password','auth/invalid-credential','auth/invalid-login-credentials','auth/invalid-email'].includes(code)) {
+                showError(t.errWrong);
+            } else if (code === 'auth/too-many-requests') {
+                showError(t.errTooMany);
+            } else if (code === 'auth/network-request-failed') {
+                showError(t.errNetwork);
             } else {
-                btn.disabled = false;
-                btn.innerHTML = 'Sign In';
-                btn.classList.remove('opacity-80');
+                showError(`${t.errGeneric} (${code})`);
             }
+            return;
         }
 
-        function showError(msg) {
-            errorText.textContent = msg;
-            errorMsg.classList.remove('hidden');
-            form.classList.add('shake');
-            form.addEventListener('animationend', () => form.classList.remove('shake'), { once: true });
+        try {
+            const userSnap = await getDoc(doc(db, "user", userCredential.user.uid));
+            if (!userSnap.exists()) { setLoading(false); showError(t.errProfile); return; }
+            const role = userSnap.data().role;
+            window.location.href = role === 'tutor' ? 'tutor-portal.html' : 'student-portal.html';
+        } catch (err) {
+            setLoading(false);
+            showError(`${t.errProfileLoad} (${err.code})`);
         }
+    }
 
-        async function handleLogin() {
-            const nickname = document.getElementById('nickname').value.trim();
-            const password = document.getElementById('password').value;
+    document.getElementById('toggle-password').addEventListener('click', () => {
+        const pwd = document.getElementById('password');
+        const isHidden = pwd.type === 'password';
+        pwd.type = isHidden ? 'text' : 'password';
+        document.getElementById('eye-icon').classList.toggle('hidden', isHidden);
+        document.getElementById('eye-off-icon').classList.toggle('hidden', !isHidden);
+    });
 
-            errorMsg.classList.add('hidden');
+    btn.addEventListener('click', handleLogin);
+    document.getElementById('password').addEventListener('keydown', e => {
+        if (e.key === 'Enter') handleLogin();
+    });
+</script>
 
-            if (!nickname || !password) {
-                showError('Please enter your nickname and password.');
-                return;
-            }
+<script>
+// ── Translations ─────────────────────────────────────────────────────────────
+const translations = {
+    en: {
+        back: 'Back to Home',
+        title: 'Welcome Back',
+        subtitle: 'Log in to access your learning bridge',
+        lblNick: 'Nickname',
+        nickPlaceholder: 'e.g., john_doe',
+        lblPass: 'Password',
+        signin: 'Sign In',
+        forgot: 'Forgot your password?',
+        resetDesc: 'Enter your nickname and we\'ll notify the admin to reset your password. You will be contacted once it\'s done.',
+        lblResetNick: 'Your Nickname',
+        lblResetEmail: 'Your Email (optional)',
+        resetSend: 'Send Reset Request',
+        backLogin: '← Back to Login',
+        successTitle: 'Request Sent!',
+        successMsg: 'Your request has been sent to our admin. Once they process it, you will be contacted with your new password.',
+        errEmpty: 'Please enter your nickname and password.',
+        errWrong: 'Wrong nickname or password.',
+        errTooMany: 'Too many attempts. Please try again later.',
+        errNetwork: 'No connection. Check your internet and try again.',
+        errGeneric: 'Login error. Please try again.',
+        errProfile: 'Profile not found. Please contact support.',
+        errProfileLoad: 'Could not load profile. Please try again.',
+        errResetNick: 'Please enter your nickname.',
+        errResetFail: 'Could not send request. Please try again.'
+    },
+    bg: {
+        back: 'Обратно към началото',
+        title: 'Добре дошли',
+        subtitle: 'Влезте, за да получите достъп до вашия портал',
+        lblNick: 'Потребителско име',
+        nickPlaceholder: 'напр. ivan_petrov',
+        lblPass: 'Парола',
+        signin: 'Вход',
+        forgot: 'Забравена парола?',
+        resetDesc: 'Въведете потребителското си ime и ние ще уведомим администратора да нулира паролата ви. Ще бъдете уведомени веднага щом е готово.',
+        lblResetNick: 'Вашето потребителско ime',
+        lblResetEmail: 'Вашият имейл (по желание)',
+        resetSend: 'Изпрати заявка',
+        backLogin: '← Обратно към вход',
+        successTitle: 'Заявката е изпратена!',
+        successMsg: 'Вашата заявка беше изпратена до нашия администратор. Ще бъдете уведомени с новата парола.',
+        errEmpty: 'Моля, въведете потребителско ime и парола.',
+        errWrong: 'Грешно потребителско ime или парола.',
+        errTooMany: 'Твърде много опити. Моля, опитайте по-късно.',
+        errNetwork: 'Няма връзка. Проверете интернета и опитайте отново.',
+        errGeneric: 'Грешка при вход. Моля, опитайте отново.',
+        errProfile: 'Профилът не е намерен. Свържете се с поддръжката.',
+        errProfileLoad: 'Профилът не може да бъде зареден. Опитайте отново.',
+        errResetNick: 'Моля, въведете потребителско ime.',
+        errResetFail: 'Заявката не можа да бъде изпратена. Опитайте отново.'
+    },
+    ru: {
+        back: 'На главную страницу',
+        title: 'Добро пожаловать',
+        subtitle: 'Войдите для доступа к порталу',
+        lblNick: 'Имя пользователя',
+        nickPlaceholder: 'напр. ivan_petrov',
+        lblPass: 'Пароль',
+        signin: 'Войти',
+        forgot: 'Забыли пароль?',
+        resetDesc: 'Введите ваше имя пользователя, и мы уведомим администратора о сбросе пароля. Вы получите новый пароль после обработки.',
+        lblResetNick: 'Ваше имя пользователя',
+        lblResetEmail: 'Ваш email (необязательно)',
+        resetSend: 'Отправить запрос',
+        backLogin: '← Назад к входу',
+        successTitle: 'Запрос отправлен!',
+        successMsg: 'Ваш запрос отправлен администратору. После обработки вы будете уведомлены о новом пароле.',
+        errEmpty: 'Пожалуйста, введите имя пользователя и пароль.',
+        errWrong: 'Неверное имя пользователя или пароль.',
+        errTooMany: 'Слишком много попыток. Повторите позже.',
+        errNetwork: 'Нет соединения. Проверьте интернет и повторите.',
+        errGeneric: 'Ошибка входа. Пожалуйста, попробуйте снова.',
+        errProfile: 'Профиль не найден. Обратитесь в поддержку.',
+        errProfileLoad: 'Не удалось загрузить профиль. Попробуйте снова.',
+        errResetNick: 'Пожалуйста, введите имя пользователя.',
+        errResetFail: 'Не удалось отправить запрос. Попробуйте снова.'
+    }
+};
 
-            setLoading(true);
-            const shadowEmail = `${nickname.toLowerCase()}@linguabridge.com`;
+let currentLang = localStorage.getItem('preferredLang') || 'en';
 
-            // Step 1: Authenticate
-            let userCredential;
-            try {
-                userCredential = await signInWithEmailAndPassword(auth, shadowEmail, password);
-            } catch (err) {
-                setLoading(false);
-                console.error('Auth error:', err.code, err.message);
-                const code = err.code;
-                if (
-                    code === 'auth/user-not-found' ||
-                    code === 'auth/wrong-password' ||
-                    code === 'auth/invalid-credential' ||
-                    code === 'auth/invalid-login-credentials' ||
-                    code === 'auth/invalid-email'
-                ) {
-                    showError('Wrong nickname or password.');
-                } else if (code === 'auth/too-many-requests') {
-                    showError('Too many attempts. Please try again later.');
-                } else if (code === 'auth/network-request-failed') {
-                    showError('No connection. Check your internet and try again.');
-                } else {
-                    showError(`Login error (${code}). Please try again.`);
-                }
-                return;
-            }
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('preferredLang', lang);
+    applyTranslations();
+    updateLangButtons();
+}
 
-            // Step 2: Fetch role from Firestore
-            try {
-                const userSnap = await getDoc(doc(db, "user", userCredential.user.uid));
+function applyTranslations() {
+    const t = translations[currentLang];
+    document.getElementById('txt-back').textContent = t.back;
+    document.getElementById('txt-title').textContent = t.title;
+    document.getElementById('txt-subtitle').textContent = t.subtitle;
+    document.getElementById('lbl-nickname').textContent = t.lblNick;
+    document.getElementById('nickname').placeholder = t.nickPlaceholder;
+    document.getElementById('lbl-password').textContent = t.lblPass;
+    document.getElementById('txt-signin').textContent = t.signin;
+    document.getElementById('txt-forgot').textContent = t.forgot;
+    document.getElementById('txt-reset-desc').textContent = t.resetDesc;
+    document.getElementById('lbl-reset-nick').textContent = t.lblResetNick;
+    document.getElementById('lbl-reset-email').textContent = t.lblResetEmail;
+    document.getElementById('txt-reset-send').textContent = t.resetSend;
+    document.getElementById('txt-back-login').textContent = t.backLogin;
+    document.getElementById('txt-success-title').textContent = t.successTitle;
+    document.getElementById('txt-success-msg').textContent = t.successMsg;
+    document.getElementById('txt-back-login2').textContent = t.backLogin;
+}
 
-                if (!userSnap.exists()) {
-                    setLoading(false);
-                    showError('Profile not found. Please contact support.');
-                    return;
-                }
-
-                const role = userSnap.data().role;
-                window.location.href = role === 'tutor' ? 'tutor-portal.html' : 'student-portal.html';
-            } catch (err) {
-                setLoading(false);
-                console.error('Firestore error:', err.code, err.message);
-                showError(`Could not load profile (${err.code}). Please try again.`);
-            }
+function updateLangButtons() {
+    ['en','bg','ru'].forEach(l => {
+        const btn = document.getElementById('lang-' + l);
+        if (l === currentLang) {
+            btn.className = 'cursor-pointer bg-[#FF7582] text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all';
+        } else {
+            btn.className = 'cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-60 hover:opacity-100 text-slate-600';
         }
+    });
+}
 
-        document.getElementById('toggle-password').addEventListener('click', () => {
-            const pwd = document.getElementById('password');
-            const isHidden = pwd.type === 'password';
-            pwd.type = isHidden ? 'text' : 'password';
-            document.getElementById('eye-icon').classList.toggle('hidden', isHidden);
-            document.getElementById('eye-off-icon').classList.toggle('hidden', !isHidden);
+// ── Panel switching ───────────────────────────────────────────────────────────
+function showResetPanel() {
+    document.getElementById('login-panel').classList.add('hidden');
+    document.getElementById('reset-panel').classList.remove('hidden');
+    document.getElementById('reset-form-wrap').classList.remove('hidden');
+    document.getElementById('reset-success').classList.add('hidden');
+    document.getElementById('reset-error').classList.add('hidden');
+    document.getElementById('reset-nickname').value = '';
+    document.getElementById('reset-email').value = '';
+}
+
+function showLoginPanel() {
+    document.getElementById('reset-panel').classList.add('hidden');
+    document.getElementById('login-panel').classList.remove('hidden');
+    document.getElementById('error-msg').classList.add('hidden');
+}
+
+// ── Reset request ─────────────────────────────────────────────────────────────
+async function sendResetRequest() {
+    const t = translations[currentLang];
+    const nickname = document.getElementById('reset-nickname').value.trim();
+    const email = document.getElementById('reset-email').value.trim();
+    const resetBtn = document.getElementById('reset-btn');
+    const resetError = document.getElementById('reset-error');
+
+    resetError.classList.add('hidden');
+
+    if (!nickname) {
+        document.getElementById('reset-error-text').textContent = t.errResetNick;
+        resetError.classList.remove('hidden');
+        return;
+    }
+
+    resetBtn.disabled = true;
+    resetBtn.textContent = '...';
+
+    try {
+        const body = {
+            name: nickname,
+            email: 'hello.linguabridge@gmail.com',
+            subject: `Password Reset Request – ${nickname}`,
+            message: `A password reset has been requested for the account:\n\nNickname: ${nickname}${email ? '\nStudent email: ' + email : ''}\n\nPlease reset the password and contact the student.`
+        };
+
+        await fetch('https://linguabridge-email-form-handler.alextdakov.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
         });
 
-        btn.addEventListener('click', handleLogin);
-        document.getElementById('password').addEventListener('keydown', e => {
-            if (e.key === 'Enter') handleLogin();
-        });
-    </script>
+        document.getElementById('reset-form-wrap').classList.add('hidden');
+        document.getElementById('reset-success').classList.remove('hidden');
+    } catch (err) {
+        document.getElementById('reset-error-text').textContent = t.errResetFail;
+        resetError.classList.remove('hidden');
+    } finally {
+        resetBtn.disabled = false;
+        document.getElementById('txt-reset-send').textContent = t.resetSend;
+    }
+}
+
+// Init
+applyTranslations();
+updateLangButtons();
+</script>
 </body>
 </html>
