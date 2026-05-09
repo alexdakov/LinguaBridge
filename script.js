@@ -1,9 +1,48 @@
 // 1. GLOBAL STATE
 let courseData = [];
-let currentType = 'g'; 
+let currentType = 'g';
 let currentCurrency = 'usd';
-let activeLanguage = 'all'; 
+let activeLanguage = 'all';
 const symbols = { usd: '$', eur: '€', rub: '₽', cny: '¥' };
+
+const catalogI18n = {
+    en: {
+        course: 'Course', level: 'Level', duration: 'Duration', price: 'Price',
+        langNames: { English: 'English', German: 'German', Chinese: 'Chinese', Russian: 'Russian', Japanese: 'Japanese', Bulgarian: 'Bulgarian' },
+        langDesc: {
+            English: 'A language shaped by diversity—blending traditions, accents, and influences from across the globe, reflected in its literature, media, and everyday life.',
+            German: 'Rooted in precision and depth, German reflects a culture known for philosophy, engineering, classical music, and a strong sense of structure.',
+            Chinese: 'One of the oldest living languages, Chinese carries thousands of years of civilization, philosophy, and art — and is the most spoken language on Earth.',
+            Russian: 'A Slavic language of extraordinary literary and cultural depth, spoken across 11 time zones and central to global diplomacy and science.',
+            Japanese: 'A language of elegance and precision, Japanese blends three writing systems and reflects a culture of deep tradition, innovation, and artistry.',
+            Bulgarian: 'The first Slavic language to be written, Bulgarian is the foundation of the Cyrillic alphabet and carries a rich medieval and modern cultural heritage.'
+        }
+    },
+    bg: {
+        course: 'Курс', level: 'Ниво', duration: 'Продължителност', price: 'Цена',
+        langNames: { English: 'Английски', German: 'Немски', Chinese: 'Китайски', Russian: 'Руски', Japanese: 'Японски', Bulgarian: 'Български' },
+        langDesc: {
+            English: 'Език, оформен от разнообразието — съчетава традиции, акценти и влияния от целия свят, отразени в литературата, медиите и ежедневния живот.',
+            German: 'Вкоренен в точност и дълбочина, немският отразява култура, известна с философия, инженерство, класическа музика и строга структура.',
+            Chinese: 'Един от най-старите живи езици, китайският носи хиляди години цивилизация, философия и изкуство — и е най-говоримият език на Земята.',
+            Russian: 'Славянски език с извънредна литературна и културна дълбочина, говорен в 11 часови зони и централен за световната дипломация и наука.',
+            Japanese: 'Език на елегантност и прецизност, японският съчетава три писмени системи и отразява култура на дълбока традиция, иновации и изкуство.',
+            Bulgarian: 'Първият писан славянски език, българският е основата на кирилската азбука и носи богато средновековно и модерно културно наследство.'
+        }
+    },
+    ru: {
+        course: 'Курс', level: 'Уровень', duration: 'Продолжительность', price: 'Цена',
+        langNames: { English: 'Английский', German: 'Немецкий', Chinese: 'Китайский', Russian: 'Русский', Japanese: 'Японский', Bulgarian: 'Болгарский' },
+        langDesc: {
+            English: 'Язык, сформированный разнообразием — сочетает традиции, акценты и влияния со всего мира, отражённые в литературе, СМИ и повседневной жизни.',
+            German: 'Уходя корнями в точность и глубину, немецкий отражает культуру, известную философией, инженерией, классической музыкой и строгой структурой.',
+            Chinese: 'Один из старейших живых языков, китайский несёт тысячелетия цивилизации, философии и искусства — и является самым распространённым языком на Земле.',
+            Russian: 'Славянский язык исключительной литературной и культурной глубины, распространённый в 11 часовых поясах и занимающий центральное место в мировой дипломатии.',
+            Japanese: 'Язык изящества и точности, японский сочетает три системы письма и отражает культуру глубоких традиций, инноваций и мастерства.',
+            Bulgarian: 'Первый письменный славянский язык, болгарский является основой кириллицы и несёт богатое средневековое и современное культурное наследие.'
+        }
+    }
+};
 
 // 2. DATA LOADER
 async function loadCatalog() {
@@ -59,32 +98,38 @@ function renderLanguageNav() {
 function renderCatalog() {
     const container = document.getElementById('catalog-container');
     if (!container) return;
-    container.innerHTML = ''; 
+    container.innerHTML = '';
 
-    const filteredData = activeLanguage === 'all' 
-        ? courseData 
+    const uiLang = localStorage.getItem('preferredLang') || 'en';
+    const ci = catalogI18n[uiLang] || catalogI18n['en'];
+
+    const filteredData = activeLanguage === 'all'
+        ? courseData
         : courseData.filter(l => l.title === activeLanguage);
 
     filteredData.forEach(lang => {
         const section = document.createElement('div');
         section.className = 'space-y-8 mb-16 opacity-0 animate-[fadeIn_0.4s_ease-in-out_forwards]';
-        
+
+        const displayTitle = ci.langNames[lang.title] || lang.title;
+        const displayDesc = ci.langDesc[lang.title] || lang.desc || '';
+
         section.innerHTML = `
             <div class="flex items-center gap-4 border-l-4 border-primary pl-6">
                 <img src="${lang.flag_url}" alt="${lang.title}" class="w-12 h-auto rounded shadow-sm">
                 <div>
-                    <h3 class="text-2xl font-bold text-on-surface">${lang.title}</h3>
-                    <p class="text-slate-500 mt-1">${lang.desc || ''}</p>
+                    <h3 class="text-2xl font-bold text-on-surface">${displayTitle}</h3>
+                    <p class="text-slate-500 mt-1">${displayDesc}</p>
                 </div>
             </div>
             <div class="overflow-x-auto rounded-xl border border-outline-variant/30 coral-shadow bg-white">
                 <table class="w-full text-left border-collapse">
                     <thead class="bg-primary text-white">
                         <tr>
-                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">Course</th>
-                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">Level</th>
-                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">Duration</th>
-                            <th class="p-5 font-semibold text-sm uppercase tracking-wider text-right">Price</th>
+                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">${ci.course}</th>
+                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">${ci.level}</th>
+                            <th class="p-5 font-semibold text-sm uppercase tracking-wider">${ci.duration}</th>
+                            <th class="p-5 font-semibold text-sm uppercase tracking-wider text-right">${ci.price}</th>
                         </tr>
                     </thead>
                     <tbody class="text-on-surface-variant">
@@ -192,12 +237,17 @@ async function sendEmailNow() {
 }
 
 // 7. ENROL FORM
+const messengerApps = ["Phone (call only)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Other"];
+const messengerApps_bg = ["Телефон (само обаждане)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Друго"];
+const messengerApps_ru = ["Телефон (только звонки)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Другое"];
+
 const enrolTranslations = {
     en: {
         title: "Student Application – LinguaBridge",
         desc: "Fill out this form to request tutoring. We'll contact you shortly to match you with the right tutor.",
-        labels: { name: "Full Name", email: "Email Address", phone: "Phone number / WhatsApp / Viber / Telegram", native: "What is your native language?", schedule: "Preferred learning schedule", goals: "Additional comments or learning goals" },
+        labels: { name: "Full Name", email: "Email Address", messenger: "Contact via", phone: "Phone / Messenger Number", phoneHint: "Include country code, e.g. +359...", otherApp: "Specify messaging app", native: "What is your native language?", schedule: "Preferred learning schedule", goals: "Additional comments or learning goals" },
         questions: { lang: "Which language do you want to learn?", level: "What is your current level?", type: "What type of lessons are you interested in?", find: "How did you find us?", select: "-- Select from the list --", other: "Please specify:" },
+        messengerApps,
         options: {
             langs: ["Bulgarian", "Chinese", "English", "German", "Russian", "Other"],
             levels: ["Beginner", "Elementary (A2)", "Intermediate (B1–B2)", "Advanced (C1–C2)", "Not sure/None"],
@@ -210,8 +260,9 @@ const enrolTranslations = {
     bg: {
         title: "Кандидатстване за студенти – LinguaBridge",
         desc: "Попълнете този формуляр, за да заявите уроци. Ще се свържем с вас скоро, за да ви свържем с подходящия преподавател.",
-        labels: { name: "Вашите имена", email: "Имейл адрес", phone: "Телефонен номер / WhatsApp / Viber / Telegram", native: "Какъв е твоят роден език?", schedule: "Предпочитан график за обучение", goals: "Допълнителни коментари или учебни цели" },
+        labels: { name: "Вашите имена", email: "Имейл адрес", messenger: "Свържете се чрез", phone: "Телефон / Номер в месинджъра", phoneHint: "Включете кода на държавата, напр. +359...", otherApp: "Посочете приложението", native: "Какъв е твоят роден език?", schedule: "Предпочитан график за обучение", goals: "Допълнителни коментари или учебни цели" },
         questions: { lang: "Кой език искате да научите?", level: "Какво е текущото ви ниво?", type: "От какъв тип уроци се интересувате?", find: "Как ни открихте?", select: "-- Изберете от списъка --", other: "Моля, уточнете:" },
+        messengerApps: messengerApps_bg,
         options: {
             langs: ["Български език", "Китайски език", "Английски език", "Немски език", "Руски език", "Друго"],
             levels: ["Начинаещ", "Начално ниво (A2)", "Средно ниво (B1–B2)", "Напреднал ниво (C1–C2)", "Не съм сигурен/сигурна"],
@@ -224,8 +275,9 @@ const enrolTranslations = {
     ru: {
         title: "Заявка студента – LinguaBridge",
         desc: "Заполните эту форму, чтобы запросить репетиторство. Мы свяжемся с вами в ближайшее время, чтобы подобрать для вас подходящего репетитора.",
-        labels: { name: "Ваше имя", email: "Адрес электронной почты", phone: "Номер телефона / WhatsApp / Viber / Telegram", native: "Какой ваш родной язык?", schedule: "Предпочтительный график обучения", goals: "Дополнительные комментарии или учебные цели" },
+        labels: { name: "Ваше имя", email: "Адрес электронной почты", messenger: "Связаться через", phone: "Телефон / Номер в мессенджере", phoneHint: "Укажите код страны, напр. +7...", otherApp: "Укажите приложение", native: "Какой ваш родной язык?", schedule: "Предпочтительный график обучения", goals: "Дополнительные комментарии или учебные цели" },
         questions: { lang: "Какой язык вы хотите выучить?", level: "Какой у вас сейчас уровень?", type: "Какие виды занятий вас интересуют?", find: "Как вы нас нашли?", select: "-- Выберите из списка --", other: "Пожалуйста, уточните:" },
+        messengerApps: messengerApps_ru,
         options: {
             langs: ["Болгарский язык", "Китайский язык", "Английский язык", "Немецкий язык", "Русский язык", "Другое"],
             levels: ["Начинающий (А1)", "Элементарный (A2)", "Средний (B1–B2)", "Продвинутый (C1–C2)", "Не уверен/нулевой"],
@@ -241,11 +293,49 @@ const tutorTranslations = {
     en: {
         title: "Tutor Application – LinguaBridge",
         desc: "Apply to become a language tutor. Fill in the form below and we'll contact you shortly.",
-        labels: { name: "Full Name*", email: "Email Address*", phone: "Phone / WhatsApp / Telegram*", langs: "Which language(s) do you teach?*", edu: "Education and qualifications*", certs: "Do you hold any certificates? (e.g. CELTA)*", exp: "Teaching experience*", hours: "Preferred working hours*", bio: "Short intro about yourself*", cv: "Upload your CV (PDF only)*" },
+        labels: { name: "Full Name*", email: "Email Address*", messenger: "Contact via*", phone: "Phone / Messenger Number*", phoneHint: "Include country code, e.g. +359...", otherApp: "Specify messaging app", langs: "Which language(s) do you teach?*", edu: "Education and qualifications*", certs: "Do you hold any certificates? (e.g. CELTA)*", exp: "Teaching experience*", hours: "Preferred working hours*", bio: "Short intro about yourself*", cv: "Upload your CV (PDF only)*" },
+        messengerApps,
+        selectPlaceholder: "-- Select --",
         submit: "Send Application",
-        success: "Thank you! Your application has been received."
+        success: { title: "Application submitted!", msg: "We will review your application and contact you soon." }
+    },
+    bg: {
+        title: "Кандидатура за преподавател – LinguaBridge",
+        desc: "Кандидатствайте, за да станете преподавател по езици. Попълнете формуляра по-долу и ще се свържем с вас скоро.",
+        labels: { name: "Пълно име*", email: "Имейл адрес*", messenger: "Свържете се чрез*", phone: "Телефон / Номер в месинджъра*", phoneHint: "Включете кода на държавата, напр. +359...", otherApp: "Посочете приложението", langs: "Кой/кои език(ци) преподавате?*", edu: "Образование и квалификации*", certs: "Имате ли сертификати? (напр. CELTA)*", exp: "Преподавателски опит*", hours: "Предпочитани работни часове*", bio: "Кратко представяне за вас*", cv: "Качете вашето CV (само PDF)*" },
+        messengerApps: messengerApps_bg,
+        selectPlaceholder: "-- Изберете --",
+        submit: "Изпрати кандидатурата",
+        success: { title: "Кандидатурата е изпратена!", msg: "Ще прегледаме вашата кандидатура и ще се свържем с вас скоро." }
+    },
+    ru: {
+        title: "Заявка репетитора – LinguaBridge",
+        desc: "Подайте заявку, чтобы стать преподавателем языков. Заполните форму ниже, и мы свяжемся с вами в ближайшее время.",
+        labels: { name: "Полное имя*", email: "Адрес электронной почты*", messenger: "Связаться через*", phone: "Телефон / Номер в мессенджере*", phoneHint: "Укажите код страны, напр. +7...", otherApp: "Укажите приложение", langs: "Какой(ие) язык(и) вы преподаёте?*", edu: "Образование и квалификации*", certs: "Есть ли у вас сертификаты? (напр. CELTA)*", exp: "Опыт преподавания*", hours: "Предпочтительные рабочие часы*", bio: "Краткое представление о себе*", cv: "Загрузите резюме (только PDF)*" },
+        messengerApps: messengerApps_ru,
+        selectPlaceholder: "-- Выберите --",
+        submit: "Отправить заявку",
+        success: { title: "Заявка отправлена!", msg: "Мы рассмотрим вашу заявку и свяжемся с вами в ближайшее время." }
     }
 };
+
+function tutorMessengerBlock(t) {
+    return `
+        <div class="flex flex-col col-span-full">
+            <label class="font-bold text-sm text-slate-600 mb-2">${t.labels.messenger}</label>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <select id="t-messenger" required onchange="handleTutorMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white sm:w-56 shrink-0">
+                    <option value="" disabled selected>${t.selectPlaceholder}</option>
+                    ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
+                </select>
+                <input id="t-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden p-4 rounded-xl border border-rose-100 outline-none sm:w-48">
+                <div class="flex flex-col flex-1 gap-1">
+                    <input type="tel" id="t-phone" required value="+" class="p-4 rounded-xl border border-rose-100 outline-none w-full" placeholder="+359...">
+                    <span class="text-xs text-slate-400 ml-1">${t.labels.phoneHint}</span>
+                </div>
+            </div>
+        </div>`;
+}
 
 function renderTutorForm(lang = 'en') {
     const container = document.getElementById('tutor-form-container');
@@ -258,7 +348,7 @@ function renderTutorForm(lang = 'en') {
             <form id="tutor-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label><input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
                 <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label><input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}</label><input type="text" id="t-phone" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+                ${tutorMessengerBlock(t)}
                 <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label><input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
                 <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label><textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
                 <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label><input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
@@ -271,6 +361,19 @@ function renderTutorForm(lang = 'en') {
         </div>
     `;
     document.getElementById('tutor-form').onsubmit = handleTutorSubmit;
+}
+
+function handleTutorMessengerOther(sel) {
+    const other = document.getElementById('t-messenger-other');
+    if (!other) return;
+    const v = sel.value.toLowerCase();
+    if (v.includes('other') || v.includes('друго') || v.includes('другое')) {
+        other.classList.remove('hidden');
+        other.required = true;
+    } else {
+        other.classList.add('hidden');
+        other.required = false;
+    }
 }
 
 async function handleTutorSubmit(e) {
@@ -289,7 +392,14 @@ async function handleTutorSubmit(e) {
                 isTutor: true,
                 name: document.getElementById('t-name').value,
                 email: document.getElementById('t-email').value,
-                phone: document.getElementById('t-phone').value,
+                phone: (() => {
+                    const sel = document.getElementById('t-messenger');
+                    const other = document.getElementById('t-messenger-other');
+                    const messengerLabel = sel.value === 'Other' || (other && !other.classList.contains('hidden') && other.value)
+                        ? other.value || sel.value
+                        : sel.value;
+                    return `${messengerLabel}: ${document.getElementById('t-phone').value}`;
+                })(),
                 langs: document.getElementById('t-langs').value,
                 edu: document.getElementById('t-edu').value,
                 certs: document.getElementById('t-certs').value,
@@ -315,6 +425,25 @@ async function handleTutorSubmit(e) {
     reader.readAsDataURL(file);
 }
 
+function messengerPhoneBlock(t) {
+    const isOther = (v) => v.toLowerCase().includes('other') || v.toLowerCase().includes('друго') || v.toLowerCase().includes('другое');
+    return `
+        <div class="flex flex-col col-span-full">
+            <label class="font-bold text-sm text-slate-600 mb-2">${t.labels.messenger}*</label>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <select id="form-messenger" required onchange="handleMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white sm:w-56 shrink-0">
+                    <option value="" disabled selected>${t.questions.select}</option>
+                    ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
+                </select>
+                <input id="form-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden p-4 rounded-xl border border-rose-100 outline-none sm:w-48">
+                <div class="flex flex-col flex-1 gap-1">
+                    <input type="tel" id="form-phone" required value="+" class="p-4 rounded-xl border border-rose-100 outline-none w-full" placeholder="+359...">
+                    <span class="text-xs text-slate-400 ml-1">${t.labels.phoneHint}</span>
+                </div>
+            </div>
+        </div>`;
+}
+
 function renderEnrolForm(lang = 'en') {
     const container = document.getElementById('enrolment-form-container');
     if (!container) return;
@@ -325,7 +454,7 @@ function renderEnrolForm(lang = 'en') {
         <form id="active-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}*</label><input type="text" id="form-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
             <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}*</label><input type="email" id="form-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.phone}*</label><input type="text" id="form-phone" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            ${messengerPhoneBlock(t)}
             <div class="flex flex-col">
                 <label class="font-bold text-sm text-slate-600 mb-1">${t.questions.lang}*</label>
                 <select id="form-target" required onchange="handleOther(this, 'other-lang')" class="p-4 rounded-xl border border-rose-100 bg-white">
@@ -366,6 +495,19 @@ function renderEnrolForm(lang = 'en') {
     document.getElementById('active-form').onsubmit = (e) => { e.preventDefault(); sendToGoogle(); };
 }
 
+function handleMessengerOther(sel) {
+    const other = document.getElementById('form-messenger-other');
+    if (!other) return;
+    const v = sel.value.toLowerCase();
+    if (v.includes('other') || v.includes('друго') || v.includes('другое')) {
+        other.classList.remove('hidden');
+        other.required = true;
+    } else {
+        other.classList.add('hidden');
+        other.required = false;
+    }
+}
+
 function handleOther(selectEl, otherId) {
     const otherInput = document.getElementById(otherId);
     if (selectEl.value.includes('Other') || selectEl.value.includes('Друго') || selectEl.value.includes('Другое')) {
@@ -395,10 +537,17 @@ async function sendToGoogle() {
         return val;
     };
 
+    const messengerSel = document.getElementById('form-messenger');
+    const messengerOther = document.getElementById('form-messenger-other');
+    const messengerVal = messengerSel ? messengerSel.value : '';
+    const isOtherApp = messengerVal.toLowerCase().includes('other') || messengerVal.toLowerCase().includes('друго') || messengerVal.toLowerCase().includes('другое');
+    const messengerLabel = isOtherApp && messengerOther ? messengerOther.value : messengerVal;
+    const phoneVal = document.getElementById('form-phone').value;
+
     const data = {
         name: document.getElementById('form-name').value,
         email: document.getElementById('form-email').value,
-        phone: document.getElementById('form-phone').value,
+        phone: `${messengerLabel}: ${phoneVal}`,
         target_lang: getVal('form-target', 'other-lang'),
         level: document.getElementById('form-level').value,
         native_lang: document.getElementById('form-native').value,

@@ -32,9 +32,14 @@ function applyLanguage(lang) {
         const key = el.getAttribute('data-i18n');
         const value = _translations[lang][key];
         if (value === undefined) return;
-
-        // Always use innerHTML — textContent would print raw HTML tags as text
         el.innerHTML = value;
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const value = _translations[lang][key];
+        if (value === undefined) return;
+        el.placeholder = value;
     });
 
     updateSwitcherUI(lang);
@@ -69,12 +74,15 @@ async function changeGlobalLanguage(lang) {
     }
     applyLanguage(lang);
 
-    // Re-render dynamic forms if present on this page
+    // Re-render dynamic JS content that depends on language
     if (typeof renderEnrolForm === 'function' && document.getElementById('enrolment-form-container')) {
         renderEnrolForm(lang);
     }
     if (typeof renderTutorForm === 'function' && document.getElementById('tutor-form-container')) {
         renderTutorForm(lang);
+    }
+    if (typeof renderCatalog === 'function' && document.getElementById('catalog-container')) {
+        renderCatalog();
     }
 }
 

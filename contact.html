@@ -195,32 +195,33 @@
 
             <!-- Right Section: The Form (Aligned to the start of Direct Mail step) -->
             <div class="lg:col-span-7">
-                <div class="contact-card p-10 md:p-16">
-                    <form onsubmit="handleMailAction(event)" class="space-y-8">
+                <div class="contact-card p-10 md:p-16" id="contact-card">
+                    <form onsubmit="sendContactMessage(event)" class="space-y-8" id="contact-form">
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="space-y-3">
                                 <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase" data-i18n="contact.form.name">Name</label>
-                                <input id="userName" required class="w-full custom-input" placeholder="John Doe" type="text"/>
+                                <input id="userName" required class="w-full custom-input" data-i18n-placeholder="contact.placeholder.name" placeholder="John Doe" type="text"/>
                             </div>
                             <div class="space-y-3">
                                 <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase" data-i18n="contact.form.email">Email Address</label>
-                                <input id="userEmail" required class="w-full custom-input" placeholder="john@example.com" type="email"/>
+                                <input id="userEmail" required class="w-full custom-input" data-i18n-placeholder="contact.placeholder.email" placeholder="john@example.com" type="email"/>
                             </div>
                         </div>
 
                         <div class="space-y-3">
                             <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase" data-i18n="contact.form.subject">Subject</label>
-                            <input id="userSubject" required class="w-full custom-input" placeholder="How can we help?" type="text"/>
+                            <input id="userSubject" required class="w-full custom-input" data-i18n-placeholder="contact.placeholder.subject" placeholder="How can we help?" type="text"/>
                         </div>
 
                         <div class="space-y-3">
                             <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase" data-i18n="contact.form.message">Your Message</label>
-                            <textarea id="userMsg" required class="w-full custom-input resize-none" placeholder="Tell us more about your interests..." rows="6"></textarea>
+                            <textarea id="userMsg" required class="w-full custom-input resize-none" data-i18n-placeholder="contact.placeholder.message" placeholder="Tell us more about your interests..." rows="6"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-5 bg-primary text-white font-extrabold rounded-[1.5rem] shadow-2xl shadow-rose-200 hover:translate-y-[-4px] hover:shadow-primary/30 transition-all active:translate-y-0 flex items-center justify-center gap-4 text-xl">
-                            <span data-i18n="contact.form.send">Send Message</span>
-                            <span class="material-symbols-outlined">send</span>
+                        <button id="contact-submit-btn" type="submit" class="w-full py-5 bg-primary text-white font-extrabold rounded-[1.5rem] shadow-2xl shadow-rose-200 hover:translate-y-[-4px] hover:shadow-primary/30 transition-all active:translate-y-0 flex items-center justify-center gap-4 text-xl">
+                            <span id="contact-btn-text" data-i18n="contact.form.send">Send Message</span>
+                            <span id="contact-btn-icon" class="material-symbols-outlined">send</span>
+                            <span id="contact-btn-spinner" class="hidden animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></span>
                         </button>
                     </form>
                 </div>
@@ -267,18 +268,60 @@
 </footer>
 
 <script>
-    function handleMailAction(event) {
+    const contactSuccess = {
+        en: { title: "Thank you for reaching out!", msg: "We will get back to you as soon as possible.", btn: "Send another message" },
+        bg: { title: "Благодарим, че се свързахте с нас!", msg: "Ще ви отговорим възможно най-скоро.", btn: "Изпрати ново съобщение" },
+        ru: { title: "Спасибо, что написали нам!", msg: "Мы свяжемся с вами как можно скорее.", btn: "Отправить ещё сообщение" }
+    };
+
+    async function sendContactMessage(event) {
         event.preventDefault();
-        const name = document.getElementById('userName').value;
-        const email = document.getElementById('userEmail').value;
-        const subject = document.getElementById('userSubject').value;
-        const message = document.getElementById('userMsg').value;
+        const btn = document.getElementById('contact-submit-btn');
+        const btnText = document.getElementById('contact-btn-text');
+        const btnIcon = document.getElementById('contact-btn-icon');
+        const btnSpinner = document.getElementById('contact-btn-spinner');
 
-        const mailTo = "hello.linguabridge@gmail.com";
-        const encodedSubject = encodeURIComponent(`Inquiry: ${subject}`);
-        const encodedBody = encodeURIComponent(`Name: ${name}\nReply-To: ${email}\n\nMessage:\n${message}`);
+        const name = document.getElementById('userName').value.trim();
+        const email = document.getElementById('userEmail').value.trim();
+        const subject = document.getElementById('userSubject').value.trim();
+        const message = document.getElementById('userMsg').value.trim();
 
-        window.location.href = `mailto:${mailTo}?subject=${encodedSubject}&body=${encodedBody}`;
+        btn.disabled = true;
+        btnText.textContent = '...';
+        btnIcon.classList.add('hidden');
+        btnSpinner.classList.remove('hidden');
+
+        try {
+            const response = await fetch('https://linguabridge-email-form-handler.alextdakov.workers.dev', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, subject, message })
+            });
+
+            const lang = localStorage.getItem('preferredLang') || 'en';
+            const s = contactSuccess[lang] || contactSuccess['en'];
+
+            if (response.ok) {
+                document.getElementById('contact-card').innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-16 text-center gap-6">
+                        <div class="w-20 h-20 rounded-full bg-rose-50 flex items-center justify-center shadow-lg">
+                            <span class="material-symbols-outlined text-[#FF7582] text-5xl">mark_email_read</span>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-slate-900 font-['Plus_Jakarta_Sans']">${s.title}</h3>
+                        <p class="text-slate-500 text-lg max-w-md">${s.msg}</p>
+                        <button onclick="location.reload()" class="mt-2 px-8 py-3 bg-primary text-white font-bold rounded-full hover:shadow-lg transition-all active:scale-95">${s.btn}</button>
+                    </div>`;
+            } else {
+                throw new Error(await response.text());
+            }
+        } catch (err) {
+            btn.disabled = false;
+            btnText.textContent = document.getElementById('contact-btn-text')?.getAttribute('data-i18n-original') || 'Send Message';
+            btnIcon.classList.remove('hidden');
+            btnSpinner.classList.add('hidden');
+            alert('Error sending message. Please try again or email us directly at hello.linguabridge@gmail.com');
+            console.error(err);
+        }
     }
 </script>
 
