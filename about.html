@@ -16,6 +16,10 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
+        .image-fade-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
+            mask-image: linear-gradient(to right, transparent 0%, black 35%);
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -191,14 +195,7 @@
             </div>
 
             <div class="relative">
-                <div class="absolute -inset-4 bg-gradient-to-tr from-[#FF7582]/15 to-amber-200/15 rounded-3xl blur-2xl pointer-events-none"></div>
-                <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-rose-100/50">
-                    <img alt="LinguaBridge Learning Environment" class="w-full h-[420px] object-cover" src="Media/about_intro.png"/>
-                    <div class="absolute bottom-5 left-5 bg-white/90 backdrop-blur-sm rounded-2xl px-5 py-3 shadow-lg border border-rose-50/80">
-                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Est.</div>
-                        <div class="text-base font-black text-slate-900 leading-tight">LinguaBridge 2026</div>
-                    </div>
-                </div>
+                <img alt="LinguaBridge Learning Environment" class="w-full h-[420px] object-cover rounded-r-[2rem] image-fade-mask" src="Media/about_intro.png"/>
             </div>
         </div>
     </section>
