@@ -52,6 +52,8 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.95rem;
         }
+        textarea.custom-input { scrollbar-width: none; overflow-y: auto; overflow-x: hidden; }
+        textarea.custom-input::-webkit-scrollbar { display: none; }
 
         .custom-input:focus {
             background-color: #ffffff;
@@ -121,7 +123,7 @@
 </div>
 </nav>
 
-<main class="pt-24 md:pt-44 pb-16 md:pb-32 px-4 md:px-10">
+<main class="pt-24 md:pt-28 pb-16 md:pb-24 px-4 md:px-10">
     <div class="max-w-7xl mx-auto">
         
         <!-- Headline moved above the grid -->

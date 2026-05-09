@@ -290,14 +290,8 @@
         } catch (e) {
             hideMoodleLoading();
             console.error('Moodle error:', e);
-            if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('CORS')) {
-                showMoodleError('Cannot reach the Moodle server. Please check your connection.');
-            } else if (e.moodleCode === 'nopermissions' || e.message.toLowerCase().includes('access control')) {
-                // API permission issue — portal still fully functional, just no course list
-                showMoodleError('Course list requires additional Moodle API permissions. You can still access your classroom below.');
-            } else {
-                showMoodleError(e.message);
-            }
+            // Any network/CORS/mixed-content error — fail silently, courses section just stays hidden
+            hideMoodleLoading();
         }
     }
 

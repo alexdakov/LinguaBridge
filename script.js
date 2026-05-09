@@ -8,11 +8,12 @@ const symbols = { usd: '$', eur: '€', rub: '₽', cny: '¥' };
 const catalogI18n = {
     en: {
         course: 'Course', level: 'Level', duration: 'Duration', price: 'Price',
-        langNames: { English: 'English', German: 'German', Chinese: 'Chinese', Russian: 'Russian', Japanese: 'Japanese', Bulgarian: 'Bulgarian' },
+        langNames: { English: 'English', German: 'German', Chinese: 'Chinese', 'Mandarin Chinese': 'Mandarin Chinese', Russian: 'Russian', Japanese: 'Japanese', Bulgarian: 'Bulgarian' },
         langDesc: {
             English: 'A language shaped by diversity—blending traditions, accents, and influences from across the globe, reflected in its literature, media, and everyday life.',
             German: 'Rooted in precision and depth, German reflects a culture known for philosophy, engineering, classical music, and a strong sense of structure.',
-            Chinese: 'One of the oldest living languages, Chinese carries thousands of years of civilization, philosophy, and art — and is the most spoken language on Earth.',
+            Chinese: 'A language carrying thousands of years of history—where tradition meets modern innovation, shaped by philosophy, symbolism, and a rich cultural heritage.',
+            'Mandarin Chinese': 'A language carrying thousands of years of history—where tradition meets modern innovation, shaped by philosophy, symbolism, and a rich cultural heritage.',
             Russian: 'A Slavic language of extraordinary literary and cultural depth, spoken across 11 time zones and central to global diplomacy and science.',
             Japanese: 'A language of elegance and precision, Japanese blends three writing systems and reflects a culture of deep tradition, innovation, and artistry.',
             Bulgarian: 'The first Slavic language to be written, Bulgarian is the foundation of the Cyrillic alphabet and carries a rich medieval and modern cultural heritage.'
@@ -20,11 +21,12 @@ const catalogI18n = {
     },
     bg: {
         course: 'Курс', level: 'Ниво', duration: 'Продължителност', price: 'Цена',
-        langNames: { English: 'Английски', German: 'Немски', Chinese: 'Китайски', Russian: 'Руски', Japanese: 'Японски', Bulgarian: 'Български' },
+        langNames: { English: 'Английски', German: 'Немски', Chinese: 'Китайски', 'Mandarin Chinese': 'Китайски (Мандарин)', Russian: 'Руски', Japanese: 'Японски', Bulgarian: 'Български' },
         langDesc: {
             English: 'Език, оформен от разнообразието — съчетава традиции, акценти и влияния от целия свят, отразени в литературата, медиите и ежедневния живот.',
             German: 'Вкоренен в точност и дълбочина, немският отразява култура, известна с философия, инженерство, класическа музика и строга структура.',
-            Chinese: 'Един от най-старите живи езици, китайският носи хиляди години цивилизация, философия и изкуство — и е най-говоримият език на Земята.',
+            Chinese: 'Език с хиляди години история — където традицията среща съвременната иновация, формиран от философия, символизъм и богато културно наследство.',
+            'Mandarin Chinese': 'Език с хиляди години история — където традицията среща съвременната иновация, формиран от философия, символизъм и богато културно наследство.',
             Russian: 'Славянски език с извънредна литературна и културна дълбочина, говорен в 11 часови зони и централен за световната дипломация и наука.',
             Japanese: 'Език на елегантност и прецизност, японският съчетава три писмени системи и отразява култура на дълбока традиция, иновации и изкуство.',
             Bulgarian: 'Първият писан славянски език, българският е основата на кирилската азбука и носи богато средновековно и модерно културно наследство.'
@@ -76,11 +78,12 @@ const catalogI18n = {
     },
     ru: {
         course: 'Курс', level: 'Уровень', duration: 'Продолжительность', price: 'Цена',
-        langNames: { English: 'Английский', German: 'Немецкий', Chinese: 'Китайский', Russian: 'Русский', Japanese: 'Японский', Bulgarian: 'Болгарский' },
+        langNames: { English: 'Английский', German: 'Немецкий', Chinese: 'Китайский', 'Mandarin Chinese': 'Китайский (Мандарин)', Russian: 'Русский', Japanese: 'Японский', Bulgarian: 'Болгарский' },
         langDesc: {
             English: 'Язык, сформированный разнообразием — сочетает традиции, акценты и влияния со всего мира, отражённые в литературе, СМИ и повседневной жизни.',
             German: 'Уходя корнями в точность и глубину, немецкий отражает культуру, известную философией, инженерией, классической музыкой и строгой структурой.',
-            Chinese: 'Один из старейших живых языков, китайский несёт тысячелетия цивилизации, философии и искусства — и является самым распространённым языком на Земле.',
+            Chinese: 'Язык с тысячелетней историей — где традиция встречает современные инновации, сформированный философией, символизмом и богатым культурным наследием.',
+            'Mandarin Chinese': 'Язык с тысячелетней историей — где традиция встречает современные инновации, сформированный философией, символизмом и богатым культурным наследием.',
             Russian: 'Славянский язык исключительной литературной и культурной глубины, распространённый в 11 часовых поясах и занимающий центральное место в мировой дипломатии.',
             Japanese: 'Язык изящества и точности, японский сочетает три системы письма и отражает культуру глубоких традиций, инноваций и мастерства.',
             Bulgarian: 'Первый письменный славянский язык, болгарский является основой кириллицы и несёт богатое средневековое и современное культурное наследие.'
@@ -128,6 +131,57 @@ const catalogI18n = {
             'Business Japanese (Keigo)': 'Деловой японский (Keigo)',
             'JLPT Exam Prep (N5–N1)': 'Подготовка к JLPT (N5–N1)',
             'Conversational Japanese': 'Разговорный японский'
+        }
+    },
+    zh: {
+        course: '课程', level: '级别', duration: '时长', price: '价格',
+        langNames: { English: '英语', German: '德语', Chinese: '中文', 'Mandarin Chinese': '普通话', Russian: '俄语', Japanese: '日语', Bulgarian: '保加利亚语' },
+        langDesc: {
+            English: '一门由多样性塑造的语言——融合了来自全球的传统、口音和影响，体现在文学、媒体和日常生活中。',
+            German: '植根于精确与深度，德语反映了一种以哲学、工程、古典音乐和强烈结构感著称的文化。',
+            Chinese: '一门承载数千年历史的语言——传统与现代创新在此交汇，由哲学、象征主义和丰富的文化遗产塑造。',
+            'Mandarin Chinese': '一门承载数千年历史的语言——传统与现代创新在此交汇，由哲学、象征主义和丰富的文化遗产塑造。',
+            Russian: '一门具有非凡文学和文化深度的斯拉夫语言，跨越11个时区，是全球外交和科学的核心语言。',
+            Japanese: '一门优雅与精确的语言，日语融合了三种书写系统，反映了深厚传统、创新和艺术精神的文化。',
+            Bulgarian: '第一种被书写的斯拉夫语言，保加利亚语是西里尔字母的基础，承载着丰富的中世纪和现代文化遗产。'
+        },
+        courseNames: {
+            'English Foundations': '英语基础',
+            'Fluency & Logic': '流利与逻辑',
+            'Advanced Mastery': '高级精通',
+            'Business English': '商务英语',
+            'IELTS / Cambridge Prep': 'IELTS / 剑桥备考',
+            'Academic Admissions': '学术录取',
+            'Conversational English': '英语会话',
+            'German Foundations': '德语基础',
+            'Intermediate German': '中级德语',
+            'German Excellence': '德语卓越',
+            'Business German': '商务德语',
+            'TestDaF / Goethe Prep': 'TestDaF / 歌德备考',
+            'Conversational German': '德语会话',
+            'Mandarin Foundations': '普通话基础',
+            'Intermediate Mandarin': '中级普通话',
+            'Advanced Proficiency': '高级水平',
+            'Business Chinese': '商务中文',
+            'HSK Exam Prep': 'HSK备考',
+            'Conversational Chinese': '中文会话',
+            'Russian Foundations': '俄语基础',
+            'Intermediate Russian': '中级俄语',
+            'Business Russian': '商务俄语',
+            'TORFL Exam Prep': 'TORFL备考',
+            'Conversational Russian': '俄语会话',
+            'Bulgarian Foundations': '保加利亚语基础',
+            'Intermediate Mastery': '中级精通',
+            'Native-Level Fluency': '母语级流利',
+            'Business Bulgarian': '商务保加利亚语',
+            'State Exam Prep': '国家考试备考',
+            'Conversational Bulgarian': '保加利亚语会话',
+            'Japanese Foundations (N5–N4)': '日语基础 (N5–N4)',
+            'Intermediate Japanese (N3)': '中级日语 (N3)',
+            'Advanced Proficiency (N2–N1)': '高级水平 (N2–N1)',
+            'Business Japanese (Keigo)': '商务日语 (Keigo)',
+            'JLPT Exam Prep (N5–N1)': 'JLPT备考 (N5–N1)',
+            'Conversational Japanese': '日语会话'
         }
     }
 };
