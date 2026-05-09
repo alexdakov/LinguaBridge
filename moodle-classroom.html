@@ -15,30 +15,13 @@
             border: none;
             display: block;
         }
-        .cred-pill {
-            animation: slideIn .35s cubic-bezier(.4,0,.2,1) both;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
 
-<!-- Hidden form that POSTs credentials into the iframe — no CORS needed -->
-<form id="moodle-login-form"
-      action="http://132.145.38.243/moodle/login/index.php"
-      method="POST"
-      target="moodle-frame"
-      style="display:none">
-    <input type="hidden" name="username" id="f-username">
-    <input type="hidden" name="password" id="f-password">
-    <input type="hidden" name="anchor"   value="">
-</form>
-
 <!-- Header bar -->
 <header class="h-16 w-full fixed top-0 left-0 z-50 bg-white border-b border-rose-50/60 shadow-sm flex items-center justify-between px-4 md:px-8 gap-3">
+
     <!-- Back -->
     <a id="back-btn" href="student-portal.html"
        class="shrink-0 group flex items-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-100 hover:text-slate-900 transition-all">
@@ -46,33 +29,20 @@
         <span class="hidden sm:inline">Back to Portal</span>
     </a>
 
-    <!-- Credential quick-access bar (shown when auto-login unavailable) -->
-    <div id="cred-bar" class="cred-pill hidden flex-1 flex items-center justify-center gap-3 flex-wrap">
-        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider hidden sm:inline">Login:</span>
-        <!-- Username pill -->
-        <button onclick="copyField('cred-user', this)"
-                class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full text-sm font-mono text-slate-700 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
-            <span class="material-symbols-outlined text-[15px] text-slate-400">person</span>
-            <span id="cred-user">—</span>
-            <span class="material-symbols-outlined text-[14px] text-slate-300">content_copy</span>
-        </button>
-        <!-- Password pill -->
-        <button onclick="copyField('cred-pass', this)"
-                class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full text-sm font-mono text-slate-700 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
-            <span class="material-symbols-outlined text-[15px] text-slate-400">lock</span>
-            <span id="cred-pass">—</span>
-            <span class="material-symbols-outlined text-[14px] text-slate-300">content_copy</span>
-        </button>
-        <span class="text-xs text-slate-400 hidden sm:inline">← click to copy</span>
+    <!-- Branding -->
+    <div class="flex items-center gap-2 text-base font-bold text-[#FF7582] tracking-tight">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-6 w-auto">
+        <span class="hidden sm:inline">LinguaBridge</span>
+        <span class="text-slate-300 font-light mx-1 hidden sm:inline">|</span>
+        <span class="text-slate-600 text-sm font-semibold">Moodle</span>
     </div>
 
-    <!-- Branding (desktop) -->
-    <a href="index.html" class="shrink-0 hidden lg:flex items-center gap-2 text-base font-bold text-[#FF7582] tracking-tight">
-        <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-6 w-auto">
-        <span>LinguaBridge</span>
-        <span class="text-slate-300 font-light mx-1">|</span>
-        <span class="text-slate-500 text-sm font-medium">Moodle Classroom</span>
-    </a>
+    <!-- Show Credentials button -->
+    <button id="cred-btn" onclick="openCredModal()"
+            class="shrink-0 flex items-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-100 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
+        <span class="material-symbols-outlined text-[18px]">badge</span>
+        <span class="hidden sm:inline">Show Credentials</span>
+    </button>
 </header>
 
 <!-- Content area -->
@@ -84,14 +54,74 @@
         <p class="text-slate-500 font-semibold animate-pulse">Opening your classroom…</p>
     </div>
 
-    <!-- Moodle iframe — name must match form target -->
+    <!-- Moodle iframe -->
     <iframe
         id="moodle-frame"
-        name="moodle-frame"
         src="about:blank"
         title="Moodle Classroom"
         allow="camera; microphone; fullscreen">
     </iframe>
+</div>
+
+<!-- ── Credentials Modal ── -->
+<div id="cred-modal"
+     class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4"
+     onclick="if(event.target===this) closeCredModal()">
+
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+    <!-- Card -->
+    <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 flex flex-col gap-6">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-rose-50 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[#FF7582] text-[22px]">badge</span>
+                </div>
+                <div>
+                    <h2 class="text-base font-bold text-slate-800">Your Moodle Credentials</h2>
+                    <p class="text-xs text-slate-400">Click a field to copy</p>
+                </div>
+            </div>
+            <button onclick="closeCredModal()"
+                    class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[18px] text-slate-500">close</span>
+            </button>
+        </div>
+
+        <!-- Username field -->
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Username</label>
+            <button onclick="copyField('modal-user', this)"
+                    class="group flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 hover:border-[#FF7582] px-4 py-3 rounded-2xl transition-all text-left w-full">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="material-symbols-outlined text-[18px] text-slate-400 shrink-0">person</span>
+                    <span id="modal-user" class="font-mono text-sm text-slate-700 truncate">—</span>
+                </div>
+                <span id="copy-icon-user" class="material-symbols-outlined text-[16px] text-slate-300 group-hover:text-[#FF7582] shrink-0 transition-colors">content_copy</span>
+            </button>
+        </div>
+
+        <!-- Password field -->
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Password</label>
+            <button onclick="copyField('modal-pass', this)"
+                    class="group flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 hover:border-[#FF7582] px-4 py-3 rounded-2xl transition-all text-left w-full">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="material-symbols-outlined text-[18px] text-slate-400 shrink-0">lock</span>
+                    <span id="modal-pass" class="font-mono text-sm text-slate-700 truncate">—</span>
+                </div>
+                <span id="copy-icon-pass" class="material-symbols-outlined text-[16px] text-slate-300 group-hover:text-[#FF7582] shrink-0 transition-colors">content_copy</span>
+            </button>
+        </div>
+
+        <!-- Hint -->
+        <p class="text-xs text-slate-400 text-center leading-relaxed">
+            Enter these credentials on the Moodle login page in the classroom above.
+        </p>
+    </div>
 </div>
 
 <!-- Firebase auth -->
@@ -119,57 +149,31 @@
             const snap = await getDoc(doc(db, 'user', fbUser.uid));
             if (!snap.exists()) { window.location.href = 'login.html'; return; }
 
-            const data      = snap.data();
-            const moodleUser = data.moodle_user || '';
-            const moodlePass = data.moodle_pass || '';
+            const data = snap.data();
 
             // Adjust back-button target for tutors
             if (data.role === 'tutor') {
                 document.getElementById('back-btn').href = 'tutor-portal.html';
             }
 
-            if (moodleUser && moodlePass) {
-                launchWithFormPost(moodleUser, moodlePass);
-            } else {
-                // No credentials — just open Moodle login
-                loadIframe('http://132.145.38.243/moodle/login/index.php');
+            // Populate credential modal fields
+            const moodleUser = data.moodle_user || '—';
+            const moodlePass = data.moodle_pass || '—';
+            document.getElementById('modal-user').textContent = moodleUser;
+            document.getElementById('modal-pass').textContent = moodlePass;
+
+            // Hide credential button if no credentials stored
+            if (!data.moodle_user && !data.moodle_pass) {
+                document.getElementById('cred-btn').style.display = 'none';
             }
 
         } catch (e) {
             console.error(e);
-            loadIframe('http://132.145.38.243/moodle/login/index.php');
         }
+
+        // Load Moodle
+        loadIframe('http://132.145.38.243/moodle/login/index.php');
     });
-
-    /**
-     * Submit a hidden form into the iframe — this is a direct POST to Moodle
-     * with the user's credentials. No CORS restriction applies to form submissions.
-     * If Moodle accepts it (logintoken not enforced) the user lands logged in.
-     * If Moodle rejects it, the credential bar stays visible so they can log in
-     * manually in one click.
-     */
-    window.launchWithFormPost = function(username, password) {
-        // Populate credential bar (always visible as quick-copy fallback)
-        document.getElementById('cred-user').textContent = username;
-        document.getElementById('cred-pass').textContent = password;
-        document.getElementById('cred-bar').classList.remove('hidden');
-        document.getElementById('cred-bar').classList.add('flex');
-
-        // Fill and submit the hidden form — response renders inside the iframe
-        document.getElementById('f-username').value = username;
-        document.getElementById('f-password').value = password;
-        document.getElementById('moodle-login-form').submit();
-
-        // Hide loader once iframe fires its first load event
-        document.getElementById('moodle-frame').addEventListener('load', () => {
-            document.getElementById('iframe-loader').style.display = 'none';
-        }, { once: true });
-
-        // Safety-net: hide loader after 12 s regardless
-        setTimeout(() => {
-            document.getElementById('iframe-loader').style.display = 'none';
-        }, 12000);
-    };
 </script>
 
 <script>
@@ -182,22 +186,43 @@
         frame.src = url;
     }
 
+    function openCredModal() {
+        document.getElementById('cred-modal').classList.remove('hidden');
+        document.getElementById('cred-modal').classList.add('flex');
+    }
+
+    function closeCredModal() {
+        document.getElementById('cred-modal').classList.add('hidden');
+        document.getElementById('cred-modal').classList.remove('flex');
+    }
+
     function copyField(id, btn) {
         const text = document.getElementById(id).textContent;
+        if (!text || text === '—') return;
         navigator.clipboard.writeText(text).then(() => {
-            const icon = btn.querySelector('.material-symbols-outlined:last-child');
+            const iconId = id === 'modal-user' ? 'copy-icon-user' : 'copy-icon-pass';
+            const icon = document.getElementById(iconId);
             icon.textContent = 'check';
             icon.classList.add('text-green-500');
+            icon.classList.remove('text-slate-300');
             setTimeout(() => {
                 icon.textContent = 'content_copy';
                 icon.classList.remove('text-green-500');
+                icon.classList.add('text-slate-300');
             }, 1800);
         });
     }
 
-    // Escape → back to portal
+    // Escape → close modal or go back to portal
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') window.location.href = document.getElementById('back-btn').href;
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('cred-modal');
+            if (!modal.classList.contains('hidden')) {
+                closeCredModal();
+            } else {
+                window.location.href = document.getElementById('back-btn').href;
+            }
+        }
     });
 </script>
 </body>
