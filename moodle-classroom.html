@@ -15,32 +15,64 @@
             border: none;
             display: block;
         }
+        .cred-pill {
+            animation: slideIn .35s cubic-bezier(.4,0,.2,1) both;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
 
-<!-- Slim header bar -->
-<header class="h-16 w-full fixed top-0 left-0 z-50 bg-white border-b border-rose-50/60 shadow-sm flex items-center justify-between px-4 md:px-8">
-    <!-- Back button -->
+<!-- Hidden form that POSTs credentials into the iframe — no CORS needed -->
+<form id="moodle-login-form"
+      action="http://132.145.38.243/moodle/login/index.php"
+      method="POST"
+      target="moodle-frame"
+      style="display:none">
+    <input type="hidden" name="username" id="f-username">
+    <input type="hidden" name="password" id="f-password">
+    <input type="hidden" name="anchor"   value="">
+</form>
+
+<!-- Header bar -->
+<header class="h-16 w-full fixed top-0 left-0 z-50 bg-white border-b border-rose-50/60 shadow-sm flex items-center justify-between px-4 md:px-8 gap-3">
+    <!-- Back -->
     <a id="back-btn" href="student-portal.html"
-       class="group flex items-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-100 hover:text-slate-900 transition-all">
+       class="shrink-0 group flex items-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-100 hover:text-slate-900 transition-all">
         <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
-        <span>Back to Portal</span>
+        <span class="hidden sm:inline">Back to Portal</span>
     </a>
 
-    <!-- Branding -->
-    <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-[#FF7582] tracking-tight">
-        <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-7 w-auto">
-        <span class="hidden sm:inline">LinguaBridge</span>
-        <span class="hidden sm:inline text-slate-300 font-light mx-1">|</span>
-        <span class="hidden sm:inline text-slate-500 text-sm font-medium">Moodle Classroom</span>
-    </a>
-
-    <!-- Status indicator (shows login state) -->
-    <div id="login-status" class="flex items-center gap-2 text-sm text-slate-400">
-        <div class="animate-spin rounded-full h-4 w-4 border-2 border-rose-100 border-t-[#FF7582]"></div>
-        <span class="hidden sm:inline">Connecting…</span>
+    <!-- Credential quick-access bar (shown when auto-login unavailable) -->
+    <div id="cred-bar" class="cred-pill hidden flex-1 flex items-center justify-center gap-3 flex-wrap">
+        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider hidden sm:inline">Login:</span>
+        <!-- Username pill -->
+        <button onclick="copyField('cred-user', this)"
+                class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full text-sm font-mono text-slate-700 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
+            <span class="material-symbols-outlined text-[15px] text-slate-400">person</span>
+            <span id="cred-user">—</span>
+            <span class="material-symbols-outlined text-[14px] text-slate-300">content_copy</span>
+        </button>
+        <!-- Password pill -->
+        <button onclick="copyField('cred-pass', this)"
+                class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full text-sm font-mono text-slate-700 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
+            <span class="material-symbols-outlined text-[15px] text-slate-400">lock</span>
+            <span id="cred-pass">—</span>
+            <span class="material-symbols-outlined text-[14px] text-slate-300">content_copy</span>
+        </button>
+        <span class="text-xs text-slate-400 hidden sm:inline">← click to copy</span>
     </div>
+
+    <!-- Branding (desktop) -->
+    <a href="index.html" class="shrink-0 hidden lg:flex items-center gap-2 text-base font-bold text-[#FF7582] tracking-tight">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-6 w-auto">
+        <span>LinguaBridge</span>
+        <span class="text-slate-300 font-light mx-1">|</span>
+        <span class="text-slate-500 text-sm font-medium">Moodle Classroom</span>
+    </a>
 </header>
 
 <!-- Content area -->
@@ -49,26 +81,24 @@
     <!-- Loading overlay -->
     <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#f4fafd] z-10">
         <div class="animate-spin rounded-full h-14 w-14 border-[3px] border-rose-100 border-t-[#FF7582]"></div>
-        <p id="loader-text" class="text-slate-500 font-semibold animate-pulse">Signing you in to Moodle…</p>
+        <p class="text-slate-500 font-semibold animate-pulse">Opening your classroom…</p>
     </div>
 
-    <!-- The Moodle iframe (src set by JS after auto-login) -->
+    <!-- Moodle iframe — name must match form target -->
     <iframe
         id="moodle-frame"
+        name="moodle-frame"
         src="about:blank"
         title="Moodle Classroom"
-        allow="camera; microphone; fullscreen"
-        name="moodle-frame">
+        allow="camera; microphone; fullscreen">
     </iframe>
 </div>
 
-<!-- Firebase auth + auto-login logic -->
+<!-- Firebase auth -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const MOODLE_BASE = 'http://132.145.38.243/moodle';
 
     const app = initializeApp({
         apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
@@ -78,110 +108,95 @@
         messagingSenderId: "640116284028",
         appId: "1:640116284028:web:06a1747abc8db8db20c7f9"
     });
+
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
-    onAuthStateChanged(auth, async (firebaseUser) => {
-        if (!firebaseUser) { window.location.href = 'login.html'; return; }
+    onAuthStateChanged(auth, async (fbUser) => {
+        if (!fbUser) { window.location.href = 'login.html'; return; }
 
         try {
-            const snap = await getDoc(doc(db, 'user', firebaseUser.uid));
+            const snap = await getDoc(doc(db, 'user', fbUser.uid));
             if (!snap.exists()) { window.location.href = 'login.html'; return; }
 
-            const data = snap.data();
+            const data      = snap.data();
+            const moodleUser = data.moodle_user || '';
+            const moodlePass = data.moodle_pass || '';
 
-            // Set back button destination based on role
+            // Adjust back-button target for tutors
             if (data.role === 'tutor') {
                 document.getElementById('back-btn').href = 'tutor-portal.html';
             }
 
-            // Attempt Moodle auto-login with stored credentials
-            const moodleUser = data.moodle_user;
-            const moodlePass = data.moodle_pass;
-
             if (moodleUser && moodlePass) {
-                await launchMoodle(moodleUser, moodlePass);
+                launchWithFormPost(moodleUser, moodlePass);
             } else {
-                // No credentials stored — open Moodle login page directly
-                loadIframe(MOODLE_BASE + '/login/index.php');
+                // No credentials — just open Moodle login
+                loadIframe('http://132.145.38.243/moodle/login/index.php');
             }
 
         } catch (e) {
-            console.error('Portal load error:', e);
-            loadIframe(MOODLE_BASE + '/login/index.php');
+            console.error(e);
+            loadIframe('http://132.145.38.243/moodle/login/index.php');
         }
     });
 
     /**
-     * Try Moodle auto-login via mobile app token → autologin key.
-     * Falls back to plain login page if anything fails.
+     * Submit a hidden form into the iframe — this is a direct POST to Moodle
+     * with the user's credentials. No CORS restriction applies to form submissions.
+     * If Moodle accepts it (logintoken not enforced) the user lands logged in.
+     * If Moodle rejects it, the credential bar stays visible so they can log in
+     * manually in one click.
      */
-    async function launchMoodle(username, password) {
-        try {
-            setStatus('Signing you in to Moodle…');
+    window.launchWithFormPost = function(username, password) {
+        // Populate credential bar (always visible as quick-copy fallback)
+        document.getElementById('cred-user').textContent = username;
+        document.getElementById('cred-pass').textContent = password;
+        document.getElementById('cred-bar').classList.remove('hidden');
+        document.getElementById('cred-bar').classList.add('flex');
 
-            // 1. Get user's personal Moodle token via token.php
-            const tokenRes = await fetch(`${MOODLE_BASE}/login/token.php`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&service=moodle_mobile_app`
-            });
-            const tokenData = await tokenRes.json();
+        // Fill and submit the hidden form — response renders inside the iframe
+        document.getElementById('f-username').value = username;
+        document.getElementById('f-password').value = password;
+        document.getElementById('moodle-login-form').submit();
 
-            if (!tokenData.token) {
-                throw new Error(tokenData.error || 'Token not issued (mobile service may be disabled)');
-            }
+        // Hide loader once iframe fires its first load event
+        document.getElementById('moodle-frame').addEventListener('load', () => {
+            document.getElementById('iframe-loader').style.display = 'none';
+        }, { once: true });
 
-            // 2. Use the personal token to get an autologin key
-            const keyRes = await fetch(
-                `${MOODLE_BASE}/webservice/rest/server.php?wstoken=${encodeURIComponent(tokenData.token)}&wsfunction=tool_mobile_get_autologin_key&moodlewsrestformat=json`
-            );
-            const keyData = await keyRes.json();
-
-            if (keyData.exception || !keyData.key || !keyData.autologinurl) {
-                throw new Error(keyData.message || 'Autologin key not available');
-            }
-
-            // 3. Load the autologin URL into the iframe — Moodle creates a session
-            const autoUrl = `${keyData.autologinurl}?key=${encodeURIComponent(keyData.key)}`;
-            setStatus('Logged in ✓', true);
-            loadIframe(autoUrl);
-
-        } catch (err) {
-            console.warn('Moodle auto-login failed, using login page:', err.message);
-            // Graceful fallback: load Moodle login page with username pre-filled via URL
-            setStatus('Opening Moodle…');
-            loadIframe(`${MOODLE_BASE}/login/index.php`);
-        }
-    }
-
-    function loadIframe(url) {
-        const frame  = document.getElementById('moodle-frame');
-        const loader = document.getElementById('iframe-loader');
-
-        frame.onload = () => {
-            loader.style.display = 'none';
-        };
-
-        // Safety net: hide loader after 15s regardless
-        setTimeout(() => { loader.style.display = 'none'; }, 15000);
-
-        frame.src = url;
-    }
-
-    function setStatus(text, success = false) {
-        const el = document.getElementById('login-status');
-        if (success) {
-            el.innerHTML = `<span class="material-symbols-outlined text-green-500 text-[18px]">check_circle</span><span class="hidden sm:inline text-green-600 font-semibold">${text}</span>`;
-        } else {
-            el.innerHTML = `<div class="animate-spin rounded-full h-4 w-4 border-2 border-rose-100 border-t-[#FF7582]"></div><span class="hidden sm:inline">${text}</span>`;
-        }
-    }
+        // Safety-net: hide loader after 12 s regardless
+        setTimeout(() => {
+            document.getElementById('iframe-loader').style.display = 'none';
+        }, 12000);
+    };
 </script>
 
 <script>
-    // Escape key → back to portal
-    document.addEventListener('keydown', (e) => {
+    function loadIframe(url) {
+        const frame = document.getElementById('moodle-frame');
+        frame.addEventListener('load', () => {
+            document.getElementById('iframe-loader').style.display = 'none';
+        }, { once: true });
+        setTimeout(() => { document.getElementById('iframe-loader').style.display = 'none'; }, 12000);
+        frame.src = url;
+    }
+
+    function copyField(id, btn) {
+        const text = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const icon = btn.querySelector('.material-symbols-outlined:last-child');
+            icon.textContent = 'check';
+            icon.classList.add('text-green-500');
+            setTimeout(() => {
+                icon.textContent = 'content_copy';
+                icon.classList.remove('text-green-500');
+            }, 1800);
+        });
+    }
+
+    // Escape → back to portal
+    document.addEventListener('keydown', e => {
         if (e.key === 'Escape') window.location.href = document.getElementById('back-btn').href;
     });
 </script>
