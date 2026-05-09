@@ -119,10 +119,10 @@
         
         <!-- Desktop Nav -->
         <div class="hidden md:flex items-center gap-stack-lg">
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html">Home</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="languages.html">Languages</a>
-            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="about.html">About</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="contact.html">Contact</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html" data-i18n="nav.home">Home</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="languages.html" data-i18n="nav.languages">Languages</a>
+            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="about.html" data-i18n="nav.about">About</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="contact.html" data-i18n="nav.contact">Contact</a>
              <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="Moodle/e-portal.html">
                 <span class="material-symbols-outlined text-[18px]">school</span>
                 <span data-i18n="nav.portal">e-Portal</span>
@@ -142,6 +142,7 @@
                 </button>
             </div>
             <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all" data-i18n="nav.enrol">Enrol Now</button>
+
         </div>
     </div>
 </nav>
@@ -158,34 +159,34 @@
         <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div class="space-y-8">
                 <div>
-                    <span class="inline-block py-1.5 px-4 rounded-full bg-rose-50 text-[#FF7582] font-bold text-[11px] tracking-[0.2em] uppercase mb-5">Our Story</span>
-                    <h1 class="font-[‘Plus_Jakarta_Sans’] text-5xl font-bold text-slate-900 leading-tight">
+                    <span class="inline-block py-1.5 px-4 rounded-full bg-rose-50 text-[#FF7582] font-bold text-[11px] tracking-[0.2em] uppercase mb-5" data-i18n="about.badge">Our Story</span>
+                    <h1 class="font-[‘Plus_Jakarta_Sans’] text-5xl font-bold text-slate-900 leading-tight" data-i18n="about.title">
                         Where Languages<br/><span class="text-[#FF7582]">Come to Life</span>
                     </h1>
                 </div>
-                <p class="text-lg text-slate-500 leading-relaxed max-w-lg">
+                <p class="text-lg text-slate-500 leading-relaxed max-w-lg" data-i18n="about.intro">
                     LinguaBridge is more than a language center — it’s a space where languages come to life through people, culture, and real connection.
                 </p>
 
                 <!-- Mini stats -->
                 <div class="flex flex-wrap gap-8 pt-2">
                     <div>
-                        <div class="text-3xl font-black text-[#FF7582]">5</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1">Languages</div>
+                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat1.num">5</div>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat1.label">Languages</div>
                     </div>
                     <div class="border-l border-slate-100 pl-8">
-                        <div class="text-3xl font-black text-[#FF7582]">152+</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1">Students</div>
+                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat2.num">152+</div>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat2.label">Students</div>
                     </div>
                     <div class="border-l border-slate-100 pl-8">
-                        <div class="text-3xl font-black text-[#FF7582]">95%</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1">Completion</div>
+                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat3.num">95%</div>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat3.label">Completion</div>
                     </div>
                 </div>
 
                 <div class="flex gap-4 flex-wrap pt-2">
-                    <a href="enrol.html" class="bg-[#FF7582] text-white px-7 py-3.5 rounded-full font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">Get Started</a>
-                    <a href="contact.html" class="border-2 border-slate-200 text-slate-600 px-7 py-3.5 rounded-full font-bold hover:border-[#FF7582] hover:text-[#FF7582] transition-all">Contact Us</a>
+                    <a href="enrol.html" class="bg-[#FF7582] text-white px-7 py-3.5 rounded-full font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95" data-i18n="about.cta.start">Get Started</a>
+                    <a href="contact.html" class="border-2 border-slate-200 text-slate-600 px-7 py-3.5 rounded-full font-bold hover:border-[#FF7582] hover:text-[#FF7582] transition-all" data-i18n="about.cta.contact">Contact Us</a>
                 </div>
             </div>
 
@@ -206,29 +207,29 @@
     <section class="py-16 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-8">
             <div class="text-center mb-12">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]">What Drives Us</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold mt-3 text-white">Our Philosophy</h2>
+                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.philosophy.badge">What Drives Us</span>
+                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold mt-3 text-white" data-i18n="about.philosophy.title">Our Philosophy</h2>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
                     <span class="material-symbols-outlined text-[#FF7582] text-[36px] mb-5 block">handshake</span>
-                    <h3 class="font-bold text-lg mb-2">Connection</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Building real bonds between students, tutors, and cultures across the world.</p>
+                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card1.title">Connection</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card1.desc">Building real bonds between students, tutors, and cultures across the world.</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
                     <span class="material-symbols-outlined text-amber-400 text-[36px] mb-5 block">public</span>
-                    <h3 class="font-bold text-lg mb-2">Culture</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Language learning rooted in authentic cultural understanding and real-world context.</p>
+                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card2.title">Culture</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card2.desc">Language learning rooted in authentic cultural understanding and real-world context.</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
                     <span class="material-symbols-outlined text-emerald-400 text-[36px] mb-5 block">school</span>
-                    <h3 class="font-bold text-lg mb-2">Expertise</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">PhD-level academic rigor combined with years of proven teaching experience.</p>
+                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card3.title">Expertise</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card3.desc">PhD-level academic rigor combined with years of proven teaching experience.</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
                     <span class="material-symbols-outlined text-sky-400 text-[36px] mb-5 block">trending_up</span>
-                    <h3 class="font-bold text-lg mb-2">Progress</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Measurable improvement through structured lessons tailored to your personal goals.</p>
+                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card4.title">Progress</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card4.desc">Measurable improvement through structured lessons tailored to your personal goals.</p>
                 </div>
             </div>
         </div>
@@ -238,8 +239,8 @@
     <section class="py-16 px-8 bg-slate-50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]">Expert Instruction</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold text-slate-900 mt-3">Meet our Tutors</h2>
+                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.tutors.badge">Expert Instruction</span>
+                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold text-slate-900 mt-3" data-i18n="about.tutors.title">Meet our Tutors</h2>
                 <div class="w-12 h-1 bg-[#FF7582]/30 mx-auto mt-5 rounded-full"></div>
             </div>
 
@@ -255,8 +256,8 @@
                     </div>
                     <div class="lg:w-3/5 bg-white p-6 lg:p-8 rounded-[2rem] shadow-sm border border-slate-100 space-y-6">
                         <div>
-                            <span class="inline-block py-1 px-3 rounded-full bg-rose-50 text-primary font-bold text-[10px] uppercase tracking-widest mb-4">Founder & Lead Tutor</span>
-                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4">Desislava Dimitrova</h3>
+                            <span class="inline-block py-1 px-3 rounded-full bg-rose-50 text-primary font-bold text-[10px] uppercase tracking-widest mb-4" data-i18n="about.tutor1.role">Founder & Lead Tutor</span>
+                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4" data-i18n="about.tutor1.name">Desislava Dimitrova</h3>
                             <div class="inline-flex items-center bg-slate-50 border border-slate-100 rounded-2xl p-2 gap-2">
                                 <span class="text-[10px] font-extrabold text-slate-400 uppercase px-3">Teaching:</span>
                                 <div class="flex flex-wrap gap-2">
@@ -291,8 +292,8 @@
                     </div>
                     <div class="lg:w-3/5 bg-white p-6 lg:p-8 rounded-[2rem] shadow-sm border border-slate-100 space-y-6">
                         <div>
-                            <span class="inline-block py-1 px-3 rounded-full bg-slate-50 text-secondary font-bold text-[10px] uppercase tracking-widest mb-4">Language Specialist</span>
-                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4">Xin Zhou</h3>
+                            <span class="inline-block py-1 px-3 rounded-full bg-slate-50 text-secondary font-bold text-[10px] uppercase tracking-widest mb-4" data-i18n="about.tutor2.role">Language Specialist</span>
+                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4" data-i18n="about.tutor2.name">Xin Zhou</h3>
                             <div class="inline-flex items-center bg-slate-50 border border-slate-100 rounded-2xl p-2 gap-2">
                                 <span class="text-[10px] font-extrabold text-slate-400 uppercase px-3">Teaching:</span>
                                 <div class="flex flex-wrap gap-2">
@@ -325,8 +326,8 @@
                     </div>
                     <div class="lg:w-3/5 bg-white p-6 lg:p-8 rounded-[2rem] shadow-sm border border-slate-100 space-y-6">
                         <div>
-                            <span class="inline-block py-1 px-3 rounded-full bg-rose-50 text-primary font-bold text-[10px] uppercase tracking-widest mb-4">Language Specialist</span>
-                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4">Alex Dakov</h3>
+                            <span class="inline-block py-1 px-3 rounded-full bg-rose-50 text-primary font-bold text-[10px] uppercase tracking-widest mb-4" data-i18n="about.tutor3.role">Language Specialist</span>
+                            <h3 class="text-3xl font-[‘Plus_Jakarta_Sans’] text-on-surface mb-4" data-i18n="about.tutor3.name">Alex Dakov</h3>
                             <div class="inline-flex items-center bg-slate-50 border border-slate-100 rounded-2xl p-2 gap-2">
                                 <span class="text-[10px] font-extrabold text-slate-400 uppercase px-3">Teaching:</span>
                                 <div class="flex flex-wrap gap-2">
@@ -369,7 +370,7 @@
             <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
         </div>
     </div>
-    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
 </div>
 
         <!-- Legal Links & Privacy Action -->
@@ -384,7 +385,7 @@
 
         <!-- Tutor Action -->
         <div class="flex items-center">
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
                 Become Tutor
             </a>
         </div>

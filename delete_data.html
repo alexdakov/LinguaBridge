@@ -72,10 +72,10 @@
         <!-- Desktop Nav: Standardized Headings & Alignment -->
         <div class="hidden md:flex items-center gap-stack-lg">
             <!-- Active state for Home Page -->
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html">Home</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html">Languages</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html">About</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html">Contact</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html" data-i18n="nav.languages">Languages</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html" data-i18n="nav.about">About</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html" data-i18n="nav.contact">Contact</a>
          <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="login.html">
                 <span class="material-symbols-outlined text-[18px]">school</span>
                 <span data-i18n="nav.portal">e-Portal</span>
@@ -98,7 +98,7 @@
     </button>
 </div>
             <!-- Standardized Enrol Now Button -->
-            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all">Enrol Now</button>
+            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all" data-i18n="nav.enrol">Enrol Now</button>
         </div>
     </div>
 </header>
@@ -108,16 +108,16 @@
     <section class="max-w-7xl mx-auto px-8 mb-16">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-                <span class="inline-block py-1 px-4 rounded-full bg-red-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-red-100">GDPR Compliance</span>
-                <h1 class="font-h1 text-5xl font-bold text-on-surface mb-6 leading-tight">Your Right to <br/><span class="text-primary-container">Be Forgotten</span></h1>
+                <span class="inline-block py-1 px-4 rounded-full bg-red-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-red-100" data-i18n="delete.badge">GDPR Compliance</span>
+                <h1 class="font-h1 text-5xl font-bold text-on-surface mb-6 leading-tight" data-i18n="delete.title">Your Right to <br/><span class="text-primary-container">Be Forgotten</span></h1>
                 <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                    Under Article 17 of the EU General Data Protection Regulation (GDPR), you have the right to have your personal data erased. LinguaBridge provides a transparent process to ensure your data is permanently removed from our systems upon request.
+                    <span data-i18n="delete.intro">Under Article 17 of the EU General Data Protection Regulation (GDPR), you have the right to have your personal data erased. LinguaBridge provides a transparent process to ensure your data is permanently removed from our systems upon request.</span>
                 </p>
                 <div class="flex items-center gap-4 p-4 bg-white rounded-2xl border border-outline-variant/30 coral-glow">
                     <span class="material-symbols-outlined text-primary-container text-3xl">verified_user</span>
                     <div>
-                        <p class="font-bold text-sm">Secured Process</p>
-                        <p class="text-xs text-slate-500">Identity verification is required to prevent unauthorized deletion.</p>
+                        <p class="font-bold text-sm" data-i18n="delete.secure.title">Secured Process</p>
+                        <p class="text-xs text-slate-500" data-i18n="delete.secure.desc">Identity verification is required to prevent unauthorized deletion.</p>
                     </div>
                 </div>
             </div>
@@ -133,8 +133,8 @@
     <section class="bg-surface-container-low py-20 px-8">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="font-h2 text-4xl font-bold mb-4">How to Request Deletion</h2>
-                <p class="text-slate-500">Follow these three steps to permanently erase your account and data.</p>
+                <h2 class="font-h2 text-4xl font-bold mb-4" data-i18n="delete.process.title">How to Request Deletion</h2>
+                <p class="text-slate-500" data-i18n="delete.process.subtitle">Follow these three steps to permanently erase your account and data.</p>
             </div>
 
             <div class="space-y-12 relative">
@@ -145,8 +145,8 @@
                 <div class="relative flex flex-col md:flex-row gap-8 items-start">
                     <div class="step-number w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shrink-0 z-10 shadow-lg">1</div>
                     <div class="bg-white p-8 rounded-3xl border border-outline-variant/30 coral-glow flex-1">
-                        <h3 class="font-bold text-xl mb-3">Compose Email</h3>
-                        <p class="text-slate-600 mb-4">Send an email from your <strong>registered LinguaBridge account email</strong> to our privacy officer:</p>
+                        <h3 class="font-bold text-xl mb-3" data-i18n="delete.step1.title">Compose Email</h3>
+                        <p class="text-slate-600 mb-4" data-i18n="delete.step1.desc">Send an email from your <strong>registered LinguaBridge account email</strong> to our privacy officer:</p>
                         <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                             <code class="text-primary font-bold">hello.linguabridge@gmail.com</code>
                             <button onclick="navigator.clipboard.writeText('hello.linguabridge@gmail.com')" class="text-xs text-slate-400 hover:text-primary transition-colors uppercase font-bold">Copy</button>
@@ -158,8 +158,8 @@
                 <div class="relative flex flex-col md:flex-row gap-8 items-start">
                     <div class="step-number w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shrink-0 z-10 shadow-lg">2</div>
                     <div class="bg-white p-8 rounded-3xl border border-outline-variant/30 coral-glow flex-1">
-                        <h3 class="font-bold text-xl mb-3">Set Subject Line</h3>
-                        <p class="text-slate-600 mb-4">You must use the exact subject line below to trigger the automated verification process:</p>
+                        <h3 class="font-bold text-xl mb-3" data-i18n="delete.step2.title">Set Subject Line</h3>
+                        <p class="text-slate-600 mb-4" data-i18n="delete.step2.desc">You must use the exact subject line below to trigger the automated verification process:</p>
                         <div class="flex items-center justify-between p-4 bg-on-surface text-white rounded-xl">
                             <span class="font-mono tracking-widest">DELETE MY DATA</span>
                             <span class="material-symbols-outlined text-primary-container">mail</span>
@@ -171,8 +171,8 @@
                 <div class="relative flex flex-col md:flex-row gap-8 items-start">
                     <div class="step-number w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shrink-0 z-10 shadow-lg">3</div>
                     <div class="bg-white p-8 rounded-3xl border border-outline-variant/30 coral-glow flex-1">
-                        <h3 class="font-bold text-xl mb-3">Confirmation</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="font-bold text-xl mb-3" data-i18n="delete.step3.title">Confirmation</h3>
+                        <p class="text-slate-600 leading-relaxed" data-i18n="delete.step3.desc">
                             Once our team processes your request (typically within 72 hours), you will receive a <strong>Response Email of Successful Completion</strong>. This email serves as your legal certificate of erasure.
                         </p>
                     </div>
@@ -193,26 +193,26 @@
     <section class="max-w-7xl mx-auto px-8 py-20">
         <div class="bg-white border border-outline-variant/50 rounded-[2.5rem] p-10 md:p-16 flex flex-col lg:flex-row gap-12 items-center">
             <div class="flex-1">
-                <h2 class="text-3xl font-bold mb-6">What happens next?</h2>
+                <h2 class="text-3xl font-bold mb-6" data-i18n="delete.consequences.title">What happens next?</h2>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="space-y-4">
                         <div class="flex gap-3">
                             <span class="material-symbols-outlined text-red-500">cancel</span>
-                            <p class="text-sm"><strong>Permanent Loss:</strong> All learning progress, certificates, and saved content are destroyed.</p>
+                            <p class="text-sm" data-i18n="delete.loss"><strong>Permanent Loss:</strong> All learning progress, certificates, and saved content are destroyed.</p>
                         </div>
                         <div class="flex gap-3">
                             <span class="material-symbols-outlined text-red-500">cancel</span>
-                            <p class="text-sm"><strong>Account Access:</strong> Your login credentials will be invalidated immediately upon completion.</p>
+                            <p class="text-sm" data-i18n="delete.access"><strong>Account Access:</strong> Your login credentials will be invalidated immediately upon completion.</p>
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div class="flex gap-3">
                             <span class="material-symbols-outlined text-green-500">check_circle</span>
-                            <p class="text-sm"><strong>Marketing Opt-out:</strong> You will be automatically scrubbed from all newsletter and mailing lists.</p>
+                            <p class="text-sm" data-i18n="delete.optout"><strong>Marketing Opt-out:</strong> You will be automatically scrubbed from all newsletter and mailing lists.</p>
                         </div>
                         <div class="flex gap-3">
                             <span class="material-symbols-outlined text-green-500">check_circle</span>
-                            <p class="text-sm"><strong>Legal Compliance:</strong> We retain only minimal data required by law (e.g., financial transaction records).</p>
+                            <p class="text-sm" data-i18n="delete.legal"><strong>Legal Compliance:</strong> We retain only minimal data required by law (e.g., financial transaction records).</p>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                         <span class="material-symbols-outlined">warning</span>
                         Irreversible Action
                     </p>
-                    <p class="text-xs text-red-800 leading-relaxed">
+                    <p class="text-xs text-red-800 leading-relaxed" data-i18n="delete.warning.desc">
                         Data erasure is final. Once you receive the completion email, we cannot restore your progress or account history under any circumstances.
                     </p>
                 </div>
@@ -245,13 +245,13 @@
             <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
         </div>
     </div>
-    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
 </div>
 
         <!-- Legal Links & Privacy Action -->
         <div class="flex flex-wrap justify-center gap-6">
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
             
             <!-- Privacy Action Link -->
             <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
@@ -262,7 +262,7 @@
 
         <!-- Tutor Action -->
         <div class="flex items-center">
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
                 Become Tutor
             </a>
         </div>

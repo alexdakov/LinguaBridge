@@ -53,10 +53,10 @@
             <span>LinguaBridge</span>
         </a>
         <div class="hidden md:flex items-center gap-8">
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="index.html">Home</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="languages.html">Languages</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="about.html">About</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="contact.html">Contact</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="index.html" data-i18n="nav.home">Home</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="languages.html" data-i18n="nav.languages">Languages</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="about.html" data-i18n="nav.about">About</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="contact.html" data-i18n="nav.contact">Contact</a>
              <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="login.html">
                 <span class="material-symbols-outlined text-[18px]">school</span>
                 <span data-i18n="nav.portal">e-Portal</span>
@@ -75,7 +75,7 @@
     </div>
 </header>
 
-<<main class="pt-24 pb-20">
+<main class="pt-24 pb-20">
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
         <div class="grid md:grid-cols-[380px_1fr] gap-8 items-start">
@@ -87,15 +87,15 @@
                 </div>
                 
                 <h1 class="font-['Plus_Jakarta_Sans'] text-3xl font-extrabold text-slate-900 mb-4 leading-tight">
-                    Make a living teaching learners worldwide
+                    <span data-i18n="tutor_signup.headline">Make a living teaching learners worldwide</span>
                 </h1>
                 
-                <p class="text-slate-600 text-sm leading-relaxed mb-8">
+                <p class="text-slate-600 text-sm leading-relaxed mb-8" data-i18n="tutor_signup.subheadline">
                     Set your own schedule and reach students across the globe.
                 </p>
 
                 <a href="#tutor-form" class="inline-flex items-center justify-center gap-2 bg-white text-slate-900 border border-slate-200 w-full md:w-auto px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition-all mb-10 shadow-sm">
-                    Apply now <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                    <span data-i18n="tutor_signup.apply">Apply now</span> <span class="material-symbols-outlined text-sm">arrow_downward</span>
                 </a>
 
                 <div class="space-y-6 border-t border-rose-200/50 pt-8 mb-8">
@@ -104,8 +104,8 @@
                             <span class="material-symbols-outlined">schedule</span>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-900 text-sm">Teach anytime</p>
-                            <p class="text-slate-500 text-xs">No fixed schedule</p>
+                            <p class="font-bold text-slate-900 text-sm" data-i18n="tutor_signup.f1.title">Teach anytime</p>
+                            <p class="text-slate-500 text-xs" data-i18n="tutor_signup.f1.sub">No fixed schedule</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -113,8 +113,8 @@
                             <span class="material-symbols-outlined">payments</span>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-900 text-sm">Set your rate</p>
-                            <p class="text-slate-500 text-xs">Full control of earnings</p>
+                            <p class="font-bold text-slate-900 text-sm" data-i18n="tutor_signup.f2.title">Set your rate</p>
+                            <p class="text-slate-500 text-xs" data-i18n="tutor_signup.f2.sub">Full control of earnings</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -122,28 +122,28 @@
                             <span class="material-symbols-outlined">verified</span>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-900 text-sm">Get approved fast</p>
-                            <p class="text-slate-500 text-xs">As little as 10 days</p>
+                            <p class="font-bold text-slate-900 text-sm" data-i18n="tutor_signup.f3.title">Get approved fast</p>
+                            <p class="text-slate-500 text-xs" data-i18n="tutor_signup.f3.sub">As little as 10 days</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="pt-6 border-t border-rose-200/50">
-                    <p class="text-[10px] font-bold text-rose-400 uppercase tracking-widest mb-4">3 Steps</p>
+                    <p class="text-[10px] font-bold text-rose-400 uppercase tracking-widest mb-4" data-i18n="tutor_signup.steps.label">3 Steps</p>
                     <div class="flex items-center gap-2">
                         <div class="flex items-center gap-1.5">
                             <div class="w-6 h-6 coral-gradient rounded-full flex items-center justify-center text-white text-[10px] font-bold shadow-sm">1</div>
-                            <span class="text-[10px] font-bold text-slate-900">Sign up</span>
+                            <span class="text-[10px] font-bold text-slate-900" data-i18n="tutor_signup.steps.s1">Sign up</span>
                         </div>
                         <div class="w-4 h-[1px] bg-rose-200"></div>
                         <div class="flex items-center gap-1.5">
                             <div class="w-6 h-6 coral-gradient rounded-full flex items-center justify-center text-white text-[10px] font-bold shadow-sm">2</div>
-                            <span class="text-[10px] font-bold text-slate-900">Approved</span>
+                            <span class="text-[10px] font-bold text-slate-900" data-i18n="tutor_signup.steps.s2">Approved</span>
                         </div>
                         <div class="w-4 h-[1px] bg-rose-200"></div>
                         <div class="flex items-center gap-1.5">
                             <div class="w-6 h-6 coral-gradient rounded-full flex items-center justify-center text-white text-[10px] font-bold shadow-sm">3</div>
-                            <span class="text-[10px] font-bold text-slate-900">Earn</span>
+                            <span class="text-[10px] font-bold text-slate-900" data-i18n="tutor_signup.steps.s3">Earn</span>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
             <!-- SCROLLABLE FORM PANEL -->
             <div id="tutor-form-container" class="bg-white rounded-[32px] p-8 md:p-12 border border-slate-100 shadow-sm">
                 <div class="text-center py-12">
-                    <p class="text-slate-400">Loading application form...</p>
+                    <p class="text-slate-400" data-i18n="tutor_signup.loading">Loading application form...</p>
                 </div>
             </div>
         </div>
@@ -170,11 +170,11 @@
                     <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
                 </div>
             </div>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
         </div>
         <div class="flex flex-wrap justify-center gap-6">
-            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
-            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
             <a href="delete_data.html" class="flex items-center gap-1 text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
                 <span class="material-symbols-outlined text-[16px]">delete_history</span>
                 Delete Data

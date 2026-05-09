@@ -74,10 +74,10 @@
         <!-- Desktop Nav: Standardized Headings & Alignment -->
         <div class="hidden md:flex items-center gap-stack-lg">
             <!-- Active state for Home Page -->
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html">Home</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html">Languages</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html">About</a>
-        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html">Contact</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html" data-i18n="nav.languages">Languages</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html" data-i18n="nav.about">About</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html" data-i18n="nav.contact">Contact</a>
          <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="login.html">
                 <span class="material-symbols-outlined text-[18px]">school</span>
                 <span data-i18n="nav.portal">e-Portal</span>
@@ -100,7 +100,7 @@
     </button>
 </div>
             <!-- Standardized Enrol Now Button -->
-            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all">Enrol Now</button>
+            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all" data-i18n="nav.enrol">Enrol Now</button>
         </div>
     </div>
 </header>
@@ -110,16 +110,16 @@
     <section class="max-w-7xl mx-auto px-8 mb-stack-lg">
         <div class="mb-stack-md flex items-center gap-2">
             <span class="inline-block w-8 h-1 bg-primary-container rounded-full"></span>
-            <span class="text-sm font-semibold text-primary uppercase tracking-widest">A Friendly Note on Privacy</span>
+            <span class="text-sm font-semibold text-primary uppercase tracking-widest" data-i18n="privacy.badge">A Friendly Note on Privacy</span>
         </div>
-        <h1 class="text-5xl font-bold font-['Plus_Jakarta_Sans'] text-on-surface mb-stack-md leading-tight">Your Privacy is our Priority.</h1>
+        <h1 class="text-5xl font-bold font-['Plus_Jakarta_Sans'] text-on-surface mb-stack-md leading-tight" data-i18n="privacy.title">Your Privacy is our Priority.</h1>
         
         <div class="space-y-6">
             <p class="text-xl text-on-surface-variant font-medium leading-relaxed italic border-l-4 border-primary-container pl-6 py-2 bg-white/50 rounded-r-2xl">
-                "At LinguaBridge, we treat your information like our own. No fluff, no hidden clauses—just total transparency on how we handle your learning journey."
+                <span data-i18n="privacy.quote">"At LinguaBridge, we treat your information like our own. No fluff, no hidden clauses—just total transparency on how we handle your learning journey."
             </p>
             <p class="text-lg text-on-surface-variant leading-relaxed">
-                Trust is the foundation of any great learning experience. We believe that to master a new language, you should feel entirely secure in the environment you’re in. This policy explains how we protect your data while you focus on what matters: connecting with people and culture.
+                <span data-i18n="privacy.intro">Trust is the foundation of any great learning experience. We believe that to master a new language, you should feel entirely secure in the environment you’re in. This policy explains how we protect your data while you focus on what matters: connecting with people and culture.</span>
             </p>
         </div>
 
@@ -140,13 +140,13 @@
         <!-- Sidebar Aligned -->
         <aside class="hidden lg:block lg:col-span-3">
             <div class="sticky top-24 space-y-4">
-                <h4 class="font-bold text-base text-on-surface mb-4 uppercase tracking-widest text-[10px]">Policy Roadmap</h4>
+                <h4 class="font-bold text-base text-on-surface mb-4 uppercase tracking-widest text-[10px]" data-i18n="privacy.sidebar.title">Policy Roadmap</h4>
                 <ul class="space-y-3">
-                    <li><a class="text-sm font-medium text-primary border-l-2 border-primary pl-3 block" href="#collection">1. Data Collection</a></li>
+                    <li><a class="text-sm font-medium text-primary border-l-2 border-primary pl-3 block" href="#collection" data-i18n="privacy.sidebar.1">1. Data Collection</a></li>
                     <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#purpose">2. Purpose & Use</a></li>
-                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#partners">3. Tech Infrastructure</a></li>
-                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#sharing">4. Data Sharing</a></li>
-                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#rights">5. Your Control</a></li>
+                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#partners" data-i18n="privacy.sidebar.3">3. Tech Infrastructure</a></li>
+                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#sharing" data-i18n="privacy.sidebar.4">4. Data Sharing</a></li>
+                    <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#rights" data-i18n="privacy.sidebar.5">5. Your Control</a></li>
                 </ul>
             </div>
         </aside>
@@ -161,28 +161,28 @@
                         <span class="material-symbols-outlined">person_search</span>
                     </div>
                     <div>
-                        <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">What Information We Collect</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-4">We adhere to the principle of data minimization. This means we only collect the specific pieces of information necessary to facilitate your education. We do not use background scripts to identify your hardware, browsing history, or physical location beyond what you voluntarily provide.</p>
+                        <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4" data-i18n="privacy.s1.title">What Information We Collect</h2>
+                        <p class="text-on-surface-variant leading-relaxed mb-4" data-i18n="privacy.s1.intro">We adhere to the principle of data minimization. This means we only collect the specific pieces of information necessary to facilitate your education. We do not use background scripts to identify your hardware, browsing history, or physical location beyond what you voluntarily provide.</p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="p-6 bg-white rounded-2xl border border-outline-variant/30 policy-card">
-                        <h4 class="font-bold text-lg mb-3 text-primary">Student Profiles</h4>
-                        <p class="text-xs text-on-surface-variant mb-4">Essential data to personalize your learning journey:</p>
+                        <h4 class="font-bold text-lg mb-3 text-primary" data-i18n="privacy.s1.students.title">Student Profiles</h4>
+                        <p class="text-xs text-on-surface-variant mb-4" data-i18n="privacy.s1.students.desc">Essential data to personalize your learning journey:</p>
                         <ul class="text-sm text-on-surface-variant space-y-3">
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Basic Identity:</strong> Full name and a valid email address for account security and communications.</li>
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Social Contact:</strong> A phone number or handle (Telegram/WhatsApp) so tutors can reach you for lessons.</li>
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Learning Goals:</strong> Your target languages and current level to ensure accurate tutor matching.</li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.students.item1"><strong>Basic Identity:</strong> Full name and a valid email address for account security and communications.</span></li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.students.item2"><strong>Social Contact:</strong> A phone number or handle (Telegram/WhatsApp) so tutors can reach you for lessons.</span></li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.students.item3"><strong>Learning Goals:</strong> Your target languages and current level to ensure accurate tutor matching.</span></li>
                         </ul>
                     </div>
                     <div class="p-6 bg-white rounded-2xl border border-outline-variant/30 policy-card">
-                        <h4 class="font-bold text-lg mb-3 text-primary">Tutor Applications</h4>
-                        <p class="text-xs text-on-surface-variant mb-4">Detailed data to maintain our teaching standards:</p>
+                        <h4 class="font-bold text-lg mb-3 text-primary" data-i18n="privacy.s1.tutors.title">Tutor Applications</h4>
+                        <p class="text-xs text-on-surface-variant mb-4" data-i18n="privacy.s1.tutors.desc">Detailed data to maintain our teaching standards:</p>
                         <ul class="text-sm text-on-surface-variant space-y-3">
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Expertise:</strong> A comprehensive professional bio and your specific pedagogical approach.</li>
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Credentials:</strong> Curriculum Vitae (PDF) and certification proof, stored in secure cloud storage.</li>
-                            <li class="flex gap-3"><span class="text-primary-container">•</span> <strong>Availability:</strong> Your timezone and teaching hours to sync with global student needs.</li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.tutors.item1"><strong>Expertise:</strong> A comprehensive professional bio and your specific pedagogical approach.</span></li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.tutors.item2"><strong>Credentials:</strong> Curriculum Vitae (PDF) and certification proof, stored in secure cloud storage.</span></li>
+                            <li class="flex gap-3"><span class="text-primary-container">•</span> <span data-i18n="privacy.s1.tutors.item3"><strong>Availability:</strong> Your timezone and teaching hours to sync with global student needs.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -195,28 +195,28 @@
                         <span class="material-symbols-outlined">psychology</span>
                     </div>
                     <div>
-                        <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Detailed Use of Information</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-6">Your data serves a singular purpose: the successful facilitation of language learning. We break down our usage into three primary pillars to ensure you have no questions regarding how your data works for you:</p>
+                        <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4" data-i18n="privacy.s2.title">Detailed Use of Information</h2>
+                        <p class="text-on-surface-variant leading-relaxed mb-6" data-i18n="privacy.s2.intro">Your data serves a singular purpose: the successful facilitation of language learning. We break down our usage into three primary pillars to ensure you have no questions regarding how your data works for you:</p>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-outline-variant/20">
                                 <span class="material-symbols-outlined text-primary-container mt-1">groups</span>
                                 <div>
                                     <p class="font-bold text-sm text-on-surface mb-1">Algorithmic & Human Matching</p>
-                                    <p class="text-xs text-on-surface-variant">We process your learning preferences and tutor biographies to create compatible matches. This ensures that students are paired with tutors who specialize in their specific dialect or proficiency level.</p>
+                                    <p class="text-xs text-on-surface-variant" data-i18n="privacy.s2.pillar1.desc">We process your learning preferences and tutor biographies to create compatible matches. This ensures that students are paired with tutors who specialize in their specific dialect or proficiency level.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-outline-variant/20">
                                 <span class="material-symbols-outlined text-primary-container mt-1">fact_check</span>
                                 <div>
                                     <p class="font-bold text-sm text-on-surface mb-1">Vetting & Safety</p>
-                                    <p class="text-xs text-on-surface-variant">Tutor documents are reviewed manually by our administration team. This human-in-the-loop process prevents fraudulent profiles and maintains the academic integrity of our bridge.</p>
+                                    <p class="text-xs text-on-surface-variant" data-i18n="privacy.s2.pillar2.desc">Tutor documents are reviewed manually by our administration team. This human-in-the-loop process prevents fraudulent profiles and maintains the academic integrity of our bridge.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-outline-variant/20">
                                 <span class="material-symbols-outlined text-primary-container mt-1">support_agent</span>
                                 <div>
-                                    <p class="font-bold text-sm text-on-surface mb-1">Operational Logistics</p>
-                                    <p class="text-xs text-on-surface-variant">We use your contact information to send lesson reminders, notify you of application updates, or provide technical support should you encounter issues with our platform.</p>
+                                    <p class="font-bold text-sm text-on-surface mb-1" data-i18n="privacy.s2.pillar3.title">Operational Logistics</p>
+                                    <p class="text-xs text-on-surface-variant" data-i18n="privacy.s2.pillar3.desc">We use your contact information to send lesson reminders, notify you of application updates, or provide technical support should you encounter issues with our platform.</p>
                                 </div>
                             </div>
                         </div>
@@ -232,15 +232,15 @@
                     </div>
                     <div>
                         <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Infrastructure & Security</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-6">We prioritize your security by leveraging global leaders in data protection. We do not host sensitive data on private, unencrypted servers. Our technology stack includes:</p>
+                        <p class="text-on-surface-variant leading-relaxed mb-6" data-i18n="privacy.s3.intro">We prioritize your security by leveraging global leaders in data protection. We do not host sensitive data on private, unencrypted servers. Our technology stack includes:</p>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="p-5 bg-surface-container-low rounded-xl border border-outline-variant/30">
                                 <p class="font-bold text-sm mb-2">Cloudflare (CDN & WAF)</p>
-                                <p class="text-xs text-on-surface-variant leading-relaxed">Cloudflare secures our web traffic, providing SSL/TLS encryption and protecting our site from automated attacks and data breaches. They ensure your connection to us is private and authenticated.</p>
+                                <p class="text-xs text-on-surface-variant leading-relaxed" data-i18n="privacy.s3.cloudflare.desc">Cloudflare secures our web traffic, providing SSL/TLS encryption and protecting our site from automated attacks and data breaches. They ensure your connection to us is private and authenticated.</p>
                             </div>
                             <div class="p-5 bg-surface-container-low rounded-xl border border-outline-variant/30">
-                                <p class="font-bold text-sm mb-2">Google Workspace (Storage)</p>
-                                <p class="text-xs text-on-surface-variant leading-relaxed">Your form responses and CVs are stored in encrypted Google Cloud environments. Access is restricted to core LinguaBridge staff via multi-factor authentication, ensuring zero unauthorized access.</p>
+                                <p class="font-bold text-sm mb-2" data-i18n="privacy.s3.google.title">Google Workspace (Storage)</p>
+                                <p class="text-xs text-on-surface-variant leading-relaxed" data-i18n="privacy.s3.google.desc">Your form responses and CVs are stored in encrypted Google Cloud environments. Access is restricted to core LinguaBridge staff via multi-factor authentication, ensuring zero unauthorized access.</p>
                             </div>
                         </div>
                     </div>
@@ -255,9 +255,9 @@
                     </div>
                     <div>
                         <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">No-Sale & Sharing Policy</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-4">We maintain a strict stance against the commoditization of personal data. To prevent any future claims or confusion:</p>
+                        <p class="text-on-surface-variant leading-relaxed mb-4" data-i18n="privacy.s4.intro">We maintain a strict stance against the commoditization of personal data. To prevent any future claims or confusion:</p>
                         <div class="p-6 bg-red-50 border border-red-200 rounded-2xl">
-                            <p class="text-sm text-red-900 leading-relaxed font-medium">
+                            <p class="text-sm text-red-900 leading-relaxed font-medium" data-i18n="privacy.s4.policy">
                                 LinguaBridge does not sell, rent, trade, or lease your personal information to third-party marketers or data aggregators. Your data is only shared with the specific tutor or student you have been matched with to enable the services you requested. We do not disclose information to government entities unless legally compelled by a binding court order.
                             </p>
                         </div>
@@ -273,30 +273,30 @@
                     </div>
                     <div>
                         <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Your Rights & Ownership</h2>
-                        <p class="text-on-surface-variant leading-relaxed mb-8">Under the General Data Protection Regulation (GDPR) and global privacy standards, you remain the sole owner of your data. We act only as temporary custodians. Your rights include:</p>
+                        <p class="text-on-surface-variant leading-relaxed mb-8" data-i18n="privacy.s5.intro">Under the General Data Protection Regulation (GDPR) and global privacy standards, you remain the sole owner of your data. We act only as temporary custodians. Your rights include:</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
                             <div class="text-center p-6 bg-white border border-outline-variant/20 rounded-2xl">
                                 <span class="material-symbols-outlined text-primary mb-3 text-3xl">visibility</span>
-                                <p class="text-sm font-bold mb-1">Right to Access</p>
-                                <p class="text-[11px] text-on-surface-variant">Request a copy of every data point we have stored about you at any time.</p>
+                                <p class="text-sm font-bold mb-1" data-i18n="privacy.s5.access.title">Right to Access</p>
+                                <p class="text-[11px] text-on-surface-variant" data-i18n="privacy.s5.access.desc">Request a copy of every data point we have stored about you at any time.</p>
                             </div>
                             <div class="text-center p-6 bg-white border border-outline-variant/20 rounded-2xl">
                                 <span class="material-symbols-outlined text-primary mb-3 text-3xl">edit_square</span>
-                                <p class="text-sm font-bold mb-1">Right to Correction</p>
-                                <p class="text-[11px] text-on-surface-variant">Update or rectify inaccurate information in your profile or application.</p>
+                                <p class="text-sm font-bold mb-1" data-i18n="privacy.s5.correction.title">Right to Correction</p>
+                                <p class="text-[11px] text-on-surface-variant" data-i18n="privacy.s5.correction.desc">Update or rectify inaccurate information in your profile or application.</p>
                             </div>
                             <div class="text-center p-6 bg-white border border-outline-variant/20 rounded-2xl">
                                 <span class="material-symbols-outlined text-primary mb-3 text-3xl">delete</span>
-                                <p class="text-sm font-bold mb-1">Right to Erasure</p>
-                                <p class="text-[11px] text-on-surface-variant">Request the permanent deletion of your records from our systems.</p>
+                                <p class="text-sm font-bold mb-1" data-i18n="privacy.s5.erasure.title">Right to Erasure</p>
+                                <p class="text-[11px] text-on-surface-variant" data-i18n="privacy.s5.erasure.desc">Request the permanent deletion of your records from our systems.</p>
                             </div>
                         </div>
 
                         <div class="p-8 bg-on-surface text-white rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-xl">
                             <div class="max-w-md text-center md:text-left">
-                                <h3 class="text-xl font-bold mb-2">Request Data Erasure</h3>
-                                <p class="text-sm opacity-80 leading-relaxed">If you wish to invoke your "Right to be Forgotten" and have all your personal information permanently removed from LinguaBridge, please follow the automated steps on our deletion portal.</p>
+                                <h3 class="text-xl font-bold mb-2" data-i18n="privacy.cta.title">Request Data Erasure</h3>
+                                <p class="text-sm opacity-80 leading-relaxed" data-i18n="privacy.cta.desc">If you wish to invoke your "Right to be Forgotten" and have all your personal information permanently removed from LinguaBridge, please follow the automated steps on our deletion portal.</p>
                             </div>
                             <a href="delete_data.html" class="px-8 py-4 bg-primary-container text-white rounded-full font-bold hover:scale-105 transition-all whitespace-nowrap shadow-lg">
                                 Delete My Records
@@ -323,13 +323,13 @@
             <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
         </div>
     </div>
-    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
 </div>
 
         <!-- Legal Links & Privacy Action -->
         <div class="flex flex-wrap justify-center gap-6">
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
             
             <!-- Privacy Action Link -->
             <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
@@ -340,7 +340,7 @@
 
         <!-- Tutor Action -->
         <div class="flex items-center">
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
                 Become Tutor
             </a>
         </div>
