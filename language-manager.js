@@ -58,6 +58,14 @@ function updateSwitcherUI(lang) {
             }
         });
     });
+
+    // Update current-language flag in the globe button
+    const flagMap = { en: 'gb', bg: 'bg', ru: 'ru', zh: 'cn' };
+    const flagEl = document.getElementById('lang-current-flag');
+    if (flagEl) {
+        flagEl.src = `https://flagcdn.com/w40/${flagMap[lang] || 'gb'}.png`;
+        flagEl.alt = lang.toUpperCase();
+    }
 }
 
 // Public function — called by onclick on every page that uses the switcher
