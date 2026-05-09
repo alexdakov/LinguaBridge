@@ -321,14 +321,14 @@ const tutorTranslations = {
 
 function tutorMessengerBlock(t) {
     return `
-        <div class="flex flex-col col-span-full">
-            <label class="font-bold text-sm text-slate-600 mb-2">${t.labels.messenger}</label>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <select id="t-messenger" required onchange="handleTutorMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white sm:w-56 shrink-0">
-                    <option value="" disabled selected>${t.selectPlaceholder}</option>
-                    ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
-                </select>
-                <input id="t-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden p-4 rounded-xl border border-rose-100 outline-none sm:w-48">
+        <div class="flex flex-col col-span-full gap-2">
+            <label class="font-bold text-sm text-slate-600">${t.labels.messenger}</label>
+            <select id="t-messenger" required onchange="handleTutorMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white outline-none w-full">
+                <option value="" disabled selected>${t.selectPlaceholder}</option>
+                ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
+            </select>
+            <div class="flex gap-3 items-start">
+                <input id="t-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden flex-1 p-4 rounded-xl border border-rose-100 outline-none">
                 <div class="flex flex-col flex-1 gap-1">
                     <input type="tel" id="t-phone" required value="+" class="p-4 rounded-xl border border-rose-100 outline-none w-full" placeholder="+359...">
                     <span class="text-xs text-slate-400 ml-1">${t.labels.phoneHint}</span>
@@ -342,23 +342,21 @@ function renderTutorForm(lang = 'en') {
     if (!container) return;
     const t = tutorTranslations[lang] || tutorTranslations['en'];
     container.innerHTML = `
-        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-rose-50">
-            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">${t.title}</h2>
-            <p class="text-slate-500 mb-8">${t.desc}</p>
-            <form id="tutor-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label><input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label><input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                ${tutorMessengerBlock(t)}
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label><input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label><textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label><input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.exp}</label><textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.hours}</label><input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.bio}</label><textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
-                <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.cv}</label><input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100"></div>
-                <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">${t.submit}</button>
-            </form>
-        </div>
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">${t.title}</h2>
+        <p class="text-slate-500 mb-8">${t.desc}</p>
+        <form id="tutor-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.name}</label><input type="text" id="t-name" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            <div class="flex flex-col"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.email}</label><input type="email" id="t-email" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            ${tutorMessengerBlock(t)}
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.langs}</label><input type="text" id="t-langs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.edu}</label><textarea id="t-edu" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.certs}</label><input type="text" id="t-certs" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.exp}</label><textarea id="t-exp" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.hours}</label><input type="text" id="t-hours" required class="p-4 rounded-xl border border-rose-100 outline-none"></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.bio}</label><textarea id="t-bio" required class="p-4 rounded-xl border border-rose-100 outline-none h-24"></textarea></div>
+            <div class="flex flex-col col-span-full"><label class="font-bold text-sm text-slate-600 mb-1">${t.labels.cv}</label><input type="file" id="t-cv" accept=".pdf" required class="p-4 rounded-xl border border-rose-100"></div>
+            <button type="submit" class="col-span-full bg-primary text-white p-5 rounded-full font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">${t.submit}</button>
+        </form>
     `;
     document.getElementById('tutor-form').onsubmit = handleTutorSubmit;
 }
@@ -426,16 +424,15 @@ async function handleTutorSubmit(e) {
 }
 
 function messengerPhoneBlock(t) {
-    const isOther = (v) => v.toLowerCase().includes('other') || v.toLowerCase().includes('друго') || v.toLowerCase().includes('другое');
     return `
-        <div class="flex flex-col col-span-full">
-            <label class="font-bold text-sm text-slate-600 mb-2">${t.labels.messenger}*</label>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <select id="form-messenger" required onchange="handleMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white sm:w-56 shrink-0">
-                    <option value="" disabled selected>${t.questions.select}</option>
-                    ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
-                </select>
-                <input id="form-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden p-4 rounded-xl border border-rose-100 outline-none sm:w-48">
+        <div class="flex flex-col col-span-full gap-2">
+            <label class="font-bold text-sm text-slate-600">${t.labels.messenger}*</label>
+            <select id="form-messenger" required onchange="handleMessengerOther(this)" class="p-4 rounded-xl border border-rose-100 bg-white outline-none w-full">
+                <option value="" disabled selected>${t.questions.select}</option>
+                ${t.messengerApps.map(a => `<option value="${a}">${a}</option>`).join('')}
+            </select>
+            <div class="flex gap-3 items-start">
+                <input id="form-messenger-other" type="text" placeholder="${t.labels.otherApp}" class="hidden flex-1 p-4 rounded-xl border border-rose-100 outline-none">
                 <div class="flex flex-col flex-1 gap-1">
                     <input type="tel" id="form-phone" required value="+" class="p-4 rounded-xl border border-rose-100 outline-none w-full" placeholder="+359...">
                     <span class="text-xs text-slate-400 ml-1">${t.labels.phoneHint}</span>
