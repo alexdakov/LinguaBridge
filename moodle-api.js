@@ -25,22 +25,29 @@ async function moodleCall(wsfunction, params = {}) {
     const res = await fetch(url.toString());
     if (!res.ok) throw new Error(`Moodle HTTP error: ${res.status}`);
     const data = await res.json();
-    if (data && data.exception) throw new Error(data.message || 'Moodle API error');
+    if (data && data.exception) {
+        // Surface the specific Moodle error code for clearer handling
+        const err = new Error(data.message || 'Moodle API error');
+        err.moodleCode = data.errorcode || data.exception;
+        throw err;
+    }
     return data;
 }
 
 /**
  * Get a Moodle user object by their username.
- * Uses: core_user_get_users_by_field
+ * Uses: core_user_get_users (available on all Moodle versions)
  * @param {string} username
  * @returns {Promise<Object|null>}  Moodle user object or null
  */
 async function getMoodleUser(username) {
-    const users = await moodleCall('core_user_get_users_by_field', {
-        field: 'username',
-        'values[0]': username
+    const result = await moodleCall('core_user_get_users', {
+        'criteria[0][key]':   'username',
+        'criteria[0][value]': username
     });
-    return Array.isArray(users) && users.length > 0 ? users[0] : null;
+    // Response shape: { users: [...], warnings: [...] }
+    const users = Array.isArray(result) ? result : (result.users || []);
+    return users.length > 0 ? users[0] : null;
 }
 
 /**

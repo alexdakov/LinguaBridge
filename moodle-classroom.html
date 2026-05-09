@@ -15,21 +15,20 @@
             border: none;
             display: block;
         }
-        #blocked-msg { display: none; }
     </style>
 </head>
 <body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
 
 <!-- Slim header bar -->
 <header class="h-16 w-full fixed top-0 left-0 z-50 bg-white border-b border-rose-50/60 shadow-sm flex items-center justify-between px-4 md:px-8">
-    <!-- Left: back button -->
+    <!-- Back button -->
     <a id="back-btn" href="student-portal.html"
        class="group flex items-center gap-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-4 py-2 rounded-full hover:bg-slate-100 hover:text-slate-900 transition-all">
         <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
-        <span id="back-label">Back to Portal</span>
+        <span>Back to Portal</span>
     </a>
 
-    <!-- Centre: branding -->
+    <!-- Branding -->
     <a href="index.html" class="flex items-center gap-2 text-lg font-bold text-[#FF7582] tracking-tight">
         <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-7 w-auto">
         <span class="hidden sm:inline">LinguaBridge</span>
@@ -37,57 +36,39 @@
         <span class="hidden sm:inline text-slate-500 text-sm font-medium">Moodle Classroom</span>
     </a>
 
-    <!-- Right: open in new tab -->
-    <a id="open-external"
-       href="http://132.145.38.243/moodle/"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="flex items-center gap-2 text-sm font-semibold text-white bg-[#FF7582] px-4 py-2 rounded-full hover:bg-[#ff5f6e] hover:shadow-md active:scale-95 transition-all">
-        <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-        <span class="hidden sm:inline">Open in New Tab</span>
-    </a>
+    <!-- Status indicator (shows login state) -->
+    <div id="login-status" class="flex items-center gap-2 text-sm text-slate-400">
+        <div class="animate-spin rounded-full h-4 w-4 border-2 border-rose-100 border-t-[#FF7582]"></div>
+        <span class="hidden sm:inline">Connecting…</span>
+    </div>
 </header>
 
-<!-- Main content pushed below fixed header -->
+<!-- Content area -->
 <div style="margin-top:64px; height:calc(100vh - 64px); position:relative;">
 
-    <!-- Loading overlay (shown while iframe loads) -->
+    <!-- Loading overlay -->
     <div id="iframe-loader" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#f4fafd] z-10">
         <div class="animate-spin rounded-full h-14 w-14 border-[3px] border-rose-100 border-t-[#FF7582]"></div>
-        <p class="text-slate-500 font-semibold animate-pulse">Loading your classroom…</p>
+        <p id="loader-text" class="text-slate-500 font-semibold animate-pulse">Signing you in to Moodle…</p>
     </div>
 
-    <!-- Blocked / CORS fallback -->
-    <div id="blocked-msg" class="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[#f4fafd] z-10 px-6 text-center">
-        <span class="material-symbols-outlined text-[#FF7582] text-[64px]">videocam_off</span>
-        <h2 class="text-2xl font-bold font-['Plus_Jakarta_Sans'] text-slate-900">Classroom Blocked by Browser</h2>
-        <p class="text-slate-500 max-w-md leading-relaxed">
-            Your browser prevented the Moodle classroom from being embedded (X-Frame-Options policy).
-            Use the button below to open it in a new tab — your session will still be active.
-        </p>
-        <a href="http://132.145.38.243/moodle/"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="flex items-center gap-2 bg-[#FF7582] text-white font-bold px-8 py-4 rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all text-lg">
-            <span class="material-symbols-outlined">open_in_new</span>
-            Open Moodle in New Tab
-        </a>
-    </div>
-
-    <!-- The Moodle iframe -->
+    <!-- The Moodle iframe (src set by JS after auto-login) -->
     <iframe
         id="moodle-frame"
-        src="http://132.145.38.243/moodle/"
+        src="about:blank"
         title="Moodle Classroom"
         allow="camera; microphone; fullscreen"
-        loading="lazy">
+        name="moodle-frame">
     </iframe>
 </div>
 
+<!-- Firebase auth + auto-login logic -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const MOODLE_BASE = 'http://132.145.38.243/moodle';
 
     const app = initializeApp({
         apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
@@ -100,62 +81,106 @@
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
-    // Guard: must be logged in
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) { window.location.href = 'login.html'; return; }
+    onAuthStateChanged(auth, async (firebaseUser) => {
+        if (!firebaseUser) { window.location.href = 'login.html'; return; }
 
-        // Set back button target based on role
         try {
-            const snap = await getDoc(doc(db, 'user', user.uid));
-            if (snap.exists() && snap.data().role === 'tutor') {
-                document.getElementById('back-btn').href  = 'tutor-portal.html';
-                document.getElementById('back-label').textContent = 'Back to Portal';
+            const snap = await getDoc(doc(db, 'user', firebaseUser.uid));
+            if (!snap.exists()) { window.location.href = 'login.html'; return; }
+
+            const data = snap.data();
+
+            // Set back button destination based on role
+            if (data.role === 'tutor') {
+                document.getElementById('back-btn').href = 'tutor-portal.html';
             }
-        } catch { /* default student portal already set */ }
+
+            // Attempt Moodle auto-login with stored credentials
+            const moodleUser = data.moodle_user;
+            const moodlePass = data.moodle_pass;
+
+            if (moodleUser && moodlePass) {
+                await launchMoodle(moodleUser, moodlePass);
+            } else {
+                // No credentials stored — open Moodle login page directly
+                loadIframe(MOODLE_BASE + '/login/index.php');
+            }
+
+        } catch (e) {
+            console.error('Portal load error:', e);
+            loadIframe(MOODLE_BASE + '/login/index.php');
+        }
     });
+
+    /**
+     * Try Moodle auto-login via mobile app token → autologin key.
+     * Falls back to plain login page if anything fails.
+     */
+    async function launchMoodle(username, password) {
+        try {
+            setStatus('Signing you in to Moodle…');
+
+            // 1. Get user's personal Moodle token via token.php
+            const tokenRes = await fetch(`${MOODLE_BASE}/login/token.php`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&service=moodle_mobile_app`
+            });
+            const tokenData = await tokenRes.json();
+
+            if (!tokenData.token) {
+                throw new Error(tokenData.error || 'Token not issued (mobile service may be disabled)');
+            }
+
+            // 2. Use the personal token to get an autologin key
+            const keyRes = await fetch(
+                `${MOODLE_BASE}/webservice/rest/server.php?wstoken=${encodeURIComponent(tokenData.token)}&wsfunction=tool_mobile_get_autologin_key&moodlewsrestformat=json`
+            );
+            const keyData = await keyRes.json();
+
+            if (keyData.exception || !keyData.key || !keyData.autologinurl) {
+                throw new Error(keyData.message || 'Autologin key not available');
+            }
+
+            // 3. Load the autologin URL into the iframe — Moodle creates a session
+            const autoUrl = `${keyData.autologinurl}?key=${encodeURIComponent(keyData.key)}`;
+            setStatus('Logged in ✓', true);
+            loadIframe(autoUrl);
+
+        } catch (err) {
+            console.warn('Moodle auto-login failed, using login page:', err.message);
+            // Graceful fallback: load Moodle login page with username pre-filled via URL
+            setStatus('Opening Moodle…');
+            loadIframe(`${MOODLE_BASE}/login/index.php`);
+        }
+    }
+
+    function loadIframe(url) {
+        const frame  = document.getElementById('moodle-frame');
+        const loader = document.getElementById('iframe-loader');
+
+        frame.onload = () => {
+            loader.style.display = 'none';
+        };
+
+        // Safety net: hide loader after 15s regardless
+        setTimeout(() => { loader.style.display = 'none'; }, 15000);
+
+        frame.src = url;
+    }
+
+    function setStatus(text, success = false) {
+        const el = document.getElementById('login-status');
+        if (success) {
+            el.innerHTML = `<span class="material-symbols-outlined text-green-500 text-[18px]">check_circle</span><span class="hidden sm:inline text-green-600 font-semibold">${text}</span>`;
+        } else {
+            el.innerHTML = `<div class="animate-spin rounded-full h-4 w-4 border-2 border-rose-100 border-t-[#FF7582]"></div><span class="hidden sm:inline">${text}</span>`;
+        }
+    }
 </script>
 
 <script>
-    const frame  = document.getElementById('moodle-frame');
-    const loader = document.getElementById('iframe-loader');
-    const blocked = document.getElementById('blocked-msg');
-
-    // Hide loader once iframe fires load event
-    frame.addEventListener('load', () => {
-        loader.style.display = 'none';
-
-        // Detect X-Frame-Options block: iframe will load but be blank/empty
-        // We try to read contentDocument — if null after load it was blocked
-        try {
-            const doc = frame.contentDocument || frame.contentWindow?.document;
-            if (doc && (doc.body === null || doc.body.innerHTML === '')) {
-                showBlocked();
-            }
-        } catch (e) {
-            // Cross-origin access throws — means it DID load (cross-origin is expected)
-            // Only show blocked if there's a SecurityError specific to X-Frame-Options
-            if (e.name === 'SecurityError') {
-                // This is actually fine — content loaded cross-origin, which is normal
-            }
-        }
-    });
-
-    // Safety net: if nothing loads in 12 s, show fallback
-    const timeout = setTimeout(() => {
-        if (loader.style.display !== 'none') {
-            showBlocked();
-        }
-    }, 12000);
-
-    frame.addEventListener('load', () => clearTimeout(timeout));
-
-    function showBlocked() {
-        loader.style.display = 'none';
-        blocked.style.display = 'flex';
-        frame.style.display   = 'none';
-    }
-
-    // Allow escape key to go back
+    // Escape key → back to portal
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') window.location.href = document.getElementById('back-btn').href;
     });
