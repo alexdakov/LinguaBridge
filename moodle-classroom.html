@@ -146,7 +146,7 @@
         if (!fbUser) { window.location.href = 'login.html'; return; }
 
         try {
-            const snap = await getDoc(doc(db, 'user', fbUser.uid));
+            const snap = await getDoc(doc(db, 'users', fbUser.uid));
             if (!snap.exists()) { window.location.href = 'login.html'; return; }
 
             const data = snap.data();
