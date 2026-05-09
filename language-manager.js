@@ -47,7 +47,7 @@ function applyLanguage(lang) {
 
 // Highlight the active button, dim the others
 function updateSwitcherUI(lang) {
-    ['en', 'bg', 'ru'].forEach(l => {
+    ['en', 'bg', 'ru', 'zh'].forEach(l => {
         document.querySelectorAll(`.lang-btn-${l}`).forEach(btn => {
             if (l === lang) {
                 btn.classList.add('bg-primary-container', 'text-white');
