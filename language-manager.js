@@ -48,15 +48,15 @@ function applyLanguage(lang) {
 // Highlight the active button, dim the others
 function updateSwitcherUI(lang) {
     ['en', 'bg', 'ru'].forEach(l => {
-        const btn = document.querySelector(`.lang-btn-${l}`);
-        if (!btn) return;
-        if (l === lang) {
-            btn.classList.add('bg-primary-container', 'text-white');
-            btn.classList.remove('opacity-70', 'text-slate-600');
-        } else {
-            btn.classList.remove('bg-primary-container', 'text-white');
-            btn.classList.add('opacity-70', 'text-slate-600');
-        }
+        document.querySelectorAll(`.lang-btn-${l}`).forEach(btn => {
+            if (l === lang) {
+                btn.classList.add('bg-primary-container', 'text-white');
+                btn.classList.remove('opacity-70', 'text-slate-600');
+            } else {
+                btn.classList.remove('bg-primary-container', 'text-white');
+                btn.classList.add('opacity-70', 'text-slate-600');
+            }
+        });
     });
 }
 
@@ -85,6 +85,46 @@ async function changeGlobalLanguage(lang) {
         renderCatalog();
     }
 }
+
+// Mobile nav toggle
+function toggleMobileMenu(e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('mobile-menu');
+    const langDrop = document.getElementById('mobile-lang-dropdown');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        if (langDrop) langDrop.classList.add('hidden');
+    }
+}
+
+function toggleMobileLang(e) {
+    if (e) e.stopPropagation();
+    const dropdown = document.getElementById('mobile-lang-dropdown');
+    const menu = document.getElementById('mobile-menu');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+        if (menu) menu.classList.add('hidden');
+    }
+}
+
+function closeMobileLang() {
+    document.getElementById('mobile-lang-dropdown')?.classList.add('hidden');
+}
+
+document.addEventListener('click', function(e) {
+    const langBtn = document.getElementById('mobile-lang-btn');
+    const langDrop = document.getElementById('mobile-lang-dropdown');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (langDrop && !langDrop.classList.contains('hidden') &&
+        !langBtn?.contains(e.target) && !langDrop?.contains(e.target)) {
+        langDrop.classList.add('hidden');
+    }
+    if (menu && !menu.classList.contains('hidden') &&
+        !menuBtn?.contains(e.target) && !menu?.contains(e.target)) {
+        menu.classList.add('hidden');
+    }
+});
 
 // Boot on every page load
 document.addEventListener('DOMContentLoaded', initLanguage);
