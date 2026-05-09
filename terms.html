@@ -85,7 +85,6 @@
     <div class="relative">
         <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
             <span class="material-symbols-outlined text-[22px]">language</span>
-            <img id="lang-current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto rounded-sm">
         </button>
         <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
             <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
@@ -159,6 +158,7 @@
                         <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#safeguarding" data-i18n="terms.sidebar.3">3. Student Safeguarding</a></li>
                         <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#integrity" data-i18n="terms.sidebar.4">4. Academic Integrity</a></li>
                         <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#financial" data-i18n="terms.sidebar.5">5. Financial Policies</a></li>
+                        <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#self-paced" data-i18n="terms.sidebar.6">6. Self-Paced Modules</a></li>
                     </ul>
                 </div>
             </aside>
@@ -292,6 +292,47 @@
                                     <li class="flex gap-3 font-medium">
                                         <span class="text-primary-container">•</span> 
                                         <span data-i18n="terms.s5.item3">Unused session credits expire 180 days after the date of purchase.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Self-Paced Modules -->
+                <div class="scroll-mt-32" id="self-paced">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center text-primary shrink-0">
+                            <span class="material-symbols-outlined">self_improvement</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4" data-i18n="terms.s6.heading">Self-Paced Modules</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-6" data-i18n="terms.s6.intro">Our self-paced learning option gives you the flexibility to study on your own schedule while maintaining access to expert tutor support:</p>
+                            <div class="p-6 bg-rose-50 border border-rose-200 rounded-2xl">
+                                <ul class="text-sm text-rose-900 space-y-3">
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item1">Each course consists of <strong>2 modules</strong>, each lasting 1 month. Modules may be purchased individually or together as a full course.</span>
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item2">The full self-paced course spans <strong>3 months</strong> in total, covering both modules plus a consolidation period.</span>
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item3">Every self-paced enrolment includes <strong>2 hours of online tutor consultation</strong>, divided into 4 sessions of 30 minutes each, to be scheduled at your convenience.</span>
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item4">Tutor consultation sessions must be used within the active module period and do not carry over to subsequent modules.</span>
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item5">Access to module materials is provided through the LinguaBridge e-Portal for the duration of the purchased module(s).</span>
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary">•</span>
+                                        <span data-i18n="terms.s6.item6">Refunds for self-paced modules follow the same policy as live sessions: eligible within 14 days of purchase and before accessing course materials.</span>
                                     </li>
                                 </ul>
                             </div>

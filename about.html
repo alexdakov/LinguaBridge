@@ -136,7 +136,6 @@
     <div class="relative">
         <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
             <span class="material-symbols-outlined text-[22px]">language</span>
-            <img id="lang-current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto rounded-sm">
         </button>
         <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
             <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
@@ -365,6 +364,33 @@
         </div>
     </section>
 
+    <!-- Learning Formats Section -->
+    <section class="py-16 px-4 md:px-8 bg-white border-t border-slate-100">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.formats.badge">How We Teach</span>
+                <h2 class="font-['Plus_Jakarta_Sans'] text-3xl font-bold text-slate-900 mt-2" data-i18n="about.formats.title">Three Ways to Learn</h2>
+                <p class="text-slate-500 mt-3 max-w-2xl mx-auto" data-i18n="about.formats.desc">Whether you prefer live instruction or flexible self-paced study, we have a format that fits your life.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-7 rounded-[2rem] border border-slate-100 bg-slate-50 hover:shadow-lg transition-all">
+                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">group</span>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.group.title">Group Lessons</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.group.text">Learn alongside peers in a collaborative environment. Ideal for building conversational confidence and keeping motivation high.</p>
+                </div>
+                <div class="p-7 rounded-[2rem] border border-slate-100 bg-slate-50 hover:shadow-lg transition-all">
+                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">person</span>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.individual.title">Individual Lessons</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.individual.text">One-on-one sessions fully tailored to your goals, level, and schedule — maximum focus, faster progress.</p>
+                </div>
+                <div class="p-7 rounded-[2rem] border border-rose-100 bg-rose-50/40 hover:shadow-lg transition-all">
+                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">self_improvement</span>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.sp.title">Self-Paced Learning</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.sp.text">Study at your own pace over 3 months. Each course is split into 2 monthly modules and includes 4 × 30-min online tutor consultations (2h total).</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </main>
 

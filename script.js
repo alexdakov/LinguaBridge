@@ -1,6 +1,7 @@
 // 1. GLOBAL STATE
 let courseData = [];
 let currentType = 'g';
+let spModule = 1;
 let currentCurrency = 'usd';
 let activeLanguage = 'all';
 const symbols = { usd: '$', eur: '€', rub: '₽', cny: '¥' };
@@ -249,12 +250,32 @@ function renderCatalog() {
         ? courseData
         : courseData.filter(l => l.title === activeLanguage);
 
+    // For self-paced, show a module info banner above the catalog
+    if (currentType === 'sp') {
+        const spLabels = {
+            en: { banner: `Self-Paced Module — 3-month duration · 1 course = 2 modules (1 month each) · Includes 4 × 30-min tutor consultations (2h total) · Showing prices for: <strong>Module ${spModule}</strong>` },
+            bg: { banner: `Самостоятелен модул — 3 месеца · 1 курс = 2 модула (по 1 месец) · Включва 4 × 30 мин. консултации с преподавател (2ч.) · Показани цени за: <strong>Модул ${spModule}</strong>` },
+            ru: { banner: `Самостоятельный модуль — 3 месяца · 1 курс = 2 модуля (по 1 месяцу) · Включает 4 × 30 мин. консультации с преподавателем (2ч.) · Цены для: <strong>Модуль ${spModule}</strong>` },
+            zh: { banner: `自主学习模块 — 3个月 · 1课程 = 2模块（每模块1个月）· 含4 × 30分钟导师咨询（共2小时）· 当前显示：<strong>模块 ${spModule}</strong>` }
+        };
+        const spBanner = (spLabels[uiLang] || spLabels['en']).banner;
+        const bannerEl = document.createElement('div');
+        bannerEl.className = 'mb-8 px-6 py-4 bg-rose-50 border border-rose-200 rounded-2xl text-sm text-slate-700 text-center';
+        bannerEl.innerHTML = `<span class="material-symbols-outlined align-middle text-primary mr-2" style="font-size:18px">self_improvement</span>${spBanner}`;
+        container.appendChild(bannerEl);
+    }
+
     filteredData.forEach(lang => {
         const section = document.createElement('div');
         section.className = 'space-y-8 mb-16 opacity-0 animate-[fadeIn_0.4s_ease-in-out_forwards]';
 
         const displayTitle = ci.langNames[lang.title] || lang.title;
         const displayDesc = ci.langDesc[lang.title] || lang.desc || '';
+
+        const priceKey = currentType === 'sp'
+            ? `sp${spModule}_${currentCurrency}`
+            : `${currentType}_${currentCurrency}`;
+        const priceUnit = currentType === 'sp' ? '/ module' : '/ hr';
 
         section.innerHTML = `
             <div class="flex items-center gap-4 border-l-4 border-primary pl-6">
@@ -275,19 +296,16 @@ function renderCatalog() {
                         </tr>
                     </thead>
                     <tbody class="text-on-surface-variant">
-                        ${lang.courses.map((course, idx) => {
-                            const priceKey = `${currentType}_${currentCurrency}`;
-                            return `
+                        ${lang.courses.map((course, idx) => `
                                 <tr class="${idx % 2 === 1 ? 'bg-rose-50/30' : 'bg-white'} border-b border-outline-variant/10 last:border-0">
                                     <td class="p-5 font-medium text-on-surface">${(ci.courseNames && ci.courseNames[course.name]) || course.name}</td>
                                     <td class="p-5 text-sm">${course.level}</td>
-                                    <td class="p-5 text-sm">${course.dur}</td>
+                                    <td class="p-5 text-sm">${currentType === 'sp' ? '1 month' : course.dur}</td>
                                     <td class="p-5 font-bold text-primary text-right">
-                                        ${symbols[currentCurrency]}${course[priceKey]} / hr
+                                        ${symbols[currentCurrency]}${course[priceKey] || '—'} <span class="text-xs font-normal text-slate-400">${priceUnit}</span>
                                     </td>
                                 </tr>
-                            `;
-                        }).join('')}
+                        `).join('')}
                     </tbody>
                 </table>
             </div>
@@ -297,23 +315,52 @@ function renderCatalog() {
 }
 
 // 5. FILTER CONTROLS
-function toggleType() {
-    currentType = (currentType === 'g') ? 'i' : 'g';
-    const knob = document.getElementById('toggle-knob');
-    const bg = document.getElementById('type-toggle');
-    const groupLabel = document.getElementById('label-group');
-    const individualLabel = document.getElementById('label-individual');
-
-    knob.style.transform = (currentType === 'i') ? 'translateX(24px)' : 'translateX(0px)';
-    bg.style.backgroundColor = (currentType === 'i') ? '#a93444' : '#64748b';
-    
-    if (groupLabel && individualLabel) {
-        groupLabel.classList.toggle('text-primary', currentType === 'g');
-        groupLabel.classList.toggle('text-slate-400', currentType === 'i');
-        individualLabel.classList.toggle('text-primary', currentType === 'i');
-        individualLabel.classList.toggle('text-slate-400', currentType === 'g');
-    }
+function setType(type) {
+    currentType = type;
+    updateTypeUI();
     renderCatalog();
+}
+
+function setSpModule(mod) {
+    spModule = mod;
+    // Update sub-toggle buttons
+    [1, 2].forEach(m => {
+        const btn = document.getElementById(`sp-mod-${m}`);
+        if (!btn) return;
+        if (m === mod) {
+            btn.classList.add('bg-primary', 'text-white', 'shadow-md');
+            btn.classList.remove('text-slate-400', 'hover:text-primary');
+        } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-md');
+            btn.classList.add('text-slate-400', 'hover:text-rose-800', 'hover:bg-rose-100');
+        }
+    });
+    renderCatalog();
+}
+
+function updateTypeUI() {
+    ['g', 'i', 'sp'].forEach(type => {
+        const btn = document.getElementById(`type-tab-${type}`);
+        if (!btn) return;
+        if (type === currentType) {
+            btn.classList.add('bg-primary', 'text-white', 'shadow-md');
+            btn.classList.remove('text-slate-500', 'hover:text-primary', 'hover:bg-rose-50');
+        } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-md');
+            btn.classList.add('text-slate-500', 'hover:text-primary', 'hover:bg-rose-50');
+        }
+    });
+    // Show/hide sp module sub-toggle
+    const spSub = document.getElementById('sp-module-toggle');
+    if (spSub) {
+        if (currentType === 'sp') {
+            spSub.classList.remove('hidden');
+            spSub.classList.add('flex');
+        } else {
+            spSub.classList.add('hidden');
+            spSub.classList.remove('flex');
+        }
+    }
 }
 
 function setCurrency(curr) {
@@ -382,6 +429,7 @@ async function sendEmailNow() {
 const messengerApps = ["Phone (call only)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Other"];
 const messengerApps_bg = ["Телефон (само обаждане)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Друго"];
 const messengerApps_ru = ["Телефон (только звонки)", "WhatsApp", "Viber", "WeChat", "QQ Chat", "Telegram", "Другое"];
+const messengerApps_zh = ["电话（仅通话）", "WhatsApp", "Viber", "微信 (WeChat)", "QQ", "Telegram", "其他"];
 
 const enrolTranslations = {
     en: {
@@ -428,6 +476,21 @@ const enrolTranslations = {
         },
         submit: "Отправить заявку",
         success: { title: "Спасибо за вашу заявку!", msg: "Наша команда скоро свяжется с вами.", btn: "Заполнить еще раз" }
+    },
+    zh: {
+        title: "学生申请 – LinguaBridge",
+        desc: "请填写此表格申请辅导课程。我们将尽快与您联系，为您匹配合适的导师。",
+        labels: { name: "全名", email: "电子邮件地址", messenger: "联系方式", phone: "电话 / 即时通讯号码", phoneHint: "请包含国家代码，例如 +86...", otherApp: "请注明通讯应用", native: "您的母语是什么？", schedule: "首选学习时间安排", goals: "其他意见或学习目标" },
+        questions: { lang: "您想学习哪种语言？", level: "您目前的水平如何？", type: "您对哪种类型的课程感兴趣？", find: "您是如何找到我们的？", select: "-- 请从列表中选择 --", other: "请注明：" },
+        messengerApps: messengerApps_zh,
+        options: {
+            langs: ["保加利亚语", "中文", "英语", "德语", "俄语", "其他"],
+            levels: ["初学者 (A1)", "初级 (A2)", "中级 (B1–B2)", "高级 (C1–C2)", "不确定"],
+            types: ["一对一直播课", "小组课", "自主学习课程", "会话练习", "考试备考（如 TORFL、IELTS）", "其他"],
+            find: ["Instagram", "Facebook", "Google搜索", "朋友推荐", "其他"]
+        },
+        submit: "提交申请",
+        success: { title: "感谢您的申请！", msg: "我们的团队将很快与您联系。", btn: "重新填写" }
     }
 };
 
@@ -458,6 +521,15 @@ const tutorTranslations = {
         selectPlaceholder: "-- Выберите --",
         submit: "Отправить заявку",
         success: { title: "Заявка отправлена!", msg: "Мы рассмотрим вашу заявку и свяжемся с вами в ближайшее время." }
+    },
+    zh: {
+        title: "导师申请 – LinguaBridge",
+        desc: "申请成为语言导师。请填写下面的表格，我们将尽快与您联系。",
+        labels: { name: "全名*", email: "电子邮件地址*", messenger: "联系方式*", phone: "电话 / 即时通讯号码*", phoneHint: "请包含国家代码，例如 +86...", otherApp: "请注明通讯应用", langs: "您教哪种语言？*", edu: "教育背景及资质*", certs: "您是否持有证书？（如 CELTA）*", exp: "教学经验*", hours: "首选工作时间*", bio: "关于您的简短介绍*", cv: "上传您的简历（仅PDF）*" },
+        messengerApps: messengerApps_zh,
+        selectPlaceholder: "-- 请选择 --",
+        submit: "发送申请",
+        success: { title: "申请已提交！", msg: "我们将审核您的申请并尽快与您联系。" }
     }
 };
 
@@ -507,7 +579,7 @@ function handleTutorMessengerOther(sel) {
     const other = document.getElementById('t-messenger-other');
     if (!other) return;
     const v = sel.value.toLowerCase();
-    if (v.includes('other') || v.includes('друго') || v.includes('другое')) {
+    if (v.includes('other') || v.includes('друго') || v.includes('другое') || v.includes('其他')) {
         other.classList.remove('hidden');
         other.required = true;
     } else {
@@ -638,7 +710,7 @@ function handleMessengerOther(sel) {
     const other = document.getElementById('form-messenger-other');
     if (!other) return;
     const v = sel.value.toLowerCase();
-    if (v.includes('other') || v.includes('друго') || v.includes('другое')) {
+    if (v.includes('other') || v.includes('друго') || v.includes('другое') || v.includes('其他')) {
         other.classList.remove('hidden');
         other.required = true;
     } else {
@@ -649,7 +721,7 @@ function handleMessengerOther(sel) {
 
 function handleOther(selectEl, otherId) {
     const otherInput = document.getElementById(otherId);
-    if (selectEl.value.includes('Other') || selectEl.value.includes('Друго') || selectEl.value.includes('Другое')) {
+    if (selectEl.value.includes('Other') || selectEl.value.includes('Друго') || selectEl.value.includes('Другое') || selectEl.value.includes('其他')) {
         otherInput.classList.remove('hidden');
         otherInput.required = true;
     } else {
@@ -669,7 +741,7 @@ async function sendToGoogle() {
         const sel = document.getElementById(id);
         if (!sel) return "";
         const val = sel.value;
-        if (val.includes('Other') || val.includes('Друго') || val.includes('Другое')) {
+        if (val.includes('Other') || val.includes('Друго') || val.includes('Другое') || val.includes('其他')) {
             const other = document.getElementById(otherId);
             return other ? other.value : val;
         }
@@ -679,7 +751,7 @@ async function sendToGoogle() {
     const messengerSel = document.getElementById('form-messenger');
     const messengerOther = document.getElementById('form-messenger-other');
     const messengerVal = messengerSel ? messengerSel.value : '';
-    const isOtherApp = messengerVal.toLowerCase().includes('other') || messengerVal.toLowerCase().includes('друго') || messengerVal.toLowerCase().includes('другое');
+    const isOtherApp = messengerVal.toLowerCase().includes('other') || messengerVal.toLowerCase().includes('друго') || messengerVal.toLowerCase().includes('другое') || messengerVal.includes('其他');
     const messengerLabel = isOtherApp && messengerOther ? messengerOther.value : messengerVal;
     const phoneVal = document.getElementById('form-phone').value;
 

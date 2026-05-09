@@ -139,7 +139,6 @@
     <div class="relative">
         <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
             <span class="material-symbols-outlined text-[22px]">language</span>
-            <img id="lang-current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto rounded-sm">
         </button>
         <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
             <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
@@ -229,6 +228,34 @@
                 </div>
                 <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature3.title">Maximum Efficiency</h3>
                 <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature3.text">Focused, practical lessons built around real-life situations to achieve measurable progress.</p>
+            </div>
+        </div>
+
+        <!-- Learning Format Cards -->
+        <div class="mt-12 grid md:grid-cols-3 gap-6">
+            <!-- Group -->
+            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.group.title">Group Lessons</h4>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.group.text">Learn alongside peers in a collaborative environment. Ideal for building conversational confidence and keeping motivation high.</p>
+            </div>
+            <!-- Individual -->
+            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-violet-500 shadow-sm">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.individual.title">Individual Lessons</h4>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.individual.text">One-on-one sessions fully tailored to your goals, level, and schedule — maximum focus, faster progress.</p>
+            </div>
+            <!-- Self-Paced -->
+            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-[#FF7582] shadow-sm">
+                    <span class="material-symbols-outlined">self_improvement</span>
+                </div>
+                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.sp.title">Self-Paced Learning</h4>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.sp.text">Study at your own pace over 3 months. Each course is split into 2 monthly modules and includes 4 × 30-min online tutor consultations (2h total).</p>
             </div>
         </div>
     </div>
