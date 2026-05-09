@@ -110,13 +110,13 @@
     </div>
 </nav>
 
-<main class="pt-44 pb-32 px-10">
+<main class="pt-24 md:pt-44 pb-16 md:pb-32 px-4 md:px-10">
     <div class="max-w-7xl mx-auto">
         
         <!-- Headline moved above the grid -->
-        <header class="mb-20">
+        <header class="mb-8 md:mb-20">
             <span class="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block" data-i18n="contact.badge">Reach Out</span>
-            <h1 class="font-h1 text-6xl font-extrabold leading-[1.1] text-slate-900 mb-6" data-i18n="contact.title">
+            <h1 class="font-h1 text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-slate-900 mb-6" data-i18n="contact.title">
                 Connect with our <span class="text-primary">experts.</span>
             </h1>
             <p class="text-lg text-slate-500 leading-relaxed max-w-1xl" data-i18n="contact.subtitle">
@@ -124,7 +124,7 @@
             </p>
         </header>
 
-        <div class="grid lg:grid-cols-12 gap-20 items-start">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-20 items-start">
             
             <!-- Left Section: Instructions -->
             <div class="lg:col-span-5 space-y-10">
@@ -195,9 +195,9 @@
 
             <!-- Right Section: The Form (Aligned to the start of Direct Mail step) -->
             <div class="lg:col-span-7">
-                <div class="contact-card p-10 md:p-16" id="contact-card">
+                <div class="contact-card p-4 md:p-10 lg:p-16" id="contact-card">
                     <form onsubmit="sendContactMessage(event)" class="space-y-8" id="contact-form">
-                        <div class="grid md:grid-cols-2 gap-8">
+                        <div class="grid md:grid-cols-2 gap-4 md:gap-8">
                             <div class="space-y-3">
                                 <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase" data-i18n="contact.form.name">Name</label>
                                 <input id="userName" required class="w-full custom-input" data-i18n-placeholder="contact.placeholder.name" placeholder="John Doe" type="text"/>
