@@ -57,22 +57,12 @@
             <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="languages.html" data-i18n="nav.languages">Languages</a>
             <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="about.html" data-i18n="nav.about">About</a>
             <a class="text-slate-600 hover:text-[#FF7582] transition-colors" href="contact.html" data-i18n="nav.contact">Contact</a>
-             <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="login.html">
-                <span class="material-symbols-outlined text-[18px]">school</span>
-                <span data-i18n="nav.portal">e-Portal</span>
-            </a>
         </div>
         <div class="flex items-center gap-2 md:gap-6">
-    <!-- Desktop language switcher -->
-    <div class="hidden md:flex items-center bg-rose-50/50 py-1.5 rounded-full text-xs font-semibold text-[#FF7582] gap-2 border border-rose-100/50 p-1">
-        <button onclick="changeGlobalLanguage('en')" class="lang-btn lang-btn-en cursor-pointer bg-primary-container text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
-        <button onclick="changeGlobalLanguage('bg')" class="lang-btn lang-btn-bg cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
-        <button onclick="changeGlobalLanguage('ru')" class="lang-btn lang-btn-ru cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
-    </div>
     <!-- Desktop Enrol button -->
-    <button onclick="window.location.href='enrol.html'" class="hidden md:block bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all" data-i18n="nav.enrol">Enrol Now</button>
+    <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span>e-Portal</button>
     <!-- Mobile language globe -->
-    <div class="relative md:hidden">
+    <div class="relative">
         <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
             <span class="material-symbols-outlined text-[22px]">language</span>
         </button>
@@ -95,9 +85,8 @@
         <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.languages">Languages</a>
         <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.about">About</a>
         <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
-        <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all"><span class="material-symbols-outlined text-[18px]">school</span> e-Portal</a>
         <div class="pt-2 border-t border-rose-50 mt-1">
-            <button onclick="window.location.href='enrol.html'" class="w-full bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all" data-i18n="nav.enrol">Enrol Now</button>
+            <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span>e-Portal</button>
         </div>
     </nav>
 </div>
