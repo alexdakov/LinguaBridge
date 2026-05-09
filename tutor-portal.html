@@ -239,7 +239,7 @@
         if (!user) { window.location.href = 'login.html'; return; }
 
         try {
-            const snap = await getDoc(doc(db, 'user', user.uid));
+            const snap = await getDoc(doc(db, 'users', user.uid));
             if (!snap.exists()) { window.location.href = 'login.html'; return; }
 
             const data = snap.data();

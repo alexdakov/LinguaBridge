@@ -18,8 +18,8 @@
             const userCredential = await signInWithEmailAndPassword(auth, shadowEmail, password);
             const user = userCredential.user;
 
-            // 2. Fetch the role from the 'user' collection
-            const userSnap = await getDoc(doc(db, "user", user.uid));
+            // 2. Fetch the role from the 'users' collection
+            const userSnap = await getDoc(doc(db, "users", user.uid));
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();

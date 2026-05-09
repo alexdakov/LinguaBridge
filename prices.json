@@ -6,13 +6,13 @@
       "flag_url": "https://flagcdn.com/w80/gb.png",
       "desc": "A language shaped by diversity—blending traditions, accents, and influences from across the globe, reflected in its literature, media, and everyday life.",
       "courses": [
-        {"name": "English Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "20", "i_usd": "40", "g_eur": "19", "i_eur": "37", "g_rub": "1800", "i_rub": "3650", "g_cny": "145", "i_cny": "290"},
-        {"name": "Fluency & Logic", "level": "B1 – B2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"},
-        {"name": "Advanced Mastery", "level": "C1 – C2", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"},
-        {"name": "Business English", "level": "B1 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395"},
-        {"name": "IELTS / Cambridge Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"},
-        {"name": "Conversational English", "level": "A2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"}
+        {"name": "English Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "20", "i_usd": "40", "g_eur": "19", "i_eur": "37", "g_rub": "1800", "i_rub": "3650", "g_cny": "145", "i_cny": "290", "sp1_usd": "79", "sp2_usd": "139", "sp1_eur": "73", "sp2_eur": "129", "sp1_rub": "7100", "sp2_rub": "12500", "sp1_cny": "569", "sp2_cny": "1001"},
+        {"name": "Fluency & Logic", "level": "B1 – B2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Advanced Mastery", "level": "C1 – C2", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Business English", "level": "B1 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "IELTS / Cambridge Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "119", "sp2_usd": "219", "sp1_eur": "111", "sp2_eur": "204", "sp1_rub": "10710", "sp2_rub": "19710", "sp1_cny": "857", "sp2_cny": "1577"},
+        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Conversational English", "level": "A2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"}
       ]
     },
     {
@@ -21,13 +21,13 @@
       "flag_url": "https://flagcdn.com/w80/de.png",
       "desc": "Rooted in precision and depth, German reflects a culture known for philosophy, engineering, classical music, and a strong sense of structure.",
       "courses": [
-        {"name": "German Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"},
-        {"name": "Intermediate German", "level": "B1 – B2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
-        {"name": "German Excellence", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "Business German", "level": "B1 – C1", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
-        {"name": "TestDaF / Goethe Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"},
-        {"name": "Conversational German", "level": "A2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"}
+        {"name": "German Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Intermediate German", "level": "B1 – B2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"},
+        {"name": "German Excellence", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "119", "sp2_usd": "219", "sp1_eur": "111", "sp2_eur": "204", "sp1_rub": "10710", "sp2_rub": "19710", "sp1_cny": "857", "sp2_cny": "1577"},
+        {"name": "Business German", "level": "B1 – C1", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470", "sp1_usd": "129", "sp2_usd": "229", "sp1_eur": "120", "sp2_eur": "213", "sp1_rub": "11610", "sp2_rub": "20610", "sp1_cny": "929", "sp2_cny": "1649"},
+        {"name": "TestDaF / Goethe Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "119", "sp2_usd": "219", "sp1_eur": "111", "sp2_eur": "204", "sp1_rub": "10710", "sp2_rub": "19710", "sp1_cny": "857", "sp2_cny": "1577"},
+        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Conversational German", "level": "A2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"}
       ]
     },
     {
@@ -36,13 +36,13 @@
       "flag_url": "https://flagcdn.com/w80/cn.png",
       "desc": "A language carrying thousands of years of history—where tradition meets modern innovation, shaped by philosophy, symbolism, and a rich cultural heritage.",
       "courses": [
-        {"name": "Mandarin Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
-        {"name": "Intermediate Mandarin", "level": "B1 – B2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395"},
-        {"name": "Advanced Proficiency", "level": "C1 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
-        {"name": "Business Chinese", "level": "B1 – C1", "dur": "60 min", "g_usd": "45", "i_usd": "70", "g_eur": "42", "i_eur": "65", "g_rub": "4100", "i_rub": "6400", "g_cny": "325", "i_cny": "505"},
-        {"name": "HSK Exam Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
-        {"name": "Conversational Chinese", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"},
-        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"}
+        {"name": "Mandarin Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"},
+        {"name": "Intermediate Mandarin", "level": "B1 – B2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Advanced Proficiency", "level": "C1 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470", "sp1_usd": "129", "sp2_usd": "229", "sp1_eur": "120", "sp2_eur": "213", "sp1_rub": "11610", "sp2_rub": "20610", "sp1_cny": "929", "sp2_cny": "1649"},
+        {"name": "Business Chinese", "level": "B1 – C1", "dur": "60 min", "g_usd": "45", "i_usd": "70", "g_eur": "42", "i_eur": "65", "g_rub": "4100", "i_rub": "6400", "g_cny": "325", "i_cny": "505", "sp1_usd": "139", "sp2_usd": "249", "sp1_eur": "129", "sp2_eur": "232", "sp1_rub": "12510", "sp2_rub": "22410", "sp1_cny": "1001", "sp2_cny": "1793"},
+        {"name": "HSK Exam Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470", "sp1_usd": "129", "sp2_usd": "229", "sp1_eur": "120", "sp2_eur": "213", "sp1_rub": "11610", "sp2_rub": "20610", "sp1_cny": "929", "sp2_cny": "1649"},
+        {"name": "Conversational Chinese", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"}
       ]
     },
     {
@@ -51,13 +51,13 @@
       "flag_url": "https://flagcdn.com/w80/ru.png",
       "desc": "Deep, expressive, and introspective—Russian mirrors a culture renowned for its literature, art, resilience, and strong emotional depth.",
       "courses": [
-        {"name": "Russian Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "22", "i_usd": "40", "g_eur": "20", "i_eur": "37", "g_rub": "2000", "i_rub": "3650", "g_cny": "160", "i_cny": "290"},
-        {"name": "Intermediate Russian", "level": "B1 – B2", "dur": "60 min", "g_usd": "28", "i_usd": "45", "g_eur": "26", "i_eur": "42", "g_rub": "2550", "i_rub": "4100", "g_cny": "200", "i_cny": "325"},
-        {"name": "Advanced Mastery", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395"},
-        {"name": "Business Russian", "level": "B1 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395"},
-        {"name": "TORFL Exam Prep", "level": "B1 – C2", "dur": "60 min", "g_usd": "32", "i_usd": "55", "g_eur": "30", "i_eur": "51", "g_rub": "2900", "i_rub": "5000", "g_cny": "230", "i_cny": "395"},
-        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
-        {"name": "Conversational Russian", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"}
+        {"name": "Russian Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "22", "i_usd": "40", "g_eur": "20", "i_eur": "37", "g_rub": "2000", "i_rub": "3650", "g_cny": "160", "i_cny": "290", "sp1_usd": "79", "sp2_usd": "139", "sp1_eur": "73", "sp2_eur": "129", "sp1_rub": "7100", "sp2_rub": "12500", "sp1_cny": "569", "sp2_cny": "1001"},
+        {"name": "Intermediate Russian", "level": "B1 – B2", "dur": "60 min", "g_usd": "28", "i_usd": "45", "g_eur": "26", "i_eur": "42", "g_rub": "2550", "i_rub": "4100", "g_cny": "200", "i_cny": "325", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Advanced Mastery", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Business Russian", "level": "B1 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "TORFL Exam Prep", "level": "B1 – C2", "dur": "60 min", "g_usd": "32", "i_usd": "55", "g_eur": "30", "i_eur": "51", "g_rub": "2900", "i_rub": "5000", "g_cny": "230", "i_cny": "395", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"},
+        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Conversational Russian", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "79", "sp2_usd": "139", "sp1_eur": "73", "sp2_eur": "129", "sp1_rub": "7100", "sp2_rub": "12500", "sp1_cny": "569", "sp2_cny": "1001"}
       ]
     },
     {
@@ -66,12 +66,12 @@
       "flag_url": "https://flagcdn.com/w80/bg.png",
       "desc": "Carved between mountains and sea—alive with folklore, fire-dancing rituals, and a spirit of warmth that runs deep through every word.",
       "courses": [
-        {"name": "Bulgarian Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"},
-        {"name": "Intermediate Mastery", "level": "B1 – B2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
-        {"name": "Native-Level Fluency", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "Business Bulgarian", "level": "B2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "State Exam Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430"},
-        {"name": "Conversational Bulgarian", "level": "A2 – C1", "dur": "60 min", "g_usd": "20", "i_usd": "40", "g_eur": "19", "i_eur": "37", "g_rub": "1800", "i_rub": "3650", "g_cny": "145", "i_cny": "290"}
+        {"name": "Bulgarian Foundations", "level": "A1 – A2", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "79", "sp2_usd": "139", "sp1_eur": "73", "sp2_eur": "129", "sp1_rub": "7100", "sp2_rub": "12500", "sp1_cny": "569", "sp2_cny": "1001"},
+        {"name": "Intermediate Mastery", "level": "B1 – B2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Native-Level Fluency", "level": "C1 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Business Bulgarian", "level": "B2 – C1", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "State Exam Prep", "level": "B2 – C2", "dur": "60 min", "g_usd": "35", "i_usd": "60", "g_eur": "33", "i_eur": "56", "g_rub": "3200", "i_rub": "5500", "g_cny": "250", "i_cny": "430", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Conversational Bulgarian", "level": "A2 – C1", "dur": "60 min", "g_usd": "20", "i_usd": "40", "g_eur": "19", "i_eur": "37", "g_rub": "1800", "i_rub": "3650", "g_cny": "145", "i_cny": "290", "sp1_usd": "69", "sp2_usd": "119", "sp1_eur": "64", "sp2_eur": "111", "sp1_rub": "6210", "sp2_rub": "10710", "sp1_cny": "497", "sp2_cny": "857"}
       ]
     },
     {
@@ -80,13 +80,13 @@
       "flag_url": "https://flagcdn.com/w80/jp.png",
       "desc": "A journey through harmony and tradition—where ancient heritage meets cutting-edge innovation, expressed through a unique writing system and deep-rooted etiquette.",
       "courses": [
-        {"name": "Japanese Foundations (N5–N4)", "level": "A1 – A2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360"},
-        {"name": "Intermediate Japanese (N3)", "level": "B1 – B2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395"},
-        {"name": "Advanced Proficiency (N2–N1)", "level": "C1 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
-        {"name": "Business Japanese (Keigo)", "level": "B1 – C1", "dur": "60 min", "g_usd": "45", "i_usd": "70", "g_eur": "42", "i_eur": "65", "g_rub": "4100", "i_rub": "6400", "g_cny": "325", "i_cny": "505"},
-        {"name": "JLPT Exam Prep (N5–N1)", "level": "B2 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470"},
-        {"name": "Conversational Japanese", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325"},
-        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395"}
+        {"name": "Japanese Foundations (N5–N4)", "level": "A1 – A2", "dur": "60 min", "g_usd": "30", "i_usd": "50", "g_eur": "28", "i_eur": "46", "g_rub": "2750", "i_rub": "4600", "g_cny": "215", "i_cny": "360", "sp1_usd": "99", "sp2_usd": "179", "sp1_eur": "92", "sp2_eur": "166", "sp1_rub": "8910", "sp2_rub": "16110", "sp1_cny": "713", "sp2_cny": "1289"},
+        {"name": "Intermediate Japanese (N3)", "level": "B1 – B2", "dur": "60 min", "g_usd": "35", "i_usd": "55", "g_eur": "33", "i_eur": "51", "g_rub": "3200", "i_rub": "5000", "g_cny": "250", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"},
+        {"name": "Advanced Proficiency (N2–N1)", "level": "C1 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470", "sp1_usd": "129", "sp2_usd": "229", "sp1_eur": "120", "sp2_eur": "213", "sp1_rub": "11610", "sp2_rub": "20610", "sp1_cny": "929", "sp2_cny": "1649"},
+        {"name": "Business Japanese (Keigo)", "level": "B1 – C1", "dur": "60 min", "g_usd": "45", "i_usd": "70", "g_eur": "42", "i_eur": "65", "g_rub": "4100", "i_rub": "6400", "g_cny": "325", "i_cny": "505", "sp1_usd": "139", "sp2_usd": "249", "sp1_eur": "129", "sp2_eur": "232", "sp1_rub": "12510", "sp2_rub": "22410", "sp1_cny": "1001", "sp2_cny": "1793"},
+        {"name": "JLPT Exam Prep (N5–N1)", "level": "B2 – C2", "dur": "60 min", "g_usd": "40", "i_usd": "65", "g_eur": "37", "i_eur": "60", "g_rub": "3650", "i_rub": "5950", "g_cny": "290", "i_cny": "470", "sp1_usd": "129", "sp2_usd": "229", "sp1_eur": "120", "sp2_eur": "213", "sp1_rub": "11610", "sp2_rub": "20610", "sp1_cny": "929", "sp2_cny": "1649"},
+        {"name": "Conversational Japanese", "level": "A2 – C1", "dur": "60 min", "g_usd": "25", "i_usd": "45", "g_eur": "23", "i_eur": "42", "g_rub": "2300", "i_rub": "4100", "g_cny": "180", "i_cny": "325", "sp1_usd": "89", "sp2_usd": "159", "sp1_eur": "83", "sp2_eur": "148", "sp1_rub": "8010", "sp2_rub": "14310", "sp1_cny": "641", "sp2_cny": "1145"},
+        {"name": "Academic Admissions", "level": "B2 – C1", "dur": "60 min", "g_usd": "30", "i_usd": "55", "g_eur": "28", "i_eur": "51", "g_rub": "2750", "i_rub": "5000", "g_cny": "215", "i_cny": "395", "sp1_usd": "109", "sp2_usd": "199", "sp1_eur": "101", "sp2_eur": "185", "sp1_rub": "9810", "sp2_rub": "17910", "sp1_cny": "785", "sp2_cny": "1433"}
   ]
     }
   ]
