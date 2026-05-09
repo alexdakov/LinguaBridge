@@ -104,8 +104,8 @@
             box-shadow: 0 10px 40px -10px rgba(255, 117, 130, 0.2);
         }
         .image-fade-mask {
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
-            mask-image: linear-gradient(to right, transparent 0%, black 35%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 72%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 30%, black 72%, transparent 100%);
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
@@ -155,22 +155,22 @@
 <main>
 
 <!-- Hero Section -->
-<section class="pt-20 pb-10 px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
-<div class="flex-1 space-y-6 text-center md:text-left">
-<h1 class="font-h1 text-h1 leading-tight" data-i18n="hero.headline">Master any <span class="text-[#ff7582]">language</span> with ease.</h1>
-<p class="font-body-lg text-body-lg text-tertiary max-w-md mx-auto md:mx-0" data-i18n="hero.subheadline">
-                    Learn foreign languages online with private lessons — it's easy and affordable. Study with the best teachers and native speakers.
-                </p>
-<div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-<button onclick="window.location.href='languages.html'" class="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full coral-glow hover:scale-[1.02] active:scale-95 transition-all" data-i18n="hero.cta">
-    View All Courses
-</button>
-
-</div>
-</div>
-<div class="flex-1 relative">
-<div class="absolute -inset-4 bg-gradient-to-tr from-[#ff7582]/20 to-orange-200/20 rounded-[2rem] blur-2xl"></div>
-    <img alt="Home Page Hero" class="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3] image-fade-mask" src="Media/main_intro.png"/>
+<section class="relative pt-20 pb-10 overflow-hidden">
+<div class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+    <div class="flex-1 space-y-6 text-center md:text-left relative z-10">
+        <h1 class="font-h1 text-h1 leading-tight" data-i18n="hero.headline">Master any <span class="text-[#ff7582]">language</span> with ease.</h1>
+        <p class="font-body-lg text-body-lg text-tertiary max-w-md mx-auto md:mx-0" data-i18n="hero.subheadline">
+            Learn foreign languages online with private lessons — it's easy and affordable. Study with the best teachers and native speakers.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <button onclick="window.location.href='languages.html'" class="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full coral-glow hover:scale-[1.02] active:scale-95 transition-all" data-i18n="hero.cta">
+                View All Courses
+            </button>
+        </div>
+    </div>
+    <div class="flex-[1.4] relative -mr-8 md:-mr-0">
+        <img alt="Home Page Hero" class="relative w-full object-cover aspect-[4/3] image-fade-mask" src="Media/main_intro.png"/>
+    </div>
 </div>
 </section>
 
