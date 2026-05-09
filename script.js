@@ -28,6 +28,50 @@ const catalogI18n = {
             Russian: 'Славянски език с извънредна литературна и културна дълбочина, говорен в 11 часови зони и централен за световната дипломация и наука.',
             Japanese: 'Език на елегантност и прецизност, японският съчетава три писмени системи и отразява култура на дълбока традиция, иновации и изкуство.',
             Bulgarian: 'Първият писан славянски език, българският е основата на кирилската азбука и носи богато средновековно и модерно културно наследство.'
+        },
+        courseNames: {
+            // English
+            'English Foundations': 'Основи на английски',
+            'Fluency & Logic': 'Плавност и логика',
+            'Advanced Mastery': 'Напреднало владеене',
+            'Business English': 'Бизнес английски',
+            'IELTS / Cambridge Prep': 'Подготовка за IELTS / Cambridge',
+            'Academic Admissions': 'Академично кандидатстване',
+            'Conversational English': 'Разговорен английски',
+            // German
+            'German Foundations': 'Основи на немски',
+            'Intermediate German': 'Среден немски',
+            'German Excellence': 'Немски – напреднало ниво',
+            'Business German': 'Бизнес немски',
+            'TestDaF / Goethe Prep': 'Подготовка за TestDaF / Goethe',
+            'Conversational German': 'Разговорен немски',
+            // Mandarin
+            'Mandarin Foundations': 'Основи на мандарин',
+            'Intermediate Mandarin': 'Среден мандарин',
+            'Advanced Proficiency': 'Напреднало владеене',
+            'Business Chinese': 'Бизнес китайски',
+            'HSK Exam Prep': 'Подготовка за HSK',
+            'Conversational Chinese': 'Разговорен китайски',
+            // Russian
+            'Russian Foundations': 'Основи на руски',
+            'Intermediate Russian': 'Среден руски',
+            'Business Russian': 'Бизнес руски',
+            'TORFL Exam Prep': 'Подготовка за TORFL',
+            'Conversational Russian': 'Разговорен руски',
+            // Bulgarian
+            'Bulgarian Foundations': 'Основи на български',
+            'Intermediate Mastery': 'Средно владеене',
+            'Native-Level Fluency': 'Плавност на ниво носител',
+            'Business Bulgarian': 'Бизнес български',
+            'State Exam Prep': 'Подготовка за държавен изпит',
+            'Conversational Bulgarian': 'Разговорен български',
+            // Japanese
+            'Japanese Foundations (N5–N4)': 'Основи на японски (N5–N4)',
+            'Intermediate Japanese (N3)': 'Среден японски (N3)',
+            'Advanced Proficiency (N2–N1)': 'Напреднало владеене (N2–N1)',
+            'Business Japanese (Keigo)': 'Бизнес японски (Keigo)',
+            'JLPT Exam Prep (N5–N1)': 'Подготовка за JLPT (N5–N1)',
+            'Conversational Japanese': 'Разговорен японски'
         }
     },
     ru: {
@@ -40,6 +84,50 @@ const catalogI18n = {
             Russian: 'Славянский язык исключительной литературной и культурной глубины, распространённый в 11 часовых поясах и занимающий центральное место в мировой дипломатии.',
             Japanese: 'Язык изящества и точности, японский сочетает три системы письма и отражает культуру глубоких традиций, инноваций и мастерства.',
             Bulgarian: 'Первый письменный славянский язык, болгарский является основой кириллицы и несёт богатое средневековое и современное культурное наследие.'
+        },
+        courseNames: {
+            // English
+            'English Foundations': 'Основы английского',
+            'Fluency & Logic': 'Свободное владение и логика',
+            'Advanced Mastery': 'Продвинутое мастерство',
+            'Business English': 'Деловой английский',
+            'IELTS / Cambridge Prep': 'Подготовка к IELTS / Cambridge',
+            'Academic Admissions': 'Академическое поступление',
+            'Conversational English': 'Разговорный английский',
+            // German
+            'German Foundations': 'Основы немецкого',
+            'Intermediate German': 'Средний немецкий',
+            'German Excellence': 'Немецкий – высокий уровень',
+            'Business German': 'Деловой немецкий',
+            'TestDaF / Goethe Prep': 'Подготовка к TestDaF / Goethe',
+            'Conversational German': 'Разговорный немецкий',
+            // Mandarin
+            'Mandarin Foundations': 'Основы мандаринского',
+            'Intermediate Mandarin': 'Средний мандаринский',
+            'Advanced Proficiency': 'Продвинутое владение',
+            'Business Chinese': 'Деловой китайский',
+            'HSK Exam Prep': 'Подготовка к HSK',
+            'Conversational Chinese': 'Разговорный китайский',
+            // Russian
+            'Russian Foundations': 'Основы русского',
+            'Intermediate Russian': 'Средний русский',
+            'Business Russian': 'Деловой русский',
+            'TORFL Exam Prep': 'Подготовка к ТРКИ',
+            'Conversational Russian': 'Разговорный русский',
+            // Bulgarian
+            'Bulgarian Foundations': 'Основы болгарского',
+            'Intermediate Mastery': 'Средний уровень',
+            'Native-Level Fluency': 'Свободное владение',
+            'Business Bulgarian': 'Деловой болгарский',
+            'State Exam Prep': 'Подготовка к госэкзамену',
+            'Conversational Bulgarian': 'Разговорный болгарский',
+            // Japanese
+            'Japanese Foundations (N5–N4)': 'Основы японского (N5–N4)',
+            'Intermediate Japanese (N3)': 'Средний японский (N3)',
+            'Advanced Proficiency (N2–N1)': 'Продвинутое владение (N2–N1)',
+            'Business Japanese (Keigo)': 'Деловой японский (Keigo)',
+            'JLPT Exam Prep (N5–N1)': 'Подготовка к JLPT (N5–N1)',
+            'Conversational Japanese': 'Разговорный японский'
         }
     }
 };
@@ -137,7 +225,7 @@ function renderCatalog() {
                             const priceKey = `${currentType}_${currentCurrency}`;
                             return `
                                 <tr class="${idx % 2 === 1 ? 'bg-rose-50/30' : 'bg-white'} border-b border-outline-variant/10 last:border-0">
-                                    <td class="p-5 font-medium text-on-surface">${course.name}</td>
+                                    <td class="p-5 font-medium text-on-surface">${(ci.courseNames && ci.courseNames[course.name]) || course.name}</td>
                                     <td class="p-5 text-sm">${course.level}</td>
                                     <td class="p-5 text-sm">${course.dur}</td>
                                     <td class="p-5 font-bold text-primary text-right">
