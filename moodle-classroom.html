@@ -81,7 +81,7 @@
                     <span class="material-symbols-outlined text-[#FF7582] text-[22px]">badge</span>
                 </div>
                 <div>
-                    <h2 class="text-base font-bold text-slate-800">Your Moodle Credentials</h2>
+                    <h2 class="text-base font-bold text-slate-800">Your Academy Credentials</h2>
                     <p class="text-xs text-slate-400">Click a field to copy</p>
                 </div>
             </div>
@@ -119,7 +119,7 @@
 
         <!-- Hint -->
         <p class="text-xs text-slate-400 text-center leading-relaxed">
-            Enter these credentials on the Moodle login page in the classroom above.
+            Enter these credentials on the Academy login page in the frame above.
         </p>
     </div>
 </div>
@@ -171,8 +171,9 @@
             console.error(e);
         }
 
-        // Load Moodle
-        loadIframe('http://132.145.38.243/moodle/login/index.php');
+        // Load Academy
+        const path = new URLSearchParams(location.search).get('path') || '';
+        loadIframe('https://academy.linguabridge.study' + (path || ''));
     });
 </script>
 

@@ -93,28 +93,28 @@
                     <span data-i18n="tutor.shortcuts">Instructor Shortcuts</span>
                 </h3>
                 <div class="grid sm:grid-cols-2 gap-4">
-                    <button onclick="openMoodle()" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
+                    <button onclick="openMoodle('/grade/report/overview/index.php')" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
                         <span class="material-symbols-outlined text-[#815438] group-hover:text-white text-[28px]">edit_document</span>
                         <div>
                             <p class="font-bold" data-i18n="tutor.grade">Grade Submissions</p>
                             <p class="text-xs text-slate-400 group-hover:text-white/70 mt-1" data-i18n="tutor.grade.sub">Review and score student work</p>
                         </div>
                     </button>
-                    <button onclick="openMoodle()" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
+                    <button onclick="openMoodle('/course/management.php')" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
                         <span class="material-symbols-outlined text-[#815438] group-hover:text-white text-[28px]">upload_file</span>
                         <div>
                             <p class="font-bold" data-i18n="tutor.upload">Upload Course Content</p>
                             <p class="text-xs text-slate-400 group-hover:text-white/70 mt-1" data-i18n="tutor.upload.sub">Add lessons, PDFs and videos</p>
                         </div>
                     </button>
-                    <button onclick="openMoodle()" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
+                    <button onclick="openMoodle('/user/index.php')" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
                         <span class="material-symbols-outlined text-[#815438] group-hover:text-white text-[28px]">people</span>
                         <div>
                             <p class="font-bold" data-i18n="tutor.students.view">View Students</p>
                             <p class="text-xs text-slate-400 group-hover:text-white/70 mt-1" data-i18n="tutor.students.sub">Monitor enrolment and activity</p>
                         </div>
                     </button>
-                    <button onclick="openMoodle()" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
+                    <button onclick="openMoodle('/message/index.php')" class="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl hover:bg-[#815438] hover:text-white transition-all group text-left w-full">
                         <span class="material-symbols-outlined text-[#815438] group-hover:text-white text-[28px]">forum</span>
                         <div>
                             <p class="font-bold" data-i18n="tutor.messages">Messages</p>
@@ -283,31 +283,35 @@
 
     async function loadMoodleData(moodleUsername) {
         try {
-            const { user, courses } = await loadMoodlePortalData(moodleUsername);
+            const { user, courses } = await loadTutorPortalData(moodleUsername);
             hideMoodleLoading();
             renderCourses(courses);
             renderStats(courses);
         } catch (e) {
             hideMoodleLoading();
-            console.error('Moodle error:', e);
-            // Any network/CORS/mixed-content error — fail silently, courses section just stays hidden
-            hideMoodleLoading();
+            console.error('Academy error:', e);
+            showMoodleError('Could not load Academy data. Please try again later.');
         }
     }
 
     function renderCourses(courses) {
         const container = document.getElementById('courses-list');
         if (!courses || courses.length === 0) {
-            container.innerHTML = '<p class="text-sm text-slate-400 italic">No teaching courses found in Moodle.</p>';
+            container.innerHTML = '<p class="text-sm text-slate-400 italic">No teaching courses found in the Academy.</p>';
             return;
         }
         container.innerHTML = courses.map((course, i) => {
-            const sections    = (course.sections || []).filter(s => s.name && s.name !== 'General');
-            const totalItems  = (course.sections || []).reduce((a, s) => a + (s.modules || []).length, 0);
+            const sections   = (course.sections || []).filter(s => s.name && s.name !== 'General');
+            const totalItems = (course.sections || []).reduce((a, s) => a + (s.modules || []).length, 0);
+            const students   = course.students || [];
+            const courseUrl  = `/course/view.php?id=${course.id}`;
+            const gradeUrl   = `/grade/report/grader/index.php?id=${course.id}`;
 
             return `
             <div class="fade-in border border-slate-100 rounded-2xl p-5 mb-4 last:mb-0 hover:border-amber-100 hover:shadow-sm transition-all" style="animation-delay:${i * 60}ms">
-                <div class="flex items-start justify-between gap-3 mb-2">
+
+                <!-- Course header -->
+                <div class="flex items-start justify-between gap-3 mb-3">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
                             <span class="material-symbols-outlined text-[#815438] text-[20px]">class</span>
@@ -317,15 +321,42 @@
                             <p class="text-xs text-slate-400 mt-0.5">${escHtml(course.shortname || '')} · ${totalItems} item${totalItems !== 1 ? 's' : ''}</p>
                         </div>
                     </div>
-                    <button onclick="openMoodle()" class="shrink-0 flex items-center gap-1 text-xs font-bold text-[#815438] border border-amber-100 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all">
-                        <span class="material-symbols-outlined text-[14px]">open_in_new</span> Manage
-                    </button>
+                    <div class="flex gap-2 shrink-0">
+                        <button onclick="openMoodle('${gradeUrl}')" title="Grade submissions" class="flex items-center gap-1 text-xs font-bold text-[#815438] border border-amber-100 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all">
+                            <span class="material-symbols-outlined text-[14px]">edit_document</span>
+                            <span class="hidden sm:inline">Grades</span>
+                        </button>
+                        <button onclick="openMoodle('${courseUrl}')" title="Manage course" class="flex items-center gap-1 text-xs font-bold text-[#815438] border border-amber-100 px-3 py-1.5 rounded-full hover:bg-amber-50 transition-all">
+                            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                            <span class="hidden sm:inline">Manage</span>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Student roster -->
+                ${students.length > 0 ? `
+                <div class="mt-3 p-4 bg-amber-50/50 border border-amber-100 rounded-xl">
+                    <p class="text-xs font-bold text-[#815438] uppercase tracking-wider mb-3">
+                        <span class="material-symbols-outlined text-[14px] align-middle mr-1">people</span>
+                        ${students.length} student${students.length !== 1 ? 's' : ''} enrolled
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        ${students.slice(0, 8).map(s => `
+                            <span class="flex items-center gap-1.5 text-xs bg-white border border-amber-100 px-2.5 py-1.5 rounded-full text-slate-700">
+                                ${s.profileimageurl ? `<img src="${escHtml(s.profileimageurl)}" class="w-4 h-4 rounded-full object-cover" onerror="this.style.display='none'">` : `<span class="material-symbols-outlined text-[12px] text-slate-400">person</span>`}
+                                ${escHtml(s.fullname)}
+                            </span>`).join('')}
+                        ${students.length > 8 ? `<span class="text-xs text-slate-400 self-center px-1">+${students.length - 8} more</span>` : ''}
+                    </div>
+                </div>` : `
+                <p class="mt-2 text-xs text-slate-400 italic">No students enrolled yet.</p>`}
+
+                <!-- Sections -->
                 ${sections.length > 0 ? `
                 <div class="mt-3 flex flex-wrap gap-2">
                     ${sections.slice(0, 5).map(s => {
-                        const itemCount = (s.modules || []).length;
-                        return `<span class="text-xs bg-amber-50/80 text-[#815438] px-2.5 py-1 rounded-full border border-amber-100">${escHtml(s.name)} <span class="opacity-60">(${itemCount})</span></span>`;
+                        const n = (s.modules || []).length;
+                        return `<span class="text-xs bg-amber-50/80 text-[#815438] px-2.5 py-1 rounded-full border border-amber-100">${escHtml(s.name)} <span class="opacity-60">(${n})</span></span>`;
                     }).join('')}
                     ${sections.length > 5 ? `<span class="text-xs text-slate-400 px-2.5 py-1">+${sections.length - 5} more</span>` : ''}
                 </div>` : ''}
@@ -334,12 +365,15 @@
     }
 
     function renderStats(courses) {
-        const totalSections = (courses || []).reduce((a, c) => a + ((c.sections || []).filter(s => s.name && s.name !== 'General').length), 0);
-        const totalItems    = (courses || []).reduce((a, c) => a + ((c.sections || []).reduce((b, s) => b + (s.modules || []).length, 0)), 0);
+        const totalSections  = (courses || []).reduce((a, c) => a + ((c.sections || []).filter(s => s.name && s.name !== 'General').length), 0);
+        const totalItems     = (courses || []).reduce((a, c) => a + ((c.sections || []).reduce((b, s) => b + (s.modules || []).length, 0)), 0);
+        const totalStudents  = (courses || []).reduce((a, c) => a + (c.students || []).length, 0);
 
-        document.getElementById('stat-courses').textContent = courses.length;
-        document.getElementById('stat-topics').textContent  = totalSections;
-        document.getElementById('stat-items').textContent   = totalItems;
+        document.getElementById('stat-courses').textContent  = courses.length;
+        document.getElementById('stat-topics').textContent   = totalSections;
+        document.getElementById('stat-items').textContent    = totalItems;
+        const statStu = document.getElementById('stat-students');
+        if (statStu) statStu.textContent = totalStudents;
     }
 
     function escHtml(str) {
@@ -348,8 +382,12 @@
         return d.innerHTML;
     }
 
-    function openMoodle() {
-        window.open('http://132.145.38.243/moodle/', '_blank');
+    function openMoodle(path) {
+        if (path) {
+            window.location.href = 'moodle-classroom.html?path=' + encodeURIComponent(path);
+        } else {
+            window.location.href = 'moodle-classroom.html';
+        }
     }
 
     function copyToClipboard(id) {
