@@ -2,7 +2,7 @@
 let courseData = [];
 let currentType = 'g';
 let spModule = 1;
-let currentCurrency = 'usd';
+let currentCurrency = 'eur';
 let activeLanguage = 'all';
 const symbols = { usd: '$', eur: '€', rub: '₽', cny: '¥' };
 
@@ -193,7 +193,14 @@ async function loadCatalog() {
         const response = await fetch('prices.json');
         if (!response.ok) throw new Error("JSON not found");
         const data = await response.json();
-        courseData = data.languages;
+
+        // If Firestore has up-to-date language data, use it instead of prices.json languages
+        if (window._firestoreLanguages && window._firestoreLanguages.length) {
+            courseData = window._firestoreLanguages;
+        } else {
+            courseData = data.languages;
+        }
+
         renderLanguageNav();
         renderCatalog();
     } catch (error) {
@@ -238,6 +245,16 @@ function renderLanguageNav() {
 }
 
 // 4. TABLE GENERATOR
+// Exchange rates (EUR is base; multiply EUR price by rate to get display price)
+const PRICE_RATES = { eur: 1.0, usd: 1.10, rub: 100, cny: 7.9 };
+
+function calcPrice(eurPrice, currency) {
+    if (!eurPrice && eurPrice !== 0) return null;
+    const raw = eurPrice * PRICE_RATES[currency];
+    // Round: rub to nearest 100, others to nearest whole
+    return currency === 'rub' ? Math.round(raw / 100) * 100 : Math.round(raw);
+}
+
 function renderCatalog() {
     const container = document.getElementById('catalog-container');
     if (!container) return;
@@ -250,20 +267,19 @@ function renderCatalog() {
         ? courseData
         : courseData.filter(l => l.title === activeLanguage);
 
-    // For self-paced, show a module info banner above the catalog
-    if (currentType === 'sp') {
-        const spLabels = {
-            en: { banner: `Self-Paced Module — 3-month duration · 1 course = 2 modules (1 month each) · Includes 4 × 30-min tutor consultations (2h total) · Showing prices for: <strong>Module ${spModule}</strong>` },
-            bg: { banner: `Самостоятелен модул — 3 месеца · 1 курс = 2 модула (по 1 месец) · Включва 4 × 30 мин. консултации с преподавател (2ч.) · Показани цени за: <strong>Модул ${spModule}</strong>` },
-            ru: { banner: `Самостоятельный модуль — 3 месяца · 1 курс = 2 модуля (по 1 месяцу) · Включает 4 × 30 мин. консультации с преподавателем (2ч.) · Цены для: <strong>Модуль ${spModule}</strong>` },
-            zh: { banner: `自主学习模块 — 3个月 · 1课程 = 2模块（每模块1个月）· 含4 × 30分钟导师咨询（共2小时）· 当前显示：<strong>模块 ${spModule}</strong>` }
-        };
-        const spBanner = (spLabels[uiLang] || spLabels['en']).banner;
-        const bannerEl = document.createElement('div');
-        bannerEl.className = 'mb-8 px-6 py-4 bg-rose-50 border border-rose-200 rounded-2xl text-sm text-slate-700 text-center';
-        bannerEl.innerHTML = `<span class="material-symbols-outlined align-middle text-primary mr-2" style="font-size:18px">self_improvement</span>${spBanner}`;
-        container.appendChild(bannerEl);
-    }
+    // Info banner explaining current selection
+    const moduleLabel = spModule === 1 ? '3 months (13 weeks)' : '6 months (26 weeks, 5% off)';
+    const typeLabel = currentType === 'g' ? 'Group' : currentType === 'i' ? 'Individual' : 'Self-Paced';
+    const bannerLabels = {
+        en: `Showing: <strong>${typeLabel}</strong> · <strong>Module ${spModule}</strong> — ${moduleLabel} · Prices shown as totals. Monthly payment available (3 instalments). Self-Paced modules include online materials only.`,
+        bg: `Показано: <strong>${typeLabel}</strong> · <strong>Модул ${spModule}</strong> — ${moduleLabel} · Цените са общи за модула. Налично месечно плащане (3 вноски).`,
+        ru: `Показано: <strong>${typeLabel}</strong> · <strong>Модуль ${spModule}</strong> — ${moduleLabel} · Цены — итоговые за модуль. Доступна оплата по месяцам (3 платежа).`,
+        zh: `显示: <strong>${typeLabel}</strong> · <strong>模块 ${spModule}</strong> — ${moduleLabel} · 价格为模块总价。可分3期月付。`
+    };
+    const bannerEl = document.createElement('div');
+    bannerEl.className = 'mb-8 px-6 py-4 bg-rose-50 border border-rose-200 rounded-2xl text-sm text-slate-700 text-center';
+    bannerEl.innerHTML = `<span class="material-symbols-outlined align-middle text-primary mr-2" style="font-size:18px">info</span>${bannerLabels[uiLang] || bannerLabels['en']}`;
+    container.appendChild(bannerEl);
 
     filteredData.forEach(lang => {
         const section = document.createElement('div');
@@ -272,10 +288,10 @@ function renderCatalog() {
         const displayTitle = ci.langNames[lang.title] || lang.title;
         const displayDesc = ci.langDesc[lang.title] || lang.desc || '';
 
-        const priceKey = currentType === 'sp'
-            ? `sp${spModule}_${currentCurrency}`
-            : `${currentType}_${currentCurrency}`;
-        const priceUnit = currentType === 'sp' ? '/ module' : '/ hr';
+        // New v2 price key: g_m1, g_m2, i_m1, i_m2, sp_m1, sp_m2
+        const typePrefix = currentType === 'sp' ? 'sp' : currentType; // g, i, sp
+        const priceField = `${typePrefix}_m${spModule}`;
+        const sym = symbols[currentCurrency];
 
         section.innerHTML = `
             <div class="flex items-center gap-4 border-l-4 border-primary pl-6">
@@ -296,16 +312,28 @@ function renderCatalog() {
                         </tr>
                     </thead>
                     <tbody class="text-on-surface-variant">
-                        ${lang.courses.map((course, idx) => `
+                        ${lang.courses.filter(course => {
+                            // Only show courses that support the selected learning type
+                            const lt = course.learningTypes || [];
+                            if (currentType === 'g')  return lt.includes('group');
+                            if (currentType === 'i')  return lt.includes('individual');
+                            if (currentType === 'sp') return lt.includes('selfpaced');
+                            return true;
+                        }).map((course, idx) => {
+                            const eurPrice = course[priceField];
+                            const dispPrice = calcPrice(eurPrice, currentCurrency);
+                            const perLesson = currentType !== 'sp' ? calcPrice(course[`${typePrefix}_lesson`], currentCurrency) : null;
+                            const priceCell = dispPrice
+                                ? `${sym}${dispPrice.toLocaleString()} <span class="text-xs font-normal text-slate-400">/ module</span>${perLesson ? `<br><span class="text-xs text-slate-400">or ${sym}${perLesson} / lesson</span>` : ''}`
+                                : `<span class="text-slate-300">—</span>`;
+                            return `
                                 <tr class="${idx % 2 === 1 ? 'bg-rose-50/30' : 'bg-white'} border-b border-outline-variant/10 last:border-0">
                                     <td class="p-5 font-medium text-on-surface">${(ci.courseNames && ci.courseNames[course.name]) || course.name}</td>
                                     <td class="p-5 text-sm">${course.level}</td>
-                                    <td class="p-5 text-sm">${currentType === 'sp' ? '1 month' : course.dur}</td>
-                                    <td class="p-5 font-bold text-primary text-right">
-                                        ${symbols[currentCurrency]}${course[priceKey] || '—'} <span class="text-xs font-normal text-slate-400">${priceUnit}</span>
-                                    </td>
-                                </tr>
-                        `).join('')}
+                                    <td class="p-5 text-sm">13 weeks</td>
+                                    <td class="p-5 font-bold text-primary text-right">${priceCell}</td>
+                                </tr>`;
+                        }).join('')}
                     </tbody>
                 </table>
             </div>
@@ -350,16 +378,11 @@ function updateTypeUI() {
             btn.classList.add('text-slate-500', 'hover:text-primary', 'hover:bg-rose-50');
         }
     });
-    // Show/hide sp module sub-toggle
+    // Show module sub-toggle for ALL types (module 1 = 3mo, module 2 = 6mo with 5% off)
     const spSub = document.getElementById('sp-module-toggle');
     if (spSub) {
-        if (currentType === 'sp') {
-            spSub.classList.remove('hidden');
-            spSub.classList.add('flex');
-        } else {
-            spSub.classList.add('hidden');
-            spSub.classList.remove('flex');
-        }
+        spSub.classList.remove('hidden');
+        spSub.classList.add('flex');
     }
 }
 
@@ -789,7 +812,8 @@ async function sendToGoogle() {
 window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
 
-    if (document.getElementById('catalog-container')) loadCatalog();
+    // Skip auto-load if the Firestore module will call loadCatalog() after async fetch
+    if (document.getElementById('catalog-container') && !window._firestoreHandlingCatalog) loadCatalog();
     if (document.getElementById('enrolment-form-container')) renderEnrolForm(savedLang);
     if (document.getElementById('tutor-form-container')) renderTutorForm(savedLang);
 });

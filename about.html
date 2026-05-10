@@ -257,7 +257,7 @@
                 <div class="w-12 h-1 bg-[#FF7582]/30 mx-auto mt-5 rounded-full"></div>
             </div>
 
-            <div class="space-y-16">
+            <div id="tutors-grid" class="space-y-16">
 
                 <!-- Tutor 1: Desislava (Image Left, Content Right) -->
                 <div class="flex flex-col lg:flex-row items-center gap-10">
@@ -432,5 +432,98 @@
     </div>
 </footer>
 <script src="language-manager.js"></script>
+
+<!-- Firestore real-time sync: loads tutor profiles managed in the Admin Portal -->
+<script type="module">
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const LANG_FLAG = {
+    'English':'gb','German':'de','Bulgarian':'bg','Russian':'ru',
+    'Chinese':'cn','Japanese':'jp','Spanish':'es','French':'fr',
+    'Italian':'it','Portuguese':'pt','Arabic':'sa','Korean':'kr'
+};
+
+function buildTutorCard(t, i) {
+    const alt  = i % 2 !== 0;                       // even=primary, odd=secondary
+    const row  = alt ? 'lg:flex-row-reverse' : 'lg:flex-row';
+    const acc  = alt ? 'secondary' : 'primary';
+    const bOff = alt ? '-bottom-4 -left-4'  : '-bottom-4 -right-4';
+    const bHov = alt ? 'group-hover:-bottom-2 group-hover:-left-2' : 'group-hover:-bottom-2 group-hover:-right-2';
+    const bg   = alt ? 'bg-slate-50'  : 'bg-rose-50';
+
+    const langs = (t.langsTaught||'').split(',').map(s=>s.trim()).filter(Boolean);
+    const flags = langs.map(l => {
+        const code = LANG_FLAG[l] || l.slice(0,2).toLowerCase();
+        return `<span class="flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold shadow-sm">
+            <img src="https://flagcdn.com/w40/${code}.png" class="w-5 h-auto rounded-sm" alt="${l}"> ${l}
+        </span>`;
+    }).join('');
+
+    const bullets = (t.bullets||[]).map(b =>
+        `<li class="flex items-start gap-3 text-on-surface-variant text-sm">
+            <span class="material-symbols-outlined text-${acc} text-[20px]">${b.icon||'star'}</span>
+            <span>${b.text||''}</span>
+        </li>`
+    ).join('');
+
+    const photo = t.photoUrl
+        ? `<img alt="${t.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${t.photoUrl}"/>`
+        : `<div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center"><span class="material-symbols-outlined text-[80px] text-slate-400">person</span></div>`;
+
+    return `<div class="flex flex-col ${row} items-center gap-10">
+      <div class="lg:w-2/5 relative group">
+        <div class="absolute ${bOff} w-full h-full border-2 border-${acc}/20 rounded-3xl transition-all duration-500 ${bHov}"></div>
+        <div class="relative rounded-3xl overflow-hidden shadow-xl h-[380px]">${photo}</div>
+      </div>
+      <div class="lg:w-3/5 bg-white p-6 lg:p-8 rounded-[2rem] shadow-sm border border-slate-100 space-y-6">
+        <div>
+          <span class="inline-block py-1 px-3 rounded-full ${bg} text-${acc} font-bold text-[10px] uppercase tracking-widest mb-4">${t.role||'Tutor'}</span>
+          <h3 class="text-3xl font-['Plus_Jakarta_Sans'] text-on-surface mb-4">${t.name}</h3>
+          ${langs.length ? `<div class="inline-flex items-center bg-slate-50 border border-slate-100 rounded-2xl p-2 gap-2">
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase px-3">Teaching:</span>
+            <div class="flex flex-wrap gap-2">${flags}</div>
+          </div>` : ''}
+        </div>
+        ${t.quote ? `<p class="text-lg text-on-surface-variant italic leading-relaxed border-l-4 border-${acc}/20 pl-6">${t.quote}</p>` : ''}
+        ${bullets ? `<div class="space-y-4 pt-2">
+          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Academic Specialization</h4>
+          <ul class="space-y-3">${bullets}</ul>
+        </div>` : ''}
+      </div>
+    </div>`;
+}
+
+(async () => {
+    const grid = document.getElementById('tutors-grid');
+    if (!grid) return;
+    try {
+        const app = initializeApp({
+            apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+            authDomain:        "linguabridge-2574f.firebaseapp.com",
+            projectId:         "linguabridge-2574f",
+            storageBucket:     "linguabridge-2574f.firebasestorage.app",
+            messagingSenderId: "640116284028",
+            appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
+        }, 'about-reader');
+
+        const db   = getFirestore(app);
+        const timeout = new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 4000));
+        const snap = await Promise.race([getDocs(collection(db, 'tutors')), timeout]);
+
+        const activeTutors = snap.docs
+            .map(d => ({ _id: d.id, ...d.data() }))
+            .filter(t => t.active !== false);
+
+        if (activeTutors.length) {
+            grid.innerHTML = activeTutors.map((t, i) => buildTutorCard(t, i)).join('');
+            console.info('[LinguaBridge] Loaded', activeTutors.length, 'tutors from Firestore.');
+        }
+    } catch (e) {
+        // Firestore unavailable — static HTML tutors remain
+        console.info('[LinguaBridge] Using static tutor data:', e.message);
+    }
+})();
+</script>
 </body>
 </html>

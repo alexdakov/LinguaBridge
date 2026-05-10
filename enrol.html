@@ -33,6 +33,22 @@
     .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
+    .step-enter {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    .step-visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .card-selected {
+        border-color: #a93444 !important;
+        background-color: #fff1f2 !important;
+    }
+    .card-selected .card-label {
+        color: #a93444 !important;
+    }
 </style>
 </head>
 <body class="bg-background text-on-background font-['Be_Vietnam_Pro'] antialiased">
@@ -102,9 +118,9 @@
     </section>
 
     <!-- Form -->
-    <section class="max-w-4xl mx-auto px-4 md:px-8 pb-16">
-        <div id="enrolment-form-container" class="bg-white rounded-3xl p-4 md:p-8 lg:p-12 shadow-xl border border-rose-50">
-            <p class="text-center text-slate-400">Loading form...</p>
+    <section class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+        <div id="enrolment-form-container" class="bg-white rounded-3xl p-4 md:p-8 shadow-xl border border-rose-50">
+            <p class="text-center text-slate-400 py-8">Loading form...</p>
         </div>
     </section>
 </main>
@@ -136,6 +152,968 @@
     </div>
 </footer>
 
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+    authDomain: "linguabridge-2574f.firebaseapp.com",
+    projectId: "linguabridge-2574f",
+    storageBucket: "linguabridge-2574f.firebasestorage.app",
+    messagingSenderId: "640116284028",
+    appId: "1:640116284028:web:06a1747abc8db8db20c7f9"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window._fbDb = db;
+  window._fbCollection = collection;
+  window._fbAddDoc = addDoc;
+  window._fbGetDocs = getDocs;
+  window._fbQuery = query;
+  window._fbWhere = where;
+  window._fbServerTimestamp = serverTimestamp;
+
+  // Signal ready
+  window.dispatchEvent(new Event('firebaseReady'));
+</script>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+const state = {
+  prices: null,
+  selectedLang: null,
+  selectedCourse: null,
+  selectedFormat: null,   // 'group'|'individual'|'selfpaced'
+  selectedModule: null,   // 'module1'|'module2'
+  selectedPlan: null,     // 'full'|'monthly'|'perlesson'
+  selectedCurrency: 'eur',
+  promoCode: '',
+  promoDiscount: 0,
+  promoApplied: false,
+  promoError: ''
+};
+
+const CURRENCY_SYMBOLS = { eur: '€', usd: '$', rub: '₽', cny: '¥' };
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function fmt(eur) {
+  if (!state.prices) return '';
+  const rate = state.prices.rates[state.selectedCurrency] || 1;
+  const sym = CURRENCY_SYMBOLS[state.selectedCurrency];
+  const val = eur * rate;
+  const decimals = ['rub','cny'].includes(state.selectedCurrency) ? 0 : 0;
+  return sym + Math.round(val).toLocaleString();
+}
+
+function getBasePrice() {
+  const c = state.selectedCourse;
+  const f = state.selectedFormat;
+  const m = state.selectedModule;
+  const p = state.selectedPlan;
+  if (!c || !f || !m) return null;
+
+  if (p === 'perlesson') {
+    if (f === 'group') return c.g_lesson;
+    if (f === 'individual') return c.i_lesson;
+    return null;
+  }
+
+  if (m === 'module1') {
+    if (f === 'group') return c.g_m1;
+    if (f === 'individual') return c.i_m1;
+    if (f === 'selfpaced') return c.sp_m1;
+  } else {
+    if (f === 'group') return c.g_m2;
+    if (f === 'individual') return c.i_m2;
+    if (f === 'selfpaced') return c.sp_m2;
+  }
+  return null;
+}
+
+function getModulePrice(format, moduleId) {
+  const c = state.selectedCourse;
+  if (!c) return null;
+  if (moduleId === 'module1') {
+    if (format === 'group') return c.g_m1;
+    if (format === 'individual') return c.i_m1;
+    if (format === 'selfpaced') return c.sp_m1;
+  } else {
+    if (format === 'group') return c.g_m2;
+    if (format === 'individual') return c.i_m2;
+    if (format === 'selfpaced') return c.sp_m2;
+  }
+  return null;
+}
+
+function getFinalPrice() {
+  const base = getBasePrice();
+  if (base == null) return null;
+  if (state.promoApplied && state.promoDiscount > 0) {
+    return base * (1 - state.promoDiscount / 100);
+  }
+  return base;
+}
+
+function revealStep(el) {
+  if (!el) return;
+  el.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.classList.remove('step-enter');
+      el.classList.add('step-visible');
+    });
+  });
+}
+
+function hideStep(el) {
+  if (!el) return;
+  el.classList.add('hidden');
+  el.classList.add('step-enter');
+  el.classList.remove('step-visible');
+}
+
+// ─── Render ───────────────────────────────────────────────────────────────────
+function buildForm(prices) {
+  state.prices = prices;
+  const container = document.getElementById('enrolment-form-container');
+  container.innerHTML = `
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Left: Steps -->
+      <div class="lg:col-span-2 space-y-6" id="steps-col">
+
+        <!-- STEP 1: Language -->
+        <div id="step-language" class="step-visible">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">1</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step1">Choose a Language</h2>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="lang-grid"></div>
+        </div>
+
+        <!-- STEP 2: Course -->
+        <div id="step-course" class="step-enter hidden">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">2</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step2">Choose a Course</h2>
+          </div>
+          <div class="space-y-2" id="course-list"></div>
+        </div>
+
+        <!-- STEP 3: Format -->
+        <div id="step-format" class="step-enter hidden">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">3</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step3">Choose a Format</h2>
+          </div>
+          <div class="flex flex-wrap gap-3" id="format-list"></div>
+        </div>
+
+        <!-- STEP 4: Module -->
+        <div id="step-module" class="step-enter hidden">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">4</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step4">Choose a Module</h2>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4" id="module-grid"></div>
+        </div>
+
+        <!-- STEP 5: Payment Plan -->
+        <div id="step-plan" class="step-enter hidden">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">5</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step5">Payment Plan</h2>
+          </div>
+          <div class="space-y-3" id="plan-list"></div>
+        </div>
+
+        <!-- STEP 6: Currency -->
+        <div id="step-currency" class="step-enter hidden">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold font-['Plus_Jakarta_Sans']">6</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-lg" data-i18n="enrol.step6">Currency</h2>
+          </div>
+          <div class="flex gap-2 flex-wrap" id="currency-list"></div>
+        </div>
+
+        <!-- Contact form -->
+        <div id="step-contact" class="step-enter hidden">
+          <div class="border-t border-rose-100 pt-6">
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-xl mb-1" data-i18n="enrol.contactTitle">Your Details</h2>
+            <p class="text-slate-500 text-sm mb-5" data-i18n="enrol.contactSubtitle">Complete your enrollment — we'll confirm your spot within 24 hours.</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.name">Full Name <span class="text-rose-500">*</span></label>
+                <input id="cf-name" type="text" placeholder="Jane Smith" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.email">Email <span class="text-rose-500">*</span></label>
+                <input id="cf-email" type="email" placeholder="jane@example.com" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.phone">Phone (optional)</label>
+                <input id="cf-phone" type="tel" placeholder="+1 555 000 0000" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.message">Message (optional)</label>
+                <textarea id="cf-message" rows="3" placeholder="Any questions or special requests..." class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition resize-none"></textarea>
+              </div>
+            </div>
+
+            <div id="contact-error" class="hidden mt-3 text-sm text-red-500 font-medium"></div>
+
+            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+              <button id="btn-enrol" onclick="handleEnrol()" class="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold font-['Plus_Jakarta_Sans'] hover:bg-primary/90 active:scale-95 transition-all shadow-lg">
+                <span class="material-symbols-outlined text-[20px]">school</span>
+                <span data-i18n="enrol.btn.enrol">Enrol Now</span>
+              </button>
+              <button id="btn-request" onclick="handleRequest()" class="flex-1 flex items-center justify-center gap-2 border-2 border-primary text-primary px-8 py-3.5 rounded-full font-semibold font-['Plus_Jakarta_Sans'] hover:bg-rose-50 active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[20px]">mail</span>
+                <span data-i18n="enrol.btn.request">Send a Request Instead</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Price Summary -->
+      <div class="lg:col-span-1">
+        <div id="price-summary" class="sticky top-24 bg-gradient-to-br from-rose-50 to-white border border-rose-100 rounded-2xl p-6 space-y-4">
+          <h3 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-base" data-i18n="enrol.summary.title">Your Selection</h3>
+
+          <!-- Summary rows -->
+          <div id="summary-rows" class="space-y-2 text-sm text-slate-600">
+            <p class="text-slate-400 italic text-xs" data-i18n="enrol.summary.empty">Select options to see your price</p>
+          </div>
+
+          <!-- Price display -->
+          <div id="price-display" class="hidden pt-3 border-t border-rose-100">
+            <div id="price-base-row" class="flex justify-between text-sm text-slate-500 mb-1">
+              <span data-i18n="enrol.summary.base">Base price</span>
+              <span id="price-base-val"></span>
+            </div>
+            <div id="price-promo-row" class="hidden flex justify-between text-sm text-green-600 mb-1">
+              <span id="price-promo-label">Promo</span>
+              <span id="price-promo-val"></span>
+            </div>
+            <div class="flex justify-between items-end mt-2">
+              <span class="text-sm font-semibold text-slate-700" data-i18n="enrol.summary.total">Total</span>
+              <span id="price-final" class="text-3xl font-bold text-primary"></span>
+            </div>
+            <div id="price-monthly-row" class="hidden mt-1 text-xs text-slate-400 text-right">
+              <span data-i18n="enrol.summary.or">or</span> <span id="price-monthly-val" class="font-semibold text-slate-600"></span> <span data-i18n="enrol.summary.perMonth">/ month × 3</span>
+            </div>
+          </div>
+
+          <!-- Promo code -->
+          <div class="pt-3 border-t border-rose-100">
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2" data-i18n="enrol.promo.label">Promo Code</label>
+            <div class="flex gap-2">
+              <input id="promo-input" type="text" placeholder="SAVE10" class="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition uppercase" />
+              <button onclick="applyPromo()" class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition" data-i18n="enrol.promo.apply">Apply</button>
+            </div>
+            <div id="promo-feedback" class="mt-2 text-xs hidden"></div>
+          </div>
+
+          <!-- Prolongation note -->
+          <div class="pt-3 border-t border-rose-100">
+            <div class="flex items-start gap-2 text-xs text-slate-500">
+              <span class="material-symbols-outlined text-[16px] text-primary mt-0.5">update</span>
+              <span data-i18n="enrol.prolongation">Add 3 more months for 50% of the module price at any time.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Not sure? section -->
+    <div class="mt-10 border-t border-rose-100 pt-8">
+      <button onclick="toggleNotSure()" class="flex items-center gap-2 text-slate-500 hover:text-primary transition text-sm font-semibold group">
+        <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition">help_outline</span>
+        <span data-i18n="enrol.notsure.toggle">Not sure yet? Just send a request</span>
+        <span id="not-sure-chevron" class="material-symbols-outlined text-[18px] transition-transform">expand_more</span>
+      </button>
+      <div id="not-sure-panel" class="hidden mt-5 bg-slate-50 rounded-2xl p-6 step-enter">
+        <h3 class="font-['Plus_Jakarta_Sans'] font-semibold text-slate-800 mb-1" data-i18n="enrol.notsure.title">Tell us what you need</h3>
+        <p class="text-sm text-slate-500 mb-4" data-i18n="enrol.notsure.desc">We'll help you find the perfect course for your goals.</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.name">Full Name</label>
+            <input id="ns-name" type="text" placeholder="Jane Smith" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.notsure.emailOrWhatsapp">Email or WhatsApp</label>
+            <input id="ns-contact" type="text" placeholder="email or +1 555 000 000" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.notsure.tell">Tell us what you need</label>
+            <textarea id="ns-message" rows="3" placeholder="e.g. I want to learn German for work, beginner level, evenings only..." class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition resize-none"></textarea>
+          </div>
+        </div>
+        <div id="ns-error" class="hidden mt-3 text-sm text-red-500"></div>
+        <div class="mt-4">
+          <button onclick="handleNotSureSubmit()" class="flex items-center gap-2 bg-slate-800 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-slate-700 transition">
+            <span class="material-symbols-outlined text-[18px]">send</span>
+            <span data-i18n="enrol.notsure.send">Send Request</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success overlay (hidden) -->
+    <div id="success-screen" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+      <div class="bg-white rounded-3xl p-10 max-w-md w-full text-center shadow-2xl">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mx-auto mb-4">
+          <span class="material-symbols-outlined text-[36px] text-green-600">check_circle</span>
+        </div>
+        <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-2xl text-slate-900 mb-2" id="success-title" data-i18n="enrol.success.title">You're enrolled!</h2>
+        <p class="text-slate-500 mb-6" id="success-msg" data-i18n="enrol.success.msg">We'll be in touch within 24 hours to confirm your spot.</p>
+        <button onclick="document.getElementById('success-screen').classList.add('hidden')" class="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition">
+          <span data-i18n="enrol.success.close">Close</span>
+        </button>
+      </div>
+    </div>
+  `;
+
+  renderLanguages(prices.languages);
+  renderCurrencies(Object.keys(prices.rates));
+}
+
+// ─── Render: Languages ───────────────────────────────────────────────────────
+function renderLanguages(languages) {
+  const grid = document.getElementById('lang-grid');
+  if (!grid) return;
+  grid.innerHTML = languages.map(lang => `
+    <button
+      onclick="selectLanguage('${lang.id}')"
+      class="lang-card flex flex-col items-center gap-2 p-4 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 cursor-pointer group"
+      data-lang="${lang.id}"
+    >
+      <img src="${lang.flag_url}" alt="${lang.title}" class="w-10 h-auto rounded shadow-sm" loading="lazy">
+      <span class="card-label text-sm font-semibold text-slate-700 group-hover:text-primary font-['Plus_Jakarta_Sans']">${lang.title}</span>
+    </button>
+  `).join('');
+}
+
+// ─── Render: Courses ─────────────────────────────────────────────────────────
+function renderCourses() {
+  const lang = state.selectedLang;
+  if (!lang) return;
+  const list = document.getElementById('course-list');
+  if (!list) return;
+  list.innerHTML = lang.courses.map(c => `
+    <button
+      onclick="selectCourse('${c.id}')"
+      class="course-card w-full flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 text-left group"
+      data-course="${c.id}"
+    >
+      <div>
+        <span class="card-label font-semibold text-slate-800 font-['Plus_Jakarta_Sans'] group-hover:text-primary">${c.name}</span>
+        <div class="flex items-center gap-2 mt-1">
+          <span class="inline-block bg-rose-100 text-primary text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">${c.level}</span>
+          <span class="text-xs text-slate-400">${c.dur}</span>
+        </div>
+      </div>
+      <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition text-[20px]">arrow_forward_ios</span>
+    </button>
+  `).join('');
+}
+
+// ─── Render: Formats ─────────────────────────────────────────────────────────
+function renderFormats() {
+  const course = state.selectedCourse;
+  if (!course) return;
+  const list = document.getElementById('format-list');
+  if (!list) return;
+  const typeMap = {
+    group:      { icon: 'groups',    label: 'Group',      desc: 'Tutor-led, small group' },
+    individual: { icon: 'person',    label: 'Individual', desc: 'One-on-one with tutor' },
+    selfpaced:  { icon: 'schedule',  label: 'Self-Paced', desc: 'Study at your own pace' }
+  };
+  list.innerHTML = course.learningTypes.map(typeId => {
+    const t = typeMap[typeId] || { icon: 'school', label: typeId, desc: '' };
+    return `
+      <button
+        onclick="selectFormat('${typeId}')"
+        class="format-card flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 group"
+        data-format="${typeId}"
+      >
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition">${t.icon}</span>
+        <div class="text-left">
+          <div class="card-label text-sm font-semibold text-slate-700 group-hover:text-primary font-['Plus_Jakarta_Sans']">${t.label}</div>
+          <div class="text-xs text-slate-400">${t.desc}</div>
+        </div>
+      </button>
+    `;
+  }).join('');
+}
+
+// ─── Render: Modules ─────────────────────────────────────────────────────────
+function renderModules() {
+  const grid = document.getElementById('module-grid');
+  if (!grid) return;
+  const f = state.selectedFormat;
+  const c = state.selectedCourse;
+  if (!f || !c) return;
+
+  const m1Price = getModulePrice(f, 'module1');
+  const m2Price = getModulePrice(f, 'module2');
+
+  grid.innerHTML = `
+    <button
+      onclick="selectModule('module1')"
+      class="module-card flex flex-col gap-1 p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 text-left group"
+      data-module="module1"
+    >
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition text-[22px]">calendar_month</span>
+        <span class="card-label font-['Plus_Jakarta_Sans'] font-bold text-slate-800 group-hover:text-primary">Module 1</span>
+      </div>
+      <p class="text-xs text-slate-500">3 months · 13 weeks</p>
+      <p class="text-xl font-bold text-primary mt-2">${m1Price != null ? fmt(m1Price) : '–'}</p>
+    </button>
+    <button
+      onclick="selectModule('module2')"
+      class="module-card flex flex-col gap-1 p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 text-left group"
+      data-module="module2"
+    >
+      <div class="flex items-center gap-2 mb-1">
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition text-[22px]">event_available</span>
+        <span class="card-label font-['Plus_Jakarta_Sans'] font-bold text-slate-800 group-hover:text-primary">Module 1 + 2</span>
+      </div>
+      <p class="text-xs text-slate-500">6 months · 26 weeks</p>
+      ${m2Price != null ? `<p class="text-xl font-bold text-primary mt-2">${fmt(m2Price)}</p><p class="text-xs text-green-600 font-semibold mt-0.5">5% discount included</p>` : '<p class="text-xl font-bold text-primary mt-2">–</p>'}
+    </button>
+  `;
+}
+
+// ─── Render: Payment Plans ───────────────────────────────────────────────────
+function renderPlans() {
+  const list = document.getElementById('plan-list');
+  if (!list) return;
+  const f = state.selectedFormat;
+  const m = state.selectedModule;
+  const c = state.selectedCourse;
+  if (!f || !m || !c) return;
+
+  const basePrice = m === 'module1'
+    ? (f === 'group' ? c.g_m1 : f === 'individual' ? c.i_m1 : c.sp_m1)
+    : (f === 'group' ? c.g_m2 : f === 'individual' ? c.i_m2 : c.sp_m2);
+
+  const monthlyAmt = Math.round(basePrice / 3);
+  const lessonPrice = f === 'group' ? c.g_lesson : f === 'individual' ? c.i_lesson : null;
+
+  const plans = [];
+
+  if (m === 'module2') {
+    plans.push({
+      id: 'full',
+      label: 'Full Course (5% off)',
+      desc: `Pay for both modules at once — discount already applied`,
+      price: fmt(basePrice),
+      badge: null
+    });
+  } else {
+    plans.push({
+      id: 'full',
+      label: 'Full Payment',
+      desc: `Single payment — best value`,
+      price: fmt(basePrice),
+      badge: null
+    });
+  }
+
+  plans.push({
+    id: 'monthly',
+    label: 'Monthly',
+    desc: `3 monthly payments`,
+    price: `${fmt(monthlyAmt)} × 3`,
+    badge: null
+  });
+
+  if (f !== 'selfpaced' && lessonPrice != null) {
+    plans.push({
+      id: 'perlesson',
+      label: 'Per Lesson',
+      desc: 'Pay per lesson — flexible',
+      price: `${fmt(lessonPrice)} / lesson`,
+      badge: null
+    });
+  }
+
+  list.innerHTML = plans.map(p => `
+    <button
+      onclick="selectPlan('${p.id}')"
+      class="plan-card w-full flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 text-left group"
+      data-plan="${p.id}"
+    >
+      <div>
+        <div class="card-label font-semibold text-slate-800 font-['Plus_Jakarta_Sans'] group-hover:text-primary">${p.label}</div>
+        <div class="text-xs text-slate-400 mt-0.5">${p.desc}</div>
+      </div>
+      <span class="text-base font-bold text-primary whitespace-nowrap">${p.price}</span>
+    </button>
+  `).join('');
+}
+
+// ─── Render: Currencies ──────────────────────────────────────────────────────
+function renderCurrencies(currencies) {
+  const list = document.getElementById('currency-list');
+  if (!list) return;
+  const labels = { eur: '€ EUR', usd: '$ USD', rub: '₽ RUB', cny: '¥ CNY' };
+  list.innerHTML = currencies.map(cur => `
+    <button
+      onclick="selectCurrency('${cur}')"
+      class="currency-pill px-4 py-2 rounded-full border-2 text-sm font-semibold transition-all duration-200 ${cur === state.selectedCurrency ? 'border-primary bg-primary text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-rose-200 hover:bg-rose-50'}"
+      data-currency="${cur}"
+    >${labels[cur] || cur.toUpperCase()}</button>
+  `).join('');
+}
+
+// ─── Select handlers ─────────────────────────────────────────────────────────
+function selectLanguage(id) {
+  state.selectedLang = state.prices.languages.find(l => l.id === id);
+  // Reset downstream
+  state.selectedCourse = null;
+  state.selectedFormat = null;
+  state.selectedModule = null;
+  state.selectedPlan = null;
+
+  // Update UI
+  document.querySelectorAll('.lang-card').forEach(el => {
+    el.classList.toggle('card-selected', el.dataset.lang === id);
+  });
+
+  renderCourses();
+  revealStep(document.getElementById('step-course'));
+  hideStep(document.getElementById('step-format'));
+  hideStep(document.getElementById('step-module'));
+  hideStep(document.getElementById('step-plan'));
+  hideStep(document.getElementById('step-currency'));
+  hideStep(document.getElementById('step-contact'));
+
+  updateSummary();
+}
+
+function selectCourse(id) {
+  const lang = state.selectedLang;
+  if (!lang) return;
+  state.selectedCourse = lang.courses.find(c => c.id === id);
+  state.selectedFormat = null;
+  state.selectedModule = null;
+  state.selectedPlan = null;
+
+  document.querySelectorAll('.course-card').forEach(el => {
+    el.classList.toggle('card-selected', el.dataset.course === id);
+  });
+
+  renderFormats();
+  revealStep(document.getElementById('step-format'));
+  hideStep(document.getElementById('step-module'));
+  hideStep(document.getElementById('step-plan'));
+  hideStep(document.getElementById('step-currency'));
+  hideStep(document.getElementById('step-contact'));
+
+  updateSummary();
+}
+
+function selectFormat(id) {
+  state.selectedFormat = id;
+  state.selectedModule = null;
+  state.selectedPlan = null;
+
+  document.querySelectorAll('.format-card').forEach(el => {
+    el.classList.toggle('card-selected', el.dataset.format === id);
+  });
+
+  renderModules();
+  revealStep(document.getElementById('step-module'));
+  hideStep(document.getElementById('step-plan'));
+  hideStep(document.getElementById('step-currency'));
+  hideStep(document.getElementById('step-contact'));
+
+  updateSummary();
+}
+
+function selectModule(id) {
+  state.selectedModule = id;
+  state.selectedPlan = null;
+
+  document.querySelectorAll('.module-card').forEach(el => {
+    el.classList.toggle('card-selected', el.dataset.module === id);
+  });
+
+  renderPlans();
+  revealStep(document.getElementById('step-plan'));
+  hideStep(document.getElementById('step-currency'));
+  hideStep(document.getElementById('step-contact'));
+
+  updateSummary();
+}
+
+function selectPlan(id) {
+  state.selectedPlan = id;
+
+  document.querySelectorAll('.plan-card').forEach(el => {
+    el.classList.toggle('card-selected', el.dataset.plan === id);
+  });
+
+  renderCurrencies(Object.keys(state.prices.rates));
+  revealStep(document.getElementById('step-currency'));
+  revealStep(document.getElementById('step-contact'));
+
+  updateSummary();
+}
+
+function selectCurrency(cur) {
+  state.selectedCurrency = cur;
+
+  document.querySelectorAll('.currency-pill').forEach(el => {
+    const isSelected = el.dataset.currency === cur;
+    el.classList.toggle('border-primary', isSelected);
+    el.classList.toggle('bg-primary', isSelected);
+    el.classList.toggle('text-white', isSelected);
+    el.classList.toggle('border-slate-200', !isSelected);
+    el.classList.toggle('bg-white', !isSelected);
+    el.classList.toggle('text-slate-600', !isSelected);
+  });
+
+  // Re-render module and plan prices with new currency
+  if (state.selectedFormat) renderModules();
+  if (state.selectedModule) renderPlans();
+  // Re-apply selected states
+  if (state.selectedModule) {
+    document.querySelectorAll('.module-card').forEach(el => {
+      el.classList.toggle('card-selected', el.dataset.module === state.selectedModule);
+    });
+  }
+  if (state.selectedPlan) {
+    document.querySelectorAll('.plan-card').forEach(el => {
+      el.classList.toggle('card-selected', el.dataset.plan === state.selectedPlan);
+    });
+  }
+
+  updateSummary();
+}
+
+// ─── Price Summary ───────────────────────────────────────────────────────────
+function updateSummary() {
+  const rows = document.getElementById('summary-rows');
+  const display = document.getElementById('price-display');
+  if (!rows) return;
+
+  const items = [];
+  if (state.selectedLang) items.push({ icon: 'translate', label: state.selectedLang.title });
+  if (state.selectedCourse) items.push({ icon: 'menu_book', label: `${state.selectedCourse.name} (${state.selectedCourse.level})` });
+  if (state.selectedFormat) {
+    const labels = { group: 'Group', individual: 'Individual', selfpaced: 'Self-Paced' };
+    items.push({ icon: 'groups', label: labels[state.selectedFormat] || state.selectedFormat });
+  }
+  if (state.selectedModule) {
+    items.push({ icon: 'calendar_month', label: state.selectedModule === 'module1' ? 'Module 1 (3 months)' : 'Module 1+2 (6 months)' });
+  }
+  if (state.selectedPlan) {
+    const labels = { full: 'Full Payment', monthly: 'Monthly (×3)', perlesson: 'Per Lesson' };
+    items.push({ icon: 'payment', label: labels[state.selectedPlan] || state.selectedPlan });
+  }
+
+  if (items.length === 0) {
+    rows.innerHTML = `<p class="text-slate-400 italic text-xs" data-i18n="enrol.summary.empty">Select options to see your price</p>`;
+    if (display) display.classList.add('hidden');
+    return;
+  }
+
+  rows.innerHTML = items.map(item => `
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-[16px]">${item.icon}</span>
+      <span class="text-slate-700 text-sm">${item.label}</span>
+    </div>
+  `).join('');
+
+  // Price display
+  const base = getBasePrice();
+  const final = getFinalPrice();
+  if (base != null && display) {
+    display.classList.remove('hidden');
+    const baseRow = document.getElementById('price-base-row');
+    const promoRow = document.getElementById('price-promo-row');
+    const finalEl = document.getElementById('price-final');
+    const monthlyRow = document.getElementById('price-monthly-row');
+
+    if (baseRow) document.getElementById('price-base-val').textContent = fmt(base);
+    if (finalEl) finalEl.textContent = fmt(final);
+
+    // Promo row
+    if (promoRow) {
+      if (state.promoApplied && state.promoDiscount > 0) {
+        promoRow.classList.remove('hidden');
+        document.getElementById('price-promo-label').textContent = `Promo (−${state.promoDiscount}%)`;
+        document.getElementById('price-promo-val').textContent = `−${fmt(base * state.promoDiscount / 100)}`;
+      } else {
+        promoRow.classList.add('hidden');
+      }
+    }
+
+    // Monthly breakdown
+    if (monthlyRow) {
+      if (state.selectedPlan === 'monthly' && final != null) {
+        monthlyRow.classList.remove('hidden');
+        document.getElementById('price-monthly-val').textContent = fmt(final / 3);
+      } else {
+        monthlyRow.classList.add('hidden');
+      }
+    }
+  }
+}
+
+// ─── Promo Code ──────────────────────────────────────────────────────────────
+async function applyPromo() {
+  const input = document.getElementById('promo-input');
+  const feedback = document.getElementById('promo-feedback');
+  if (!input || !feedback) return;
+  const code = input.value.trim().toUpperCase();
+  if (!code) return;
+
+  feedback.classList.remove('hidden');
+  feedback.className = 'mt-2 text-xs text-slate-400';
+  feedback.textContent = 'Checking…';
+
+  // Wait for Firebase if not ready
+  if (!window._fbDb) {
+    feedback.textContent = 'Firebase not ready. Try again.';
+    feedback.className = 'mt-2 text-xs text-red-500';
+    return;
+  }
+
+  try {
+    const q = window._fbQuery(
+      window._fbCollection(window._fbDb, 'promoCodes'),
+      window._fbWhere('code', '==', code),
+      window._fbWhere('active', '==', true)
+    );
+    const snap = await window._fbGetDocs(q);
+    if (snap.empty) {
+      state.promoApplied = false;
+      state.promoDiscount = 0;
+      state.promoCode = '';
+      feedback.textContent = 'Code not found or inactive.';
+      feedback.className = 'mt-2 text-xs text-red-500';
+    } else {
+      const doc = snap.docs[0].data();
+      state.promoCode = code;
+      state.promoDiscount = doc.discountPct || 0;
+      state.promoApplied = true;
+      feedback.textContent = `✓ Applied! ${state.promoDiscount}% off`;
+      feedback.className = 'mt-2 text-xs text-green-600 font-semibold';
+      updateSummary();
+    }
+  } catch (e) {
+    feedback.textContent = 'Error checking code. Try again.';
+    feedback.className = 'mt-2 text-xs text-red-500';
+  }
+}
+
+// ─── Not Sure toggle ─────────────────────────────────────────────────────────
+function toggleNotSure() {
+  const panel = document.getElementById('not-sure-panel');
+  const chevron = document.getElementById('not-sure-chevron');
+  if (!panel) return;
+  const hidden = panel.classList.contains('hidden');
+  if (hidden) {
+    panel.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        panel.classList.remove('step-enter');
+        panel.classList.add('step-visible');
+      });
+    });
+    if (chevron) chevron.style.transform = 'rotate(180deg)';
+  } else {
+    panel.classList.add('hidden');
+    panel.classList.add('step-enter');
+    panel.classList.remove('step-visible');
+    if (chevron) chevron.style.transform = '';
+  }
+}
+
+// ─── Loading spinner helper ──────────────────────────────────────────────────
+function setButtonLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  if (loading) {
+    btn.disabled = true;
+    btn.dataset.origHtml = btn.innerHTML;
+    btn.innerHTML = `<svg class="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 12 0 12 0v4a8 8 0 00-8 8H0z"></path></svg>`;
+  } else {
+    btn.disabled = false;
+    if (btn.dataset.origHtml) btn.innerHTML = btn.dataset.origHtml;
+  }
+}
+
+function showSuccess(title, msg) {
+  const screen = document.getElementById('success-screen');
+  const titleEl = document.getElementById('success-title');
+  const msgEl = document.getElementById('success-msg');
+  if (titleEl && title) titleEl.textContent = title;
+  if (msgEl && msg) msgEl.textContent = msg;
+  if (screen) screen.classList.remove('hidden');
+}
+
+// ─── Enrol Now ───────────────────────────────────────────────────────────────
+async function handleEnrol() {
+  const name = document.getElementById('cf-name')?.value.trim();
+  const email = document.getElementById('cf-email')?.value.trim();
+  const phone = document.getElementById('cf-phone')?.value.trim();
+  const message = document.getElementById('cf-message')?.value.trim();
+  const errEl = document.getElementById('contact-error');
+
+  if (!name || !email) {
+    if (errEl) { errEl.textContent = 'Please fill in your name and email.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (errEl) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (errEl) errEl.classList.add('hidden');
+
+  if (!window._fbDb) {
+    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+
+  setButtonLoading('btn-enrol', true);
+
+  const finalPrice = getFinalPrice();
+  const basePrice = getBasePrice();
+
+  try {
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'enrollments'), {
+      name,
+      email,
+      phone: phone || null,
+      language: state.selectedLang?.id || null,
+      languageLabel: state.selectedLang?.title || null,
+      flagCode: state.selectedLang?.flag_code || null,
+      courseId: state.selectedCourse?.id || null,
+      courseName: state.selectedCourse?.name || null,
+      level: state.selectedCourse?.level || null,
+      learningType: state.selectedFormat || null,
+      modules: state.selectedModule === 'module1' ? 1 : state.selectedModule === 'module2' ? 2 : null,
+      paymentPlan: state.selectedPlan || null,
+      currency: state.selectedCurrency,
+      basePrice: basePrice || null,
+      promoCode: state.promoCode || null,
+      discountPct: state.promoDiscount || 0,
+      finalPrice: finalPrice || null,
+      message: message || null,
+      submittedAt: window._fbServerTimestamp()
+    });
+    setButtonLoading('btn-enrol', false);
+    showSuccess("You're enrolled!", "We'll be in touch within 24 hours to confirm your spot.");
+  } catch (e) {
+    setButtonLoading('btn-enrol', false);
+    if (errEl) { errEl.textContent = 'Submission failed. Please try again or contact us directly.'; errEl.classList.remove('hidden'); }
+  }
+}
+
+// ─── Send a Request ──────────────────────────────────────────────────────────
+async function handleRequest() {
+  const name = document.getElementById('cf-name')?.value.trim();
+  const email = document.getElementById('cf-email')?.value.trim();
+  const phone = document.getElementById('cf-phone')?.value.trim();
+  const message = document.getElementById('cf-message')?.value.trim();
+  const errEl = document.getElementById('contact-error');
+
+  if (!name || !email) {
+    if (errEl) { errEl.textContent = 'Please fill in your name and email.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (errEl) errEl.classList.add('hidden');
+
+  if (!window._fbDb) {
+    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+
+  setButtonLoading('btn-request', true);
+
+  try {
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'contactRequests'), {
+      name,
+      email,
+      phone: phone || null,
+      language: state.selectedLang?.id || null,
+      courseId: state.selectedCourse?.id || null,
+      learningType: state.selectedFormat || null,
+      message: message || null,
+      source: 'enrol_page',
+      submittedAt: window._fbServerTimestamp()
+    });
+    setButtonLoading('btn-request', false);
+    showSuccess("Request received!", "We'll reach out soon to help you find the perfect course.");
+  } catch (e) {
+    setButtonLoading('btn-request', false);
+    if (errEl) { errEl.textContent = 'Submission failed. Please try again.'; errEl.classList.remove('hidden'); }
+  }
+}
+
+// ─── Not Sure submit ─────────────────────────────────────────────────────────
+async function handleNotSureSubmit() {
+  const name = document.getElementById('ns-name')?.value.trim();
+  const contact = document.getElementById('ns-contact')?.value.trim();
+  const message = document.getElementById('ns-message')?.value.trim();
+  const errEl = document.getElementById('ns-error');
+
+  if (!name || !contact) {
+    if (errEl) { errEl.textContent = 'Please fill in your name and contact info.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (errEl) errEl.classList.add('hidden');
+
+  if (!window._fbDb) {
+    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+
+  try {
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'contactRequests'), {
+      name,
+      contact,
+      message: message || null,
+      source: 'not_sure_panel',
+      submittedAt: window._fbServerTimestamp()
+    });
+    showSuccess("We got your message!", "We'll reach out soon to discuss your learning goals.");
+  } catch (e) {
+    if (errEl) { errEl.textContent = 'Submission failed. Please try again.'; errEl.classList.remove('hidden'); }
+  }
+}
+
+// ─── Init ────────────────────────────────────────────────────────────────────
+async function initEnrolForm() {
+  try {
+    const res = await fetch('prices.json');
+    const prices = await res.json();
+    buildForm(prices);
+  } catch (e) {
+    const container = document.getElementById('enrolment-form-container');
+    if (container) container.innerHTML = `<p class="text-center text-red-400 py-8">Failed to load pricing data. Please refresh the page.</p>`;
+  }
+}
+
+// Run on DOM ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initEnrolForm);
+} else {
+  initEnrolForm();
+}
+</script>
+
 <script src="script.js"></script>
 <script src="language-manager.js"></script>
 <script>
@@ -144,7 +1122,6 @@
         const _orig = window.changeGlobalLanguage;
         window.changeGlobalLanguage = function(lang) {
             if (_orig) _orig(lang);
-            if (typeof renderEnrolForm === 'function') renderEnrolForm(lang);
         };
     })();
 </script>

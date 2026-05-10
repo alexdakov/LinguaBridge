@@ -67,6 +67,9 @@
         </h1>
     </div>
 
+    <!-- Enrollment Info -->
+    <div id="enrollment-card" class="mb-8"></div>
+
     <!-- Moodle loading state -->
     <div id="moodle-loading" class="flex items-center gap-3 text-slate-500 text-sm mb-8">
         <div class="animate-spin rounded-full h-5 w-5 border-2 border-rose-200 border-t-[#FF7582]"></div>
@@ -221,6 +224,9 @@
             const name = user.displayName || data.name || data.nickname || 'Learner';
             document.getElementById('user-name').textContent = name;
 
+            // Enrollment card
+            renderEnrollmentCard(data.enrollment || null);
+
             // Moodle credentials from Firestore
             const moodleUser = data.moodle_user || '';
             const moodlePass = data.moodle_pass || '';
@@ -359,6 +365,169 @@
         const d = document.createElement('div');
         d.textContent = String(str || '');
         return d.innerHTML;
+    }
+
+    function renderEnrollmentCard(enrollment) {
+        const container = document.getElementById('enrollment-card');
+        if (!container) return;
+
+        if (!enrollment) {
+            container.innerHTML = `
+            <div class="bg-white rounded-3xl border border-rose-50 shadow-sm px-6 py-6 fade-in">
+                <span class="text-[#FF7582] font-bold text-xs uppercase tracking-widest">Enrollment</span>
+                <div class="mt-4 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-slate-300 text-[24px]">school</span>
+                    </div>
+                    <div>
+                        <p class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-700">No active enrollment</p>
+                        <p class="text-sm text-slate-400 mt-0.5">You are not currently enrolled in any course.</p>
+                    </div>
+                    <a href="enrol.html" class="ml-auto shrink-0 flex items-center gap-1.5 text-sm font-bold text-[#FF7582] border border-rose-100 bg-rose-50 px-4 py-2 rounded-full hover:bg-rose-100 hover:border-rose-200 transition-all">
+                        <span class="material-symbols-outlined text-[16px]">add_circle</span> Enrol now
+                    </a>
+                </div>
+            </div>`;
+            return;
+        }
+
+        // Helpers
+        const ltLabels = { group: 'Group sessions', individual: 'Individual sessions', selfpaced: 'Self-Paced online' };
+        const ltIcons  = { group: 'groups', individual: 'person', selfpaced: 'schedule' };
+        const ppLabels = { full: 'Paid in full', monthly: 'Monthly plan', perlesson: 'Per lesson' };
+
+        const ltLabel = ltLabels[enrollment.learningType] || enrollment.learningType;
+        const ltIcon  = ltIcons[enrollment.learningType]  || 'school';
+        const ppLabel = ppLabels[enrollment.paymentPlan]  || enrollment.paymentPlan;
+
+        // Status badge
+        const statusStyles = {
+            active:    'bg-emerald-50 text-emerald-600 border border-emerald-100',
+            pending:   'bg-amber-50 text-amber-600 border border-amber-100',
+            completed: 'bg-slate-100 text-slate-500 border border-slate-200'
+        };
+        const statusDots = {
+            active:    'bg-emerald-500',
+            pending:   'bg-amber-400',
+            completed: 'bg-slate-400'
+        };
+        const statusBadge = statusStyles[enrollment.status] || statusStyles.pending;
+        const statusDot   = statusDots[enrollment.status]   || statusDots.pending;
+        const statusLabel = (enrollment.status || 'pending').charAt(0).toUpperCase() + (enrollment.status || 'pending').slice(1);
+
+        // Date formatting
+        const fmtDate = (ts) => {
+            if (!ts) return null;
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        };
+
+        // Due date: use stored or calculate
+        let dueDateStr = null;
+        if (enrollment.dueDate) {
+            dueDateStr = fmtDate(enrollment.dueDate);
+        } else if (enrollment.submittedAt) {
+            const base = enrollment.submittedAt.toDate ? enrollment.submittedAt.toDate() : new Date(enrollment.submittedAt);
+            const due  = new Date(base);
+            due.setMonth(due.getMonth() + (enrollment.modules === 2 ? 6 : 3));
+            dueDateStr = due.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        // Modules label
+        const modulesMonths = (enrollment.modules || 1) * 3;
+        const modulesLabel  = `Module ${enrollment.modules || 1} (${modulesMonths} months)`;
+
+        // Payment breakdown: monthly plan shows instalment count and amount
+        let paymentDetail = ppLabel;
+        if (enrollment.paymentPlan === 'monthly' && enrollment.modules) {
+            const instalments    = enrollment.modules * 3;
+            const instalmentAmt  = Math.round(enrollment.finalPrice / instalments);
+            const currSymbol     = enrollment.currency === 'eur' ? '€' : (enrollment.currency === 'usd' ? '$' : enrollment.currency.toUpperCase() + ' ');
+            paymentDetail = `Monthly · ${instalments} × ${currSymbol}${instalmentAmt}`;
+        }
+
+        // Promo badge
+        const promoBadge = (enrollment.promoCode && enrollment.discountPct)
+            ? `<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-600 border border-amber-100 text-xs font-bold px-2.5 py-1 rounded-full">
+                   <span class="material-symbols-outlined text-[13px]">sell</span>
+                   ${escHtml(enrollment.promoCode)} (−${enrollment.discountPct}%)
+               </span>`
+            : '';
+
+        // Currency symbol
+        const currSymbol = enrollment.currency === 'eur' ? '€' : (enrollment.currency === 'usd' ? '$' : (enrollment.currency || '').toUpperCase() + ' ');
+
+        // Extension price
+        const extPrice = Math.round(enrollment.finalPrice / (enrollment.modules || 1) * 0.5);
+
+        container.innerHTML = `
+        <div class="bg-white rounded-3xl border border-rose-50 shadow-sm overflow-hidden fade-in">
+            <!-- Header row -->
+            <div class="px-6 pt-5 pb-4">
+                <span class="text-[#FF7582] font-bold text-xs uppercase tracking-widest">Enrollment</span>
+                <div class="flex items-start justify-between gap-3 mt-3">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/${escHtml(enrollment.flagCode || 'un')}.png"
+                             alt="${escHtml(enrollment.languageLabel || '')}"
+                             class="w-8 h-auto rounded shadow-sm shrink-0">
+                        <div>
+                            <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-bold text-slate-900 leading-tight">
+                                ${escHtml(enrollment.courseName || enrollment.courseId)}
+                            </h2>
+                            <p class="text-sm text-slate-500 mt-0.5 flex items-center gap-2 flex-wrap">
+                                <span>${escHtml(enrollment.level || '')}</span>
+                                <span class="text-slate-300">·</span>
+                                <span class="flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[15px] text-[#FF7582]">${ltIcon}</span>
+                                    ${escHtml(ltLabel)}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <span class="shrink-0 flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full ${statusBadge}">
+                        <span class="w-1.5 h-1.5 rounded-full ${statusDot} inline-block"></span>
+                        ${escHtml(statusLabel)}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Details row -->
+            <div class="border-t border-rose-50 px-6 py-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+                <span class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[#FF7582] text-[17px]">calendar_month</span>
+                    <span class="font-semibold text-slate-700">${escHtml(modulesLabel)}</span>
+                    ${dueDateStr ? `<span class="text-slate-400">· Due: ${escHtml(dueDateStr)}</span>` : ''}
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[#FF7582] text-[17px]">credit_card</span>
+                    <span>${escHtml(paymentDetail)}</span>
+                    ${promoBadge ? `<span class="ml-1">${promoBadge}</span>` : ''}
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[#FF7582] text-[17px]">payments</span>
+                    <span>Total: <strong class="text-slate-800">${currSymbol}${enrollment.finalPrice}</strong></span>
+                    ${enrollment.discountPct ? `<span class="text-slate-400 line-through text-xs">${currSymbol}${enrollment.basePrice}</span>` : ''}
+                </span>
+            </div>
+
+            <!-- Extend action row -->
+            <div class="border-t border-rose-50 px-6 py-3 flex items-center gap-3">
+                <button
+                    onclick="(function(btn){
+                        const msg = btn.nextElementSibling;
+                        btn.classList.add('hidden');
+                        msg.classList.remove('hidden');
+                    })(this)"
+                    class="flex items-center gap-2 text-sm font-bold text-[#FF7582] border border-rose-100 bg-rose-50 px-4 py-2 rounded-full hover:bg-rose-100 hover:border-rose-200 transition-all">
+                    <span class="material-symbols-outlined text-[16px]">add_circle</span>
+                    Extend Module — +${modulesMonths === 3 ? 3 : 6} months for ${currSymbol}${extPrice}
+                </button>
+                <p class="hidden text-sm text-slate-600 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[#FF7582] text-[17px]">mail</span>
+                    Contact us at <a href="mailto:academy@linguabridge.study" class="text-[#FF7582] font-semibold hover:underline">academy@linguabridge.study</a> to extend your module.
+                </p>
+            </div>
+        </div>`;
     }
 
     function openMoodle(path) {
