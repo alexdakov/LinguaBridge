@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin · LinguaBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>tailwind.config = { theme: { extend: { colors: { primary: '#a93444', 'primary-light': '#FF7582' } } } }</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<style>
+  body { font-family: 'Be Vietnam Pro', sans-serif; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .fade-up { animation: fadeUp .35s ease forwards; }
+  @keyframes shimmer { 0%,100%{opacity:.6} 50%{opacity:1} }
+  .shimmer { animation: shimmer 1.4s ease-in-out infinite; background: linear-gradient(90deg,#f0e8e8,#fce4e4,#f0e8e8); background-size: 200%; }
+
+  /* Scrollable modal body */
+  .modal-scroll { max-height: calc(100vh - 9rem); overflow-y: auto; }
+  .modal-scroll::-webkit-scrollbar { width: 5px; }
+  .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+  .modal-scroll::-webkit-scrollbar-thumb { background: #f0c0c6; border-radius: 9px; }
+
+  /* Sidebar active */
+  .nav-item.active { background: #fff1f3; color: #a93444; font-weight: 700; }
+  .nav-item { transition: background .15s, color .15s; }
+  .nav-item:hover:not(.active):not(.disabled) { background: #fdf0f2; color: #a93444; }
+
+  /* Pricing table inputs */
+  .price-input { width: 72px; padding: 4px 6px; border: 1px solid #fecdd3; border-radius: 8px; font-size: 13px; text-align: right; }
+  .price-input:focus { outline: none; border-color: #a93444; box-shadow: 0 0 0 2px #ffd6db; }
+
+  /* Photo drop zone */
+  .drop-zone { border: 2px dashed #fecdd3; transition: border-color .2s, background .2s; }
+  .drop-zone.dragover { border-color: #a93444; background: #fff1f3; }
+</style>
+</head>
+<body class="bg-[#fdf8f4] text-slate-800 antialiased">
+
+<!-- ── Auth loading screen ──────────────────────────────────────────────────── -->
+<div id="auth-loading" class="fixed inset-0 bg-[#fdf8f4] z-[100] flex flex-col items-center justify-center gap-4">
+  <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-12 opacity-80">
+  <div class="flex gap-1.5 mt-2">
+    <span class="w-2 h-2 rounded-full bg-[#FF7582] animate-bounce" style="animation-delay:0ms"></span>
+    <span class="w-2 h-2 rounded-full bg-[#FF7582] animate-bounce" style="animation-delay:150ms"></span>
+    <span class="w-2 h-2 rounded-full bg-[#FF7582] animate-bounce" style="animation-delay:300ms"></span>
+  </div>
+</div>
+
+<!-- ── Main admin shell (hidden until auth confirmed) ────────────────────────── -->
+<div id="admin-app" class="hidden min-h-screen">
+
+  <!-- Top nav -->
+  <nav class="sticky top-0 z-40 bg-white border-b border-rose-100 shadow-sm">
+    <div class="flex items-center justify-between px-4 md:px-6 h-14 max-w-[1600px] mx-auto">
+      <div class="flex items-center gap-3">
+        <button id="sidebar-toggle" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full hover:bg-rose-50 transition-all" onclick="toggleSidebar()">
+          <span class="material-symbols-outlined text-[22px] text-slate-500">menu</span>
+        </button>
+        <a href="index.html" class="flex items-center gap-2.5">
+          <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-8">
+          <div class="flex items-center gap-1.5 text-sm font-bold tracking-tight">
+            <span class="text-[#815438]">LinguaBridge</span>
+            <span class="text-slate-200 font-light">|</span>
+            <span class="inline-flex items-center gap-1 text-[#a93444] font-extrabold uppercase tracking-wider text-xs bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+              <span class="material-symbols-outlined text-[14px]">admin_panel_settings</span>Admin
+            </span>
+          </div>
+        </a>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="admin-name" class="hidden sm:block text-sm text-slate-500 font-medium"></span>
+        <button id="logout-btn" class="h-9 flex items-center gap-1.5 text-sm font-semibold text-slate-500 border border-slate-200 bg-white px-4 rounded-full hover:bg-slate-50 hover:border-slate-300 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span class="hidden sm:inline">Sign Out</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex max-w-[1600px] mx-auto">
+
+    <!-- ── Sidebar ── -->
+    <aside id="sidebar" class="hidden md:flex flex-col w-56 shrink-0 border-r border-rose-100 bg-white min-h-[calc(100vh-3.5rem)] sticky top-14 pt-6 pb-10 px-3 gap-1">
+      <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400 px-3 mb-2">Content</p>
+      <button class="nav-item active flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('dashboard')">
+        <span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('languages')">
+        <span class="material-symbols-outlined text-[20px]">translate</span>Languages
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors')">
+        <span class="material-symbols-outlined text-[20px]">people</span>Tutors
+      </button>
+
+      <div class="mt-6 mb-2">
+        <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-300 px-3 mb-2">Coming Soon</p>
+      </div>
+      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-300 cursor-not-allowed" disabled>
+        <span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users
+      </button>
+      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-300 cursor-not-allowed" disabled>
+        <span class="material-symbols-outlined text-[20px]">school</span>Moodle Sync
+      </button>
+      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-300 cursor-not-allowed" disabled>
+        <span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS
+      </button>
+    </aside>
+
+    <!-- ── Mobile sidebar overlay ── -->
+    <div id="sidebar-overlay" class="hidden fixed inset-0 z-30 bg-black/20" onclick="toggleSidebar()"></div>
+    <div id="sidebar-mobile" class="hidden fixed left-0 top-14 z-40 w-56 bg-white border-r border-rose-100 min-h-[calc(100vh-3.5rem)] pt-6 pb-10 px-3 flex flex-col gap-1 shadow-xl">
+      <button class="nav-item active flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('dashboard');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('languages');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">translate</span>Languages
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">people</span>Tutors
+      </button>
+      <div class="mt-5 mb-1"><p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-300 px-3">Coming Soon</p></div>
+      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-300">
+        <span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users
+      </span>
+      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-300">
+        <span class="material-symbols-outlined text-[20px]">school</span>Moodle Sync
+      </span>
+      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-300">
+        <span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS
+      </span>
+    </div>
+
+    <!-- ── Main content ── -->
+    <main class="flex-1 min-w-0 px-4 md:px-8 py-8">
+
+      <!-- ────────── DASHBOARD ────────── -->
+      <section id="section-dashboard" class="fade-up">
+        <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900 mb-1">Welcome back 👋</h1>
+        <p class="text-slate-400 text-sm mb-8">Manage your languages, tutors, and more from here.</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+          <div class="bg-white rounded-2xl p-6 border border-rose-50 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px] text-[#FF7582]">translate</span>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-slate-900" id="stat-langs">—</p>
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Languages</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-rose-50 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px] text-[#FF7582]">people</span>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-slate-900" id="stat-tutors">—</p>
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tutors</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex items-center gap-4 opacity-50">
+            <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px] text-slate-400">lock_clock</span>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-500">More stats</p>
+              <p class="text-xs text-slate-400">Coming with Firebase integration</p>
+            </div>
+          </div>
+        </div>
+        <!-- Coming-soon cards -->
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white rounded-2xl p-5 border border-slate-100 opacity-60">
+            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-400">person_add</span><span class="font-bold text-slate-500 text-sm">Firebase User Management</span></div>
+            <p class="text-xs text-slate-400">Create, suspend and manage student & tutor accounts directly from here.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-slate-100 opacity-60">
+            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-400">school</span><span class="font-bold text-slate-500 text-sm">Moodle Sync</span></div>
+            <p class="text-xs text-slate-400">Enrol / unenrol students, manage courses, and sync Moodle data from here.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-slate-100 opacity-60">
+            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-400">article</span><span class="font-bold text-slate-500 text-sm">Sanity CMS</span></div>
+            <p class="text-xs text-slate-400">Quick-publish blog posts and update site content without leaving the portal.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ────────── LANGUAGES ────────── -->
+      <section id="section-languages" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900">Languages</h1>
+            <p class="text-slate-400 text-sm mt-0.5">Manage course offerings, levels, and pricing.</p>
+          </div>
+          <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">add</span>Add Language
+          </button>
+        </div>
+        <div id="lang-grid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+        <div id="lang-empty" class="hidden text-center py-20">
+          <span class="material-symbols-outlined text-[52px] text-rose-200 block mb-3">translate</span>
+          <p class="text-slate-400 font-semibold">No languages yet.</p>
+          <button onclick="importFromPrices()" class="mt-4 text-sm text-[#a93444] underline font-semibold hover:text-[#7e2334]">Import from prices.json</button>
+        </div>
+      </section>
+
+      <!-- ────────── TUTORS ────────── -->
+      <section id="section-tutors" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900">Tutors</h1>
+            <p class="text-slate-400 text-sm mt-0.5">Manage tutor profiles shown on the website.</p>
+          </div>
+          <button onclick="openTutorModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">add</span>Add Tutor
+          </button>
+        </div>
+        <div id="tutor-grid" class="grid md:grid-cols-2 gap-6"></div>
+        <div id="tutor-empty" class="hidden text-center py-20">
+          <span class="material-symbols-outlined text-[52px] text-rose-200 block mb-3">people</span>
+          <p class="text-slate-400 font-semibold">No tutors yet.</p>
+        </div>
+      </section>
+
+    </main>
+  </div><!-- end flex -->
+</div><!-- end admin-app -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     LANGUAGE MODAL
+══════════════════════════════════════════════════════════════════ -->
+<div id="lang-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-7 py-5 border-b border-rose-50 shrink-0">
+      <h2 id="lang-modal-title" class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-900">Add Language</h2>
+      <button onclick="closeLangModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-400 hover:bg-rose-50 hover:text-[#a93444] transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="modal-scroll px-7 py-6 flex-1">
+
+      <!-- Basic info -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Language Name *</label>
+          <input id="l-title" type="text" placeholder="e.g. English" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">ID (slug) *</label>
+          <input id="l-id" type="text" placeholder="e.g. english" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Flag Image URL</label>
+          <div class="flex gap-3">
+            <input id="l-flag" type="text" placeholder="https://flagcdn.com/w80/gb.png" oninput="previewFlag()" class="flex-1 px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+            <img id="l-flag-preview" src="" alt="" class="h-10 w-auto rounded-lg border border-rose-100 hidden object-contain px-1">
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">Use <a href="https://flagcdn.com" target="_blank" class="text-[#a93444] underline">flagcdn.com</a> — e.g. /w80/gb.png for 🇬🇧</p>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Description</label>
+          <textarea id="l-desc" rows="2" placeholder="Short description shown on the languages page…" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100 resize-none"></textarea>
+        </div>
+      </div>
+
+      <!-- Courses -->
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-wider">Courses &amp; Pricing</h3>
+        <button type="button" onclick="addCourse()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-rose-200 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full transition-all">
+          <span class="material-symbols-outlined text-[15px]">add</span>Add Course
+        </button>
+      </div>
+
+      <div id="l-courses" class="flex flex-col gap-4"></div>
+      <p id="l-no-courses" class="text-center text-sm text-slate-400 py-6 border-2 border-dashed border-rose-100 rounded-2xl">No courses yet — click Add Course to begin.</p>
+
+    </div><!-- end scroll -->
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between px-7 py-4 border-t border-rose-50 shrink-0 gap-3">
+      <button onclick="closeLangModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-500 hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">save</span>Save Language
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     TUTOR MODAL
+══════════════════════════════════════════════════════════════════ -->
+<div id="tutor-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-7 py-5 border-b border-rose-50 shrink-0">
+      <h2 id="tutor-modal-title" class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-900">Add Tutor</h2>
+      <button onclick="closeTutorModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-400 hover:bg-rose-50 hover:text-[#a93444] transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <div class="modal-scroll px-7 py-6 flex-1">
+
+      <!-- Two-column on desktop: form + live preview -->
+      <div class="grid lg:grid-cols-2 gap-8">
+
+        <!-- Form column -->
+        <div class="flex flex-col gap-5">
+
+          <!-- Photo upload -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Profile Photo</label>
+            <div id="t-drop-zone" class="drop-zone rounded-2xl p-5 flex flex-col items-center gap-3 cursor-pointer" onclick="document.getElementById('t-photo-input').click()">
+              <img id="t-photo-preview" src="" alt="" class="hidden w-24 h-24 rounded-2xl object-cover shadow-sm border border-rose-100">
+              <span id="t-photo-placeholder" class="flex flex-col items-center gap-2 text-slate-400">
+                <span class="material-symbols-outlined text-[40px] text-rose-200">add_photo_alternate</span>
+                <span class="text-sm font-semibold">Click to upload photo</span>
+                <span class="text-xs">JPG, PNG or WebP · max 5 MB</span>
+              </span>
+            </div>
+            <input id="t-photo-input" type="file" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
+            <input id="t-photo-url" type="text" placeholder="Or paste an image URL" oninput="applyPhotoUrl()" class="mt-2 w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+          </div>
+
+          <!-- Basic info -->
+          <div class="grid gap-3">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Full Name *</label>
+              <input id="t-name" type="text" placeholder="e.g. Desislava Dimitrova" oninput="updateTutorPreview()" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role / Title *</label>
+              <input id="t-role" type="text" placeholder="e.g. Founder & Lead Tutor" oninput="updateTutorPreview()" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Taught</label>
+              <input id="t-langs-taught" type="text" placeholder="e.g. English, Russian, Bulgarian" oninput="updateTutorPreview()" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Inspiring Quote</label>
+              <textarea id="t-quote" rows="2" placeholder="A short inspiring quote shown on the website…" oninput="updateTutorPreview()" class="w-full px-4 py-2.5 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none focus:ring-2 focus:ring-rose-100 resize-none"></textarea>
+            </div>
+          </div>
+
+          <!-- Credentials / bullets -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Credentials / Highlights</label>
+              <button type="button" onclick="addBullet()" class="flex items-center gap-1 text-xs font-bold text-[#a93444] border border-rose-200 bg-rose-50 hover:bg-rose-100 px-2.5 py-1 rounded-full transition-all">
+                <span class="material-symbols-outlined text-[13px]">add</span>Add
+              </button>
+            </div>
+            <div id="t-bullets" class="flex flex-col gap-2"></div>
+            <p id="t-no-bullets" class="text-xs text-slate-400 py-3 text-center border border-dashed border-rose-100 rounded-xl">Add credentials or highlights using the button above.</p>
+          </div>
+
+          <!-- Active toggle -->
+          <label class="flex items-center gap-3 cursor-pointer select-none">
+            <input id="t-active" type="checkbox" checked class="w-4 h-4 rounded border-rose-200 text-[#a93444] focus:ring-[#a93444]">
+            <span class="text-sm font-semibold text-slate-600">Visible on website</span>
+          </label>
+
+        </div><!-- end form col -->
+
+        <!-- Live preview column -->
+        <div class="hidden lg:block">
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Website Preview</p>
+          <div id="tutor-preview-card" class="bg-white rounded-[2rem] shadow-lg border border-rose-50 overflow-hidden">
+            <!-- injected by updateTutorPreview() -->
+          </div>
+          <p class="text-[11px] text-slate-400 mt-2 text-center">Preview matches the About page template</p>
+        </div>
+
+      </div><!-- end grid -->
+    </div><!-- end scroll -->
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between px-7 py-4 border-t border-rose-50 shrink-0 gap-3">
+      <button onclick="closeTutorModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-500 hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitTutorModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">save</span>Save Tutor
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CONFIRM DELETE MODAL
+══════════════════════════════════════════════════════════════════ -->
+<div id="confirm-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+  <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center">
+    <span class="material-symbols-outlined text-[48px] text-rose-400 mb-3 block">delete_forever</span>
+    <h3 class="font-['Plus_Jakarta_Sans'] text-lg font-extrabold text-slate-900 mb-2">Delete this item?</h3>
+    <p id="confirm-msg" class="text-sm text-slate-400 mb-6">This action cannot be undone.</p>
+    <div class="flex gap-3">
+      <button onclick="closeConfirm()" class="flex-1 px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-500 hover:bg-slate-50">Cancel</button>
+      <button id="confirm-ok" class="flex-1 px-5 py-2.5 rounded-full bg-red-500 text-white text-sm font-bold hover:bg-red-600 active:scale-95 transition-all">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] flex items-center gap-2.5 bg-slate-900 text-white text-sm font-semibold px-5 py-3 rounded-full shadow-xl">
+  <span id="toast-icon" class="material-symbols-outlined text-[18px]">check_circle</span>
+  <span id="toast-msg"></span>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+// ─── Firebase init ────────────────────────────────────────────────────────────
+const app  = initializeApp({
+    apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+    authDomain:        "linguabridge-2574f.firebaseapp.com",
+    projectId:         "linguabridge-2574f",
+    storageBucket:     "linguabridge-2574f.firebasestorage.app",
+    messagingSenderId: "640116284028",
+    appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
+});
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let languages    = [];
+let tutors       = [];
+let editingLangId  = null; // null = new
+let editingTutorId = null;
+let pendingPhotoFile = null; // File object awaiting upload
+
+// ─── Auth guard ───────────────────────────────────────────────────────────────
+onAuthStateChanged(auth, async user => {
+    if (!user) { window.location.href = 'login.html'; return; }
+
+    // Check admin role in Firestore
+    try {
+        const { getDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const snap = await getDoc(doc(db, 'users', user.uid));
+        if (!snap.exists() || snap.data().role !== 'admin') {
+            window.location.href = 'index.html';
+            return;
+        }
+    } catch {}
+
+    document.getElementById('admin-name').textContent = user.displayName || user.email || '';
+    document.getElementById('auth-loading').classList.add('hidden');
+    document.getElementById('admin-app').classList.remove('hidden');
+
+    await Promise.all([ loadLanguages(), loadTutors() ]);
+    updateStats();
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => signOut(auth).then(() => { window.location.href = 'login.html'; }));
+
+// ─── Section switching ────────────────────────────────────────────────────────
+window.showSection = function(name) {
+    ['dashboard','languages','tutors'].forEach(s => {
+        const el = document.getElementById(`section-${s}`);
+        el.classList.toggle('hidden', s !== name);
+        if (s !== name) el.classList.remove('fade-up');
+    });
+    document.getElementById(`section-${name}`).classList.add('fade-up');
+    // Update sidebar active states (both desktop and mobile)
+    document.querySelectorAll('.nav-item:not(.disabled)').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase().includes(name) || (name==='dashboard' && btn.textContent.includes('Dashboard')));
+    });
+};
+
+window.toggleSidebar = function() {
+    const mob = document.getElementById('sidebar-mobile');
+    const overlay = document.getElementById('sidebar-overlay');
+    mob.classList.toggle('hidden');
+    overlay.classList.toggle('hidden');
+};
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+function toast(msg, type = 'success') {
+    const el   = document.getElementById('toast');
+    const icon = document.getElementById('toast-icon');
+    document.getElementById('toast-msg').textContent = msg;
+    icon.textContent = type === 'error' ? 'error' : 'check_circle';
+    el.style.background = type === 'error' ? '#ef4444' : '#1e293b';
+    el.classList.remove('hidden');
+    setTimeout(() => el.classList.add('hidden'), 3000);
+}
+
+// ─── Confirm dialog ───────────────────────────────────────────────────────────
+let confirmCallback = null;
+window.closeConfirm = () => { document.getElementById('confirm-modal').classList.add('hidden'); confirmCallback = null; };
+document.getElementById('confirm-ok').addEventListener('click', () => { confirmCallback?.(); closeConfirm(); });
+function confirmDelete(msg, cb) {
+    document.getElementById('confirm-msg').textContent = msg;
+    confirmCallback = cb;
+    document.getElementById('confirm-modal').classList.remove('hidden');
+}
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+function updateStats() {
+    document.getElementById('stat-langs').textContent   = languages.length;
+    document.getElementById('stat-tutors').textContent  = tutors.length;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  LANGUAGES
+// ══════════════════════════════════════════════════════════════════════════════
+
+async function loadLanguages() {
+    try {
+        const snap = await getDocs(collection(db, 'languages'));
+        languages = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+    } catch { languages = []; }
+    renderLanguageGrid();
+}
+
+function renderLanguageGrid() {
+    const grid  = document.getElementById('lang-grid');
+    const empty = document.getElementById('lang-empty');
+    if (!languages.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+    empty.classList.add('hidden');
+
+    grid.innerHTML = languages.map(lang => {
+        const courseCount = (lang.courses || []).length;
+        const flag = lang.flag_url
+            ? `<img src="${lang.flag_url}" alt="${esc(lang.title)}" class="h-8 w-auto rounded-sm shadow-sm">`
+            : `<span class="material-symbols-outlined text-[32px] text-rose-200">flag</span>`;
+        return `
+        <div class="bg-white rounded-2xl border border-rose-50 shadow-sm hover:shadow-md transition-all overflow-hidden fade-up">
+          <div class="flex items-center gap-3 p-5 border-b border-rose-50">
+            ${flag}
+            <div class="flex-1 min-w-0">
+              <p class="font-['Plus_Jakarta_Sans'] font-extrabold text-slate-900 text-base truncate">${esc(lang.title)}</p>
+              <p class="text-xs text-slate-400 truncate mt-0.5">${esc(lang.desc || '—')}</p>
+            </div>
+          </div>
+          <div class="px-5 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+              <span class="material-symbols-outlined text-[16px] text-[#FF7582]">menu_book</span>
+              ${courseCount} course${courseCount !== 1 ? 's' : ''}
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openLangModal('${lang._id}')" class="h-8 px-3 rounded-full border border-rose-100 text-xs font-bold text-[#a93444] hover:bg-rose-50 transition-all flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">edit</span>Edit
+              </button>
+              <button onclick="deleteLang('${lang._id}','${esc(lang.title)}')" class="h-8 w-8 rounded-full border border-slate-100 text-slate-400 hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[16px]">delete</span>
+              </button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+}
+
+// ── Language modal ────────────────────────────────────────────────────────────
+window.openLangModal = function(id = null) {
+    editingLangId = id;
+    const modal  = document.getElementById('lang-modal');
+    const title  = document.getElementById('lang-modal-title');
+    title.textContent = id ? 'Edit Language' : 'Add Language';
+
+    // Reset form
+    ['l-title','l-id','l-flag','l-desc'].forEach(f => document.getElementById(f).value = '');
+    document.getElementById('l-flag-preview').classList.add('hidden');
+    document.getElementById('l-courses').innerHTML = '';
+    _courseCount = 0;
+
+    if (id) {
+        const lang = languages.find(l => l._id === id);
+        if (lang) {
+            document.getElementById('l-title').value = lang.title || '';
+            document.getElementById('l-id').value    = lang.id    || '';
+            document.getElementById('l-flag').value  = lang.flag_url || '';
+            document.getElementById('l-desc').value  = lang.desc  || '';
+            previewFlag();
+            (lang.courses || []).forEach(c => addCourse(c));
+        }
+    }
+
+    syncNoCourses();
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeLangModal = function() {
+    document.getElementById('lang-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+
+window.previewFlag = function() {
+    const url = document.getElementById('l-flag').value.trim();
+    const img = document.getElementById('l-flag-preview');
+    if (url) { img.src = url; img.classList.remove('hidden'); }
+    else img.classList.add('hidden');
+};
+
+// ── Course rows ───────────────────────────────────────────────────────────────
+let _courseCount = 0;
+
+window.addCourse = function(data = null) {
+    const idx = _courseCount++;
+    syncNoCourses();
+
+    const CURR = [
+        { sym: '$', key: 'usd' },
+        { sym: '€', key: 'eur' },
+        { sym: '₽', key: 'rub' },
+        { sym: '¥', key: 'cny' },
+    ];
+    const TYPES = [
+        { label: 'Group',         prefix: 'g'   },
+        { label: 'Individual',    prefix: 'i'   },
+        { label: 'SP Module 1',   prefix: 'sp1' },
+        { label: 'SP Module 2',   prefix: 'sp2' },
+    ];
+
+    const priceRows = TYPES.map(t =>
+        `<tr class="border-t border-rose-50">
+          <td class="py-1.5 pr-3 text-xs font-semibold text-slate-500 whitespace-nowrap w-24">${t.label}</td>
+          ${CURR.map(c =>
+            `<td class="py-1 px-1"><input data-course="${idx}" data-key="${t.prefix}_${c.key}" type="number" min="0" step="0.01"
+             value="${data ? (data[`${t.prefix}_${c.key}`] || '') : ''}"
+             class="price-input" placeholder="0"></td>`
+          ).join('')}
+        </tr>`
+    ).join('');
+
+    const card = document.createElement('div');
+    card.id = `course-${idx}`;
+    card.className = 'bg-rose-50/40 border border-rose-100 rounded-2xl p-4 fade-up';
+    card.innerHTML = `
+      <div class="flex items-start gap-3 mb-3">
+        <div class="flex-1 grid sm:grid-cols-3 gap-2">
+          <input data-course="${idx}" data-key="name"  type="text"  value="${esc(data?.name  || '')}" placeholder="Course name"      class="px-3 py-2 rounded-xl border border-rose-100 text-sm bg-white focus:border-[#a93444] focus:outline-none">
+          <input data-course="${idx}" data-key="level" type="text"  value="${esc(data?.level || '')}" placeholder="Level (A1–A2)"      class="px-3 py-2 rounded-xl border border-rose-100 text-sm bg-white focus:border-[#a93444] focus:outline-none">
+          <input data-course="${idx}" data-key="dur"   type="text"  value="${esc(data?.dur   || '60 min')}" placeholder="Duration"   class="px-3 py-2 rounded-xl border border-rose-100 text-sm bg-white focus:border-[#a93444] focus:outline-none">
+        </div>
+        <button type="button" onclick="removeCourse(${idx})" class="mt-1 w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all border border-transparent hover:border-red-100">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th class="text-left text-[10px] font-extrabold uppercase tracking-wider text-slate-400 py-1 pr-3 w-24"></th>
+              ${CURR.map(c => `<th class="text-center text-[11px] font-extrabold text-slate-500 py-1 px-1 w-20">${c.sym} ${c.key.toUpperCase()}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>${priceRows}</tbody>
+        </table>
+      </div>`;
+
+    document.getElementById('l-courses').appendChild(card);
+    syncNoCourses();
+};
+
+window.removeCourse = function(idx) {
+    document.getElementById(`course-${idx}`)?.remove();
+    syncNoCourses();
+};
+
+function syncNoCourses() {
+    const hasCourses = document.getElementById('l-courses').children.length > 0;
+    document.getElementById('l-no-courses').classList.toggle('hidden', hasCourses);
+}
+
+// ── Read course data from DOM ─────────────────────────────────────────────────
+function readCoursesFromDom() {
+    const courses = [];
+    const courseDivs = document.querySelectorAll('#l-courses > div[id^="course-"]');
+    courseDivs.forEach(div => {
+        const idx = div.id.replace('course-','');
+        const course = {};
+        div.querySelectorAll(`[data-course="${idx}"]`).forEach(inp => {
+            course[inp.dataset.key] = inp.value;
+        });
+        courses.push(course);
+    });
+    return courses;
+}
+
+// ── Submit language ───────────────────────────────────────────────────────────
+window.submitLangModal = async function() {
+    const title = document.getElementById('l-title').value.trim();
+    const id    = document.getElementById('l-id').value.trim().toLowerCase().replace(/\s+/g,'-');
+    if (!title || !id) { toast('Language name and ID are required', 'error'); return; }
+
+    const langData = {
+        id,
+        title,
+        flag_url: document.getElementById('l-flag').value.trim(),
+        desc:     document.getElementById('l-desc').value.trim(),
+        courses:  readCoursesFromDom(),
+    };
+
+    try {
+        if (editingLangId) {
+            await updateDoc(doc(db, 'languages', editingLangId), langData);
+            const i = languages.findIndex(l => l._id === editingLangId);
+            if (i >= 0) languages[i] = { _id: editingLangId, ...langData };
+        } else {
+            const ref = await addDoc(collection(db, 'languages'), langData);
+            languages.push({ _id: ref.id, ...langData });
+        }
+        closeLangModal();
+        renderLanguageGrid();
+        updateStats();
+        toast(editingLangId ? 'Language updated ✓' : 'Language added ✓');
+    } catch (err) {
+        toast('Save failed: ' + err.message, 'error');
+    }
+};
+
+window.deleteLang = function(id, name) {
+    confirmDelete(`Delete "${name}"? All course data will be lost.`, async () => {
+        try {
+            await deleteDoc(doc(db, 'languages', id));
+            languages = languages.filter(l => l._id !== id);
+            renderLanguageGrid();
+            updateStats();
+            toast('Language deleted');
+        } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
+    });
+};
+
+// ── Import from prices.json ───────────────────────────────────────────────────
+window.importFromPrices = async function() {
+    try {
+        const res  = await fetch('prices.json');
+        const data = await res.json();
+        const list = data.languages || [];
+        let count = 0;
+        for (const lang of list) {
+            const ref = await addDoc(collection(db, 'languages'), lang);
+            languages.push({ _id: ref.id, ...lang });
+            count++;
+        }
+        renderLanguageGrid();
+        updateStats();
+        toast(`Imported ${count} languages from prices.json ✓`);
+    } catch (err) { toast('Import failed: ' + err.message, 'error'); }
+};
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  TUTORS
+// ══════════════════════════════════════════════════════════════════════════════
+
+async function loadTutors() {
+    try {
+        const snap = await getDocs(collection(db, 'tutors'));
+        tutors = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+    } catch { tutors = []; }
+    renderTutorGrid();
+}
+
+function renderTutorGrid() {
+    const grid  = document.getElementById('tutor-grid');
+    const empty = document.getElementById('tutor-empty');
+    if (!tutors.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+    empty.classList.add('hidden');
+
+    grid.innerHTML = tutors.map(t => {
+        const photo    = t.photoUrl ? `<img src="${esc(t.photoUrl)}" alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">` : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[60px] text-white/50">person</span></div>`;
+        const activeBadge = t.active !== false ? `<span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Visible</span>` : `<span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-100">Hidden</span>`;
+        const bullets  = (t.bullets || []).slice(0,2).map(b =>
+            `<li class="flex items-start gap-2 text-xs text-slate-500"><span class="material-symbols-outlined text-[14px] text-[#FF7582] mt-0.5">${b.icon||'star'}</span><span>${esc(b.text)}</span></li>`
+        ).join('');
+
+        return `
+        <div class="group bg-white rounded-[2rem] shadow-sm hover:shadow-lg transition-all duration-400 border border-rose-50 overflow-hidden fade-up">
+          <div class="flex">
+            <!-- Photo -->
+            <div class="w-2/5 relative overflow-hidden min-h-[200px]">
+              ${photo}
+            </div>
+            <!-- Details -->
+            <div class="w-3/5 p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="inline-block py-0.5 px-2.5 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-wider">${esc(t.role||'Tutor')}</span>
+                  ${activeBadge}
+                </div>
+                <h3 class="font-['Plus_Jakarta_Sans'] text-lg font-extrabold text-slate-900 mb-1">${esc(t.name||'—')}</h3>
+                ${t.langsTaught ? `<p class="text-xs text-[#FF7582] font-semibold mb-2">${esc(t.langsTaught)}</p>` : ''}
+                ${t.quote ? `<p class="text-xs text-slate-400 italic line-clamp-2 border-l-2 border-rose-200 pl-2.5 mb-3">${esc(t.quote)}</p>` : ''}
+                ${bullets ? `<ul class="space-y-1">${bullets}</ul>` : ''}
+              </div>
+              <div class="flex gap-2 mt-4 pt-3 border-t border-rose-50">
+                <button onclick="openTutorModal('${t._id}')" class="flex-1 h-8 rounded-full border border-rose-100 text-xs font-bold text-[#a93444] hover:bg-rose-50 transition-all flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">edit</span>Edit
+                </button>
+                <button onclick="deleteTutor('${t._id}','${esc(t.name)}')" class="h-8 w-8 rounded-full border border-slate-100 text-slate-400 hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[16px]">delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+}
+
+// ── Tutor modal ───────────────────────────────────────────────────────────────
+window.openTutorModal = function(id = null) {
+    editingTutorId = id;
+    pendingPhotoFile = null;
+    document.getElementById('tutor-modal-title').textContent = id ? 'Edit Tutor' : 'Add Tutor';
+
+    // Reset
+    ['t-name','t-role','t-langs-taught','t-quote','t-photo-url'].forEach(f => document.getElementById(f).value = '');
+    document.getElementById('t-photo-preview').src = '';
+    document.getElementById('t-photo-preview').classList.add('hidden');
+    document.getElementById('t-photo-placeholder').classList.remove('hidden');
+    document.getElementById('t-active').checked = true;
+    document.getElementById('t-bullets').innerHTML = '';
+    _bulletCount = 0;
+    syncNoBullets();
+
+    if (id) {
+        const t = tutors.find(x => x._id === id);
+        if (t) {
+            document.getElementById('t-name').value        = t.name        || '';
+            document.getElementById('t-role').value        = t.role        || '';
+            document.getElementById('t-langs-taught').value= t.langsTaught || '';
+            document.getElementById('t-quote').value       = t.quote       || '';
+            document.getElementById('t-active').checked    = t.active !== false;
+            if (t.photoUrl) {
+                document.getElementById('t-photo-url').value = t.photoUrl;
+                setPhotoPreview(t.photoUrl);
+            }
+            (t.bullets || []).forEach(b => addBullet(b));
+        }
+    }
+
+    updateTutorPreview();
+    document.getElementById('tutor-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeTutorModal = function() {
+    document.getElementById('tutor-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+
+// ── Photo handling ────────────────────────────────────────────────────────────
+window.handlePhotoSelect = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast('Photo must be under 5 MB', 'error'); return; }
+    pendingPhotoFile = file;
+    const url = URL.createObjectURL(file);
+    setPhotoPreview(url);
+    updateTutorPreview();
+};
+
+window.applyPhotoUrl = function() {
+    const url = document.getElementById('t-photo-url').value.trim();
+    if (url) { pendingPhotoFile = null; setPhotoPreview(url); }
+    updateTutorPreview();
+};
+
+function setPhotoPreview(url) {
+    const img  = document.getElementById('t-photo-preview');
+    const ph   = document.getElementById('t-photo-placeholder');
+    img.src    = url;
+    img.classList.remove('hidden');
+    ph.classList.add('hidden');
+}
+
+// ── Bullet rows ───────────────────────────────────────────────────────────────
+let _bulletCount = 0;
+const BULLET_ICONS = ['school','verified','translate','group','language','star','menu_book','history_edu','workspace_premium','emoji_events'];
+
+window.addBullet = function(data = null) {
+    const idx = _bulletCount++;
+    syncNoBullets();
+
+    const row = document.createElement('div');
+    row.id = `bullet-${idx}`;
+    row.className = 'flex items-center gap-2';
+    row.innerHTML = `
+      <select data-bullet="${idx}" data-key="icon" class="w-40 px-3 py-2 rounded-xl border border-rose-100 text-sm bg-white focus:border-[#a93444] focus:outline-none" oninput="updateTutorPreview()">
+        ${BULLET_ICONS.map(ic => `<option value="${ic}" ${(data?.icon||'school')===ic?'selected':''}>${ic}</option>`).join('')}
+      </select>
+      <input data-bullet="${idx}" data-key="text" type="text" value="${esc(data?.text||'')}" placeholder="Credential or highlight…" oninput="updateTutorPreview()" class="flex-1 px-3 py-2 rounded-xl border border-rose-100 text-sm focus:border-[#a93444] focus:outline-none">
+      <button type="button" onclick="removeBullet(${idx})" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all border border-transparent hover:border-red-100">
+        <span class="material-symbols-outlined text-[16px]">close</span>
+      </button>`;
+
+    document.getElementById('t-bullets').appendChild(row);
+    syncNoBullets();
+};
+
+window.removeBullet = function(idx) {
+    document.getElementById(`bullet-${idx}`)?.remove();
+    syncNoBullets();
+    updateTutorPreview();
+};
+
+function syncNoBullets() {
+    const has = document.getElementById('t-bullets').children.length > 0;
+    document.getElementById('t-no-bullets').classList.toggle('hidden', has);
+}
+
+function readBulletsFromDom() {
+    const bullets = [];
+    document.querySelectorAll('#t-bullets > div[id^="bullet-"]').forEach(row => {
+        const idx = row.id.replace('bullet-','');
+        const b = {};
+        row.querySelectorAll(`[data-bullet="${idx}"]`).forEach(inp => { b[inp.dataset.key] = inp.value; });
+        if (b.text?.trim()) bullets.push(b);
+    });
+    return bullets;
+}
+
+// ── Live preview ──────────────────────────────────────────────────────────────
+window.updateTutorPreview = function() {
+    const name  = document.getElementById('t-name').value || 'Tutor Name';
+    const role  = document.getElementById('t-role').value || 'Language Tutor';
+    const quote = document.getElementById('t-quote').value;
+    const langs = document.getElementById('t-langs-taught').value;
+    const photo = document.getElementById('t-photo-preview').src;
+    const bullets = readBulletsFromDom();
+
+    const photoPart = (photo && !photo.endsWith('/admin.html'))
+        ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover">`
+        : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[50px] text-white/60">person</span></div>`;
+
+    document.getElementById('tutor-preview-card').innerHTML = `
+      <div class="flex min-h-[220px]">
+        <div class="w-2/5 overflow-hidden">${photoPart}</div>
+        <div class="w-3/5 p-6 flex flex-col justify-center gap-2">
+          <span class="inline-block py-0.5 px-3 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-widest">${esc(role)}</span>
+          <h3 class="font-['Plus_Jakarta_Sans'] text-base font-extrabold text-slate-900">${esc(name)}</h3>
+          ${langs ? `<p class="text-xs text-[#FF7582] font-semibold">${esc(langs)}</p>` : ''}
+          ${quote ? `<p class="text-xs text-slate-500 italic border-l-2 border-rose-200 pl-2.5 line-clamp-2">${esc(quote)}</p>` : ''}
+          ${bullets.length ? `<ul class="mt-1 space-y-1">${bullets.slice(0,2).map(b=>`<li class="flex items-start gap-1.5 text-[11px] text-slate-500"><span class="material-symbols-outlined text-[13px] text-[#FF7582] mt-0.5">${b.icon||'star'}</span><span>${esc(b.text)}</span></li>`).join('')}</ul>` : ''}
+        </div>
+      </div>`;
+};
+
+// ── Submit tutor ──────────────────────────────────────────────────────────────
+window.submitTutorModal = async function() {
+    const name = document.getElementById('t-name').value.trim();
+    const role = document.getElementById('t-role').value.trim();
+    if (!name || !role) { toast('Name and Role are required', 'error'); return; }
+
+    let photoUrl = document.getElementById('t-photo-url').value.trim();
+
+    // Upload file if one was selected
+    if (pendingPhotoFile) {
+        try {
+            const id  = editingTutorId || ('new_' + Date.now());
+            const ref = sRef(storage, `tutors/${id}/photo_${Date.now()}`);
+            await uploadBytes(ref, pendingPhotoFile);
+            photoUrl = await getDownloadURL(ref);
+        } catch (err) { toast('Photo upload failed: ' + err.message, 'error'); return; }
+    }
+
+    const tutorData = {
+        name,
+        role,
+        langsTaught: document.getElementById('t-langs-taught').value.trim(),
+        quote:       document.getElementById('t-quote').value.trim(),
+        active:      document.getElementById('t-active').checked,
+        bullets:     readBulletsFromDom(),
+        photoUrl,
+    };
+
+    try {
+        if (editingTutorId) {
+            await updateDoc(doc(db, 'tutors', editingTutorId), tutorData);
+            const i = tutors.findIndex(t => t._id === editingTutorId);
+            if (i >= 0) tutors[i] = { _id: editingTutorId, ...tutorData };
+        } else {
+            const ref = await addDoc(collection(db, 'tutors'), tutorData);
+            tutors.push({ _id: ref.id, ...tutorData });
+        }
+        closeTutorModal();
+        renderTutorGrid();
+        updateStats();
+        toast(editingTutorId ? 'Tutor updated ✓' : 'Tutor added ✓');
+    } catch (err) { toast('Save failed: ' + err.message, 'error'); }
+};
+
+window.deleteTutor = function(id, name) {
+    confirmDelete(`Delete tutor "${name}"?`, async () => {
+        try {
+            await deleteDoc(doc(db, 'tutors', id));
+            tutors = tutors.filter(t => t._id !== id);
+            renderTutorGrid();
+            updateStats();
+            toast('Tutor deleted');
+        } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
+    });
+};
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+function esc(str) {
+    const d = document.createElement('div');
+    d.textContent = String(str || '');
+    return d.innerHTML;
+}
+
+</script>
+</body>
+</html>
