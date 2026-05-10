@@ -364,11 +364,13 @@ function buildTutorCard(t, i) {
     }).join('');
 
     const credentialRows = [
-        { icon: 'school', text: t.phd },
-        { icon: 'verified', text: t.school_1 },
-        { icon: 'verified', text: t.school_2 },
-        { icon: 'translate', text: t.specialisation_1 },
-        { icon: 'translate', text: t.specialisation_2 },
+        { icon: 'workspace_premium', text: t.phd },
+        { icon: 'school', text: t.school_1 },
+        { icon: 'school', text: t.school_2 },
+        { icon: 'verified', text: t.certificate_1 },
+        { icon: 'verified', text: t.certificate_2 },
+        { icon: 'psychology', text: t.specialisation_1 },
+        { icon: 'psychology', text: t.specialisation_2 },
         { icon: 'language', text: t.lang_spoken ? `Speaks: ${t.lang_spoken}` : '' }
     ].filter(row => row.text && String(row.text).trim());
     const legacyRows = (t.bullets || []).filter(b => b.text);

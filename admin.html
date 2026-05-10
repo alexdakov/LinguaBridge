@@ -256,6 +256,14 @@
             <span class="material-symbols-outlined text-[18px]">add</span>Add Tutor
           </button>
         </div>
+        <div class="flex flex-wrap gap-2 mb-5">
+          <input id="tutor-search" type="text" placeholder="Search tutors..." oninput="filterTutorGrid()" class="field-input max-w-xs text-sm py-2">
+          <select id="tutor-status-filter" onchange="filterTutorGrid()" class="field-input max-w-[150px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Tutors</option>
+            <option value="active">Visible</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </div>
         <div id="tutor-grid" class="grid md:grid-cols-2 gap-6"></div>
         <div id="tutor-empty" class="hidden text-center py-20">
           <span class="material-symbols-outlined text-[52px] text-slate-400 block mb-3">people</span>
@@ -779,6 +787,14 @@
               <div>
                 <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">School 2</label>
                 <input id="t-school-2" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Certificate 1</label>
+                <input id="t-certificate-1" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Certificate 2</label>
+                <input id="t-certificate-2" type="text" oninput="updateTutorPreview()" class="field-input">
               </div>
               <div>
                 <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 1</label>
@@ -1372,12 +1388,52 @@ function renderLanguagePills(value, compact = false) {
     }).join('');
 }
 
+function filteredTutors() {
+    const searchEl = document.getElementById('tutor-search');
+    const statusEl = document.getElementById('tutor-status-filter');
+    const q = (searchEl?.value || '').trim().toLowerCase();
+    const status = statusEl?.value || '';
+    return tutors.filter(t => {
+        const searchable = [
+            t.name,
+            t.role,
+            t.lang_teached,
+            t.lang_spoken,
+            t.phd,
+            t.school_1,
+            t.school_2,
+            t.certificate_1,
+            t.certificate_2,
+            t.specialisation_1,
+            t.specialisation_2
+        ].join(' ').toLowerCase();
+        const statusOk = !status || (status === 'active' ? t.active !== false : t.active === false);
+        return statusOk && (!q || searchable.includes(q));
+    });
+}
+
+window.filterTutorGrid = function() {
+    renderTutorGrid();
+};
+
 function renderTutorGrid() {
     const grid  = document.getElementById('tutor-grid');
     const empty = document.getElementById('tutor-empty');
-    if (!tutors.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+    const visibleTutors = filteredTutors();
+    if (!tutors.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        empty.querySelector('p.font-semibold').textContent = 'No tutors yet.';
+        empty.querySelector('p.text-slate-600').textContent = 'Import the existing team from the About page to get started.';
+        return;
+    }
+    if (!visibleTutors.length) {
+        grid.innerHTML = '<div class="md:col-span-2 text-center py-16 text-slate-400 text-sm font-semibold">No tutors match this filter.</div>';
+        empty.classList.add('hidden');
+        return;
+    }
     empty.classList.add('hidden');
-    grid.innerHTML = tutors.map(t => {
+    grid.innerHTML = visibleTutors.map(t => {
         const photo = t.photoUrl
             ? `<img src="${esc(t.photoUrl)}" alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">`
             : `<div class="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center"><span class="material-symbols-outlined text-[60px] text-slate-800/20">person</span></div>`;
@@ -1385,11 +1441,13 @@ function renderTutorGrid() {
             ? `<span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/20">Visible</span>`
             : `<span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200">Hidden</span>`;
         const rows = [
-            { icon: 'school', text: t.phd },
-            { icon: 'verified', text: t.school_1 },
-            { icon: 'verified', text: t.school_2 },
-            { icon: 'translate', text: t.specialisation_1 },
-            { icon: 'translate', text: t.specialisation_2 }
+            { icon: 'workspace_premium', text: t.phd },
+            { icon: 'school', text: t.school_1 },
+            { icon: 'school', text: t.school_2 },
+            { icon: 'verified', text: t.certificate_1 },
+            { icon: 'verified', text: t.certificate_2 },
+            { icon: 'psychology', text: t.specialisation_1 },
+            { icon: 'psychology', text: t.specialisation_2 }
         ].filter(row => row.text && String(row.text).trim()).slice(0, 2);
         const bullets = rows.map(b =>
             `<li class="flex items-start gap-2 text-xs text-slate-400"><span class="material-symbols-outlined text-[14px] text-[#a93444] mt-0.5">${b.icon}</span><span>${esc(b.text)}</span></li>`
@@ -1427,7 +1485,7 @@ window.openTutorModal = function(id = null) {
     editingTutorId = id;
     pendingPhotoFile = null;
     document.getElementById('tutor-modal-title').textContent = id ? 'Edit Tutor' : 'Add Tutor';
-    ['t-name','t-role','t-order','t-lang-teached','t-lang-spoken','t-quote','t-phd','t-school-1','t-school-2','t-specialisation-1','t-specialisation-2'].forEach(f => document.getElementById(f).value = '');
+    ['t-name','t-role','t-order','t-lang-teached','t-lang-spoken','t-quote','t-phd','t-school-1','t-school-2','t-certificate-1','t-certificate-2','t-specialisation-1','t-specialisation-2'].forEach(f => document.getElementById(f).value = '');
     document.getElementById('t-photo-preview').src = '';
     document.getElementById('t-photo-preview').classList.add('hidden');
     document.getElementById('t-photo-placeholder').classList.remove('hidden');
@@ -1445,6 +1503,8 @@ window.openTutorModal = function(id = null) {
             document.getElementById('t-phd').value               = t.phd || '';
             document.getElementById('t-school-1').value          = t.school_1 || '';
             document.getElementById('t-school-2').value          = t.school_2 || '';
+            document.getElementById('t-certificate-1').value     = t.certificate_1 || '';
+            document.getElementById('t-certificate-2').value     = t.certificate_2 || '';
             document.getElementById('t-specialisation-1').value  = t.specialisation_1 || '';
             document.getElementById('t-specialisation-2').value  = t.specialisation_2 || '';
             document.getElementById('t-active').checked          = t.active !== false;
@@ -1485,11 +1545,13 @@ window.updateTutorPreview = function() {
     const langs   = document.getElementById('t-lang-teached').value.trim();
     const photo   = document.getElementById('t-photo-preview').src;
     const bullets = [
-        { icon: 'school', text: document.getElementById('t-phd').value },
-        { icon: 'verified', text: document.getElementById('t-school-1').value },
-        { icon: 'verified', text: document.getElementById('t-school-2').value },
-        { icon: 'translate', text: document.getElementById('t-specialisation-1').value },
-        { icon: 'translate', text: document.getElementById('t-specialisation-2').value }
+        { icon: 'workspace_premium', text: document.getElementById('t-phd').value },
+        { icon: 'school', text: document.getElementById('t-school-1').value },
+        { icon: 'school', text: document.getElementById('t-school-2').value },
+        { icon: 'verified', text: document.getElementById('t-certificate-1').value },
+        { icon: 'verified', text: document.getElementById('t-certificate-2').value },
+        { icon: 'psychology', text: document.getElementById('t-specialisation-1').value },
+        { icon: 'psychology', text: document.getElementById('t-specialisation-2').value }
     ].filter(b => b.text.trim());
     const photoPart = (photo && !photo.endsWith('/admin.html'))
         ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover">`
@@ -1539,6 +1601,8 @@ window.submitTutorModal = async function() {
         phd:               document.getElementById('t-phd').value.trim(),
         school_1:          document.getElementById('t-school-1').value.trim(),
         school_2:          document.getElementById('t-school-2').value.trim(),
+        certificate_1:     document.getElementById('t-certificate-1').value.trim(),
+        certificate_2:     document.getElementById('t-certificate-2').value.trim(),
         specialisation_1:  document.getElementById('t-specialisation-1').value.trim(),
         specialisation_2:  document.getElementById('t-specialisation-2').value.trim(),
         photoUrl,
