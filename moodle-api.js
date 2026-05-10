@@ -5,7 +5,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const MOODLE_BASE  = 'https://academy.linguabridge.study';
-const MOODLE_TOKEN = 'feb2029f615460ff72956253a0e64262';
+const MOODLE_TOKEN = '65e4fccc1ac26aa274806e64bafd6ae0';
 const MOODLE_URL   = `${MOODLE_BASE}/webservice/rest/server.php`;
 
 /** Open a page inside the embedded Academy (moodle-classroom.html) */

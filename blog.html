@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog | LinguaBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#a93444",
+                    "primary-container": "#ff7582",
+                    "secondary": "#815438",
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { animation: fadeUp .5s ease forwards; }
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(255,117,130,.15); }
+    /* Placeholder shimmer for posts not yet loaded */
+    .shimmer { background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+</style>
+</head>
+<body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
+
+<!-- ── Header ── -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_Sans'] antialiased">
+    <div class="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+            <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+            <span>LinguaBridge</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-stack-lg">
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="index.html" data-i18n="nav.home">Home</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html" data-i18n="nav.languages">Languages</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html" data-i18n="nav.about">About</a>
+            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html" data-i18n="nav.contact">Contact</a>
+            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="blog.html" data-i18n="nav.blog">Blog</a>
+        </div>
+
+        <div class="flex items-center gap-2 md:gap-6">
+            <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all">
+                <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
+            </button>
+            <!-- Language globe -->
+            <div class="relative">
+                <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
+                    <span class="material-symbols-outlined text-[22px]">language</span>
+                </button>
+                <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
+                    <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
+                    <button onclick="changeGlobalLanguage('bg');closeMobileLang()" class="lang-btn lang-btn-bg flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
+                    <button onclick="changeGlobalLanguage('ru');closeMobileLang()" class="lang-btn lang-btn-ru flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
+                    <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
+                </div>
+            </div>
+            <!-- Mobile hamburger -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
+                <span class="material-symbols-outlined text-[22px]">menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-50 px-4 py-3">
+        <nav class="flex flex-col gap-1">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.home">Home</a>
+            <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.languages">Languages</a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.about">About</a>
+            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
+            <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FF7582] font-semibold bg-rose-50 transition-all" data-i18n="nav.blog">Blog</a>
+            <div class="pt-2 border-t border-rose-50 mt-1">
+                <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+                    <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main class="pt-24">
+
+    <!-- ── Hero ── -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-white via-rose-50/40 to-white py-16 px-4 md:px-8 border-b border-rose-100/50">
+        <!-- Decorative blobs -->
+        <div class="absolute -top-20 -right-20 w-72 h-72 bg-rose-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-orange-100/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-100 text-[#FF7582] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+                <span class="material-symbols-outlined text-[14px]">auto_stories</span>
+                LinguaBridge Blog
+            </span>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+                Language Tips, Stories &amp;<br class="hidden md:block"> Learning Insights
+            </h1>
+            <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">
+                Practical guides, cultural deep-dives, and expert advice to help you on your language journey.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Category Filter ── -->
+    <section class="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-4">
+        <div class="flex flex-wrap gap-2" id="category-filters">
+            <button onclick="filterPosts('all')" data-cat="all" class="cat-btn active-cat px-4 py-2 rounded-full text-sm font-semibold bg-[#FF7582] text-white transition-all">All Posts</button>
+            <button onclick="filterPosts('tips')" data-cat="tips" class="cat-btn px-4 py-2 rounded-full text-sm font-semibold bg-white border border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">Language Tips</button>
+            <button onclick="filterPosts('grammar')" data-cat="grammar" class="cat-btn px-4 py-2 rounded-full text-sm font-semibold bg-white border border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">Grammar</button>
+            <button onclick="filterPosts('culture')" data-cat="culture" class="cat-btn px-4 py-2 rounded-full text-sm font-semibold bg-white border border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">Culture</button>
+            <button onclick="filterPosts('study')" data-cat="study" class="cat-btn px-4 py-2 rounded-full text-sm font-semibold bg-white border border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">Study Methods</button>
+        </div>
+    </section>
+
+    <!-- ── Posts Grid ── -->
+    <section class="max-w-7xl mx-auto px-4 md:px-8 py-8">
+
+        <!-- Sanity.io posts will be injected here once connected -->
+        <!-- For now, static placeholder posts are shown below -->
+        <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Post Card 1 (Featured) -->
+            <article data-cat="tips" class="post-card lg:col-span-2 card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:0ms">
+                <div class="md:flex h-full">
+                    <div class="md:w-1/2 h-52 md:h-auto bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center relative overflow-hidden">
+                        <span class="material-symbols-outlined text-[80px] text-[#FF7582]/30">translate</span>
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#FF7582]/10 to-transparent"></div>
+                    </div>
+                    <div class="p-7 md:w-1/2 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block bg-rose-50 text-[#FF7582] text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Language Tips</span>
+                            <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-bold text-slate-900 mb-3 leading-snug">10 Proven Ways to Build Vocabulary Faster in Any Language</h2>
+                            <p class="text-slate-500 text-sm leading-relaxed">Spaced repetition, contextual learning, and the power of immersion — discover the techniques professional polyglots rely on every day.</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-5 pt-4 border-t border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-rose-100 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[14px] text-[#FF7582]">person</span>
+                                </div>
+                                <span class="text-xs text-slate-500 font-semibold">LinguaBridge Team · May 5, 2026</span>
+                            </div>
+                            <span class="text-xs text-slate-400">8 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post Card 2 -->
+            <article data-cat="culture" class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:60ms">
+                <div class="h-44 bg-gradient-to-br from-violet-100 to-purple-200 flex items-center justify-center relative overflow-hidden">
+                    <span class="material-symbols-outlined text-[60px] text-violet-400/40">travel_explore</span>
+                </div>
+                <div class="p-6">
+                    <span class="inline-block bg-violet-50 text-violet-600 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Culture</span>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">Why Learning a Language Means Learning a Culture</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3">Language is never just words — explore how idioms, gestures, and social norms are inseparable from fluency.</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400 font-semibold">Apr 28, 2026</span>
+                        <span class="text-xs text-slate-400">5 min read</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post Card 3 -->
+            <article data-cat="grammar" class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:120ms">
+                <div class="h-44 bg-gradient-to-br from-emerald-100 to-teal-200 flex items-center justify-center relative overflow-hidden">
+                    <span class="material-symbols-outlined text-[60px] text-emerald-400/40">edit_note</span>
+                </div>
+                <div class="p-6">
+                    <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Grammar</span>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">Mastering Verb Tenses: A Practical Guide for Beginners</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3">The most common stumbling block for new learners — broken down with clear examples and easy-to-remember rules.</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400 font-semibold">Apr 20, 2026</span>
+                        <span class="text-xs text-slate-400">6 min read</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post Card 4 -->
+            <article data-cat="study" class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:180ms">
+                <div class="h-44 bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center relative overflow-hidden">
+                    <span class="material-symbols-outlined text-[60px] text-amber-400/40">schedule</span>
+                </div>
+                <div class="p-6">
+                    <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Study Methods</span>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">How to Study a Language in Just 20 Minutes a Day</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3">Consistency beats intensity. Here's a science-backed daily routine that actually works for busy people.</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400 font-semibold">Apr 12, 2026</span>
+                        <span class="text-xs text-slate-400">4 min read</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post Card 5 -->
+            <article data-cat="tips" class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:240ms">
+                <div class="h-44 bg-gradient-to-br from-sky-100 to-blue-200 flex items-center justify-center relative overflow-hidden">
+                    <span class="material-symbols-outlined text-[60px] text-sky-400/40">headphones</span>
+                </div>
+                <div class="p-6">
+                    <span class="inline-block bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Language Tips</span>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">Listening Skills: The Secret Weapon of Language Learners</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3">Most students focus on speaking and writing — but improving your listening dramatically accelerates all other skills.</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400 font-semibold">Apr 3, 2026</span>
+                        <span class="text-xs text-slate-400">7 min read</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post Card 6 -->
+            <article data-cat="culture" class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up" style="animation-delay:300ms">
+                <div class="h-44 bg-gradient-to-br from-pink-100 to-rose-200 flex items-center justify-center relative overflow-hidden">
+                    <span class="material-symbols-outlined text-[60px] text-pink-400/40">restaurant</span>
+                </div>
+                <div class="p-6">
+                    <span class="inline-block bg-pink-50 text-pink-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">Culture</span>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">Food, Language & Identity: How Cuisine Reflects a Culture</h2>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3">From menu translations to dining etiquette — food vocabulary is one of the richest windows into any language.</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400 font-semibold">Mar 25, 2026</span>
+                        <span class="text-xs text-slate-400">5 min read</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- No results state (hidden by default) -->
+        <div id="no-results" class="hidden text-center py-20">
+            <span class="material-symbols-outlined text-[48px] text-slate-300 mb-4 block">search_off</span>
+            <p class="text-slate-400 font-semibold">No posts in this category yet.</p>
+        </div>
+
+        <!-- Sanity CMS placeholder notice -->
+        <div class="mt-12 flex items-start gap-4 bg-amber-50 border border-amber-100 rounded-2xl p-5 text-sm text-amber-800">
+            <span class="material-symbols-outlined text-[20px] text-amber-500 shrink-0 mt-0.5">info</span>
+            <div>
+                <p class="font-semibold mb-1">Sanity.io integration pending</p>
+                <p class="text-amber-700 text-xs leading-relaxed">Once the Sanity CMS is connected, live posts will be fetched and rendered here automatically. The placeholder posts above will be replaced by real content from the CMS.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ── Newsletter CTA ── -->
+    <section class="bg-gradient-to-br from-[#FF7582] to-[#a93444] text-white py-14 px-4 md:px-8 mt-8">
+        <div class="max-w-2xl mx-auto text-center">
+            <span class="material-symbols-outlined text-[40px] mb-3 block opacity-80">mail</span>
+            <h2 class="font-['Plus_Jakarta_Sans'] text-2xl md:text-3xl font-bold mb-3">Stay in the Loop</h2>
+            <p class="text-white/80 text-sm mb-6 leading-relaxed">Get new articles, language tips, and course updates delivered straight to your inbox.</p>
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-[#FF7582] px-8 py-3.5 rounded-full font-bold hover:bg-rose-50 hover:shadow-lg transition-all active:scale-95">
+                <span class="material-symbols-outlined text-[18px]">send</span>
+                Contact Us to Subscribe
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        <div class="flex flex-col items-center md:items-start">
+            <div class="flex items-center gap-3 mb-2">
+                <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
+                    <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+                </div>
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
+            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                <span data-i18n="footer.deleteData">Delete Data</span>
+            </a>
+        </div>
+        <div class="flex items-center">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
+                Become Tutor
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ── Mobile menu ──
+    function toggleMobileMenu(e) {
+        e.stopPropagation();
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+        document.getElementById('mobile-lang-dropdown').classList.add('hidden');
+    }
+    function toggleMobileLang(e) {
+        e.stopPropagation();
+        document.getElementById('mobile-lang-dropdown').classList.toggle('hidden');
+        document.getElementById('mobile-menu').classList.add('hidden');
+    }
+    function closeMobileLang() {
+        document.getElementById('mobile-lang-dropdown').classList.add('hidden');
+    }
+    document.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.add('hidden');
+        document.getElementById('mobile-lang-dropdown').classList.add('hidden');
+    });
+
+    // ── Category filter ──
+    function filterPosts(cat) {
+        // Update active button
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            if (btn.dataset.cat === cat) {
+                btn.classList.add('bg-[#FF7582]', 'text-white');
+                btn.classList.remove('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+            } else {
+                btn.classList.remove('bg-[#FF7582]', 'text-white');
+                btn.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+            }
+        });
+
+        // Show/hide cards
+        const cards = document.querySelectorAll('.post-card');
+        let visible = 0;
+        cards.forEach(card => {
+            const show = cat === 'all' || card.dataset.cat === cat;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        document.getElementById('no-results').classList.toggle('hidden', visible > 0);
+    }
+</script>
+<script src="language-manager.js"></script>
+</body>
+</html>
