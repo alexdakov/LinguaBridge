@@ -260,8 +260,12 @@
             document.getElementById('user-name').textContent = name;
 
             const moodleUser = data.moodle_user || '';
+            const moodlePass = data.moodle_pass || '';
             document.getElementById('moodle-user').textContent         = moodleUser || '—';
-            document.getElementById('moodle-pass-display').textContent = data.moodle_pass || '—';
+            document.getElementById('moodle-pass-display').textContent = moodlePass || '—';
+
+            // Silently establish a Moodle browser session (fire-and-forget)
+            if (moodleUser && moodlePass) moodleAutoLogin(moodleUser, moodlePass);
 
             if (moodleUser) {
                 await loadMoodleData(moodleUser);

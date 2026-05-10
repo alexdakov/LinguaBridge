@@ -223,8 +223,13 @@
 
             // Moodle credentials from Firestore
             const moodleUser = data.moodle_user || '';
+            const moodlePass = data.moodle_pass || '';
             document.getElementById('moodle-user').textContent        = moodleUser || '—';
-            document.getElementById('moodle-pass-display').textContent = data.moodle_pass || '—';
+            document.getElementById('moodle-pass-display').textContent = moodlePass || '—';
+
+            // Silently establish a Moodle browser session (fire-and-forget)
+            // so any Moodle link/iframe opens already logged in.
+            if (moodleUser && moodlePass) moodleAutoLogin(moodleUser, moodlePass);
 
             // Load Moodle data
             if (moodleUser) {

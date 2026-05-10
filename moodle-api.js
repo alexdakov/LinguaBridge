@@ -83,6 +83,79 @@ async function getMoodleActivityCompletion(courseid, userid) {
     }
 }
 
+// ─── AUTO-LOGIN ───────────────────────────────────────────────────────────────
+/**
+ * Silently establishes a Moodle browser session using the user's own credentials.
+ * Once this completes, the user can open any Moodle URL (iframe or new tab) and
+ * will already be logged in — no separate Moodle login page.
+ *
+ * How it works (official Moodle SSO mechanism):
+ *   1. POST /login/token.php  →  user-scoped token + privatetoken
+ *   2. Call tool_mobile_get_autologin_key with privatetoken  →  one-time autologin key
+ *   3. Load the autologin URL in a hidden iframe  →  Moodle sets a session cookie
+ *
+ * Moodle admin requirements (one-time setup):
+ *   • Site admin → Mobile app → Enable mobile web services  (tick the checkbox)
+ *   • That's it — moodle_mobile_app service and tool_mobile plugin are built-in.
+ *
+ * This is a fire-and-forget call; await it only if you need to be sure the session
+ * is ready before redirecting into Moodle.
+ */
+async function moodleAutoLogin(username, password) {
+    try {
+        // ── Step 1: obtain a user-scoped token (and privatetoken) ──
+        const tokenRes = await fetch(`${MOODLE_BASE}/login/token.php`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body:    new URLSearchParams({ username, password, service: 'moodle_mobile_app' }),
+        });
+        if (!tokenRes.ok) throw new Error(`token.php HTTP ${tokenRes.status}`);
+
+        const tokenData = await tokenRes.json();
+        if (tokenData.error) throw new Error(tokenData.error);
+        if (!tokenData.token)        throw new Error('No token returned — check Moodle mobile service');
+        if (!tokenData.privatetoken) throw new Error('No privatetoken — enable Mobile web services in Moodle admin');
+
+        // ── Step 2: exchange privatetoken for a one-time autologin key ──
+        const keyUrl = new URL(`${MOODLE_BASE}/webservice/rest/server.php`);
+        keyUrl.searchParams.set('wstoken',            tokenData.token);
+        keyUrl.searchParams.set('wsfunction',         'tool_mobile_get_autologin_key');
+        keyUrl.searchParams.set('moodlewsrestformat', 'json');
+        keyUrl.searchParams.set('privatetoken',       tokenData.privatetoken);
+
+        const keyRes  = await fetch(keyUrl.toString());
+        const keyData = await keyRes.json();
+        if (keyData.exception) throw new Error(keyData.message);
+        if (!keyData.key)      throw new Error('No autologin key returned');
+
+        // ── Step 3: load autologin URL in a hidden iframe to set session cookie ──
+        const autologinUrl =
+            `${MOODLE_BASE}/admin/tool/mobile/autologin.php` +
+            `?userid=${keyData.userid}&key=${encodeURIComponent(keyData.key)}&urltogo=%2F`;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = autologinUrl;
+        iframe.setAttribute('aria-hidden', 'true');
+        iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none;';
+        document.body.appendChild(iframe);
+
+        // Wait for the iframe to finish, then remove it
+        await new Promise(resolve => {
+            iframe.addEventListener('load', resolve, { once: true });
+            setTimeout(resolve, 5000); // hard timeout
+        });
+        iframe.remove();
+
+        console.info('[Moodle] Auto-login successful ✓');
+        return true;
+
+    } catch (err) {
+        // Non-fatal — portals still work via the admin API token
+        console.warn('[Moodle] Auto-login skipped:', err.message);
+        return false;
+    }
+}
+
 // ─── STUDENT: full data pipeline ─────────────────────────────────────────────
 /**
  * username → { user, courses[] }
