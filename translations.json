@@ -324,7 +324,20 @@
     "privacy.s3.cloudflare.title": "Cloudflare (CDN & WAF)",
     "privacy.s4.heading": "No-Sale & Sharing Policy",
     "privacy.s5.heading": "Your Rights & Ownership",
-    "privacy.cta.btn": "Go to Deletion Portal"
+    "privacy.cta.btn": "Go to Deletion Portal",
+    "blog.hero.badge": "LinguaBridge Blog",
+    "blog.hero.title": "Language Tips, Stories &amp; Learning Insights",
+    "blog.hero.subtitle": "Practical guides, cultural deep-dives, and expert advice to help you on your language journey.",
+    "blog.filter.all": "All Posts",
+    "blog.newsletter.title": "Stay in the Loop",
+    "blog.newsletter.subtitle": "Get new articles, language tips, and course updates delivered straight to your inbox.",
+    "blog.newsletter.cta": "Contact Us to Subscribe",
+    "blog.empty": "No posts yet — check back soon!",
+    "blog.noResults": "No posts in this category yet.",
+    "blog.post.back": "Back to Blog",
+    "blog.post.allArticles": "All articles",
+    "blog.post.startLearning": "Start Learning",
+    "blog.error.posts": "Could not load posts"
   },
   "bg": {
     "nav.home": "Начало",
@@ -651,7 +664,20 @@
     "privacy.s3.cloudflare.title": "Cloudflare (CDN и WAF)",
     "privacy.s4.heading": "Политика за непродаване и споделяне",
     "privacy.s5.heading": "Вашите права и собственост",
-    "privacy.cta.btn": "Към портала за изтриване"
+    "privacy.cta.btn": "Към портала за изтриване",
+    "blog.hero.badge": "Блог LinguaBridge",
+    "blog.hero.title": "Езикови съвети, истории и учебни прозрения",
+    "blog.hero.subtitle": "Практически ръководства, задълбочени разбори и съвети от специалисти за вашето езиково пътуване.",
+    "blog.filter.all": "Всички публикации",
+    "blog.newsletter.title": "Бъдете в течение",
+    "blog.newsletter.subtitle": "Получавайте нови статии, езикови съвети и обновления за курсовете директно в пощата си.",
+    "blog.newsletter.cta": "Свържете се с нас",
+    "blog.empty": "Все още няма публикации — проверете отново скоро!",
+    "blog.noResults": "Все още няма публикации в тази категория.",
+    "blog.post.back": "Назад към блога",
+    "blog.post.allArticles": "Всички статии",
+    "blog.post.startLearning": "Започнете да учите",
+    "blog.error.posts": "Публикациите не могат да бъдат заредени"
   },
   "ru": {
     "nav.home": "Главная",
@@ -978,7 +1004,20 @@
     "privacy.s3.cloudflare.title": "Cloudflare (CDN и WAF)",
     "privacy.s4.heading": "Политика о запрете продажи и обмена",
     "privacy.s5.heading": "Ваши права и владение данными",
-    "privacy.cta.btn": "Перейти на портал удаления"
+    "privacy.cta.btn": "Перейти на портал удаления",
+    "blog.hero.badge": "Блог LinguaBridge",
+    "blog.hero.title": "Языковые советы, истории и учебные открытия",
+    "blog.hero.subtitle": "Практические руководства, культурные разборы и советы экспертов для вашего языкового пути.",
+    "blog.filter.all": "Все статьи",
+    "blog.newsletter.title": "Будьте в курсе",
+    "blog.newsletter.subtitle": "Получайте новые статьи, языковые советы и обновления курсов прямо на почту.",
+    "blog.newsletter.cta": "Свяжитесь с нами",
+    "blog.empty": "Публикаций пока нет — заходите позже!",
+    "blog.noResults": "В этой категории пока нет публикаций.",
+    "blog.post.back": "Назад к блогу",
+    "blog.post.allArticles": "Все статьи",
+    "blog.post.startLearning": "Начать обучение",
+    "blog.error.posts": "Не удалось загрузить публикации"
   },
   "zh": {
     "nav.home": "首页",
@@ -1305,6 +1344,19 @@
     "privacy.s3.cloudflare.title": "Cloudflare（CDN和WAF）",
     "privacy.s4.heading": "禁止出售与共享政策",
     "privacy.s5.heading": "您的权利与数据所有权",
-    "privacy.cta.btn": "前往删除门户"
+    "privacy.cta.btn": "前往删除门户",
+    "blog.hero.badge": "LinguaBridge 博客",
+    "blog.hero.title": "语言技巧、故事与学习见解",
+    "blog.hero.subtitle": "实用指南、文化深度解析和专家建议，助您开启语言之旅。",
+    "blog.filter.all": "全部文章",
+    "blog.newsletter.title": "保持关注",
+    "blog.newsletter.subtitle": "将最新文章、语言技巧和课程更新直接发送到您的邮箱。",
+    "blog.newsletter.cta": "联系我们订阅",
+    "blog.empty": "暂无文章——请稍后再来！",
+    "blog.noResults": "该分类暂无文章。",
+    "blog.post.back": "返回博客",
+    "blog.post.allArticles": "全部文章",
+    "blog.post.startLearning": "立即开始学习",
+    "blog.error.posts": "无法加载文章"
   }
 }

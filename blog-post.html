@@ -98,7 +98,7 @@
     <h2 class="text-xl font-bold text-slate-700 mb-2">Post not found</h2>
     <p id="page-error-msg" class="text-slate-400 text-sm mb-6"></p>
     <a href="blog.html" class="inline-flex items-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-bold hover:shadow-lg transition-all">
-        <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span> <span data-i18n="blog.post.back">Back to Blog</span>
     </a>
 </div>
 
@@ -115,7 +115,7 @@
         <!-- Back link -->
         <div class="pt-8 pb-4">
             <a href="blog.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-[#FF7582] transition-colors">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> <span data-i18n="blog.post.back">Back to Blog</span>
             </a>
         </div>
 
@@ -138,10 +138,10 @@
         <!-- Bottom CTA -->
         <div class="border-t border-slate-100 pt-10 pb-16 flex flex-col sm:flex-row gap-4 items-center justify-between">
             <a href="blog.html" class="flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-[#FF7582] transition-colors">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All articles
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> <span data-i18n="blog.post.allArticles">All articles</span>
             </a>
             <a href="enrol.html" class="inline-flex items-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">school</span> Start Learning
+                <span class="material-symbols-outlined text-[18px]">school</span> <span data-i18n="blog.post.startLearning">Start Learning</span>
             </a>
         </div>
     </div>
@@ -213,9 +213,10 @@
     }
 
     // ── State ────────────────────────────────────────────────────────────────
-    let _sourcePost = null;  // original EN data — never mutated
-    let _postSlug   = null;
-    let _translating = false;
+    let _sourcePost  = null;  // original EN data — never mutated
+    let _postSlug    = null;
+    let _pendingLang = null;  // latest language not yet applied
+    let _isApplying  = false;
 
     // ── Show error ───────────────────────────────────────────────────────────
     function showError(msg) {
@@ -225,16 +226,12 @@
         document.getElementById('page-error-msg').textContent = msg || '';
     }
 
-    // ── Translation status overlay ───────────────────────────────────────────
-    function setTranslating(on) {
-        _translating = on;
+    // ── Translation spinner ───────────────────────────────────────────────────
+    function setSpinner(on) {
         const body = document.getElementById('post-body');
-        if (!body) return;
+        let badge = document.getElementById('trans-badge');
         if (on) {
-            body.style.opacity = '0.45';
-            body.style.transition = 'opacity .2s';
-            // show spinner badge
-            let badge = document.getElementById('trans-badge');
+            if (body) { body.style.opacity = '0.45'; body.style.transition = 'opacity .2s'; }
             if (!badge) {
                 badge = document.createElement('div');
                 badge.id = 'trans-badge';
@@ -244,8 +241,7 @@
             }
             badge.style.display = 'flex';
         } else {
-            body.style.opacity = '';
-            const badge = document.getElementById('trans-badge');
+            if (body) body.style.opacity = '';
             if (badge) badge.style.display = 'none';
         }
     }
@@ -300,29 +296,33 @@
         document.getElementById('post-body').innerHTML = renderPortableText(post.body);
     }
 
-    // ── Apply language to current post ───────────────────────────────────────
+    // ── Core: render post in given language ──────────────────────────────────
+    async function _renderPostInLang(lang) {
+        if (lang === 'en') { renderPost(_sourcePost); return; }
+        setSpinner(true);
+        const [translatedTitle] = await translateStrings(
+            [_sourcePost.title || ''], lang, `title_${_postSlug}`
+        );
+        const translatedBody = await translatePortableText(
+            _sourcePost.body || [], lang, _postSlug
+        );
+        renderPost({ ..._sourcePost, title: translatedTitle, body: translatedBody });
+        setSpinner(false);
+    }
+
+    // ── Pending-language queue: latest language always wins ───────────────────
     async function applyPostLanguage(lang) {
-        if (!_sourcePost) return;
-        if (lang === 'en') {
-            renderPost(_sourcePost);
-            return;
-        }
-        setTranslating(true);
-        try {
-            // Translate title
-            const [translatedTitle] = await translateStrings(
-                [_sourcePost.title || ''], lang, `title_${_postSlug}`
-            );
-            // Translate body blocks
-            const translatedBody = await translatePortableText(
-                _sourcePost.body || [], lang, _postSlug
-            );
-            renderPost({ ..._sourcePost, title: translatedTitle, body: translatedBody });
-        } catch (err) {
-            console.warn('Blog post translation error:', err);
-            renderPost(_sourcePost); // fall back to English
-        } finally {
-            setTranslating(false);
+        if (!_sourcePost) { _pendingLang = lang; return; }
+        _pendingLang = lang;
+        if (_isApplying) return;
+
+        while (_pendingLang !== null) {
+            const target = _pendingLang;
+            _pendingLang = null;
+            _isApplying  = true;
+            try { await _renderPostInLang(target); }
+            catch (e) { console.warn('Post translation error:', e); setSpinner(false); renderPost(_sourcePost); }
+            _isApplying = false;
         }
     }
 
@@ -335,11 +335,11 @@
             const post = await sanityFetch(QUERY_POST_BY_SLUG, { slug: _postSlug });
             if (!post) { showError(`Post "${_postSlug}" not found.`); return; }
             _sourcePost = post;
-            // Render in English first, then apply the user's saved language.
-            // (languageChanged may fire before data arrives, so we check again here.)
-            renderPost(_sourcePost);
-            const savedLang = localStorage.getItem('preferredLang') || 'en';
-            if (savedLang !== 'en') applyPostLanguage(savedLang);
+            // Apply whatever language is pending (set by languageChanged firing
+            // before data arrived) or fall back to saved preference.
+            const targetLang = _pendingLang || localStorage.getItem('preferredLang') || 'en';
+            _pendingLang = null;
+            await _renderPostInLang(targetLang);
         } catch (err) {
             console.error('Post fetch error:', err);
             showError(err.message);
@@ -348,7 +348,7 @@
 
     // ── Language change hook ─────────────────────────────────────────────────
     document.addEventListener('languageChanged', e => {
-        if (!_translating) applyPostLanguage(e.detail.lang);
+        applyPostLanguage(e.detail.lang);
     });
 
     init();

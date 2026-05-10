@@ -84,12 +84,12 @@
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <span class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-100 text-[#FF7582] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
                 <span class="material-symbols-outlined text-[14px]">auto_stories</span>
-                LinguaBridge Blog
+                <span data-i18n="blog.hero.badge">LinguaBridge Blog</span>
             </span>
-            <h1 class="font-['Plus_Jakarta_Sans'] text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
-                Language Tips, Stories &amp;<br class="hidden md:block"> Learning Insights
+            <h1 class="font-['Plus_Jakarta_Sans'] text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4" data-i18n="blog.hero.title">
+                Language Tips, Stories &amp; Learning Insights
             </h1>
-            <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">
+            <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed" data-i18n="blog.hero.subtitle">
                 Practical guides, cultural deep-dives, and expert advice to help you on your language journey.
             </p>
         </div>
@@ -123,20 +123,20 @@
         <!-- Error state -->
         <div id="posts-error" class="hidden text-center py-20">
             <span class="material-symbols-outlined text-[48px] text-rose-300 mb-4 block">error_outline</span>
-            <p class="text-slate-500 font-semibold mb-2">Could not load posts</p>
+            <p class="text-slate-500 font-semibold mb-2" data-i18n="blog.error.posts">Could not load posts</p>
             <p id="posts-error-msg" class="text-slate-400 text-sm"></p>
         </div>
 
         <!-- Empty state -->
         <div id="posts-empty" class="hidden text-center py-20">
             <span class="material-symbols-outlined text-[48px] text-slate-300 mb-4 block">auto_stories</span>
-            <p class="text-slate-400 font-semibold">No posts yet — check back soon!</p>
+            <p class="text-slate-400 font-semibold" data-i18n="blog.empty">No posts yet — check back soon!</p>
         </div>
 
         <!-- No category results -->
         <div id="no-results" class="hidden text-center py-16">
             <span class="material-symbols-outlined text-[48px] text-slate-300 mb-4 block">search_off</span>
-            <p class="text-slate-400 font-semibold">No posts in this category yet.</p>
+            <p class="text-slate-400 font-semibold" data-i18n="blog.noResults">No posts in this category yet.</p>
         </div>
 
     </section>
@@ -145,10 +145,10 @@
     <section class="bg-gradient-to-br from-[#FF7582] to-[#a93444] text-white py-14 px-4 md:px-8 mt-8">
         <div class="max-w-2xl mx-auto text-center">
             <span class="material-symbols-outlined text-[40px] mb-3 block opacity-80">mail</span>
-            <h2 class="font-['Plus_Jakarta_Sans'] text-2xl md:text-3xl font-bold mb-3">Stay in the Loop</h2>
-            <p class="text-white/80 text-sm mb-6 leading-relaxed">Get new articles, language tips, and course updates delivered straight to your inbox.</p>
+            <h2 class="font-['Plus_Jakarta_Sans'] text-2xl md:text-3xl font-bold mb-3" data-i18n="blog.newsletter.title">Stay in the Loop</h2>
+            <p class="text-white/80 text-sm mb-6 leading-relaxed" data-i18n="blog.newsletter.subtitle">Get new articles, language tips, and course updates delivered straight to your inbox.</p>
             <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-[#FF7582] px-8 py-3.5 rounded-full font-bold hover:bg-rose-50 hover:shadow-lg transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">send</span>Contact Us to Subscribe
+                <span class="material-symbols-outlined text-[18px]">send</span><span data-i18n="blog.newsletter.cta">Contact Us to Subscribe</span>
             </a>
         </div>
     </section>
@@ -233,11 +233,15 @@
 
         const container = document.getElementById('category-filters');
         container.innerHTML = cats.map(cat => {
-            const isAll    = cat === 'all';
-            const active   = isAll ? 'bg-[#FF7582] text-white border-[#FF7582]' : 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582]';
-            const label    = isAll ? 'All Posts' : cat;
+            const isAll = cat === 'all';
+            // Use i18n() if available (language-manager loaded), else fall back to English
+            const label = isAll
+                ? (typeof i18n === 'function' ? i18n('blog.filter.all') : 'All Posts')
+                : cat;
+            const activeClass  = 'bg-[#FF7582] text-white border-[#FF7582]';
+            const defaultClass = 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582]';
             return `<button onclick="filterPosts('${escHtml(cat)}')" data-cat="${escHtml(cat)}"
-                class="cat-btn px-4 py-2 rounded-full text-sm font-semibold border transition-all ${isAll ? active : 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582]'}"
+                class="cat-btn px-4 py-2 rounded-full text-sm font-semibold border transition-all ${isAll ? activeClass : defaultClass}"
                 >${escHtml(label)}</button>`;
         }).join('');
     }
@@ -355,14 +359,14 @@
     }
 
     // ── Translation state ─────────────────────────────────────────────────────
-    let _sourcePosts = [];      // original EN posts — never mutated
-    let _currentLang = 'en';
-    let _listTranslating = false;
+    let _sourcePosts  = [];   // original EN posts — never mutated
+    let _pendingLang  = null; // latest requested language not yet applied
+    let _isApplying   = false;
 
     // ── Translation spinner ───────────────────────────────────────────────────
-    function setListTranslating(on) {
-        _listTranslating = on;
+    function setSpinner(on) {
         let badge = document.getElementById('trans-badge');
+        const grid = document.getElementById('posts-grid');
         if (on) {
             if (!badge) {
                 badge = document.createElement('div');
@@ -372,46 +376,43 @@
                 document.body.appendChild(badge);
             }
             badge.style.display = 'flex';
-            document.getElementById('posts-grid').style.opacity = '0.45';
-            document.getElementById('posts-grid').style.transition = 'opacity .2s';
+            if (grid) { grid.style.opacity = '0.45'; grid.style.transition = 'opacity .2s'; }
         } else {
             if (badge) badge.style.display = 'none';
-            document.getElementById('posts-grid').style.opacity = '';
+            if (grid) grid.style.opacity = '';
         }
     }
 
-    // ── Apply language to post list ───────────────────────────────────────────
-    async function applyListLanguage(lang) {
-        if (!_sourcePosts.length) return;
-        _currentLang = lang;
-
+    // ── Core: render posts in given language ──────────────────────────────────
+    async function _renderListInLang(lang) {
         if (lang === 'en') {
             allPosts = _sourcePosts;
             buildCategoryFilter(allPosts);
             filterPosts(activeFilter);
             return;
         }
+        setSpinner(true);
+        const titles = _sourcePosts.map(p => p.title || '');
+        const translatedTitles = await translateStrings(titles, lang, 'list_titles');
+        allPosts = _sourcePosts.map((p, i) => ({ ...p, title: translatedTitles[i] || p.title }));
+        buildCategoryFilter(allPosts);
+        filterPosts(activeFilter);
+        setSpinner(false);
+    }
 
-        setListTranslating(true);
-        try {
-            // Translate all post titles in one batch, cached per lang
-            const titles = _sourcePosts.map(p => p.title || '');
-            const translatedTitles = await translateStrings(titles, lang, 'list_titles');
+    // ── Pending-language queue: latest language always wins ───────────────────
+    async function applyListLanguage(lang) {
+        if (!_sourcePosts.length) { _pendingLang = lang; return; }
+        _pendingLang = lang;
+        if (_isApplying) return;   // current run will pick up _pendingLang when done
 
-            // Build translated post array (shallow copies)
-            allPosts = _sourcePosts.map((p, i) => ({
-                ...p,
-                title: translatedTitles[i] || p.title,
-            }));
-
-            buildCategoryFilter(allPosts);
-            filterPosts(activeFilter);
-        } catch (err) {
-            console.warn('Blog list translation error:', err);
-            allPosts = _sourcePosts; // fall back to English
-            renderPostCards(allPosts);
-        } finally {
-            setListTranslating(false);
+        while (_pendingLang !== null) {
+            const target = _pendingLang;
+            _pendingLang = null;
+            _isApplying  = true;
+            try { await _renderListInLang(target); }
+            catch (e) { console.warn('Blog list translation error:', e); setSpinner(false); }
+            _isApplying = false;
         }
     }
 
@@ -431,13 +432,12 @@
 
             _sourcePosts = fetched;
             allPosts = fetched;
-            buildCategoryFilter(allPosts);
-            renderPostCards(allPosts);
 
-            // If language was already set to non-EN before posts loaded,
-            // translate now (languageChanged may have fired before data arrived)
-            const savedLang = localStorage.getItem('preferredLang') || 'en';
-            if (savedLang !== 'en') applyListLanguage(savedLang);
+            // Apply whatever language is pending (set by languageChanged before
+            // data arrived) or fall back to saved preference.
+            const targetLang = _pendingLang || localStorage.getItem('preferredLang') || 'en';
+            _pendingLang = null;
+            await _renderListInLang(targetLang);
 
         } catch (err) {
             console.error('Blog fetch error:', err);
@@ -450,7 +450,7 @@
 
     // ── Language change hook ──────────────────────────────────────────────────
     document.addEventListener('languageChanged', e => {
-        if (!_listTranslating) applyListLanguage(e.detail.lang);
+        applyListLanguage(e.detail.lang);
     });
 
     init();

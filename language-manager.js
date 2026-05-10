@@ -70,6 +70,12 @@ function updateSwitcherUI(lang) {
     }
 }
 
+// Public helper — returns translated string for a key + current (or given) language
+function i18n(key, lang) {
+    const l = lang || localStorage.getItem('preferredLang') || 'en';
+    return (_translations[l] && _translations[l][key]) || (_translations['en'] && _translations['en'][key]) || key;
+}
+
 // Public function — called by onclick on every page that uses the switcher
 async function changeGlobalLanguage(lang) {
     // If translations haven't loaded yet (edge case), load them first
