@@ -106,6 +106,12 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors')">
         <span class="material-symbols-outlined text-[20px]">people</span>Tutors
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('users')">
+        <span class="material-symbols-outlined text-[20px]">manage_accounts</span>Users
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('enrollments')">
+        <span class="material-symbols-outlined text-[20px]">school</span>Enrollments
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('wiki')">
         <span class="material-symbols-outlined text-[20px]">menu_book</span>Wiki
       </button>
@@ -119,7 +125,7 @@
         <span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users
       </button>
       <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-400 cursor-not-allowed" disabled>
-        <span class="material-symbols-outlined text-[20px]">school</span>Moodle Sync
+        <span class="material-symbols-outlined text-[20px]">sync</span>Moodle Sync
       </button>
       <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-400 cursor-not-allowed" disabled>
         <span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS
@@ -138,6 +144,12 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">people</span>Tutors
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('users');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">manage_accounts</span>Users
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('enrollments');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">school</span>Enrollments
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('wiki');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">menu_book</span>Wiki
       </button>
@@ -146,7 +158,7 @@
       </button>
       <div class="mt-5 mb-1"><p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400 px-3">Coming Soon</p></div>
       <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users</span>
-      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">school</span>Moodle Sync</span>
+      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">sync</span>Moodle Sync</span>
       <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS</span>
     </div>
 
@@ -157,7 +169,7 @@
       <section id="section-dashboard" class="fade-up">
         <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800 mb-1">Welcome back 👋</h1>
         <p class="text-slate-500 text-sm mb-8">Manage your languages, tutors, and platform settings from here.</p>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
           <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4">
             <div class="w-12 h-12 rounded-xl bg-[#a93444]/15 flex items-center justify-center shrink-0">
               <span class="material-symbols-outlined text-[26px] text-[#a93444]">translate</span>
@@ -176,13 +188,22 @@
               <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Tutors</p>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4 opacity-40">
-            <div class="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[26px] text-slate-600">lock_clock</span>
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4 cursor-pointer hover:border-[#a93444]/30 transition-all" onclick="showSection('users')">
+            <div class="w-12 h-12 rounded-xl bg-[#a93444]/15 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px] text-[#a93444]">manage_accounts</span>
             </div>
             <div>
-              <p class="text-sm font-bold text-slate-400">More stats</p>
-              <p class="text-xs text-slate-600">Coming with Firebase integration</p>
+              <p class="text-2xl font-extrabold text-slate-800" id="stat-users">—</p>
+              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Users</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4 cursor-pointer hover:border-[#a93444]/30 transition-all" onclick="showSection('enrollments')">
+            <div class="w-12 h-12 rounded-xl bg-[#a93444]/15 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px] text-[#a93444]">school</span>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-slate-800" id="stat-enrollments">—</p>
+              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Enrollments</p>
             </div>
           </div>
         </div>
@@ -243,6 +264,113 @@
           <button onclick="importSeedTutors()" class="inline-flex items-center gap-2 bg-[#a93444]/15 border border-[#a93444]/30 text-[#a93444] px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#a93444]/25 transition-all">
             <span class="material-symbols-outlined text-[16px]">download</span>Import from website
           </button>
+        </div>
+      </section>
+
+      <!-- ── USERS ── -->
+      <section id="section-users" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Users</h1>
+            <p class="text-slate-500 text-sm mt-0.5">All registered users from Firestore.</p>
+          </div>
+          <button onclick="loadUsers()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+          </button>
+        </div>
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          <input id="user-search" type="text" placeholder="Search by name or email…" oninput="filterUsersTable()" class="field-input max-w-xs text-sm py-2">
+          <select id="user-role-filter" onchange="filterUsersTable()" class="field-input max-w-[140px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Roles</option>
+            <option value="admin">Admin</option>
+            <option value="tutor">Tutor</option>
+            <option value="student">Student</option>
+          </select>
+          <select id="user-status-filter" onchange="filterUsersTable()" class="field-input max-w-[140px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div id="users-table-wrap" class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Name</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Email</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Role</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Joined</th>
+                  <th class="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading users…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ENROLLMENTS ── -->
+      <section id="section-enrollments" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Enrollments</h1>
+            <p class="text-slate-500 text-sm mt-0.5">All student enrollments and their course status.</p>
+          </div>
+          <button onclick="loadEnrollments()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+          </button>
+        </div>
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          <input id="enrol-search" type="text" placeholder="Search by name, course…" oninput="filterEnrollmentsTable()" class="field-input max-w-xs text-sm py-2">
+          <select id="enrol-lang-filter" onchange="filterEnrollmentsTable()" class="field-input max-w-[160px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Languages</option>
+          </select>
+          <select id="enrol-status-filter" onchange="filterEnrollmentsTable()" class="field-input max-w-[140px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-4 mb-5">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-slate-800" id="stat-total-enrollments">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Total</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-emerald-600" id="stat-active-enrollments">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Active</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-amber-500" id="stat-pending-enrollments">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Pending</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Student</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Course</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Format</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Module</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Submitted</th>
+                </tr>
+              </thead>
+              <tbody id="enrollments-table-body">
+                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading enrollments…</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -618,37 +746,49 @@
               <input id="t-name" type="text" placeholder="e.g. Desislava Dimitrova" oninput="updateTutorPreview()" class="field-input">
             </div>
             <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role / Title *</label>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role / Title</label>
               <input id="t-role" type="text" placeholder="e.g. Founder &amp; Lead Tutor" oninput="updateTutorPreview()" class="field-input">
             </div>
             <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Taught</label>
-              <!-- Multi-select dropdown -->
-              <div class="lang-dropdown" id="langs-dropdown-wrap">
-                <button type="button" id="langs-dropdown-btn" onclick="toggleLangsDropdown()" class="field-input flex items-center justify-between cursor-pointer text-left">
-                  <span id="langs-dropdown-label" class="text-slate-500 text-sm">Select languages…</span>
-                  <span class="material-symbols-outlined text-[18px] text-slate-500 shrink-0">expand_more</span>
-                </button>
-                <div id="langs-dropdown-list" class="lang-dropdown-list">
-                  <!-- populated by JS -->
-                </div>
-              </div>
-              <div id="langs-pills" class="flex flex-wrap gap-1.5 mt-2"></div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Order</label>
+              <input id="t-order" type="number" min="0" step="1" placeholder="e.g. 1" oninput="updateTutorPreview()" class="field-input">
             </div>
             <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Inspiring Quote</label>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Taught</label>
+              <input id="t-lang-teached" type="text" placeholder="e.g. Russian, Bulgarian, English" oninput="updateTutorPreview()" class="field-input">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Spoken</label>
+              <input id="t-lang-spoken" type="text" placeholder="e.g. Bulgarian, English" oninput="updateTutorPreview()" class="field-input">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Bio Quote</label>
               <textarea id="t-quote" rows="2" placeholder="A short inspiring quote…" oninput="updateTutorPreview()" class="field-input resize-none"></textarea>
             </div>
           </div>
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Credentials / Highlights</label>
-              <button type="button" onclick="addBullet()" class="flex items-center gap-1 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-2.5 py-1 rounded-full transition-all">
-                <span class="material-symbols-outlined text-[13px]">add</span>Add
-              </button>
+          <div class="grid gap-3">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">PhD</label>
+              <input id="t-phd" type="text" placeholder="e.g. PhD in Education..." oninput="updateTutorPreview()" class="field-input">
             </div>
-            <div id="t-bullets" class="flex flex-col gap-2"></div>
-            <p id="t-no-bullets" class="text-xs text-slate-600 py-3 text-center border border-dashed border-slate-200 rounded-xl">Add credentials or highlights using the button above.</p>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">School 1</label>
+                <input id="t-school-1" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">School 2</label>
+                <input id="t-school-2" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 1</label>
+                <input id="t-specialisation-1" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 2</label>
+                <input id="t-specialisation-2" type="text" oninput="updateTutorPreview()" class="field-input">
+              </div>
+            </div>
           </div>
           <label class="flex items-center gap-3 cursor-pointer select-none">
             <input id="t-active" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-[#a93444] focus:ring-[#a93444] bg-slate-50">
@@ -732,16 +872,9 @@ const DEFAULT_MODULES = [
 let _learningTypes = [...LEARNING_TYPES];
 let _modules       = [...DEFAULT_MODULES];
 
-// ── Languages multi-select ────────────────────────────────────────────────────
-const TUTOR_LANGS = [
-    { code:'gb', label:'English' },
-    { code:'de', label:'German' },
-    { code:'bg', label:'Bulgarian' },
-    { code:'ru', label:'Russian' },
-    { code:'cn', label:'Chinese' },
-    { code:'jp', label:'Japanese' }
-];
-let _selectedLangs = [];
+// ── Modal currency ────────────────────────────────────────────────────────────
+const MODAL_RATES = { eur: 1, usd: 1.10, rub: 100, cny: 7.9 };
+let _modalCurrency = 'eur';
 
 // ── Predefined language options for Language modal ────────────────────────────
 const LANG_OPTIONS = [
@@ -764,42 +897,47 @@ const SEED_TUTORS = [
     {
         name: 'Desislava Dimitrova',
         role: 'Founder & Lead Tutor',
-        langsTaught: 'Russian, Bulgarian, English',
-        quote: '"I created LinguaBridge to combine extensive academic expertise and practical experience to provide personalized and effective language learning."',
+        lang_teached: 'Russian, Bulgarian, English',
+        lang_spoken: '',
+        bio_quote: '"I created LinguaBridge to combine extensive academic expertise and practical experience to provide personalized and effective language learning."',
         photoUrl: 'Media/tutor_Desislava-Dimitrova.png',
         active: true,
-        bullets: [
-            { icon: 'school',     text: 'PhD in Education and Pedagogical Sciences' },
-            { icon: 'verified',   text: "Master's in Linguistics & TORFL-IV (C2) Certificate" },
-            { icon: 'translate',  text: 'Specialized in Language Interpretation & Translation' },
-            { icon: 'group',      text: 'Over 5 years of Russian & Bulgarian teaching experience' }
-        ]
+        order: 1,
+        phd: 'PhD in Education and Pedagogical Sciences',
+        school_1: "Master's in Linguistics & TORFL-IV (C2) Certificate",
+        school_2: '',
+        specialisation_1: 'Specialized in Language Interpretation & Translation',
+        specialisation_2: 'Over 5 years of Russian & Bulgarian teaching experience'
     },
     {
         name: 'Xin Zhou',
         role: 'Language Specialist',
-        langsTaught: 'Chinese, Russian',
-        quote: '"In my classes, I focus on making the learning process clear, practical, and enjoyable. I\'m here to help you learn in a way that feels comfortable and fun."',
+        lang_teached: 'Chinese, Russian',
+        lang_spoken: '',
+        bio_quote: '"In my classes, I focus on making the learning process clear, practical, and enjoyable. I\'m here to help you learn in a way that feels comfortable and fun."',
         photoUrl: 'Media/tutor_Xin-Zhou.png',
         active: true,
-        bullets: [
-            { icon: 'menu_book',   text: 'PhD in Education and Pedagogical Sciences' },
-            { icon: 'history_edu', text: 'TORFL-III Certificate' },
-            { icon: 'group',       text: 'Over 6 years of Chinese & Russian teaching experience' }
-        ]
+        order: 2,
+        phd: 'PhD in Education and Pedagogical Sciences',
+        school_1: 'TORFL-III Certificate',
+        school_2: '',
+        specialisation_1: 'Over 6 years of Chinese & Russian teaching experience',
+        specialisation_2: ''
     },
     {
         name: 'Alex Dakov',
         role: 'Language Specialist',
-        langsTaught: 'Japanese, Bulgarian',
-        quote: '"I love teaching languages through real-life travel experiences, making lessons practical, engaging, and connected to the world."',
+        lang_teached: 'Japanese, Bulgarian',
+        lang_spoken: '',
+        bio_quote: '"I love teaching languages through real-life travel experiences, making lessons practical, engaging, and connected to the world."',
         photoUrl: 'Media/tutor_Alex-Dakov.png',
         active: true,
-        bullets: [
-            { icon: 'school',  text: 'Bachelor Degree in Asian and African Studies' },
-            { icon: 'public',  text: "Master's studies in Diplomacy and International Relations" },
-            { icon: 'group',   text: 'Over 5 years of Bulgarian & Japanese teaching experience' }
-        ]
+        order: 3,
+        phd: '',
+        school_1: 'Bachelor Degree in Asian and African Studies',
+        school_2: "Master's studies in Diplomacy and International Relations",
+        specialisation_1: 'Over 5 years of Bulgarian & Japanese teaching experience',
+        specialisation_2: ''
     }
 ];
 
@@ -825,18 +963,23 @@ document.getElementById('logout-btn').addEventListener('click', () =>
 
 // ── Section switching ─────────────────────────────────────────────────────────
 window.showSection = function(name) {
-    ['dashboard','languages','tutors','wiki','settings'].forEach(s => {
+    ['dashboard','languages','tutors','users','enrollments','wiki','settings'].forEach(s => {
         const el = document.getElementById(`section-${s}`);
-        el.classList.toggle('hidden', s !== name);
-        if (s !== name) el.classList.remove('fade-up');
+        if (el) {
+            el.classList.toggle('hidden', s !== name);
+            if (s !== name) el.classList.remove('fade-up');
+        }
     });
-    document.getElementById(`section-${name}`).classList.add('fade-up');
+    const activeEl = document.getElementById(`section-${name}`);
+    if (activeEl) activeEl.classList.add('fade-up');
     document.querySelectorAll('.nav-item:not(.disabled)').forEach(btn => {
         const t = btn.textContent.trim().toLowerCase();
         btn.classList.toggle('active',
             t.includes(name) || (name === 'dashboard' && t.includes('dashboard'))
         );
     });
+    if (name === 'users' && _users.length === 0) loadUsers();
+    if (name === 'enrollments' && _enrollments.length === 0) loadEnrollments();
 };
 
 window.toggleSidebar = function() {
@@ -869,6 +1012,15 @@ function confirmDelete(msg, cb) {
 function updateStats() {
     document.getElementById('stat-langs').textContent  = languages.length;
     document.getElementById('stat-tutors').textContent = tutors.length;
+    // Load user/enrollment counts for dashboard stats asynchronously
+    getDocs(collection(db, 'users')).then(snap => {
+        const statEl = document.getElementById('stat-users');
+        if (statEl) statEl.textContent = snap.size;
+    }).catch(() => {});
+    getDocs(collection(db, 'enrollments')).then(snap => {
+        const statEl = document.getElementById('stat-enrollments');
+        if (statEl) statEl.textContent = snap.size;
+    }).catch(() => {});
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1040,6 +1192,17 @@ window.addCourse = function(data = null) {
         </button>
       </div>
       <div class="flex flex-wrap gap-2 mb-3">${toggles}</div>
+      <div class="flex items-center gap-2 mb-2 mt-1">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Price Currency:</span>
+        ${['eur','usd','rub','cny'].map(c => `
+          <button type="button" onclick="setModalCurrency('${c}', ${idx})"
+            class="modal-cur-btn text-[11px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${c === 'eur' ? 'bg-[#a93444] text-white border-[#a93444]' : 'bg-white text-slate-500 border-slate-200 hover:border-[#a93444]/40'}"
+            data-idx="${idx}" data-cur="${c}">
+            ${c.toUpperCase()}
+          </button>
+        `).join('')}
+        <span class="text-[10px] text-slate-400 ml-1" id="modal-rate-label-${idx}"></span>
+      </div>
       <div class="overflow-x-auto">
         <table class="min-w-full">
           <thead><tr>
@@ -1070,11 +1233,19 @@ function syncNoCourses() {
 
 function readCoursesFromDom() {
     const courses = [];
+    const priceKeys = ['g_m1','g_m2','g_lesson','i_m1','i_m2','i_lesson','sp_m1','sp_m2'];
     document.querySelectorAll('#l-courses > div[id^="course-"]').forEach(div => {
         const idx = div.id.replace('course-','');
         const course = {};
         div.querySelectorAll(`[data-course="${idx}"]`).forEach(inp => {
-            if (inp.dataset.key) course[inp.dataset.key] = inp.value;
+            if (!inp.dataset.key) return;
+            const key = inp.dataset.key;
+            if (priceKeys.includes(key)) {
+                const raw = parseInt(inp.value, 10);
+                course[key] = isNaN(raw) ? '' : Math.round(raw / MODAL_RATES[_modalCurrency]);
+            } else {
+                course[key] = inp.value;
+            }
         });
         // Read learningTypes from active toggles
         const learningTypes = [];
@@ -1145,7 +1316,16 @@ async function loadTutors() {
         const snap = await getDocs(collection(db, 'tutors'));
         tutors = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
     } catch { tutors = []; }
+    sortTutors();
     renderTutorGrid();
+}
+
+function tutorDocId(name) {
+    return name.trim().replace(/\s+/g, '_').replace(/[\/#[\]?]/g, '');
+}
+
+function sortTutors() {
+    tutors.sort((a, b) => (Number(a.order) || 9999) - (Number(b.order) || 9999) || String(a.name || '').localeCompare(String(b.name || '')));
 }
 
 function renderTutorGrid() {
@@ -1160,8 +1340,15 @@ function renderTutorGrid() {
         const badge = t.active !== false
             ? `<span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/20">Visible</span>`
             : `<span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200">Hidden</span>`;
-        const bullets = (t.bullets || []).slice(0,2).map(b =>
-            `<li class="flex items-start gap-2 text-xs text-slate-400"><span class="material-symbols-outlined text-[14px] text-[#a93444] mt-0.5">${b.icon||'star'}</span><span>${esc(b.text)}</span></li>`
+        const rows = [
+            { icon: 'school', text: t.phd },
+            { icon: 'verified', text: t.school_1 },
+            { icon: 'verified', text: t.school_2 },
+            { icon: 'translate', text: t.specialisation_1 },
+            { icon: 'translate', text: t.specialisation_2 }
+        ].filter(row => row.text && String(row.text).trim()).slice(0, 2);
+        const bullets = rows.map(b =>
+            `<li class="flex items-start gap-2 text-xs text-slate-400"><span class="material-symbols-outlined text-[14px] text-[#a93444] mt-0.5">${b.icon}</span><span>${esc(b.text)}</span></li>`
         ).join('');
         return `
         <div class="group bg-white rounded-[2rem] border border-slate-200 hover:border-slate-300 transition-all duration-300 overflow-hidden fade-up">
@@ -1170,12 +1357,12 @@ function renderTutorGrid() {
             <div class="w-3/5 p-6 flex flex-col justify-between">
               <div>
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="inline-block py-0.5 px-2.5 rounded-full bg-[#a93444]/15 text-[#a93444] font-bold text-[10px] uppercase tracking-wider">${esc(t.role||'Tutor')}</span>
+                  ${t.role ? `<span class="inline-block py-0.5 px-2.5 rounded-full bg-[#a93444]/15 text-[#a93444] font-bold text-[10px] uppercase tracking-wider">${esc(t.role)}</span>` : ''}
                   ${badge}
                 </div>
                 <h3 class="font-['Plus_Jakarta_Sans'] text-lg font-extrabold text-slate-800 mb-1">${esc(t.name||'—')}</h3>
-                ${t.langsTaught ? `<p class="text-xs text-[#a93444] font-semibold mb-2">${esc(t.langsTaught)}</p>` : ''}
-                ${t.quote ? `<p class="text-xs text-slate-500 italic line-clamp-2 border-l-2 border-[#a93444]/30 pl-2.5 mb-3">${esc(t.quote)}</p>` : ''}
+                ${t.lang_teached ? `<p class="text-xs text-[#a93444] font-semibold mb-2">${esc(t.lang_teached)}</p>` : ''}
+                ${t.bio_quote ? `<p class="text-xs text-slate-500 italic line-clamp-2 border-l-2 border-[#a93444]/30 pl-2.5 mb-3">${esc(t.bio_quote)}</p>` : ''}
                 ${bullets ? `<ul class="space-y-1">${bullets}</ul>` : ''}
               </div>
               <div class="flex gap-2 mt-4 pt-3 border-t border-slate-100">
@@ -1192,122 +1379,34 @@ function renderTutorGrid() {
     }).join('');
 }
 
-// ── Languages multi-select helpers ────────────────────────────────────────────
-function buildLangsDropdownList() {
-    const list = document.getElementById('langs-dropdown-list');
-    list.innerHTML = TUTOR_LANGS.map(l => {
-        const checked = _selectedLangs.some(s => s.code === l.code);
-        return `<label class="lang-option cursor-pointer">
-          <input type="checkbox" class="hidden" data-lang-code="${l.code}" onchange="onLangCheckChange(this,'${l.code}','${l.label}')" ${checked ? 'checked' : ''}>
-          <img src="https://flagcdn.com/w40/${l.code}.png" alt="${l.label}" class="h-5 w-auto rounded-sm">
-          <span class="text-sm text-slate-600 flex-1">${l.label}</span>
-          <span class="material-symbols-outlined text-[16px] text-[#a93444] ${checked ? '' : 'invisible'}">check</span>
-        </label>`;
-    }).join('');
-}
-
-window.toggleLangsDropdown = function() {
-    const list = document.getElementById('langs-dropdown-list');
-    list.classList.toggle('open');
-};
-
-window.onLangCheckChange = function(cb, code, label) {
-    if (cb.checked) {
-        if (!_selectedLangs.some(l => l.code === code)) _selectedLangs.push({ code, label });
-    } else {
-        _selectedLangs = _selectedLangs.filter(l => l.code !== code);
-    }
-    // Update check icon visibility
-    const checkIcon = cb.parentElement.querySelector('.material-symbols-outlined');
-    if (checkIcon) checkIcon.classList.toggle('invisible', !cb.checked);
-    renderLangPills();
-    updateLangsDropdownLabel();
-    updateTutorPreview();
-};
-
-window.removeLangPill = function(code) {
-    _selectedLangs = _selectedLangs.filter(l => l.code !== code);
-    // Uncheck in dropdown
-    const cb = document.querySelector(`#langs-dropdown-list [data-lang-code="${code}"]`);
-    if (cb) {
-        cb.checked = false;
-        const icon = cb.parentElement.querySelector('.material-symbols-outlined');
-        if (icon) icon.classList.add('invisible');
-    }
-    renderLangPills();
-    updateLangsDropdownLabel();
-    updateTutorPreview();
-};
-
-function renderLangPills() {
-    const container = document.getElementById('langs-pills');
-    container.innerHTML = _selectedLangs.map(l =>
-        `<span class="lang-pill">
-          <img src="https://flagcdn.com/w40/${l.code}.png" alt="${l.label}" class="h-3.5 w-auto rounded-sm">
-          ${l.label}
-          <button type="button" onclick="removeLangPill('${l.code}')" class="ml-0.5 text-[#a93444] hover:text-slate-400 leading-none">&times;</button>
-        </span>`
-    ).join('');
-}
-
-function updateLangsDropdownLabel() {
-    const label = document.getElementById('langs-dropdown-label');
-    if (_selectedLangs.length === 0) {
-        label.textContent = 'Select languages…';
-        label.classList.add('text-slate-500');
-        label.classList.remove('text-slate-400');
-    } else {
-        label.textContent = _selectedLangs.map(l => l.label).join(', ');
-        label.classList.remove('text-slate-500');
-        label.classList.add('text-slate-400');
-    }
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', e => {
-    if (!document.getElementById('langs-dropdown-wrap')?.contains(e.target)) {
-        document.getElementById('langs-dropdown-list')?.classList.remove('open');
-    }
-});
-
 window.openTutorModal = function(id = null) {
     editingTutorId = id;
     pendingPhotoFile = null;
-    _selectedLangs = [];
     document.getElementById('tutor-modal-title').textContent = id ? 'Edit Tutor' : 'Add Tutor';
-    ['t-name','t-role','t-quote'].forEach(f => document.getElementById(f).value = '');
+    ['t-name','t-role','t-order','t-lang-teached','t-lang-spoken','t-quote','t-phd','t-school-1','t-school-2','t-specialisation-1','t-specialisation-2'].forEach(f => document.getElementById(f).value = '');
     document.getElementById('t-photo-preview').src = '';
     document.getElementById('t-photo-preview').classList.add('hidden');
     document.getElementById('t-photo-placeholder').classList.remove('hidden');
     document.getElementById('t-change-photo-btn').classList.add('hidden');
     document.getElementById('t-active').checked = true;
-    document.getElementById('t-bullets').innerHTML = '';
-    _bulletCount = 0;
-    syncNoBullets();
     if (id) {
         const t = tutors.find(x => x._id === id);
         if (t) {
-            document.getElementById('t-name').value     = t.name  || '';
-            document.getElementById('t-role').value     = t.role  || '';
-            document.getElementById('t-quote').value    = t.quote || '';
-            document.getElementById('t-active').checked = t.active !== false;
-            // Parse langsTaught to preselect
-            if (t.langsTaught) {
-                const names = t.langsTaught.split(',').map(s => s.trim());
-                names.forEach(name => {
-                    const match = TUTOR_LANGS.find(l => l.label.toLowerCase() === name.toLowerCase());
-                    if (match && !_selectedLangs.some(s => s.code === match.code)) {
-                        _selectedLangs.push({ code: match.code, label: match.label });
-                    }
-                });
-            }
+            document.getElementById('t-name').value              = t.name  || '';
+            document.getElementById('t-role').value              = t.role  || '';
+            document.getElementById('t-order').value             = t.order ?? '';
+            document.getElementById('t-lang-teached').value      = t.lang_teached || t.langsTaught || '';
+            document.getElementById('t-lang-spoken').value       = t.lang_spoken || '';
+            document.getElementById('t-quote').value             = t.bio_quote || t.quote || '';
+            document.getElementById('t-phd').value               = t.phd || '';
+            document.getElementById('t-school-1').value          = t.school_1 || '';
+            document.getElementById('t-school-2').value          = t.school_2 || '';
+            document.getElementById('t-specialisation-1').value  = t.specialisation_1 || '';
+            document.getElementById('t-specialisation-2').value  = t.specialisation_2 || '';
+            document.getElementById('t-active').checked          = t.active !== false;
             if (t.photoUrl) { setPhotoPreview(t.photoUrl); }
-            (t.bullets || []).forEach(b => addBullet(b));
         }
     }
-    buildLangsDropdownList();
-    renderLangPills();
-    updateLangsDropdownLabel();
     updateTutorPreview();
     document.getElementById('tutor-modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -1335,52 +1434,19 @@ function setPhotoPreview(url) {
     document.getElementById('t-change-photo-btn').classList.remove('hidden');
 }
 
-// Bullets
-let _bulletCount = 0;
-const BULLET_ICONS = ['school','verified','translate','group','language','star','menu_book','history_edu','workspace_premium','emoji_events','public'];
-
-window.addBullet = function(data = null) {
-    const idx = _bulletCount++;
-    syncNoBullets();
-    const row = document.createElement('div');
-    row.id = `bullet-${idx}`;
-    row.className = 'flex items-center gap-2';
-    row.innerHTML = `
-      <select data-bullet="${idx}" data-key="icon" class="w-40 field-input" oninput="updateTutorPreview()">
-        ${BULLET_ICONS.map(ic => `<option value="${ic}" ${(data?.icon||'school')===ic?'selected':''}>${ic}</option>`).join('')}
-      </select>
-      <input data-bullet="${idx}" data-key="text" type="text" value="${esc(data?.text||'')}" placeholder="Credential or highlight…" oninput="updateTutorPreview()" class="flex-1 field-input">
-      <button type="button" onclick="removeBullet(${idx})" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-600 hover:text-red-400 hover:bg-red-500/10 transition-all">
-        <span class="material-symbols-outlined text-[16px]">close</span>
-      </button>`;
-    document.getElementById('t-bullets').appendChild(row);
-    syncNoBullets();
-};
-
-window.removeBullet = idx => { document.getElementById(`bullet-${idx}`)?.remove(); syncNoBullets(); updateTutorPreview(); };
-
-function syncNoBullets() {
-    document.getElementById('t-no-bullets').classList.toggle('hidden', document.getElementById('t-bullets').children.length > 0);
-}
-
-function readBulletsFromDom() {
-    const bullets = [];
-    document.querySelectorAll('#t-bullets > div[id^="bullet-"]').forEach(row => {
-        const idx = row.id.replace('bullet-','');
-        const b = {};
-        row.querySelectorAll(`[data-bullet="${idx}"]`).forEach(inp => { b[inp.dataset.key] = inp.value; });
-        if (b.text?.trim()) bullets.push(b);
-    });
-    return bullets;
-}
-
 window.updateTutorPreview = function() {
     const name    = document.getElementById('t-name').value  || 'Tutor Name';
-    const role    = document.getElementById('t-role').value  || 'Language Tutor';
+    const role    = document.getElementById('t-role').value.trim();
     const quote   = document.getElementById('t-quote').value;
-    const langs   = _selectedLangs.map(l => l.label).join(', ');
+    const langs   = document.getElementById('t-lang-teached').value.trim();
     const photo   = document.getElementById('t-photo-preview').src;
-    const bullets = readBulletsFromDom();
+    const bullets = [
+        { icon: 'school', text: document.getElementById('t-phd').value },
+        { icon: 'verified', text: document.getElementById('t-school-1').value },
+        { icon: 'verified', text: document.getElementById('t-school-2').value },
+        { icon: 'translate', text: document.getElementById('t-specialisation-1').value },
+        { icon: 'translate', text: document.getElementById('t-specialisation-2').value }
+    ].filter(b => b.text.trim());
     const photoPart = (photo && !photo.endsWith('/admin.html'))
         ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover">`
         : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[50px] text-slate-800/60">person</span></div>`;
@@ -1388,7 +1454,7 @@ window.updateTutorPreview = function() {
       <div class="flex min-h-[220px]">
         <div class="w-2/5 overflow-hidden">${photoPart}</div>
         <div class="w-3/5 p-5 flex flex-col justify-center gap-2">
-          <span class="inline-block py-0.5 px-3 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-widest">${esc(role)}</span>
+          ${role ? `<span class="inline-block py-0.5 px-3 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-widest">${esc(role)}</span>` : ''}
           <h3 class="font-['Plus_Jakarta_Sans'] text-base font-extrabold text-slate-900">${esc(name)}</h3>
           ${langs  ? `<p class="text-xs text-[#a93444] font-semibold">${esc(langs)}</p>` : ''}
           ${quote  ? `<p class="text-xs text-slate-500 italic border-l-2 border-rose-200 pl-2.5 line-clamp-2">${esc(quote)}</p>` : ''}
@@ -1400,7 +1466,9 @@ window.updateTutorPreview = function() {
 window.submitTutorModal = async function() {
     const name = document.getElementById('t-name').value.trim();
     const role = document.getElementById('t-role').value.trim();
-    if (!name || !role) { toast('Name and Role are required', 'error'); return; }
+    if (!name) { toast('Name is required', 'error'); return; }
+    const nextId = tutorDocId(name);
+    if (!nextId) { toast('Use a valid tutor name', 'error'); return; }
 
     // Determine photoUrl: keep existing if no new file selected
     let photoUrl = '';
@@ -1410,7 +1478,7 @@ window.submitTutorModal = async function() {
     }
     if (pendingPhotoFile) {
         try {
-            const id  = editingTutorId || ('new_' + Date.now());
+            const id  = editingTutorId || nextId;
             const ref = sRef(storage, `tutors/${id}/photo_${Date.now()}`);
             await uploadBytes(ref, pendingPhotoFile);
             photoUrl  = await getDownloadURL(ref);
@@ -1419,22 +1487,39 @@ window.submitTutorModal = async function() {
 
     const tutorData = {
         name, role,
-        langsTaught: _selectedLangs.map(l => l.label).join(', '),
-        quote:       document.getElementById('t-quote').value.trim(),
-        active:      document.getElementById('t-active').checked,
-        bullets:     readBulletsFromDom(),
+        lang_teached:      document.getElementById('t-lang-teached').value.trim(),
+        lang_spoken:       document.getElementById('t-lang-spoken').value.trim(),
+        bio_quote:         document.getElementById('t-quote').value.trim(),
+        active:            document.getElementById('t-active').checked,
+        order:             Number(document.getElementById('t-order').value) || 0,
+        phd:               document.getElementById('t-phd').value.trim(),
+        school_1:          document.getElementById('t-school-1').value.trim(),
+        school_2:          document.getElementById('t-school-2').value.trim(),
+        specialisation_1:  document.getElementById('t-specialisation-1').value.trim(),
+        specialisation_2:  document.getElementById('t-specialisation-2').value.trim(),
         photoUrl,
     };
     try {
-        if (editingTutorId) {
-            await updateDoc(doc(db, 'tutors', editingTutorId), tutorData);
-            const i = tutors.findIndex(t => t._id === editingTutorId);
-            if (i >= 0) tutors[i] = { _id: editingTutorId, ...tutorData };
-        } else {
-            const ref = await addDoc(collection(db, 'tutors'), tutorData);
-            tutors.push({ _id: ref.id, ...tutorData });
+        if (!editingTutorId || editingTutorId !== nextId) {
+            const existingSnap = await getDoc(doc(db, 'tutors', nextId));
+            if (existingSnap.exists()) { toast(`Tutor document "${nextId}" already exists`, 'error'); return; }
         }
-        closeTutorModal(); renderTutorGrid(); updateStats();
+        if (editingTutorId) {
+            if (editingTutorId !== nextId) {
+                await setDoc(doc(db, 'tutors', nextId), tutorData);
+                await deleteDoc(doc(db, 'tutors', editingTutorId));
+                tutors = tutors.filter(t => t._id !== editingTutorId);
+                tutors.push({ _id: nextId, ...tutorData });
+            } else {
+                await setDoc(doc(db, 'tutors', editingTutorId), tutorData);
+                const i = tutors.findIndex(t => t._id === editingTutorId);
+                if (i >= 0) tutors[i] = { _id: editingTutorId, ...tutorData };
+            }
+        } else {
+            await setDoc(doc(db, 'tutors', nextId), tutorData);
+            tutors.push({ _id: nextId, ...tutorData });
+        }
+        sortTutors(); closeTutorModal(); renderTutorGrid(); updateStats();
         toast(editingTutorId ? 'Tutor updated ✓' : 'Tutor added ✓');
     } catch (err) { toast('Save failed: ' + err.message, 'error'); }
 };
@@ -1453,11 +1538,14 @@ window.importSeedTutors = async function() {
     try {
         let count = 0;
         for (const t of SEED_TUTORS) {
-            const ref = await addDoc(collection(db, 'tutors'), t);
-            tutors.push({ _id: ref.id, ...t });
+            const id = tutorDocId(t.name);
+            await setDoc(doc(db, 'tutors', id), t);
+            const existing = tutors.findIndex(x => x._id === id);
+            if (existing >= 0) tutors[existing] = { _id: id, ...t };
+            else tutors.push({ _id: id, ...t });
             count++;
         }
-        renderTutorGrid(); updateStats();
+        sortTutors(); renderTutorGrid(); updateStats();
         toast(`Imported ${count} tutors from website ✓`);
     } catch (err) { toast('Import failed: ' + err.message, 'error'); }
 };
@@ -1693,6 +1781,157 @@ function esc(str) {
     d.textContent = String(str || '');
     return d.innerHTML;
 }
+
+// ── Modal Currency Switcher ───────────────────────────────────────────────────
+window.setModalCurrency = function(cur, idx) {
+    const oldRate = MODAL_RATES[_modalCurrency];
+    const newRate = MODAL_RATES[cur];
+    _modalCurrency = cur;
+
+    // Update button styles for this card
+    document.querySelectorAll(`.modal-cur-btn[data-idx="${idx}"]`).forEach(btn => {
+        const isActive = btn.dataset.cur === cur;
+        btn.classList.toggle('bg-[#a93444]', isActive);
+        btn.classList.toggle('text-white', isActive);
+        btn.classList.toggle('border-[#a93444]', isActive);
+        btn.classList.toggle('bg-white', !isActive);
+        btn.classList.toggle('text-slate-500', !isActive);
+        btn.classList.toggle('border-slate-200', !isActive);
+    });
+
+    // Show rate label
+    const rateLabel = document.getElementById(`modal-rate-label-${idx}`);
+    if (rateLabel) rateLabel.textContent = cur !== 'eur' ? `1 EUR = ${newRate} ${cur.toUpperCase()}` : '';
+
+    // Convert visible price inputs: convert current values from old currency to new currency
+    const card = document.getElementById(`course-${idx}`);
+    if (!card) return;
+    card.querySelectorAll('.price-input').forEach(inp => {
+        const val = parseFloat(inp.value);
+        if (!isNaN(val) && val > 0) {
+            const eurVal = val / oldRate;
+            const newVal = eurVal * newRate;
+            inp.value = Math.round(newVal);
+        }
+    });
+};
+
+// ── Users ────────────────────────────────────────────────────────────────────
+let _users = [];
+window.loadUsers = async function() {
+    try {
+        const snap = await getDocs(collection(db, 'users'));
+        _users = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        renderUsersTable(_users);
+    } catch(e) { toast('Failed to load users: ' + e.message, 'error'); }
+};
+function renderUsersTable(list) {
+    const body = document.getElementById('users-table-body');
+    if (!body) return;
+    if (!list.length) { body.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No users found.</td></tr>`; return; }
+    const roleColors = { admin:'bg-[#a93444]/10 text-[#a93444]', tutor:'bg-blue-100 text-blue-700', student:'bg-emerald-100 text-emerald-700' };
+    body.innerHTML = list.map(u => `
+      <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+        <td class="px-5 py-3 font-semibold text-slate-800">${esc(u.displayName || u.name || '—')}</td>
+        <td class="px-5 py-3 text-slate-500">${esc(u.email || '—')}</td>
+        <td class="px-5 py-3">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${roleColors[u.role] || 'bg-slate-100 text-slate-500'}">${esc(u.role || 'student')}</span>
+        </td>
+        <td class="px-5 py-3">
+          ${u.disabled ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-600">Inactive</span>'
+            : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>'}
+        </td>
+        <td class="px-5 py-3 text-slate-400 text-xs">${u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}</td>
+        <td class="px-5 py-3">
+          <select onchange="updateUserRole('${u._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
+            ${['admin','tutor','student'].map(r => `<option value="${r}" ${(u.role||'student')===r?'selected':''}>${r.charAt(0).toUpperCase()+r.slice(1)}</option>`).join('')}
+          </select>
+        </td>
+      </tr>`).join('');
+    const statEl = document.getElementById('stat-users');
+    if (statEl) statEl.textContent = _users.length;
+}
+window.updateUserRole = async function(uid, role) {
+    try {
+        await updateDoc(doc(db, 'users', uid), { role });
+        const u = _users.find(x => x._id === uid);
+        if (u) u.role = role;
+        toast('Role updated ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+window.filterUsersTable = function() {
+    const q = (document.getElementById('user-search').value || '').toLowerCase();
+    const role = document.getElementById('user-role-filter').value;
+    const status = document.getElementById('user-status-filter').value;
+    renderUsersTable(_users.filter(u => {
+        const text = ((u.displayName||u.name||'') + ' ' + (u.email||'')).toLowerCase();
+        const roleOk = !role || (u.role||'student') === role;
+        const statusOk = !status || (status==='inactive' ? u.disabled : !u.disabled);
+        return text.includes(q) && roleOk && statusOk;
+    }));
+};
+
+// ── Enrollments ───────────────────────────────────────────────────────────────
+let _enrollments = [];
+window.loadEnrollments = async function() {
+    try {
+        const snap = await getDocs(collection(db, 'enrollments'));
+        _enrollments = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        renderEnrollmentsTable(_enrollments);
+        // populate language filter
+        const langs = [...new Set(_enrollments.map(e => e.language).filter(Boolean))];
+        const sel = document.getElementById('enrol-lang-filter');
+        if (sel) {
+            sel.innerHTML = `<option value="">All Languages</option>` + langs.map(l => `<option value="${l}">${l}</option>`).join('');
+        }
+        // stats
+        const total = _enrollments.length;
+        const active = _enrollments.filter(e => e.status === 'active').length;
+        const pending = _enrollments.filter(e => !e.status || e.status === 'pending').length;
+        document.getElementById('stat-total-enrollments').textContent = total;
+        document.getElementById('stat-active-enrollments').textContent = active;
+        document.getElementById('stat-pending-enrollments').textContent = pending;
+        // update dashboard stat
+        const dashStat = document.getElementById('stat-enrollments');
+        if (dashStat) dashStat.textContent = total;
+    } catch(e) { toast('Failed to load enrollments: ' + e.message, 'error'); }
+};
+function renderEnrollmentsTable(list) {
+    const body = document.getElementById('enrollments-table-body');
+    if (!body) return;
+    if (!list.length) { body.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No enrollments found.</td></tr>`; return; }
+    const statusBadge = s => {
+        if (s === 'active') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>';
+        if (s === 'completed') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700">Completed</span>';
+        return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">Pending</span>';
+    };
+    body.innerHTML = list.map(e => `
+      <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+        <td class="px-5 py-3">
+          <p class="font-semibold text-slate-800">${esc(e.name || '—')}</p>
+          <p class="text-xs text-slate-400">${esc(e.email || '')}</p>
+        </td>
+        <td class="px-5 py-3">
+          <p class="font-semibold text-slate-700">${esc(e.courseName || e.course || '—')}</p>
+          <p class="text-xs text-slate-400">${esc(e.language || '')}</p>
+        </td>
+        <td class="px-5 py-3 text-slate-600 capitalize">${esc(e.format || e.learningType || '—')}</td>
+        <td class="px-5 py-3 text-slate-600">${e.modules === 2 || e.module === 'module2' ? 'Modules 1+2' : 'Module 1'}</td>
+        <td class="px-5 py-3">${statusBadge(e.status)}</td>
+        <td class="px-5 py-3 text-slate-400 text-xs">${e.submittedAt ? new Date(e.submittedAt.toDate ? e.submittedAt.toDate() : e.submittedAt).toLocaleDateString() : '—'}</td>
+      </tr>`).join('');
+}
+window.filterEnrollmentsTable = function() {
+    const q = (document.getElementById('enrol-search').value || '').toLowerCase();
+    const lang = document.getElementById('enrol-lang-filter').value;
+    const status = document.getElementById('enrol-status-filter').value;
+    renderEnrollmentsTable(_enrollments.filter(e => {
+        const text = ((e.name||'') + ' ' + (e.courseName||e.course||'') + ' ' + (e.email||'')).toLowerCase();
+        const langOk = !lang || e.language === lang;
+        const statusOk = !status || (e.status || 'pending') === status;
+        return text.includes(q) && langOk && statusOk;
+    }));
+};
 </script>
 </body>
 </html>

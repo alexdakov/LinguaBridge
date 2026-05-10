@@ -496,7 +496,51 @@ function renderLanguages(languages) {
       <img src="${lang.flag_url}" alt="${lang.title}" class="w-10 h-auto rounded shadow-sm" loading="lazy">
       <span class="card-label text-sm font-semibold text-slate-700 group-hover:text-primary font-['Plus_Jakarta_Sans']">${lang.title}</span>
     </button>
-  `).join('');
+  `).join('') + `
+    <button onclick="toggleLangRequest()" class="lang-card flex flex-col items-center gap-2 p-4 rounded-2xl border-2 border-dashed border-slate-200 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all cursor-pointer group" data-lang="__request__">
+      <span class="material-symbols-outlined text-[28px] text-slate-300 group-hover:text-primary transition">add_circle</span>
+      <span class="text-sm font-semibold text-slate-500 group-hover:text-primary font-['Plus_Jakarta_Sans'] text-center">Other Language?</span>
+      <span class="text-xs text-slate-400 text-center leading-tight">Send a request</span>
+    </button>
+  `;
+
+  // Add the request panel after the grid if not already present
+  const stepLanguage = document.getElementById('step-language');
+  if (stepLanguage && !document.getElementById('lang-request-panel')) {
+    const panel = document.createElement('div');
+    panel.id = 'lang-request-panel';
+    panel.className = 'hidden mt-4 bg-rose-50 border border-rose-100 rounded-2xl p-5';
+    panel.innerHTML = `
+      <h3 class="font-['Plus_Jakarta_Sans'] font-semibold text-slate-800 mb-1">Request a Language</h3>
+      <p class="text-sm text-slate-500 mb-4">Tell us which language you'd like to learn — we'll do our best to find you a teacher.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Language you want <span class="text-rose-500">*</span></label>
+          <input id="lr-language" type="text" placeholder="e.g. Portuguese, Hindi…" class="w-full rounded-xl border border-rose-200 px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition bg-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Your Name <span class="text-rose-500">*</span></label>
+          <input id="lr-name" type="text" placeholder="Jane Smith" class="w-full rounded-xl border border-rose-200 px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition bg-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Email <span class="text-rose-500">*</span></label>
+          <input id="lr-email" type="email" placeholder="jane@example.com" class="w-full rounded-xl border border-rose-200 px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition bg-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Message (optional)</label>
+          <input id="lr-message" type="text" placeholder="Level, goals, schedule…" class="w-full rounded-xl border border-rose-200 px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition bg-white" />
+        </div>
+      </div>
+      <div id="lr-error" class="hidden mt-2 text-xs text-red-500"></div>
+      <div class="mt-4 flex gap-2">
+        <button onclick="submitLangRequest()" class="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary/90 active:scale-95 transition">
+          <span class="material-symbols-outlined text-[16px]">send</span>Send Request
+        </button>
+        <button onclick="toggleLangRequest()" class="px-5 py-2.5 rounded-full border border-rose-200 text-sm font-semibold text-slate-500 hover:bg-white transition">Cancel</button>
+      </div>
+    `;
+    stepLanguage.appendChild(panel);
+  }
 }
 
 // ─── Render: Courses ─────────────────────────────────────────────────────────
@@ -598,7 +642,45 @@ function renderPlans() {
   const f = state.selectedFormat;
   const m = state.selectedModule;
   const c = state.selectedCourse;
-  if (!f || !m || !c) return;
+  if (!f || !c) return;
+
+  // For group/individual with no module pre-selected, render combined duration+plan cards
+  if (f !== 'selfpaced' && m === null) {
+    const m1Price = f === 'group' ? c.g_m1 : c.i_m1;
+    const m2Price = f === 'group' ? c.g_m2 : c.i_m2;
+    const lessonPrice = f === 'group' ? c.g_lesson : c.i_lesson;
+
+    const combos = [];
+    if (m1Price != null) {
+      combos.push({ planId: 'full', moduleId: 'module1', label: 'Module 1 · 3 months', planLabel: 'Full payment', price: fmt(m1Price), badge: null });
+      combos.push({ planId: 'monthly', moduleId: 'module1', label: 'Module 1 · 3 months', planLabel: 'Monthly', price: `${fmt(Math.round(m1Price / 3))} × 3`, badge: null });
+    }
+    if (m2Price != null) {
+      combos.push({ planId: 'full', moduleId: 'module2', label: 'Module 1+2 · 6 months', planLabel: 'Full payment', price: fmt(m2Price), badge: '5% off' });
+      combos.push({ planId: 'monthly', moduleId: 'module2', label: 'Module 1+2 · 6 months', planLabel: 'Monthly', price: `${fmt(Math.round(m2Price / 3))} × 3`, badge: null });
+    }
+    if (lessonPrice != null) {
+      combos.push({ planId: 'perlesson', moduleId: null, label: 'Per Lesson', planLabel: 'Per lesson', price: `${fmt(lessonPrice)} / lesson`, badge: null });
+    }
+
+    list.innerHTML = combos.map(p => `
+      <button
+        onclick="selectPlan('${p.planId}', ${p.moduleId ? `'${p.moduleId}'` : 'undefined'})"
+        class="plan-card w-full flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-200 hover:bg-rose-50/50 transition-all duration-200 text-left group"
+        data-plan="${p.planId}" data-module="${p.moduleId || ''}"
+      >
+        <div>
+          <div class="card-label font-semibold text-slate-800 font-['Plus_Jakarta_Sans'] group-hover:text-primary">${p.label}</div>
+          <div class="text-xs text-slate-400 mt-0.5">${p.planLabel}${p.badge ? ` <span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full ml-1">${p.badge}</span>` : ''}</div>
+        </div>
+        <span class="text-base font-bold text-primary whitespace-nowrap">${p.price}</span>
+      </button>
+    `).join('');
+    return;
+  }
+
+  // selfpaced or already has module selected
+  if (!m) return;
 
   const basePrice = m === 'module1'
     ? (f === 'group' ? c.g_m1 : f === 'individual' ? c.i_m1 : c.sp_m1)
@@ -730,9 +812,15 @@ function selectFormat(id) {
     el.classList.toggle('card-selected', el.dataset.format === id);
   });
 
-  renderModules();
-  revealStep(document.getElementById('step-module'));
-  hideStep(document.getElementById('step-plan'));
+  if (id === 'selfpaced') {
+    renderModules();
+    revealStep(document.getElementById('step-module'));
+    hideStep(document.getElementById('step-plan'));
+  } else {
+    hideStep(document.getElementById('step-module'));
+    renderPlans();
+    revealStep(document.getElementById('step-plan'));
+  }
   hideStep(document.getElementById('step-currency'));
   hideStep(document.getElementById('step-contact'));
 
@@ -755,7 +843,8 @@ function selectModule(id) {
   updateSummary();
 }
 
-function selectPlan(id) {
+function selectPlan(id, moduleId) {
+  if (moduleId !== undefined) state.selectedModule = moduleId;
   state.selectedPlan = id;
 
   document.querySelectorAll('.plan-card').forEach(el => {
@@ -1092,6 +1181,48 @@ async function handleNotSureSubmit() {
   } catch (e) {
     if (errEl) { errEl.textContent = 'Submission failed. Please try again.'; errEl.classList.remove('hidden'); }
   }
+}
+
+// ─── Language Request ────────────────────────────────────────────────────────
+function toggleLangRequest() {
+  const panel = document.getElementById('lang-request-panel');
+  const card = document.querySelector('[data-lang="__request__"]');
+  const isHidden = panel.classList.contains('hidden');
+  if (isHidden) {
+    panel.classList.remove('hidden');
+    card.classList.add('card-selected');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } else {
+    panel.classList.add('hidden');
+    card.classList.remove('card-selected');
+  }
+}
+
+async function submitLangRequest() {
+  const lang = document.getElementById('lr-language').value.trim();
+  const name = document.getElementById('lr-name').value.trim();
+  const email = document.getElementById('lr-email').value.trim();
+  const msg = document.getElementById('lr-message').value.trim();
+  const errEl = document.getElementById('lr-error');
+  errEl.classList.add('hidden');
+  if (!lang || !name || !email) { errEl.textContent = 'Language, name and email are required.'; errEl.classList.remove('hidden'); return; }
+  try {
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'contactRequests'), {
+      type: 'language_request', language: lang, name, email,
+      message: msg, submittedAt: new Date().toISOString()
+    });
+    document.getElementById('lang-request-panel').innerHTML = `
+      <div class="flex items-center gap-3 text-green-700">
+        <span class="material-symbols-outlined text-[24px]">check_circle</span>
+        <div>
+          <p class="font-semibold">Request sent!</p>
+          <p class="text-sm text-slate-500">We'll get back to you at <strong>${email}</strong> as soon as possible.</p>
+        </div>
+      </div>`;
+  } catch(e) { errEl.textContent = 'Failed to send — please try again.'; errEl.classList.remove('hidden'); }
 }
 
 // ─── Init ────────────────────────────────────────────────────────────────────
