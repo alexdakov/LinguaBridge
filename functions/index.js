@@ -1,32 +1,62 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const { onCall } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
+const fetch = require("node-fetch");
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+const MOODLE_TOKEN = defineSecret("MOODLE_TOKEN");
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+exports.enrolStudent = onCall(
+  { secrets: [MOODLE_TOKEN] },
+  async (request) => {
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    const { moodleUserId, moodleCourseId } = request.data;
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    if (!moodleUserId || !moodleCourseId) {
+      throw new Error("Missing moodleUserId or moodleCourseId");
+    }
+
+    try {
+      const response = await fetch(
+        "https://academy.linguabridge.study/webservice/rest/server.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({
+            wstoken: MOODLE_TOKEN.value(),
+            wsfunction: "enrol_manual_enrol_users",
+            moodlewsrestformat: "json",
+            enrolments: JSON.stringify([
+              {
+                roleid: 5,
+                userid: moodleUserId,
+                courseid: moodleCourseId
+              }
+            ])
+          })
+        }
+      );
+
+      const result = await response.json();
+
+      if (result && result.exception) {
+        return {
+          success: false,
+          error: result.message || "Moodle error",
+          result
+        };
+      }
+
+      return {
+        success: true,
+        result
+      };
+
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
+);

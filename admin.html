@@ -106,29 +106,26 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors')">
         <span class="material-symbols-outlined text-[20px]">people</span>Tutors
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('students')">
+        <span class="material-symbols-outlined text-[20px]">school</span>Students
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('users')">
         <span class="material-symbols-outlined text-[20px]">manage_accounts</span>Users
       </button>
-      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('enrollments')">
-        <span class="material-symbols-outlined text-[20px]">school</span>Enrollments
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('requests')">
+        <span class="material-symbols-outlined text-[20px]">inbox</span>Requests
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs')">
+        <span class="material-symbols-outlined text-[20px]">work</span>Jobs
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('audit')">
+        <span class="material-symbols-outlined text-[20px]">history</span>Audit Log
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('wiki')">
         <span class="material-symbols-outlined text-[20px]">menu_book</span>Wiki
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('settings')">
         <span class="material-symbols-outlined text-[20px]">tune</span>Settings
-      </button>
-      <div class="mt-6 mb-2">
-        <p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400 px-3 mb-2">Coming Soon</p>
-      </div>
-      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-400 cursor-not-allowed" disabled>
-        <span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users
-      </button>
-      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-400 cursor-not-allowed" disabled>
-        <span class="material-symbols-outlined text-[20px]">sync</span>Moodle Sync
-      </button>
-      <button class="nav-item disabled flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left text-slate-400 cursor-not-allowed" disabled>
-        <span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS
       </button>
     </aside>
 
@@ -144,11 +141,20 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('tutors');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">people</span>Tutors
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('students');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">school</span>Students
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('users');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">manage_accounts</span>Users
       </button>
-      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('enrollments');toggleSidebar()">
-        <span class="material-symbols-outlined text-[20px]">school</span>Enrollments
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('requests');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">inbox</span>Requests
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">work</span>Jobs
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('audit');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">history</span>Audit Log
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('wiki');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">menu_book</span>Wiki
@@ -156,10 +162,6 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('settings');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">tune</span>Settings
       </button>
-      <div class="mt-5 mb-1"><p class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400 px-3">Coming Soon</p></div>
-      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">person_add</span>Firebase Users</span>
-      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">sync</span>Moodle Sync</span>
-      <span class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400"><span class="material-symbols-outlined text-[20px]">article</span>Sanity CMS</span>
     </div>
 
     <!-- Main content -->
@@ -197,13 +199,13 @@
               <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Users</p>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4 cursor-pointer hover:border-[#a93444]/30 transition-all" onclick="showSection('enrollments')">
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 flex items-center gap-4 cursor-pointer hover:border-[#a93444]/30 transition-all" onclick="showSection('students')">
             <div class="w-12 h-12 rounded-xl bg-[#a93444]/15 flex items-center justify-center shrink-0">
               <span class="material-symbols-outlined text-[26px] text-[#a93444]">school</span>
             </div>
             <div>
               <p class="text-2xl font-extrabold text-slate-800" id="stat-enrollments">—</p>
-              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Enrollments</p>
+              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Students</p>
             </div>
           </div>
         </div>
@@ -225,7 +227,7 @@
 
       <!-- ── LANGUAGES ── -->
       <section id="section-languages" class="hidden fade-up">
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center justify-between mb-4">
           <div>
             <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Languages</h1>
             <p class="text-slate-500 text-sm mt-0.5">Manage course offerings, levels, and pricing.</p>
@@ -233,6 +235,18 @@
           <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
             <span class="material-symbols-outlined text-[18px]">add</span>Add Language
           </button>
+        </div>
+        <div class="flex gap-2 mb-5 flex-wrap">
+          <button onclick="openLearningTypesModal()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[15px]">groups</span>Manage Learning Types
+          </button>
+          <button onclick="openModulesModal()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[15px]">view_module</span>Manage Modules
+          </button>
+          <div class="ml-auto flex items-center gap-2 text-[11px] text-slate-400 font-semibold">
+            <span class="material-symbols-outlined text-[14px]">currency_exchange</span>
+            Live rates: <span id="live-rate-usd">—</span> · <span id="live-rate-rub">—</span> · <span id="live-rate-cny">—</span>
+          </div>
         </div>
         <div id="lang-grid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
         <div id="lang-empty" class="hidden text-center py-20">
@@ -264,7 +278,7 @@
             <option value="hidden">Hidden</option>
           </select>
         </div>
-        <div id="tutor-grid" class="grid md:grid-cols-2 gap-6"></div>
+        <div id="tutor-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
         <div id="tutor-empty" class="hidden text-center py-20">
           <span class="material-symbols-outlined text-[52px] text-slate-400 block mb-3">people</span>
           <p class="text-slate-500 font-semibold mb-1">No tutors yet.</p>
@@ -286,6 +300,8 @@
             <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
           </button>
         </div>
+        <!-- Permission warning -->
+        <div id="users-perm-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-xl mb-4">⚠️ Firestore rules need updating. Go to Firebase Console → Firestore → Rules and allow admins to read all user documents.</div>
         <!-- Filters -->
         <div class="flex flex-wrap gap-2 mb-5">
           <input id="user-search" type="text" placeholder="Search by name or email…" oninput="filterUsersTable()" class="field-input max-w-xs text-sm py-2">
@@ -322,44 +338,170 @@
         </div>
       </section>
 
-      <!-- ── ENROLLMENTS ── -->
-      <section id="section-enrollments" class="hidden fade-up">
+      <!-- ── STUDENTS ── -->
+      <section id="section-students" class="hidden fade-up">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Enrollments</h1>
-            <p class="text-slate-500 text-sm mt-0.5">All student enrollments and their course status.</p>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Students</h1>
+            <p class="text-slate-500 text-sm mt-0.5">All students from the Firestore users collection.</p>
           </div>
-          <button onclick="loadEnrollments()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+          <button onclick="loadStudents()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
             <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
           </button>
         </div>
-        <!-- Filters -->
-        <div class="flex flex-wrap gap-2 mb-5">
-          <input id="enrol-search" type="text" placeholder="Search by name, course…" oninput="filterEnrollmentsTable()" class="field-input max-w-xs text-sm py-2">
-          <select id="enrol-lang-filter" onchange="filterEnrollmentsTable()" class="field-input max-w-[160px] text-sm py-2 appearance-none cursor-pointer">
-            <option value="">All Languages</option>
-          </select>
-          <select id="enrol-status-filter" onchange="filterEnrollmentsTable()" class="field-input max-w-[140px] text-sm py-2 appearance-none cursor-pointer">
-            <option value="">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
+        <!-- Permission warning -->
+        <div id="students-perm-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-xl mb-4">⚠️ Firestore rules need updating. Go to Firebase Console → Firestore → Rules and allow admins to read all user documents.</div>
         <!-- Stats row -->
         <div class="grid grid-cols-3 gap-4 mb-5">
           <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-            <p class="text-2xl font-extrabold text-slate-800" id="stat-total-enrollments">—</p>
+            <p class="text-2xl font-extrabold text-slate-800" id="stat-total-students">—</p>
             <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Total</p>
           </div>
           <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-            <p class="text-2xl font-extrabold text-emerald-600" id="stat-active-enrollments">—</p>
+            <p class="text-2xl font-extrabold text-emerald-600" id="stat-active-students">—</p>
             <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Active</p>
           </div>
           <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-            <p class="text-2xl font-extrabold text-amber-500" id="stat-pending-enrollments">—</p>
+            <p class="text-2xl font-extrabold text-amber-500" id="stat-new-students">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">New</p>
+          </div>
+        </div>
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          <input id="student-search" type="text" placeholder="Search by name or email…" oninput="filterStudentsTable()" class="field-input max-w-xs text-sm py-2">
+          <select id="student-status-filter" onchange="filterStudentsTable()" class="field-input max-w-[140px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Name</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Email</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Moodle User</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Language/Course</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Joined</th>
+                  <th class="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody id="students-table-body">
+                <tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading students…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── REQUESTS ── -->
+      <section id="section-requests" class="hidden fade-up">
+        <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800 mb-1">Requests</h1>
+        <p class="text-slate-500 text-sm mb-6">Student enrollment requests from the enrolment form.</p>
+        <!-- Stats row -->
+        <div class="grid grid-cols-4 gap-3 mb-6" id="req-stats-row">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-slate-800" id="req-stat-new">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">New</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-blue-600" id="req-stat-contacted">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Contacted</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-amber-500" id="req-stat-pending">—</p>
             <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Pending</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-emerald-600" id="req-stat-accepted">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Accepted</p>
+          </div>
+        </div>
+        <!-- Filter bar -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <input id="req-search" type="text" placeholder="Search by name, language…" oninput="filterRequests()" class="field-input max-w-xs text-sm py-2">
+          <select id="req-status-filter" onchange="filterRequests()" class="field-input max-w-[160px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="pending">Pending</option>
+            <option value="rejected">Rejected</option>
+            <option value="accepted">Accepted</option>
+          </select>
+        </div>
+        <!-- Cards grid -->
+        <div id="requests-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ── JOBS ── -->
+      <section id="section-jobs" class="hidden fade-up">
+        <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800 mb-1">Job Applications</h1>
+        <p class="text-slate-500 text-sm mb-6">Tutor applications submitted via the website.</p>
+        <!-- Stats: Reviewing | Interview | Accepted | Rejected -->
+        <div class="grid grid-cols-4 gap-3 mb-6" id="job-stats-row">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-blue-600" id="job-stat-reviewing">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Reviewing</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-amber-500" id="job-stat-interview">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Interview</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-emerald-600" id="job-stat-accepted">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Accepted</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-red-500" id="job-stat-rejected">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Rejected</p>
+          </div>
+        </div>
+        <!-- Filter bar -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <input id="job-search" type="text" placeholder="Search by name, language…" oninput="filterJobs()" class="field-input max-w-xs text-sm py-2">
+          <select id="job-status-filter" onchange="filterJobs()" class="field-input max-w-[160px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="reviewing">Reviewing</option>
+            <option value="interview">Interview</option>
+            <option value="rejected">Rejected</option>
+            <option value="withdrawn">Withdrawn</option>
+            <option value="accepted">Accepted</option>
+          </select>
+        </div>
+        <div id="jobs-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ── AUDIT LOG ── -->
+      <section id="section-audit" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Audit Log</h1>
+            <p class="text-slate-500 text-sm mt-0.5">All admin actions recorded in real-time.</p>
+          </div>
+          <div class="flex gap-2">
+            <select id="audit-action-filter" onchange="filterAuditLog()" class="field-input max-w-[200px] text-sm py-2 appearance-none cursor-pointer">
+              <option value="">All Actions</option>
+              <option value="add_language">Add Language</option>
+              <option value="update_language">Update Language</option>
+              <option value="delete_language">Delete Language</option>
+              <option value="import_prices">Import Prices</option>
+              <option value="add_tutor">Add Tutor</option>
+              <option value="update_tutor">Update Tutor</option>
+              <option value="delete_tutor">Delete Tutor</option>
+              <option value="update_role">Update Role</option>
+              <option value="update_student">Update Student</option>
+              <option value="update_user">Update User</option>
+              <option value="accept_request">Accept Request</option>
+              <option value="accept_job">Accept Job</option>
+              <option value="update_learning_types">Learning Types</option>
+              <option value="update_modules">Modules</option>
+            </select>
+            <button onclick="loadAuditLog()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+              <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+            </button>
           </div>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
@@ -367,16 +509,15 @@
             <table class="min-w-full text-sm">
               <thead>
                 <tr class="border-b border-slate-100 bg-slate-50">
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Student</th>
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Course</th>
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Format</th>
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Module</th>
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
-                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Submitted</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Time</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">User</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Action</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Target</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Details</th>
                 </tr>
               </thead>
-              <tbody id="enrollments-table-body">
-                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading enrollments…</td></tr>
+              <tbody id="audit-table-body">
+                <tr><td colspan="5" class="px-5 py-10 text-center text-slate-400 text-sm">Loading audit log…</td></tr>
               </tbody>
             </table>
           </div>
@@ -557,86 +698,10 @@
       <!-- ── SETTINGS ── -->
       <section id="section-settings" class="hidden fade-up">
         <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800 mb-1">Settings</h1>
-        <p class="text-slate-500 text-sm mb-8">Manage learning types, modules, and other platform configuration.</p>
-
-        <!-- Learning Types -->
-        <div class="mb-10">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h2 class="text-base font-extrabold text-slate-800">Learning Types</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Define the available learning formats for courses.</p>
-            </div>
-            <button onclick="openAddLearningType()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
-              <span class="material-symbols-outlined text-[15px]">add</span>Add Learning Type
-            </button>
-          </div>
-          <div id="lt-cards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-          <!-- Inline add form -->
-          <div id="lt-add-form" class="hidden mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
-            <p class="text-sm font-bold text-slate-600 mb-3">New Learning Type</p>
-            <div class="grid sm:grid-cols-3 gap-3 mb-3">
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Material Icon Name</label>
-                <input id="lt-new-icon" type="text" placeholder="e.g. groups" class="field-input">
-              </div>
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Label</label>
-                <input id="lt-new-label" type="text" placeholder="e.g. Group" class="field-input">
-              </div>
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Description</label>
-                <input id="lt-new-desc" type="text" placeholder="Short description" class="field-input">
-              </div>
-            </div>
-            <div class="flex gap-2 justify-end">
-              <button onclick="cancelAddLearningType()" class="px-4 py-2 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
-              <button onclick="saveLearningType()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">save</span>Save
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modules -->
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h2 class="text-base font-extrabold text-slate-800">Modules</h2>
-              <p class="text-xs text-slate-500 mt-0.5">Define course module durations used in pricing.</p>
-            </div>
-            <button onclick="openAddModule()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
-              <span class="material-symbols-outlined text-[15px]">add</span>Add Module
-            </button>
-          </div>
-          <div id="mod-cards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-          <!-- Inline add form -->
-          <div id="mod-add-form" class="hidden mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
-            <p class="text-sm font-bold text-slate-600 mb-3">New Module</p>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Name</label>
-                <input id="mod-new-name" type="text" placeholder="e.g. Module 3" class="field-input">
-              </div>
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Weeks</label>
-                <input id="mod-new-weeks" type="number" min="1" placeholder="13" class="field-input">
-              </div>
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Months</label>
-                <input id="mod-new-months" type="number" min="1" placeholder="3" class="field-input">
-              </div>
-              <div>
-                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Description</label>
-                <input id="mod-new-desc" type="text" placeholder="e.g. Months 7–9" class="field-input">
-              </div>
-            </div>
-            <div class="flex gap-2 justify-end">
-              <button onclick="cancelAddModule()" class="px-4 py-2 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
-              <button onclick="saveModule()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">save</span>Save
-              </button>
-            </div>
-          </div>
+        <p class="text-slate-500 text-sm mb-6">Platform configuration and learning type management.</p>
+        <div class="bg-blue-50 border border-blue-200 text-blue-700 text-sm px-4 py-3 rounded-xl mb-6 flex items-start gap-2">
+          <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5">info</span>
+          <span>Learning types and modules are now managed from the <button onclick="showSection('languages')" class="font-bold underline">Languages section</button> via the pill buttons at the top.</span>
         </div>
       </section><!-- end settings -->
 
@@ -644,6 +709,236 @@
   </div>
 </div><!-- end admin-app -->
 
+
+<!-- Hidden containers for learning type / module data (rendered by JS, shown in modals) -->
+<div id="lt-cards" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+<div id="lt-add-form" class="hidden mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+  <p class="text-sm font-bold text-slate-600 mb-3">New Learning Type</p>
+  <div class="grid sm:grid-cols-3 gap-3 mb-3">
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Material Icon Name</label>
+      <input id="lt-new-icon" type="text" placeholder="e.g. groups" class="field-input">
+    </div>
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Label</label>
+      <input id="lt-new-label" type="text" placeholder="e.g. Group" class="field-input">
+    </div>
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Description</label>
+      <input id="lt-new-desc" type="text" placeholder="Short description" class="field-input">
+    </div>
+  </div>
+  <div class="flex gap-2 justify-end">
+    <button onclick="cancelAddLearningType()" class="px-4 py-2 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
+    <button onclick="saveLearningType()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+      <span class="material-symbols-outlined text-[15px]">save</span>Save
+    </button>
+  </div>
+</div>
+<div id="mod-cards" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+<div id="mod-add-form" class="hidden mt-4 bg-slate-50 border border-slate-200 rounded-2xl p-5">
+  <p class="text-sm font-bold text-slate-600 mb-3">New Module</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Name</label>
+      <input id="mod-new-name" type="text" placeholder="e.g. Module 3" class="field-input">
+    </div>
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Weeks</label>
+      <input id="mod-new-weeks" type="number" min="1" placeholder="13" class="field-input">
+    </div>
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Months</label>
+      <input id="mod-new-months" type="number" min="1" placeholder="3" class="field-input">
+    </div>
+    <div>
+      <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Description</label>
+      <input id="mod-new-desc" type="text" placeholder="e.g. Months 7–9" class="field-input">
+    </div>
+  </div>
+  <div class="flex gap-2 justify-end">
+    <button onclick="cancelAddModule()" class="px-4 py-2 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
+    <button onclick="saveModule()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+      <span class="material-symbols-outlined text-[15px]">save</span>Save
+    </button>
+  </div>
+</div>
+
+<!-- ══ LEARNING TYPES MODAL ═══════════════════════════════════════════════════ -->
+<div id="lt-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Manage Learning Types</h2>
+      <button onclick="closeLearningTypesModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1" id="lt-modal-body">
+      <!-- rendered by renderLearningTypeCards() + add form -->
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODULES MODAL ══════════════════════════════════════════════════════════ -->
+<div id="mod-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Manage Modules</h2>
+      <button onclick="closeModulesModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1" id="mod-modal-body">
+      <!-- rendered by renderModuleCards() -->
+    </div>
+  </div>
+</div>
+
+<!-- ══ STUDENT EDIT MODAL ════════════════════════════════════════════════════ -->
+<div id="student-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 id="student-modal-title" class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Edit Student</h2>
+      <button onclick="closeStudentModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1 flex flex-col gap-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Name</label>
+          <input id="sm-displayName" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Email</label>
+          <input id="sm-email" type="email" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Phone</label>
+          <input id="sm-phone" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Moodle Username</label>
+          <input id="sm-moodle-user" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Moodle Password</label>
+          <input id="sm-moodle-pass" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role</label>
+          <div class="field-input bg-slate-100 text-slate-500 cursor-not-allowed">student</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input id="sm-active" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-[#a93444] focus:ring-[#a93444] bg-slate-50">
+          <span class="text-sm font-semibold text-slate-600">Active</span>
+        </label>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Notes</label>
+        <textarea id="sm-notes" rows="2" class="field-input resize-none"></textarea>
+      </div>
+      <!-- Enrolled Courses -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-extrabold text-slate-600 uppercase tracking-wider">Enrolled Courses</h3>
+          <button type="button" onclick="addStudentCourse()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">add</span>Add Course
+          </button>
+        </div>
+        <div id="sm-courses-list" class="flex flex-col gap-2"></div>
+      </div>
+      <!-- Custom fields -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-extrabold text-slate-600 uppercase tracking-wider">Custom Fields</h3>
+          <button type="button" onclick="addStudentCustomField()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">add</span>Add Field
+          </button>
+        </div>
+        <div id="sm-custom-fields" class="flex flex-col gap-2"></div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between px-7 py-4 border-t border-slate-100 shrink-0 gap-3">
+      <button onclick="closeStudentModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitStudentModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">save</span>Save Student
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ USER EDIT MODAL ═══════════════════════════════════════════════════════ -->
+<div id="user-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 id="user-modal-title" class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Edit User</h2>
+      <button onclick="closeUserModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1 flex flex-col gap-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Name</label>
+          <input id="um-displayName" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Email</label>
+          <input id="um-email" type="email" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role</label>
+          <select id="um-role" class="field-input appearance-none cursor-pointer">
+            <option value="admin">Admin</option>
+            <option value="tutor">Tutor</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Phone</label>
+          <input id="um-phone" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Moodle Username</label>
+          <input id="um-moodle-user" type="text" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Moodle Password</label>
+          <input id="um-moodle-pass" type="text" class="field-input">
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input id="um-active" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-[#a93444] focus:ring-[#a93444] bg-slate-50">
+          <span class="text-sm font-semibold text-slate-600">Active (uncheck to disable access)</span>
+        </label>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Notes</label>
+        <textarea id="um-notes" rows="2" class="field-input resize-none"></textarea>
+      </div>
+      <!-- Custom fields -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-extrabold text-slate-600 uppercase tracking-wider">Custom Fields</h3>
+          <button type="button" onclick="addUserCustomField()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">add</span>Add Field
+          </button>
+        </div>
+        <div id="um-custom-fields" class="flex flex-col gap-2"></div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between px-7 py-4 border-t border-slate-100 shrink-0 gap-3">
+      <button onclick="closeUserModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitUserModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">save</span>Save User
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ══ LANGUAGE MODAL ════════════════════════════════════════════════════════ -->
 <div id="lang-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
@@ -723,17 +1018,24 @@
 
 <!-- ══ TUTOR MODAL ════════════════════════════════════════════════════════════ -->
 <div id="tutor-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
-  <div class="bg-white border border-slate-200 w-full max-w-3xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+  <div class="bg-white border border-slate-200 w-full max-w-4xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
     <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
       <h2 id="tutor-modal-title" class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Add Tutor</h2>
-      <button onclick="closeTutorModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
-        <span class="material-symbols-outlined text-[22px]">close</span>
-      </button>
+      <div class="flex items-center gap-2">
+        <button id="tutor-preview-toggle" onclick="toggleTutorPreviewPane()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-slate-50 hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all">
+          <span class="material-symbols-outlined text-[15px]">visibility</span>Preview
+        </button>
+        <button onclick="closeTutorModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
     </div>
     <div class="modal-scroll px-7 py-6 flex-1">
-      <div class="grid lg:grid-cols-2 gap-8">
-        <!-- Form -->
-        <div class="flex flex-col gap-5">
+      <div class="grid gap-8" id="tutor-modal-grid">
+        <!-- Left: scrollable form -->
+        <div class="flex flex-col gap-5" id="tutor-form-col">
+
+          <!-- 1. Profile Photo -->
           <div>
             <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Profile Photo</label>
             <div id="t-drop-zone" class="drop-zone rounded-2xl p-5 flex flex-col items-center gap-3 cursor-pointer" onclick="document.getElementById('t-photo-input').click()">
@@ -748,72 +1050,124 @@
               </button>
             </div>
             <input id="t-photo-input" type="file" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
-          </div>
-          <div class="grid gap-3">
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Full Name *</label>
-              <input id="t-name" type="text" placeholder="e.g. Desislava Dimitrova" oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role / Title</label>
-              <input id="t-role" type="text" placeholder="e.g. Founder &amp; Lead Tutor" oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Order</label>
-              <input id="t-order" type="number" min="0" step="1" placeholder="e.g. 1" oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Taught</label>
-              <input id="t-lang-teached" type="text" placeholder="e.g. Russian, Bulgarian, English" oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Spoken</label>
-              <input id="t-lang-spoken" type="text" placeholder="e.g. Bulgarian, English" oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Bio Quote</label>
-              <textarea id="t-quote" rows="2" placeholder="A short inspiring quote…" oninput="updateTutorPreview()" class="field-input resize-none"></textarea>
-            </div>
-          </div>
-          <div class="grid gap-3">
-            <div>
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">PhD</label>
-              <input id="t-phd" type="text" placeholder="e.g. PhD in Education..." oninput="updateTutorPreview()" class="field-input">
-            </div>
-            <div class="grid sm:grid-cols-2 gap-3">
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">School 1</label>
-                <input id="t-school-1" type="text" oninput="updateTutorPreview()" class="field-input">
+            <!-- Repositioning controls (shown after photo upload) -->
+            <div id="t-photo-reposition" class="hidden mt-3 bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-3">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Photo Positioning</p>
+              <div class="flex items-center gap-3">
+                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Horizontal</label>
+                <input id="t-photo-x" type="range" data-pos="x" min="-50" max="50" step="1" value="0" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
+                <span id="t-photo-x-val" class="text-xs text-slate-400 w-8 text-right">0</span>
               </div>
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">School 2</label>
-                <input id="t-school-2" type="text" oninput="updateTutorPreview()" class="field-input">
+              <div class="flex items-center gap-3">
+                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Vertical</label>
+                <input id="t-photo-y" type="range" data-pos="y" min="-50" max="50" step="1" value="0" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
+                <span id="t-photo-y-val" class="text-xs text-slate-400 w-8 text-right">0</span>
               </div>
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Certificate 1</label>
-                <input id="t-certificate-1" type="text" oninput="updateTutorPreview()" class="field-input">
-              </div>
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Certificate 2</label>
-                <input id="t-certificate-2" type="text" oninput="updateTutorPreview()" class="field-input">
-              </div>
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 1</label>
-                <input id="t-specialisation-1" type="text" oninput="updateTutorPreview()" class="field-input">
-              </div>
-              <div>
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 2</label>
-                <input id="t-specialisation-2" type="text" oninput="updateTutorPreview()" class="field-input">
+              <div class="flex items-center gap-3">
+                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Scale</label>
+                <input id="t-photo-scale" type="range" min="0.8" max="1.5" step="0.05" value="1" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
+                <span id="t-photo-scale-val" class="text-xs text-slate-400 w-8 text-right">1</span>
               </div>
             </div>
           </div>
+
+          <!-- 2. Display Order -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Order</label>
+            <div class="flex items-center gap-3">
+              <input id="t-order" type="number" min="1" step="1" placeholder="e.g. 1" oninput="updateTutorPreview()" class="field-input max-w-[120px]">
+              <span id="t-order-hint" class="text-xs text-slate-400"></span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Higher = later on website</p>
+          </div>
+
+          <!-- 3. Full Name -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Full Name *</label>
+            <input id="t-name" type="text" placeholder="e.g. Desislava Dimitrova" oninput="updateTutorPreview()" class="field-input">
+          </div>
+
+          <!-- 4. Role / Title -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role / Title *</label>
+            <input id="t-role" type="text" placeholder="e.g. Founder &amp; Lead Tutor" oninput="updateTutorPreview()" class="field-input">
+          </div>
+
+          <!-- 5. Languages Taught (multi-select dropdown) -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Taught</label>
+            <div id="langs-dropdown-wrap" class="lang-dropdown">
+              <div id="langs-pills-wrap" class="field-input flex flex-wrap gap-1.5 cursor-pointer min-h-[40px]" onclick="toggleLangsDropdown()" style="padding-top:6px;padding-bottom:6px;">
+                <span class="text-slate-400 text-sm self-center" id="langs-placeholder">Click to select…</span>
+              </div>
+              <div id="langs-dropdown-list" class="lang-dropdown-list">
+                <!-- rendered by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Languages Spoken -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Languages Spoken</label>
+            <input id="t-lang-spoken" type="text" placeholder="e.g. Bulgarian, English, Russian" oninput="updateTutorPreview()" class="field-input">
+          </div>
+
+          <!-- 7. Bio / Quote -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Bio / Quote</label>
+            <textarea id="t-bio-quote" rows="2" placeholder="A short inspiring quote…" oninput="updateTutorPreview()" class="field-input resize-none"></textarea>
+          </div>
+
+          <!-- 8. PhD -->
+          <div>
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">PhD</label>
+            <input id="t-phd" type="text" placeholder="e.g. PhD in Education and Pedagogical Sciences" oninput="updateTutorPreview()" class="field-input">
+          </div>
+
+          <!-- 9-10. Education -->
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Education 1</label>
+              <input id="t-school-1" type="text" placeholder="e.g. Master's in Linguistics" oninput="updateTutorPreview()" class="field-input">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Education 2</label>
+              <input id="t-school-2" type="text" oninput="updateTutorPreview()" class="field-input">
+            </div>
+          </div>
+
+          <!-- 11-12. Specialisation -->
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 1</label>
+              <input id="t-spec-1" type="text" oninput="updateTutorPreview()" class="field-input">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Specialisation 2</label>
+              <input id="t-spec-2" type="text" oninput="updateTutorPreview()" class="field-input">
+            </div>
+          </div>
+
+          <!-- 13. Custom fields -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Custom Fields</label>
+              <button type="button" onclick="addTutorCustomField()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+                <span class="material-symbols-outlined text-[15px]">add</span>Add Custom Field
+              </button>
+            </div>
+            <div id="t-custom-fields" class="flex flex-col gap-2"></div>
+          </div>
+
+          <!-- 14. Visible -->
           <label class="flex items-center gap-3 cursor-pointer select-none">
             <input id="t-active" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-[#a93444] focus:ring-[#a93444] bg-slate-50">
             <span class="text-sm font-semibold text-slate-400">Visible on website</span>
           </label>
         </div>
-        <!-- Preview -->
-        <div class="hidden lg:block">
+
+        <!-- Right: preview pane (hidden unless toggled) -->
+        <div id="tutor-preview-col" class="hidden">
           <p class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">Website Preview</p>
           <div id="tutor-preview-card" class="bg-white rounded-[2rem] shadow-lg overflow-hidden border border-slate-200"></div>
           <p class="text-[11px] text-slate-600 mt-2 text-center">Matches the About page card template</p>
@@ -854,7 +1208,7 @@
 <script type="module">
 import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 const app  = initializeApp({
@@ -995,8 +1349,9 @@ document.getElementById('logout-btn').addEventListener('click', () =>
 );
 
 // ── Section switching ─────────────────────────────────────────────────────────
+const _sectionLoaded = { audit: false };
 window.showSection = function(name) {
-    ['dashboard','languages','tutors','users','enrollments','wiki','settings'].forEach(s => {
+    ['dashboard','languages','tutors','students','users','requests','jobs','audit','wiki','settings'].forEach(s => {
         const el = document.getElementById(`section-${s}`);
         if (el) {
             el.classList.toggle('hidden', s !== name);
@@ -1011,8 +1366,12 @@ window.showSection = function(name) {
             t.includes(name) || (name === 'dashboard' && t.includes('dashboard'))
         );
     });
-    if (name === 'users' && _users.length === 0) loadUsers();
-    if (name === 'enrollments' && _enrollments.length === 0) loadEnrollments();
+    // Lazy-load on first visit
+    if (name === 'students' && !_sectionLoaded.students) { _sectionLoaded.students = true; loadStudents(); }
+    if (name === 'users'    && !_sectionLoaded.users)    { _sectionLoaded.users    = true; loadUsers(); }
+    if (name === 'requests' && !_sectionLoaded.requests) { _sectionLoaded.requests = true; loadRequests(); }
+    if (name === 'jobs'     && !_sectionLoaded.jobs)     { _sectionLoaded.jobs     = true; loadJobs(); }
+    if (name === 'audit'    && !_sectionLoaded.audit)    { _sectionLoaded.audit    = true; loadAuditLog(); }
 };
 
 window.toggleSidebar = function() {
@@ -1045,17 +1404,18 @@ function confirmDelete(msg, cb) {
 function updateStats() {
     document.getElementById('stat-langs').textContent  = languages.length;
     document.getElementById('stat-tutors').textContent = tutors.length;
-    // Load user/enrollment counts for dashboard stats asynchronously
     getDocs(collection(db, 'users')).then(snap => {
-        const statEl = document.getElementById('stat-users');
-        if (statEl) statEl.textContent = snap.size;
+        const all = snap.docs.map(d => d.data());
+        const statUsers = document.getElementById('stat-users');
+        if (statUsers) statUsers.textContent = all.length;
+        const students = all.filter(u => u.role === 'student');
+        const statEnroll = document.getElementById('stat-enrollments');
+        if (statEnroll) statEnroll.textContent = students.length;
     }).catch(() => {});
-    getDocs(collection(db, 'users')).then(snap => {
-        const statEl = document.getElementById('stat-enrollments');
-        if (statEl) statEl.textContent = snap.docs.filter(d => {
-            const data = d.data();
-            return !!data.enrollment || (data.role || 'student') === 'student';
-        }).length;
+    // Request new count
+    getDocs(collection(db, 'studentRequests')).then(snap => {
+        const newCount = snap.docs.filter(d => (d.data().status || 'new') === 'new').length;
+        // Could show in nav badge — just update if element exists
     }).catch(() => {});
 }
 
@@ -1064,9 +1424,22 @@ function updateStats() {
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadLanguages() {
     try {
-        const snap = await getDocs(collection(db, 'languages'));
-        languages  = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
-    } catch { languages = []; }
+        const [langSnap, courseSnap] = await Promise.all([
+            getDocs(collection(db, 'languages')),
+            getDocs(collection(db, 'courses'))
+        ]);
+        const coursesByLang = {};
+        courseSnap.docs.forEach(d => {
+            const c = { _courseId: d.id, ...d.data() };
+            if (!coursesByLang[c.languageId]) coursesByLang[c.languageId] = [];
+            coursesByLang[c.languageId].push(c);
+        });
+        languages = langSnap.docs.map(d => {
+            const lang = { _id: d.id, ...d.data() };
+            lang.courses = (coursesByLang[lang.id || d.id] || []).sort((a,b) => (a.name||'').localeCompare(b.name||''));
+            return lang;
+        });
+    } catch(e) { languages = []; console.error('loadLanguages failed:', e); }
     renderLanguageGrid();
 }
 
@@ -1215,6 +1588,7 @@ window.addCourse = function(data = null) {
 
     const card = document.createElement('div');
     card.id = `course-${idx}`;
+    card.dataset.courseId = data?.id || data?._courseId || '';
     card.className = 'bg-white border border-slate-100 rounded-2xl p-4 fade-up';
     card.innerHTML = `
       <div class="flex items-start gap-3 mb-3">
@@ -1273,6 +1647,8 @@ function readCoursesFromDom() {
     document.querySelectorAll('#l-courses > div[id^="course-"]').forEach(div => {
         const idx = div.id.replace('course-','');
         const course = {};
+        // Read stored course ID from dataset
+        course.id = div.dataset.courseId || '';
         div.querySelectorAll(`[data-course="${idx}"]`).forEach(inp => {
             if (!inp.dataset.key) return;
             const key = inp.dataset.key;
@@ -1298,22 +1674,46 @@ window.submitLangModal = async function() {
     const title = document.getElementById('l-title').value.trim();
     const id    = document.getElementById('l-id').value.trim().toLowerCase().replace(/\s+/g,'-');
     if (!title || !id) { toast('Language name and ID are required', 'error'); return; }
-    const langData = {
+
+    const langMeta = {
         id, title,
         flag_url: document.getElementById('l-flag').value.trim(),
         desc:     document.getElementById('l-desc').value.trim(),
-        courses:  readCoursesFromDom(),
     };
+    const courses = readCoursesFromDom();
+
     try {
+        // Save language metadata
         if (editingLangId) {
-            await updateDoc(doc(db, 'languages', editingLangId), langData);
-            const i = languages.findIndex(l => l._id === editingLangId);
-            if (i >= 0) languages[i] = { _id: editingLangId, ...langData };
+            await setDoc(doc(db, 'languages', editingLangId), langMeta);
         } else {
-            const ref = await addDoc(collection(db, 'languages'), langData);
-            languages.push({ _id: ref.id, ...langData });
+            await setDoc(doc(db, 'languages', id), langMeta);
         }
-        closeLangModal(); renderLanguageGrid(); updateStats();
+
+        // Save each course to courses collection
+        const newCourseIds = new Set();
+        for (let i = 0; i < courses.length; i++) {
+            const c = courses[i];
+            const courseId = c.id || `${id}-course-${i}`;
+            newCourseIds.add(courseId);
+            await setDoc(doc(db, 'courses', courseId), { ...c, id: courseId, languageId: id });
+        }
+
+        // Delete removed courses
+        const existingLang = languages.find(l => l._id === (editingLangId || id));
+        if (existingLang) {
+            for (const oldC of (existingLang.courses || [])) {
+                const oldId = oldC._courseId || oldC.id;
+                if (oldId && !newCourseIds.has(oldId)) {
+                    await deleteDoc(doc(db, 'courses', oldId));
+                }
+            }
+        }
+
+        logAudit(editingLangId ? 'update_language' : 'add_language', 'languages', id, title, `${courses.length} courses`);
+        closeLangModal();
+        await loadLanguages();
+        updateStats();
         toast(editingLangId ? 'Language updated ✓' : 'Language added ✓');
     } catch (err) { toast('Save failed: ' + err.message, 'error'); }
 };
@@ -1321,7 +1721,16 @@ window.submitLangModal = async function() {
 window.deleteLang = function(id, name) {
     confirmDelete(`Delete "${name}"? All course data will be lost.`, async () => {
         try {
+            // Delete associated courses
+            const lang = languages.find(l => l._id === id);
+            if (lang) {
+                for (const c of (lang.courses || [])) {
+                    const cId = c._courseId || c.id;
+                    if (cId) await deleteDoc(doc(db, 'courses', cId));
+                }
+            }
             await deleteDoc(doc(db, 'languages', id));
+            logAudit('delete_language', 'languages', id, name, '');
             languages = languages.filter(l => l._id !== id);
             renderLanguageGrid(); updateStats(); toast('Language deleted');
         } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
@@ -1332,15 +1741,30 @@ window.importFromPrices = async function() {
     try {
         const res  = await fetch('prices.json');
         const data = await res.json();
-        const list = data.languages || [];
-        let count  = 0;
-        for (const lang of list) {
-            const ref = await addDoc(collection(db, 'languages'), lang);
-            languages.push({ _id: ref.id, ...lang });
-            count++;
+
+        // Seed pricingPlans
+        const plans = data.paymentPlans || [];
+        for (const plan of plans) {
+            await setDoc(doc(db, 'pricingPlans', plan.id), plan);
         }
-        renderLanguageGrid(); updateStats();
-        toast(`Imported ${count} languages ✓`);
+
+        // Seed languages and courses
+        const list = data.languages || [];
+        let langCount = 0, courseCount = 0;
+        for (const lang of list) {
+            const { courses, ...langMeta } = lang;
+            await setDoc(doc(db, 'languages', lang.id), langMeta);
+            langCount++;
+            for (const course of (courses || [])) {
+                await setDoc(doc(db, 'courses', course.id), { ...course, languageId: lang.id });
+                courseCount++;
+            }
+        }
+
+        logAudit('import_prices', 'languages', 'prices.json', 'Import', `${langCount} languages, ${courseCount} courses, ${plans.length} plans`);
+        await loadLanguages();
+        updateStats();
+        toast(`Imported ${langCount} languages, ${courseCount} courses, ${plans.length} plans ✓`);
     } catch (err) { toast('Import failed: ' + err.message, 'error'); }
 };
 
@@ -1497,36 +1921,172 @@ function renderTutorGrid() {
     }).join('');
 }
 
+// Lang dropdown multi-select for tutor modal
+const ALL_LANGS = ['English','German','Bulgarian','Russian','Chinese','Japanese','Spanish','French','Italian','Portuguese','Arabic','Korean'];
+let _selectedTutorLangs = [];
+
+function renderLangsDropdown() {
+    const list = document.getElementById('langs-dropdown-list');
+    if (!list) return;
+    list.innerHTML = ALL_LANGS.map(l => {
+        const code = TUTOR_LANG_FLAG[l] || l.slice(0,2).toLowerCase();
+        const checked = _selectedTutorLangs.includes(l);
+        return `<div class="lang-option" onclick="toggleTutorLang('${l}')">
+          <input type="checkbox" ${checked ? 'checked' : ''} class="w-3.5 h-3.5 rounded accent-[#a93444]" onclick="event.stopPropagation();toggleTutorLang('${l}')">
+          <img src="https://flagcdn.com/w40/${esc(code)}.png" class="w-5 h-auto rounded-sm" alt="${esc(l)}">
+          <span class="text-sm font-semibold text-slate-700">${esc(l)}</span>
+        </div>`;
+    }).join('');
+}
+window.toggleLangsDropdown = function() {
+    const list = document.getElementById('langs-dropdown-list');
+    if (!list) return;
+    list.classList.toggle('open');
+    if (list.classList.contains('open')) renderLangsDropdown();
+};
+window.toggleTutorLang = function(lang) {
+    const idx = _selectedTutorLangs.indexOf(lang);
+    if (idx >= 0) _selectedTutorLangs.splice(idx, 1);
+    else _selectedTutorLangs.push(lang);
+    renderTutorLangPills();
+    renderLangsDropdown();
+    updateTutorPreview();
+};
+function renderTutorLangPills() {
+    const wrap = document.getElementById('langs-pills-wrap');
+    if (!wrap) return;
+    const ph = document.getElementById('langs-placeholder');
+    if (_selectedTutorLangs.length === 0) {
+        wrap.innerHTML = '<span class="text-slate-400 text-sm self-center" id="langs-placeholder">Click to select…</span>';
+        return;
+    }
+    wrap.innerHTML = _selectedTutorLangs.map(l => {
+        const code = TUTOR_LANG_FLAG[l] || l.slice(0,2).toLowerCase();
+        return `<span class="lang-pill" onclick="event.stopPropagation();toggleTutorLang('${l}')">
+          <img src="https://flagcdn.com/w40/${esc(code)}.png" class="w-4 h-auto rounded-sm">
+          ${esc(l)}
+          <span class="ml-1 opacity-60">×</span>
+        </span>`;
+    }).join('');
+}
+
+// Photo position state
+let _photoPos = { x: 0, y: 0, scale: 1 };
+window.applyPhotoPosition = function() {
+    const x = parseFloat(document.getElementById('t-photo-x')?.value || 0);
+    const y = parseFloat(document.getElementById('t-photo-y')?.value || 0);
+    const s = parseFloat(document.getElementById('t-photo-scale')?.value || 1);
+    _photoPos = { x, y, scale: s };
+    document.getElementById('t-photo-x-val').textContent = x;
+    document.getElementById('t-photo-y-val').textContent = y;
+    document.getElementById('t-photo-scale-val').textContent = s;
+    const img = document.getElementById('t-photo-preview');
+    if (img) img.style.objectPosition = `${50 + x}% ${50 + y}%`;
+    updateTutorPreview();
+};
+
+window.toggleTutorPreviewPane = function() {
+    const col = document.getElementById('tutor-preview-col');
+    const grid = document.getElementById('tutor-modal-grid');
+    if (!col) return;
+    const show = col.classList.toggle('hidden') === false;
+    if (show) {
+        col.classList.remove('hidden');
+        grid.className = 'grid lg:grid-cols-2 gap-8';
+    } else {
+        col.classList.add('hidden');
+        grid.className = 'grid gap-8';
+    }
+    updateTutorPreview();
+};
+
+window.addTutorCustomField = function() {
+    const wrap = document.getElementById('t-custom-fields');
+    if (!wrap) return;
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center';
+    row.innerHTML = `
+      <input type="text" placeholder="Key" class="field-input flex-1 text-sm py-2">
+      <input type="text" placeholder="Value" class="field-input flex-1 text-sm py-2">
+      <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all">
+        <span class="material-symbols-outlined text-[16px]">close</span>
+      </button>`;
+    wrap.appendChild(row);
+};
+
 window.openTutorModal = function(id = null) {
     editingTutorId = id;
     pendingPhotoFile = null;
+    _photoPos = { x: 0, y: 0, scale: 1 };
+    _selectedTutorLangs = [];
     document.getElementById('tutor-modal-title').textContent = id ? 'Edit Tutor' : 'Add Tutor';
-    ['t-name','t-role','t-order','t-lang-teached','t-lang-spoken','t-quote','t-phd','t-school-1','t-school-2','t-certificate-1','t-certificate-2','t-specialisation-1','t-specialisation-2'].forEach(f => document.getElementById(f).value = '');
+    // Reset fields
+    ['t-name','t-role','t-bio-quote','t-phd','t-school-1','t-school-2','t-spec-1','t-spec-2','t-lang-spoken'].forEach(f => {
+        const el = document.getElementById(f); if (el) el.value = '';
+    });
+    document.getElementById('t-order').value = '';
     document.getElementById('t-photo-preview').src = '';
     document.getElementById('t-photo-preview').classList.add('hidden');
+    document.getElementById('t-photo-preview').style.objectPosition = '';
     document.getElementById('t-photo-input').value = '';
     document.getElementById('t-photo-placeholder').classList.remove('hidden');
     document.getElementById('t-change-photo-btn').classList.add('hidden');
+    document.getElementById('t-photo-reposition').classList.add('hidden');
+    document.getElementById('t-photo-x').value = 0;
+    document.getElementById('t-photo-y').value = 0;
+    document.getElementById('t-photo-scale').value = 1;
+    document.getElementById('t-photo-x-val').textContent = 0;
+    document.getElementById('t-photo-y-val').textContent = 0;
+    document.getElementById('t-photo-scale-val').textContent = 1;
     document.getElementById('t-active').checked = true;
+    document.getElementById('t-custom-fields').innerHTML = '';
+    // Hide preview col
+    const col = document.getElementById('tutor-preview-col');
+    const grid = document.getElementById('tutor-modal-grid');
+    if (col) col.classList.add('hidden');
+    if (grid) grid.className = 'grid gap-8';
+
     if (id) {
         const t = tutors.find(x => x._id === id);
         if (t) {
-            document.getElementById('t-name').value              = t.name  || '';
-            document.getElementById('t-role').value              = t.role  || '';
-            document.getElementById('t-order').value             = t.order ?? '';
-            document.getElementById('t-lang-teached').value      = t.lang_teached || t.langsTaught || '';
-            document.getElementById('t-lang-spoken').value       = t.lang_spoken || '';
-            document.getElementById('t-quote').value             = t.bio_quote || t.quote || '';
-            document.getElementById('t-phd').value               = t.phd || '';
-            document.getElementById('t-school-1').value          = t.school_1 || '';
-            document.getElementById('t-school-2').value          = t.school_2 || '';
-            document.getElementById('t-certificate-1').value     = t.certificate_1 || '';
-            document.getElementById('t-certificate-2').value     = t.certificate_2 || '';
-            document.getElementById('t-specialisation-1').value  = t.specialisation_1 || '';
-            document.getElementById('t-specialisation-2').value  = t.specialisation_2 || '';
-            document.getElementById('t-active').checked          = t.active !== false;
+            document.getElementById('t-name').value       = t.name || '';
+            document.getElementById('t-role').value       = t.role || '';
+            document.getElementById('t-order').value      = t.order ?? '';
+            document.getElementById('t-lang-spoken').value = t.lang_spoken || '';
+            document.getElementById('t-bio-quote').value  = t.bio_quote || '';
+            document.getElementById('t-phd').value        = t.phd || '';
+            document.getElementById('t-school-1').value   = t.school_1 || '';
+            document.getElementById('t-school-2').value   = t.school_2 || '';
+            document.getElementById('t-spec-1').value     = t.specialisation_1 || '';
+            document.getElementById('t-spec-2').value     = t.specialisation_2 || '';
+            document.getElementById('t-active').checked   = t.active !== false;
+            // Photo position
+            if (t.photoX !== undefined) { document.getElementById('t-photo-x').value = t.photoX; document.getElementById('t-photo-x-val').textContent = t.photoX; _photoPos.x = t.photoX; }
+            if (t.photoY !== undefined) { document.getElementById('t-photo-y').value = t.photoY; document.getElementById('t-photo-y-val').textContent = t.photoY; _photoPos.y = t.photoY; }
+            if (t.photoScale !== undefined) { document.getElementById('t-photo-scale').value = t.photoScale; document.getElementById('t-photo-scale-val').textContent = t.photoScale; _photoPos.scale = t.photoScale; }
+            // Languages taught multi-select
+            _selectedTutorLangs = (t.lang_teached || '').split(',').map(s => s.trim()).filter(Boolean);
+            renderTutorLangPills();
+            // Custom fields
+            if (t.customFields && typeof t.customFields === 'object') {
+                Object.entries(t.customFields).forEach(([k, v]) => {
+                    const wrap = document.getElementById('t-custom-fields');
+                    const row = document.createElement('div');
+                    row.className = 'flex gap-2 items-center';
+                    row.innerHTML = `<input type="text" value="${esc(k)}" placeholder="Key" class="field-input flex-1 text-sm py-2">
+                      <input type="text" value="${esc(String(v))}" placeholder="Value" class="field-input flex-1 text-sm py-2">
+                      <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>`;
+                    wrap.appendChild(row);
+                });
+            }
             if (t.photoUrl) { setPhotoPreview(t.photoUrl); }
         }
+    } else {
+        // New tutor: compute next order
+        const takenOrders = tutors.map(t => Number(t.order)).filter(n => n > 0);
+        const nextOrder = takenOrders.length ? Math.max(...takenOrders) + 1 : 1;
+        document.getElementById('t-order').value = nextOrder;
+        document.getElementById('t-order-hint').textContent = `Next available: ${nextOrder}`;
     }
     updateTutorPreview();
     document.getElementById('tutor-modal').classList.remove('hidden');
@@ -1552,37 +2112,39 @@ function setPhotoPreview(url) {
     const img = document.getElementById('t-photo-preview');
     img.src = url;
     img.classList.remove('hidden');
+    img.style.objectPosition = `${50+_photoPos.x}% ${50+_photoPos.y}%`;
     document.getElementById('t-photo-placeholder').classList.add('hidden');
     document.getElementById('t-change-photo-btn').classList.remove('hidden');
+    document.getElementById('t-photo-reposition').classList.remove('hidden');
 }
 
 window.updateTutorPreview = function() {
-    const name    = document.getElementById('t-name').value  || 'Tutor Name';
-    const role    = document.getElementById('t-role').value.trim();
-    const quote   = document.getElementById('t-quote').value;
-    const langs   = document.getElementById('t-lang-teached').value.trim();
-    const photo   = document.getElementById('t-photo-preview').src;
+    const previewCard = document.getElementById('tutor-preview-card');
+    if (!previewCard) return;
+    const name   = document.getElementById('t-name')?.value || 'Tutor Name';
+    const role   = document.getElementById('t-role')?.value.trim() || '';
+    const quote  = document.getElementById('t-bio-quote')?.value || '';
+    const langs  = _selectedTutorLangs.join(', ');
+    const photo  = document.getElementById('t-photo-preview')?.src || '';
     const bullets = [
-        { icon: 'workspace_premium', text: document.getElementById('t-phd').value },
-        { icon: 'school', text: document.getElementById('t-school-1').value },
-        { icon: 'school', text: document.getElementById('t-school-2').value },
-        { icon: 'verified', text: document.getElementById('t-certificate-1').value },
-        { icon: 'verified', text: document.getElementById('t-certificate-2').value },
-        { icon: 'psychology', text: document.getElementById('t-specialisation-1').value },
-        { icon: 'psychology', text: document.getElementById('t-specialisation-2').value }
-    ].filter(b => b.text.trim());
+        { icon: 'school',   text: document.getElementById('t-phd')?.value },
+        { icon: 'school',   text: document.getElementById('t-school-1')?.value },
+        { icon: 'school',   text: document.getElementById('t-school-2')?.value },
+        { icon: 'verified', text: document.getElementById('t-spec-1')?.value },
+        { icon: 'verified', text: document.getElementById('t-spec-2')?.value }
+    ].filter(b => b.text && b.text.trim());
     const photoPart = (photo && !photo.endsWith('/admin.html'))
-        ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover">`
+        ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover" style="object-position:${50+_photoPos.x}% ${50+_photoPos.y}%;transform:scale(${_photoPos.scale})">`
         : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[50px] text-slate-800/60">person</span></div>`;
-    document.getElementById('tutor-preview-card').innerHTML = `
+    previewCard.innerHTML = `
       <div class="flex min-h-[220px]">
         <div class="w-2/5 overflow-hidden">${photoPart}</div>
         <div class="w-3/5 p-5 flex flex-col justify-center gap-2">
           ${role ? `<span class="inline-block py-0.5 px-3 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-widest">${esc(role)}</span>` : ''}
           <h3 class="font-['Plus_Jakarta_Sans'] text-base font-extrabold text-slate-900">${esc(name)}</h3>
-          ${langs  ? `<div class="flex flex-wrap gap-1.5">${renderLanguagePills(langs, true)}</div>` : ''}
-          ${quote  ? `<p class="text-xs text-slate-500 italic border-l-2 border-rose-200 pl-2.5 line-clamp-2">${esc(quote)}</p>` : ''}
-          ${bullets.length ? `<ul class="mt-1 space-y-1">${bullets.slice(0,2).map(b=>`<li class="flex items-start gap-1.5 text-[11px] text-slate-500"><span class="material-symbols-outlined text-[13px] text-[#a93444] mt-0.5">${b.icon||'star'}</span><span>${esc(b.text)}</span></li>`).join('')}</ul>` : ''}
+          ${langs ? `<div class="flex flex-wrap gap-1.5">${renderLanguagePills(langs, true)}</div>` : ''}
+          ${quote ? `<p class="text-xs text-slate-500 italic border-l-2 border-rose-200 pl-2.5 line-clamp-2">${esc(quote)}</p>` : ''}
+          ${bullets.length ? `<ul class="mt-1 space-y-1">${bullets.slice(0,2).map(b=>`<li class="flex items-start gap-1.5 text-[11px] text-slate-500"><span class="material-symbols-outlined text-[13px] text-[#a93444] mt-0.5">${b.icon}</span><span>${esc(b.text)}</span></li>`).join('')}</ul>` : ''}
         </div>
       </div>`;
 };
@@ -1599,7 +2161,6 @@ window.submitTutorModal = async function() {
     saveBtn.classList.add('opacity-70', 'cursor-wait');
     saveBtn.innerHTML = '<span class="material-symbols-outlined text-[17px]">hourglass_top</span>Saving...';
 
-    // Determine photoUrl: keep existing if no new file selected
     let photoUrl = '';
     try {
         if (editingTutorId) {
@@ -1613,25 +2174,38 @@ window.submitTutorModal = async function() {
             photoUrl  = await getDownloadURL(ref);
         }
 
+        // Collect custom fields
+        const customFields = {};
+        document.querySelectorAll('#t-custom-fields > div').forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            if (inputs.length >= 2) {
+                const k = inputs[0].value.trim();
+                const v = inputs[1].value.trim();
+                if (k) customFields[k] = v;
+            }
+        });
+
         const tutorData = {
             name, role,
-            lang_teached:      document.getElementById('t-lang-teached').value.trim(),
-            lang_spoken:       document.getElementById('t-lang-spoken').value.trim(),
-            bio_quote:         document.getElementById('t-quote').value.trim(),
-            active:            document.getElementById('t-active').checked,
-            order:             Number(document.getElementById('t-order').value) || 0,
-            phd:               document.getElementById('t-phd').value.trim(),
-            school_1:          document.getElementById('t-school-1').value.trim(),
-            school_2:          document.getElementById('t-school-2').value.trim(),
-            certificate_1:     document.getElementById('t-certificate-1').value.trim(),
-            certificate_2:     document.getElementById('t-certificate-2').value.trim(),
-            specialisation_1:  document.getElementById('t-specialisation-1').value.trim(),
-            specialisation_2:  document.getElementById('t-specialisation-2').value.trim(),
+            lang_teached:     _selectedTutorLangs.join(', '),
+            lang_spoken:      document.getElementById('t-lang-spoken').value.trim(),
+            bio_quote:        document.getElementById('t-bio-quote').value.trim(),
+            active:           document.getElementById('t-active').checked,
+            order:            Number(document.getElementById('t-order').value) || 1,
+            phd:              document.getElementById('t-phd').value.trim(),
+            school_1:         document.getElementById('t-school-1').value.trim(),
+            school_2:         document.getElementById('t-school-2').value.trim(),
+            specialisation_1: document.getElementById('t-spec-1').value.trim(),
+            specialisation_2: document.getElementById('t-spec-2').value.trim(),
             photoUrl,
+            photoX:     _photoPos.x,
+            photoY:     _photoPos.y,
+            photoScale: _photoPos.scale,
+            customFields,
         };
         if (!editingTutorId || editingTutorId !== nextId) {
             const existingSnap = await getDoc(doc(db, 'tutors', nextId));
-            if (existingSnap.exists()) { toast(`Tutor document "${nextId}" already exists`, 'error'); return; }
+            if (existingSnap.exists() && !editingTutorId) { toast(`Tutor document "${nextId}" already exists`, 'error'); return; }
         }
         if (editingTutorId) {
             if (editingTutorId !== nextId) {
@@ -1644,6 +2218,11 @@ window.submitTutorModal = async function() {
             await setDoc(doc(db, 'tutors', nextId), tutorData);
         }
         closeTutorModal();
+        if (editingTutorId) {
+            logAudit('update_tutor', 'tutors', editingTutorId, name, '');
+        } else {
+            logAudit('add_tutor', 'tutors', nextId, name, '');
+        }
         toast(editingTutorId ? 'Tutor updated ✓' : 'Tutor added ✓');
     } catch (err) {
         const prefix = err.code?.startsWith('storage/') ? 'Photo upload failed: ' : 'Save failed: ';
@@ -1659,6 +2238,7 @@ window.deleteTutor = function(id, name) {
     confirmDelete(`Delete tutor "${name}"?`, async () => {
         try {
             await deleteDoc(doc(db, 'tutors', id));
+            logAudit('delete_tutor', 'tutors', id, name, '');
             toast('Tutor deleted');
         } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
     });
@@ -1699,12 +2279,14 @@ async function loadSettings() {
 async function saveLearningTypesToFirestore() {
     try {
         await setDoc(doc(db, 'settings', 'learningTypes'), { types: _learningTypes });
+        logAudit('update_learning_types', 'settings', 'learningTypes', 'Learning Types', '');
     } catch (err) { toast('Save failed: ' + err.message, 'error'); }
 }
 
 async function saveModulesToFirestore() {
     try {
         await setDoc(doc(db, 'settings', 'modules'), { modules: _modules });
+        logAudit('update_modules', 'settings', 'modules', 'Modules', '');
     } catch (err) { toast('Save failed: ' + err.message, 'error'); }
 }
 
@@ -1885,6 +2467,13 @@ window.deleteModule = function(i) {
     });
 };
 
+// Close langs dropdown on outside click
+document.addEventListener('click', e => {
+    const wrap = document.getElementById('langs-dropdown-wrap');
+    const list = document.getElementById('langs-dropdown-list');
+    if (wrap && list && !wrap.contains(e.target)) list.classList.remove('open');
+});
+
 // Drag and drop for photo upload
 const dropZone = document.getElementById('t-drop-zone');
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
@@ -1942,6 +2531,23 @@ window.setModalCurrency = function(cur, idx) {
     });
 };
 
+// ── Audit Log ─────────────────────────────────────────────────────────────────
+async function logAudit(action, targetCollection, targetId, targetName, details) {
+    try {
+        const user = auth.currentUser;
+        await addDoc(collection(db, 'auditLog'), {
+            action,
+            targetCollection,
+            targetId:   String(targetId || ''),
+            targetName: String(targetName || ''),
+            details:    String(details || ''),
+            userId:     user?.uid || 'unknown',
+            userEmail:  user?.email || 'unknown',
+            timestamp:  new Date().toISOString()
+        });
+    } catch { /* audit log failure should never break the main operation */ }
+}
+
 // ── Users ────────────────────────────────────────────────────────────────────
 let _users = [];
 window.loadUsers = async function() {
@@ -1949,7 +2555,11 @@ window.loadUsers = async function() {
         const snap = await getDocs(collection(db, 'users'));
         _users = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
         renderUsersTable(_users);
-    } catch(e) { toast('Failed to load users: ' + e.message, 'error'); }
+        document.getElementById('users-perm-warning')?.classList.add('hidden');
+    } catch(e) {
+        document.getElementById('users-perm-warning')?.classList.remove('hidden');
+        toast('Failed to load users: ' + e.message, 'error');
+    }
 };
 function renderUsersTable(list) {
     const body = document.getElementById('users-table-body');
@@ -1968,20 +2578,107 @@ function renderUsersTable(list) {
             : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>'}
         </td>
         <td class="px-5 py-3 text-slate-400 text-xs">${u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}</td>
-        <td class="px-5 py-3">
-          <select onchange="updateUserRole('${u._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
-            ${['admin','tutor','student'].map(r => `<option value="${r}" ${(u.role||'student')===r?'selected':''}>${r.charAt(0).toUpperCase()+r.slice(1)}</option>`).join('')}
-          </select>
+        <td class="px-5 py-3 flex items-center gap-2">
+          <button onclick="openUserModal('${u._id}')" class="h-7 px-2.5 rounded-full border border-[#a93444]/30 text-[11px] font-bold text-[#a93444] hover:bg-[#a93444]/10 transition-all flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px]">edit</span>Edit
+          </button>
+          <button onclick="toggleUserDisabled('${u._id}', ${!!u.disabled})" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-500 hover:bg-slate-50 transition-all flex items-center gap-1" title="${u.disabled ? 'Enable Access' : 'Disable Access'}">
+            <span class="material-symbols-outlined text-[13px]">${u.disabled ? 'lock_open' : 'block'}</span>${u.disabled ? 'Enable' : 'Disable'}
+          </button>
         </td>
       </tr>`).join('');
     const statEl = document.getElementById('stat-users');
     if (statEl) statEl.textContent = _users.length;
 }
+
+window.toggleUserDisabled = async function(uid, currentlyDisabled) {
+    try {
+        await updateDoc(doc(db, 'users', uid), { disabled: !currentlyDisabled });
+        const u = _users.find(x => x._id === uid);
+        if (u) u.disabled = !currentlyDisabled;
+        filterUsersTable();
+        toast(!currentlyDisabled ? 'Access disabled ✓' : 'Access enabled ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+// User edit modal
+let _editingUserId = null;
+window.openUserModal = function(uid) {
+    _editingUserId = uid;
+    const u = _users.find(x => x._id === uid);
+    if (!u) return;
+    document.getElementById('user-modal-title').textContent = `Edit User — ${u.displayName || u.email || uid}`;
+    document.getElementById('um-displayName').value  = u.displayName || u.name || '';
+    document.getElementById('um-email').value        = u.email || '';
+    document.getElementById('um-role').value         = u.role || 'student';
+    document.getElementById('um-phone').value        = u.phone || '';
+    document.getElementById('um-moodle-user').value  = u.moodle_user || '';
+    document.getElementById('um-moodle-pass').value  = u.moodle_pass || '';
+    document.getElementById('um-active').checked     = !u.disabled;
+    document.getElementById('um-notes').value        = u.notes || '';
+    // Custom fields: any key not in standard set
+    const STANDARD = new Set(['displayName','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
+    const wrap = document.getElementById('um-custom-fields');
+    wrap.innerHTML = '';
+    Object.entries(u).forEach(([k, v]) => {
+        if (STANDARD.has(k) || k === '_id') return;
+        const row = document.createElement('div');
+        row.className = 'flex gap-2 items-center';
+        row.innerHTML = `<input type="text" value="${esc(k)}" placeholder="Key" class="field-input flex-1 text-sm py-2">
+          <input type="text" value="${esc(String(v))}" placeholder="Value" class="field-input flex-1 text-sm py-2">
+          <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>`;
+        wrap.appendChild(row);
+    });
+    document.getElementById('user-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+window.closeUserModal = function() {
+    document.getElementById('user-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+window.addUserCustomField = function() {
+    const wrap = document.getElementById('um-custom-fields');
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center';
+    row.innerHTML = `<input type="text" placeholder="Key" class="field-input flex-1 text-sm py-2">
+      <input type="text" placeholder="Value" class="field-input flex-1 text-sm py-2">
+      <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>`;
+    wrap.appendChild(row);
+};
+window.submitUserModal = async function() {
+    if (!_editingUserId) return;
+    const customFields = {};
+    document.querySelectorAll('#um-custom-fields > div').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        if (inputs.length >= 2) { const k = inputs[0].value.trim(); const v = inputs[1].value.trim(); if (k) customFields[k] = v; }
+    });
+    const data = {
+        displayName: document.getElementById('um-displayName').value.trim(),
+        email:       document.getElementById('um-email').value.trim(),
+        role:        document.getElementById('um-role').value,
+        phone:       document.getElementById('um-phone').value.trim(),
+        moodle_user: document.getElementById('um-moodle-user').value.trim(),
+        moodle_pass: document.getElementById('um-moodle-pass').value.trim(),
+        disabled:    !document.getElementById('um-active').checked,
+        notes:       document.getElementById('um-notes').value.trim(),
+        ...customFields
+    };
+    try {
+        await updateDoc(doc(db, 'users', _editingUserId), data);
+        const u = _users.find(x => x._id === _editingUserId);
+        if (u) Object.assign(u, data);
+        filterUsersTable();
+        closeUserModal();
+        logAudit('update_user', 'users', _editingUserId, data.displayName || _editingUserId, '');
+        toast('User updated ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
 window.updateUserRole = async function(uid, role) {
     try {
         await updateDoc(doc(db, 'users', uid), { role });
         const u = _users.find(x => x._id === uid);
         if (u) u.role = role;
+        logAudit('update_role', 'users', uid, uid, role);
         toast('Role updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
 };
@@ -1997,85 +2694,524 @@ window.filterUsersTable = function() {
     }));
 };
 
-// ── Enrollments ───────────────────────────────────────────────────────────────
-let _enrollments = [];
-window.loadEnrollments = async function() {
+// ── Students ──────────────────────────────────────────────────────────────────
+let _students = [];
+window.loadStudents = async function() {
     try {
         const snap = await getDocs(collection(db, 'users'));
-        _enrollments = snap.docs
-            .map(d => userToEnrollmentRow(d.id, d.data()))
-            .filter(Boolean);
-        renderEnrollmentsTable(_enrollments);
-        // populate language filter
-        const langs = [...new Set(_enrollments.map(e => e.languageLabel || e.language).filter(Boolean))];
-        const sel = document.getElementById('enrol-lang-filter');
-        if (sel) {
-            sel.innerHTML = `<option value="">All Languages</option>` + langs.map(l => `<option value="${esc(l)}">${esc(l)}</option>`).join('');
-        }
+        _students = snap.docs
+            .map(d => ({ _id: d.id, ...d.data() }))
+            .filter(u => u.role === 'student');
+        renderStudentsTable(_students);
         // stats
-        const total = _enrollments.length;
-        const active = _enrollments.filter(e => e.status === 'active').length;
-        const pending = _enrollments.filter(e => !e.status || e.status === 'pending').length;
-        document.getElementById('stat-total-enrollments').textContent = total;
-        document.getElementById('stat-active-enrollments').textContent = active;
-        document.getElementById('stat-pending-enrollments').textContent = pending;
-        // update dashboard stat
-        const dashStat = document.getElementById('stat-enrollments');
-        if (dashStat) dashStat.textContent = total;
-    } catch(e) { toast('Failed to load users enrollment data: ' + e.message, 'error'); }
+        const total  = _students.length;
+        const active = _students.filter(s => !s.disabled).length;
+        const newS   = _students.filter(s => s.tag === 'new').length;
+        const setEl  = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+        setEl('stat-total-students', total);
+        setEl('stat-active-students', active);
+        setEl('stat-new-students', newS);
+        setEl('stat-enrollments', total);
+        document.getElementById('students-perm-warning')?.classList.add('hidden');
+    } catch(e) {
+        document.getElementById('students-perm-warning')?.classList.remove('hidden');
+        toast('Failed to load students: ' + e.message, 'error');
+    }
 };
 
-function userToEnrollmentRow(uid, user) {
-    const enrollment = user.enrollment || user;
-    if (!user.enrollment && (user.role || 'student') !== 'student') return null;
-    return {
-        _id: uid,
-        userId: uid,
-        name: user.displayName || user.name || user.nickname || enrollment.name || '—',
-        email: user.email || enrollment.email || '',
-        moodle_user: user.moodle_user || '',
-        ...enrollment,
-        status: enrollment.status || user.enrollment_status || (user.disabled ? 'inactive' : 'pending')
-    };
+function renderStudentsTable(list) {
+    const body = document.getElementById('students-table-body');
+    if (!body) return;
+    if (!list.length) { body.innerHTML = `<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">No students found.</td></tr>`; return; }
+    body.innerHTML = list.map(s => {
+        const courses = (s.enrolledCourses || []);
+        const courseSummary = courses.length ? `${courses[0].language || ''}${courses.length > 1 ? ` +${courses.length-1}` : ''}` : '—';
+        return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+          <td class="px-5 py-3 font-semibold text-slate-800">${esc(s.displayName || s.name || '—')}</td>
+          <td class="px-5 py-3 text-slate-500 text-xs">${esc(s.email || '—')}</td>
+          <td class="px-5 py-3">${s.disabled ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-600">Inactive</span>' : '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>'}</td>
+          <td class="px-5 py-3 text-slate-400 text-xs">${esc(s.moodle_user || '—')}</td>
+          <td class="px-5 py-3 text-slate-600 text-xs">${esc(courseSummary)}</td>
+          <td class="px-5 py-3 text-slate-400 text-xs">${s.createdAt ? new Date(s.createdAt).toLocaleDateString() : '—'}</td>
+          <td class="px-5 py-3">
+            <button onclick="openStudentModal('${s._id}')" class="h-7 px-2.5 rounded-full border border-[#a93444]/30 text-[11px] font-bold text-[#a93444] hover:bg-[#a93444]/10 transition-all flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px]">edit</span>Edit
+            </button>
+          </td>
+        </tr>`;
+    }).join('');
 }
 
-function renderEnrollmentsTable(list) {
-    const body = document.getElementById('enrollments-table-body');
-    if (!body) return;
-    if (!list.length) { body.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No enrollments found.</td></tr>`; return; }
-    const statusBadge = s => {
-        if (s === 'active') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>';
-        if (s === 'completed') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700">Completed</span>';
-        if (s === 'inactive') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500">Inactive</span>';
-        return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">Pending</span>';
-    };
-    body.innerHTML = list.map(e => `
-      <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-        <td class="px-5 py-3">
-          <p class="font-semibold text-slate-800">${esc(e.name || '—')}</p>
-          <p class="text-xs text-slate-400">${esc(e.email || e.moodle_user || '')}</p>
-        </td>
-        <td class="px-5 py-3">
-          <p class="font-semibold text-slate-700">${esc(e.courseName || e.course || '—')}</p>
-          <p class="text-xs text-slate-400">${esc(e.languageLabel || e.language || '')}</p>
-        </td>
-        <td class="px-5 py-3 text-slate-600 capitalize">${esc(e.format || e.learningType || '—')}</td>
-        <td class="px-5 py-3 text-slate-600">${e.modules === 2 || e.module === 'module2' ? 'Modules 1+2' : 'Module 1'}</td>
-        <td class="px-5 py-3">${statusBadge(e.status)}</td>
-        <td class="px-5 py-3 text-slate-400 text-xs">${e.submittedAt ? new Date(e.submittedAt.toDate ? e.submittedAt.toDate() : e.submittedAt).toLocaleDateString() : '—'}</td>
-      </tr>`).join('');
-}
-window.filterEnrollmentsTable = function() {
-    const q = (document.getElementById('enrol-search').value || '').toLowerCase();
-    const lang = document.getElementById('enrol-lang-filter').value;
-    const status = document.getElementById('enrol-status-filter').value;
-    renderEnrollmentsTable(_enrollments.filter(e => {
-        const text = ((e.name||'') + ' ' + (e.courseName||e.course||'') + ' ' + (e.email||'') + ' ' + (e.moodle_user||'')).toLowerCase();
-        const langOk = !lang || e.language === lang || e.languageLabel === lang;
-        const statusOk = !status || (e.status || 'pending') === status;
-        return text.includes(q) && langOk && statusOk;
+window.filterStudentsTable = function() {
+    const q = (document.getElementById('student-search')?.value || '').toLowerCase();
+    const status = document.getElementById('student-status-filter')?.value || '';
+    renderStudentsTable(_students.filter(s => {
+        const text = ((s.displayName||s.name||'') + ' ' + (s.email||'')).toLowerCase();
+        const statusOk = !status || (status === 'active' ? !s.disabled : s.disabled);
+        return text.includes(q) && statusOk;
     }));
 };
+
+// Student edit modal
+let _editingStudentId = null;
+window.openStudentModal = function(uid) {
+    _editingStudentId = uid;
+    const s = _students.find(x => x._id === uid);
+    if (!s) return;
+    document.getElementById('student-modal-title').textContent = `Edit Student — ${s.displayName || s.email || uid}`;
+    document.getElementById('sm-displayName').value  = s.displayName || s.name || '';
+    document.getElementById('sm-email').value        = s.email || '';
+    document.getElementById('sm-phone').value        = s.phone || '';
+    document.getElementById('sm-moodle-user').value  = s.moodle_user || '';
+    document.getElementById('sm-moodle-pass').value  = s.moodle_pass || '';
+    document.getElementById('sm-active').checked     = !s.disabled;
+    document.getElementById('sm-notes').value        = s.notes || '';
+    // Enrolled courses
+    const coursesList = document.getElementById('sm-courses-list');
+    coursesList.innerHTML = (s.enrolledCourses || []).map((c, i) =>
+        `<div class="flex gap-2 items-center flex-wrap bg-slate-50 border border-slate-200 rounded-xl p-3" data-course-idx="${i}">
+          <input type="text" value="${esc(c.language||'')}" placeholder="Language" class="field-input text-sm py-1.5 flex-1 min-w-[100px]">
+          <input type="text" value="${esc(c.course||'')}" placeholder="Course" class="field-input text-sm py-1.5 flex-1 min-w-[100px]">
+          <input type="text" value="${esc(c.format||'')}" placeholder="Format" class="field-input text-sm py-1.5 w-28">
+          <input type="text" value="${esc(c.module||'')}" placeholder="Module" class="field-input text-sm py-1.5 w-24">
+          <input type="text" value="${esc(c.status||'active')}" placeholder="Status" class="field-input text-sm py-1.5 w-24">
+          <button type="button" onclick="this.closest('[data-course-idx]').remove()" class="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all shrink-0">
+            <span class="material-symbols-outlined text-[15px]">close</span>
+          </button>
+        </div>`
+    ).join('');
+    // Custom fields
+    const STANDARD = new Set(['displayName','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
+    const cfWrap = document.getElementById('sm-custom-fields');
+    cfWrap.innerHTML = '';
+    Object.entries(s).forEach(([k, v]) => {
+        if (STANDARD.has(k) || k === '_id') return;
+        const row = document.createElement('div');
+        row.className = 'flex gap-2 items-center';
+        row.innerHTML = `<input type="text" value="${esc(k)}" placeholder="Key" class="field-input flex-1 text-sm py-2">
+          <input type="text" value="${esc(String(v))}" placeholder="Value" class="field-input flex-1 text-sm py-2">
+          <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>`;
+        cfWrap.appendChild(row);
+    });
+    document.getElementById('student-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+window.closeStudentModal = function() {
+    document.getElementById('student-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+window.addStudentCourse = function() {
+    const list = document.getElementById('sm-courses-list');
+    const i = list.children.length;
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center flex-wrap bg-slate-50 border border-slate-200 rounded-xl p-3';
+    row.dataset.courseIdx = i;
+    row.innerHTML = `<input type="text" placeholder="Language" class="field-input text-sm py-1.5 flex-1 min-w-[100px]">
+      <input type="text" placeholder="Course" class="field-input text-sm py-1.5 flex-1 min-w-[100px]">
+      <input type="text" placeholder="Format" class="field-input text-sm py-1.5 w-28">
+      <input type="text" placeholder="Module" class="field-input text-sm py-1.5 w-24">
+      <input type="text" value="active" placeholder="Status" class="field-input text-sm py-1.5 w-24">
+      <button type="button" onclick="this.closest('[data-course-idx]').remove()" class="w-7 h-7 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all shrink-0">
+        <span class="material-symbols-outlined text-[15px]">close</span>
+      </button>`;
+    list.appendChild(row);
+};
+window.addStudentCustomField = function() {
+    const wrap = document.getElementById('sm-custom-fields');
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center';
+    row.innerHTML = `<input type="text" placeholder="Key" class="field-input flex-1 text-sm py-2">
+      <input type="text" placeholder="Value" class="field-input flex-1 text-sm py-2">
+      <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-400 transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>`;
+    wrap.appendChild(row);
+};
+window.submitStudentModal = async function() {
+    if (!_editingStudentId) return;
+    // Collect enrolled courses
+    const enrolledCourses = [];
+    document.querySelectorAll('#sm-courses-list > div[data-course-idx]').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        if (inputs.length >= 5) enrolledCourses.push({ language: inputs[0].value.trim(), course: inputs[1].value.trim(), format: inputs[2].value.trim(), module: inputs[3].value.trim(), status: inputs[4].value.trim() });
+    });
+    // Collect custom fields
+    const customFields = {};
+    document.querySelectorAll('#sm-custom-fields > div').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        if (inputs.length >= 2) { const k = inputs[0].value.trim(); const v = inputs[1].value.trim(); if (k) customFields[k] = v; }
+    });
+    const data = {
+        displayName:    document.getElementById('sm-displayName').value.trim(),
+        email:          document.getElementById('sm-email').value.trim(),
+        phone:          document.getElementById('sm-phone').value.trim(),
+        moodle_user:    document.getElementById('sm-moodle-user').value.trim(),
+        moodle_pass:    document.getElementById('sm-moodle-pass').value.trim(),
+        disabled:       !document.getElementById('sm-active').checked,
+        notes:          document.getElementById('sm-notes').value.trim(),
+        enrolledCourses,
+        ...customFields
+    };
+    try {
+        await updateDoc(doc(db, 'users', _editingStudentId), data);
+        const s = _students.find(x => x._id === _editingStudentId);
+        if (s) Object.assign(s, data);
+        filterStudentsTable();
+        closeStudentModal();
+        logAudit('update_student', 'users', _editingStudentId, data.displayName || _editingStudentId, '');
+        toast('Student updated ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+// ── Requests ──────────────────────────────────────────────────────────────────
+let _requests = [];
+window.loadRequests = async function() {
+    const grid = document.getElementById('requests-grid');
+    if (grid) grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">Loading requests…</div>';
+    try {
+        const snap = await getDocs(collection(db, 'studentRequests'));
+        _requests = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
+            .sort((a, b) => {
+                const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
+                const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
+                return tb - ta;
+            });
+        renderRequestsGrid(_requests);
+        // stats
+        const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+        setEl('req-stat-new',       _requests.filter(r => (r.status||'new') === 'new').length);
+        setEl('req-stat-contacted', _requests.filter(r => r.status === 'contacted').length);
+        setEl('req-stat-pending',   _requests.filter(r => r.status === 'pending').length);
+        setEl('req-stat-accepted',  _requests.filter(r => r.status === 'accepted').length);
+    } catch(e) { if (grid) grid.innerHTML = `<div class="col-span-3 text-center py-12 text-red-400 text-sm">${esc(e.message)}</div>`; }
+};
+
+function renderRequestsGrid(list) {
+    const grid = document.getElementById('requests-grid');
+    if (!grid) return;
+    if (!list.length) { grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">No requests found.</div>'; return; }
+    const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
+    grid.innerHTML = list.map(r => {
+        const st = r.status || 'new';
+        const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleDateString() : '—';
+        const tutorOpts = tutors.filter(t => {
+            const tl = (t.lang_teached||'').toLowerCase();
+            const rl = (r.language||'').toLowerCase();
+            return !rl || tl.includes(rl);
+        }).map(t => `<option value="${esc(t._id)}" ${r.assignedTutor===t._id?'selected':''}>${esc(t.name)}</option>`).join('');
+        return `<div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col gap-3 fade-up">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <p class="font-bold text-slate-800">${esc(r.name || '—')}</p>
+              <p class="text-xs text-slate-400">${esc(r.email || '')} ${r.phone ? '· ' + esc(r.phone) : ''}</p>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold ${statusColor[st] || 'bg-slate-100 text-slate-500'}">${esc(st)}</span>
+          </div>
+          ${r.language ? `<p class="text-xs font-bold text-[#a93444]">${esc(r.language)}${r.format ? ' · ' + esc(r.format) : ''}</p>` : ''}
+          ${r.message ? `<p class="text-xs text-slate-500 line-clamp-3">${esc(r.message)}</p>` : ''}
+          <p class="text-[10px] text-slate-400">Submitted: ${date}</p>
+          <div class="flex flex-wrap gap-2 mt-auto pt-2 border-t border-slate-100">
+            <select onchange="updateRequestStatus('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
+              ${['new','contacted','pending','rejected','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+            </select>
+            ${tutors.length ? `<select onchange="assignRequestTutor('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
+              <option value="">Assign Tutor…</option>${tutorOpts}
+            </select>` : ''}
+            ${st === 'accepted' ? `<button onclick="acceptAndCreateUser('${r._id}')" class="flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 hover:bg-emerald-100 transition-all">
+              <span class="material-symbols-outlined text-[13px]">person_add</span>Create User
+            </button>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+}
+
+window.filterRequests = function() {
+    const q = (document.getElementById('req-search')?.value || '').toLowerCase();
+    const st = document.getElementById('req-status-filter')?.value || '';
+    renderRequestsGrid(_requests.filter(r => {
+        const text = ((r.name||'') + ' ' + (r.language||'') + ' ' + (r.email||'')).toLowerCase();
+        const stOk = !st || (r.status||'new') === st;
+        return text.includes(q) && stOk;
+    }));
+};
+
+window.updateRequestStatus = async function(id, status) {
+    try {
+        await updateDoc(doc(db, 'studentRequests', id), { status });
+        const r = _requests.find(x => x._id === id);
+        if (r) r.status = status;
+        renderRequestsGrid(_requests);
+        logAudit('update_request_status', 'studentRequests', id, '', status);
+        toast('Status updated ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+window.assignRequestTutor = async function(id, tutorId) {
+    if (!tutorId) return;
+    try {
+        await updateDoc(doc(db, 'studentRequests', id), { assignedTutor: tutorId });
+        const r = _requests.find(x => x._id === id);
+        if (r) r.assignedTutor = tutorId;
+        toast('Tutor assigned ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+window.acceptAndCreateUser = async function(reqId) {
+    const r = _requests.find(x => x._id === reqId);
+    if (!r) return;
+    const userData = {
+        displayName: r.name || '',
+        email:       r.email || '',
+        phone:       r.phone || '',
+        role:        'student',
+        tag:         'new',
+        status:      'active',
+        createdAt:   new Date().toISOString(),
+        source:      'request',
+        requestId:   reqId
+    };
+    try {
+        await addDoc(collection(db, 'users'), userData);
+        logAudit('accept_request', 'studentRequests', reqId, r.name || '', 'User created');
+        toast('Student user created ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+// ── Jobs ──────────────────────────────────────────────────────────────────────
+let _jobs = [];
+window.loadJobs = async function() {
+    const grid = document.getElementById('jobs-grid');
+    if (grid) grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">Loading applications…</div>';
+    try {
+        const snap = await getDocs(collection(db, 'jobApplications'));
+        _jobs = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
+            .sort((a, b) => {
+                const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
+                const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
+                return tb - ta;
+            });
+        renderJobsGrid(_jobs);
+        const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+        setEl('job-stat-reviewing', _jobs.filter(j => (j.status||'reviewing') === 'reviewing').length);
+        setEl('job-stat-interview', _jobs.filter(j => j.status === 'interview').length);
+        setEl('job-stat-accepted',  _jobs.filter(j => j.status === 'accepted').length);
+        setEl('job-stat-rejected',  _jobs.filter(j => j.status === 'rejected').length);
+    } catch(e) { if (grid) grid.innerHTML = `<div class="col-span-3 text-center py-12 text-red-400 text-sm">${esc(e.message)}</div>`; }
+};
+
+function renderJobsGrid(list) {
+    const grid = document.getElementById('jobs-grid');
+    if (!grid) return;
+    if (!list.length) { grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">No applications found.</div>'; return; }
+    const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
+    grid.innerHTML = list.map(j => {
+        const st = j.status || 'reviewing';
+        const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleDateString() : '—';
+        return `<div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col gap-3 fade-up">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <p class="font-bold text-slate-800">${esc(j.name || '—')}</p>
+              <p class="text-xs text-slate-400">${esc(j.email || '')}</p>
+            </div>
+            <span class="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold ${statusColor[st] || 'bg-slate-100 text-slate-500'}">${esc(st)}</span>
+          </div>
+          ${j.languages ? `<p class="text-xs font-bold text-[#a93444]">${esc(j.languages)}</p>` : ''}
+          ${j.bio || j.coverLetter ? `<p class="text-xs text-slate-500 line-clamp-3">${esc(j.bio || j.coverLetter)}</p>` : ''}
+          <p class="text-[10px] text-slate-400">Submitted: ${date}</p>
+          <div class="flex flex-wrap gap-2 mt-auto pt-2 border-t border-slate-100">
+            <select onchange="updateJobStatus('${j._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
+              ${['reviewing','interview','rejected','withdrawn','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+            </select>
+            ${st === 'accepted' ? `<button onclick="acceptAndCreateTutor('${j._id}')" class="flex items-center gap-1 px-3 py-1 rounded-full bg-[#a93444]/10 border border-[#a93444]/25 text-[11px] font-bold text-[#a93444] hover:bg-[#a93444]/20 transition-all">
+              <span class="material-symbols-outlined text-[13px]">person_add</span>Create Tutor
+            </button>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+}
+
+window.filterJobs = function() {
+    const q = (document.getElementById('job-search')?.value || '').toLowerCase();
+    const st = document.getElementById('job-status-filter')?.value || '';
+    renderJobsGrid(_jobs.filter(j => {
+        const text = ((j.name||'') + ' ' + (j.languages||'') + ' ' + (j.email||'')).toLowerCase();
+        const stOk = !st || (j.status||'reviewing') === st;
+        return text.includes(q) && stOk;
+    }));
+};
+
+window.updateJobStatus = async function(id, status) {
+    try {
+        await updateDoc(doc(db, 'jobApplications', id), { status });
+        const j = _jobs.find(x => x._id === id);
+        if (j) j.status = status;
+        renderJobsGrid(_jobs);
+        logAudit('update_job_status', 'jobApplications', id, '', status);
+        toast('Status updated ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+window.acceptAndCreateTutor = async function(jobId) {
+    const j = _jobs.find(x => x._id === jobId);
+    if (!j) return;
+    const takenOrders = tutors.map(t => Number(t.order)).filter(n => n > 0);
+    const nextTutorOrder = takenOrders.length ? Math.max(...takenOrders) + 1 : 1;
+    const tutorData = {
+        name:             j.name || '',
+        role:             j.role || 'Language Tutor',
+        lang_teached:     j.languages || '',
+        lang_spoken:      '',
+        bio_quote:        '',
+        phd:              '',
+        school_1:         '',
+        school_2:         '',
+        specialisation_1: '',
+        specialisation_2: '',
+        photoUrl:         '',
+        active:           false,
+        order:            nextTutorOrder,
+        tag:              'new',
+        createdAt:        new Date().toISOString()
+    };
+    const newId = tutorDocId(j.name || 'Tutor_' + Date.now());
+    try {
+        await setDoc(doc(db, 'tutors', newId), tutorData);
+        logAudit('accept_job', 'jobApplications', jobId, j.name || '', 'Tutor created');
+        toast('Tutor profile created — remember to add photo & activate ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+// ── Settings modals ───────────────────────────────────────────────────────────
+window.openLearningTypesModal = function() {
+    const body = document.getElementById('lt-modal-body');
+    if (!body) return;
+    // Move lt-cards and lt-add-form into modal body
+    body.innerHTML = '';
+    const header = document.createElement('div');
+    header.className = 'flex items-center justify-between mb-4';
+    header.innerHTML = `<div><h2 class="text-base font-extrabold text-slate-800">Learning Types</h2><p class="text-xs text-slate-500 mt-0.5">Define available learning formats.</p></div>
+      <button onclick="openAddLearningType()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+        <span class="material-symbols-outlined text-[15px]">add</span>Add Learning Type
+      </button>`;
+    body.appendChild(header);
+    const ltCards = document.getElementById('lt-cards');
+    ltCards.className = 'grid sm:grid-cols-2 lg:grid-cols-3 gap-4';
+    body.appendChild(ltCards);
+    const ltForm = document.getElementById('lt-add-form');
+    body.appendChild(ltForm);
+    renderLearningTypeCards();
+    document.getElementById('lt-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+window.closeLearningTypesModal = function() {
+    document.getElementById('lt-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+
+window.openModulesModal = function() {
+    const body = document.getElementById('mod-modal-body');
+    if (!body) return;
+    body.innerHTML = '';
+    const header = document.createElement('div');
+    header.className = 'flex items-center justify-between mb-4';
+    header.innerHTML = `<div><h2 class="text-base font-extrabold text-slate-800">Modules</h2><p class="text-xs text-slate-500 mt-0.5">Define course module durations.</p></div>
+      <button onclick="openAddModule()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+        <span class="material-symbols-outlined text-[15px]">add</span>Add Module
+      </button>`;
+    body.appendChild(header);
+    const modCards = document.getElementById('mod-cards');
+    modCards.className = 'grid sm:grid-cols-2 lg:grid-cols-3 gap-4';
+    body.appendChild(modCards);
+    const modForm = document.getElementById('mod-add-form');
+    body.appendChild(modForm);
+    renderModuleCards();
+    document.getElementById('mod-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+window.closeModulesModal = function() {
+    document.getElementById('mod-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+
+// ── Audit Log UI ──────────────────────────────────────────────────────────────
+let _auditLog = [];
+let _auditUnsubscribe = null;
+
+window.loadAuditLog = function() {
+    const body = document.getElementById('audit-table-body');
+    if (!body) return;
+
+    if (_auditUnsubscribe) _auditUnsubscribe();
+
+    const q = query(collection(db, 'auditLog'), orderBy('timestamp', 'desc'), limit(200));
+    _auditUnsubscribe = onSnapshot(q, snap => {
+        _auditLog = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        renderAuditTable(_auditLog);
+    }, err => {
+        body.innerHTML = `<tr><td colspan="5" class="px-5 py-6 text-center text-red-400 text-sm">Failed to load audit log: ${esc(err.message)}</td></tr>`;
+    });
+};
+
+const ACTION_COLORS = {
+    add_language: 'bg-emerald-100 text-emerald-700',
+    update_language: 'bg-blue-100 text-blue-700',
+    delete_language: 'bg-red-100 text-red-600',
+    import_prices: 'bg-purple-100 text-purple-700',
+    add_tutor: 'bg-emerald-100 text-emerald-700',
+    update_tutor: 'bg-blue-100 text-blue-700',
+    delete_tutor: 'bg-red-100 text-red-600',
+    update_role: 'bg-amber-100 text-amber-700',
+    accept_request: 'bg-emerald-100 text-emerald-700',
+    accept_job: 'bg-emerald-100 text-emerald-700',
+    update_request_status: 'bg-slate-100 text-slate-600',
+    update_job_status: 'bg-slate-100 text-slate-600',
+    update_learning_types: 'bg-purple-100 text-purple-700',
+    update_modules: 'bg-purple-100 text-purple-700',
+};
+
+function renderAuditTable(list) {
+    const body = document.getElementById('audit-table-body');
+    if (!body) return;
+    if (!list.length) {
+        body.innerHTML = '<tr><td colspan="5" class="px-5 py-10 text-center text-slate-400 text-sm">No audit log entries yet.</td></tr>';
+        return;
+    }
+    body.innerHTML = list.map(entry => {
+        const ts = entry.timestamp ? new Date(entry.timestamp) : null;
+        const timeStr = ts ? ts.toLocaleString() : '—';
+        const color = ACTION_COLORS[entry.action] || 'bg-slate-100 text-slate-500';
+        const actionLabel = (entry.action || '').replace(/_/g, ' ');
+        return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+          <td class="px-5 py-3 text-xs text-slate-400 whitespace-nowrap">${esc(timeStr)}</td>
+          <td class="px-5 py-3 text-xs text-slate-600 max-w-[160px] truncate">${esc(entry.userEmail || entry.userId || '—')}</td>
+          <td class="px-5 py-3">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${color}">${esc(actionLabel)}</span>
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-600">
+            <span class="font-semibold">${esc(entry.targetName || entry.targetId || '—')}</span>
+            ${entry.targetCollection ? `<span class="text-slate-400 ml-1">${esc(entry.targetCollection)}</span>` : ''}
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-400">${esc(entry.details || '')}</td>
+        </tr>`;
+    }).join('');
+}
+
+window.filterAuditLog = function() {
+    const action = document.getElementById('audit-action-filter')?.value || '';
+    renderAuditTable(action ? _auditLog.filter(e => e.action === action) : _auditLog);
+};
+
+// ── Live currency rates ───────────────────────────────────────────────────────
+(async function fetchLiveRates() {
+    try {
+        const res = await fetch('https://api.frankfurter.app/latest?from=EUR&to=USD,RUB,CNY');
+        const data = await res.json();
+        if (data.rates) {
+            const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            setEl('live-rate-usd', `1 EUR = ${data.rates.USD?.toFixed(2)} USD`);
+            setEl('live-rate-rub', `${data.rates.RUB?.toFixed(0)} RUB`);
+            setEl('live-rate-cny', `${data.rates.CNY?.toFixed(2)} CNY`);
+        }
+    } catch { /* silent fail */ }
+})();
 </script>
 </body>
 </html>
