@@ -344,6 +344,7 @@
             <option value="pending">Pending</option>
             <option value="active">Active</option>
             <option value="completed">Completed</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
         <!-- Stats row -->
@@ -821,7 +822,7 @@
     </div>
     <div class="flex items-center justify-between px-7 py-4 border-t border-slate-100 shrink-0 gap-3">
       <button onclick="closeTutorModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
-      <button onclick="submitTutorModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+      <button id="tutor-save-btn" onclick="submitTutorModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
         <span class="material-symbols-outlined text-[17px]">save</span>Save Tutor
       </button>
     </div>
@@ -1049,9 +1050,12 @@ function updateStats() {
         const statEl = document.getElementById('stat-users');
         if (statEl) statEl.textContent = snap.size;
     }).catch(() => {});
-    getDocs(collection(db, 'enrollments')).then(snap => {
+    getDocs(collection(db, 'users')).then(snap => {
         const statEl = document.getElementById('stat-enrollments');
-        if (statEl) statEl.textContent = snap.size;
+        if (statEl) statEl.textContent = snap.docs.filter(d => {
+            const data = d.data();
+            return !!data.enrollment || (data.role || 'student') === 'student';
+        }).length;
     }).catch(() => {});
 }
 
@@ -1351,7 +1355,7 @@ async function loadTutors() {
     empty.classList.add('hidden');
 
     tutorsUnsubscribe = onSnapshot(collection(db, 'tutors'), snap => {
-        tutors = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        tutors = dedupeTutorDocs(snap.docs.map(d => ({ _id: d.id, ...d.data() })));
         sortTutors();
         renderTutorGrid();
         updateStats();
@@ -1370,6 +1374,18 @@ async function loadTutors() {
 
 function tutorDocId(name) {
     return name.trim().replace(/\s+/g, '_').replace(/[\/#[\]?]/g, '');
+}
+
+function dedupeTutorDocs(list) {
+    const byKey = new Map();
+    list.forEach(t => {
+        const key = tutorDocId(t.name || t._id).toLowerCase();
+        const existing = byKey.get(key);
+        if (!existing || t._id === tutorDocId(t.name || '') || (!existing.photoUrl && t.photoUrl)) {
+            byKey.set(key, t);
+        }
+    });
+    return [...byKey.values()];
 }
 
 function sortTutors() {
@@ -1488,6 +1504,7 @@ window.openTutorModal = function(id = null) {
     ['t-name','t-role','t-order','t-lang-teached','t-lang-spoken','t-quote','t-phd','t-school-1','t-school-2','t-certificate-1','t-certificate-2','t-specialisation-1','t-specialisation-2'].forEach(f => document.getElementById(f).value = '');
     document.getElementById('t-photo-preview').src = '';
     document.getElementById('t-photo-preview').classList.add('hidden');
+    document.getElementById('t-photo-input').value = '';
     document.getElementById('t-photo-placeholder').classList.remove('hidden');
     document.getElementById('t-change-photo-btn').classList.add('hidden');
     document.getElementById('t-active').checked = true;
@@ -1524,6 +1541,7 @@ window.closeTutorModal = function() {
 window.handlePhotoSelect = function(e) {
     const file = e.target.files[0];
     if (!file) return;
+    if (!file.type.startsWith('image/')) { toast('Please choose an image file', 'error'); return; }
     if (file.size > 5 * 1024 * 1024) { toast('Photo must be under 5 MB', 'error'); return; }
     pendingPhotoFile = file;
     setPhotoPreview(URL.createObjectURL(file));
@@ -1575,39 +1593,42 @@ window.submitTutorModal = async function() {
     if (!name) { toast('Name is required', 'error'); return; }
     const nextId = tutorDocId(name);
     if (!nextId) { toast('Use a valid tutor name', 'error'); return; }
+    const saveBtn = document.getElementById('tutor-save-btn');
+    const originalSaveHtml = saveBtn.innerHTML;
+    saveBtn.disabled = true;
+    saveBtn.classList.add('opacity-70', 'cursor-wait');
+    saveBtn.innerHTML = '<span class="material-symbols-outlined text-[17px]">hourglass_top</span>Saving...';
 
     // Determine photoUrl: keep existing if no new file selected
     let photoUrl = '';
-    if (editingTutorId) {
-        const existing = tutors.find(t => t._id === editingTutorId);
-        photoUrl = existing?.photoUrl || '';
-    }
-    if (pendingPhotoFile) {
-        try {
-            const id  = editingTutorId || nextId;
-            const ref = sRef(storage, `tutors/${id}/photo_${Date.now()}`);
-            await uploadBytes(ref, pendingPhotoFile);
-            photoUrl  = await getDownloadURL(ref);
-        } catch (err) { toast('Photo upload failed: ' + err.message, 'error'); return; }
-    }
-
-    const tutorData = {
-        name, role,
-        lang_teached:      document.getElementById('t-lang-teached').value.trim(),
-        lang_spoken:       document.getElementById('t-lang-spoken').value.trim(),
-        bio_quote:         document.getElementById('t-quote').value.trim(),
-        active:            document.getElementById('t-active').checked,
-        order:             Number(document.getElementById('t-order').value) || 0,
-        phd:               document.getElementById('t-phd').value.trim(),
-        school_1:          document.getElementById('t-school-1').value.trim(),
-        school_2:          document.getElementById('t-school-2').value.trim(),
-        certificate_1:     document.getElementById('t-certificate-1').value.trim(),
-        certificate_2:     document.getElementById('t-certificate-2').value.trim(),
-        specialisation_1:  document.getElementById('t-specialisation-1').value.trim(),
-        specialisation_2:  document.getElementById('t-specialisation-2').value.trim(),
-        photoUrl,
-    };
     try {
+        if (editingTutorId) {
+            const existing = tutors.find(t => t._id === editingTutorId);
+            photoUrl = existing?.photoUrl || '';
+        }
+        if (pendingPhotoFile) {
+            const ext = (pendingPhotoFile.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+            const ref = sRef(storage, `tutors/${nextId}/photo_${Date.now()}.${ext}`);
+            await uploadBytes(ref, pendingPhotoFile, { contentType: pendingPhotoFile.type || 'image/jpeg' });
+            photoUrl  = await getDownloadURL(ref);
+        }
+
+        const tutorData = {
+            name, role,
+            lang_teached:      document.getElementById('t-lang-teached').value.trim(),
+            lang_spoken:       document.getElementById('t-lang-spoken').value.trim(),
+            bio_quote:         document.getElementById('t-quote').value.trim(),
+            active:            document.getElementById('t-active').checked,
+            order:             Number(document.getElementById('t-order').value) || 0,
+            phd:               document.getElementById('t-phd').value.trim(),
+            school_1:          document.getElementById('t-school-1').value.trim(),
+            school_2:          document.getElementById('t-school-2').value.trim(),
+            certificate_1:     document.getElementById('t-certificate-1').value.trim(),
+            certificate_2:     document.getElementById('t-certificate-2').value.trim(),
+            specialisation_1:  document.getElementById('t-specialisation-1').value.trim(),
+            specialisation_2:  document.getElementById('t-specialisation-2').value.trim(),
+            photoUrl,
+        };
         if (!editingTutorId || editingTutorId !== nextId) {
             const existingSnap = await getDoc(doc(db, 'tutors', nextId));
             if (existingSnap.exists()) { toast(`Tutor document "${nextId}" already exists`, 'error'); return; }
@@ -1616,28 +1637,29 @@ window.submitTutorModal = async function() {
             if (editingTutorId !== nextId) {
                 await setDoc(doc(db, 'tutors', nextId), tutorData);
                 await deleteDoc(doc(db, 'tutors', editingTutorId));
-                tutors = tutors.filter(t => t._id !== editingTutorId);
-                tutors.push({ _id: nextId, ...tutorData });
             } else {
                 await setDoc(doc(db, 'tutors', editingTutorId), tutorData);
-                const i = tutors.findIndex(t => t._id === editingTutorId);
-                if (i >= 0) tutors[i] = { _id: editingTutorId, ...tutorData };
             }
         } else {
             await setDoc(doc(db, 'tutors', nextId), tutorData);
-            tutors.push({ _id: nextId, ...tutorData });
         }
-        sortTutors(); closeTutorModal(); renderTutorGrid(); updateStats();
+        closeTutorModal();
         toast(editingTutorId ? 'Tutor updated ✓' : 'Tutor added ✓');
-    } catch (err) { toast('Save failed: ' + err.message, 'error'); }
+    } catch (err) {
+        const prefix = err.code?.startsWith('storage/') ? 'Photo upload failed: ' : 'Save failed: ';
+        toast(prefix + err.message, 'error');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.classList.remove('opacity-70', 'cursor-wait');
+        saveBtn.innerHTML = originalSaveHtml;
+    }
 };
 
 window.deleteTutor = function(id, name) {
     confirmDelete(`Delete tutor "${name}"?`, async () => {
         try {
             await deleteDoc(doc(db, 'tutors', id));
-            tutors = tutors.filter(t => t._id !== id);
-            renderTutorGrid(); updateStats(); toast('Tutor deleted');
+            toast('Tutor deleted');
         } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
     });
 };
@@ -1648,12 +1670,8 @@ window.importSeedTutors = async function() {
         for (const t of SEED_TUTORS) {
             const id = tutorDocId(t.name);
             await setDoc(doc(db, 'tutors', id), t);
-            const existing = tutors.findIndex(x => x._id === id);
-            if (existing >= 0) tutors[existing] = { _id: id, ...t };
-            else tutors.push({ _id: id, ...t });
             count++;
         }
-        sortTutors(); renderTutorGrid(); updateStats();
         toast(`Imported ${count} tutors from website ✓`);
     } catch (err) { toast('Import failed: ' + err.message, 'error'); }
 };
@@ -1983,14 +2001,16 @@ window.filterUsersTable = function() {
 let _enrollments = [];
 window.loadEnrollments = async function() {
     try {
-        const snap = await getDocs(collection(db, 'enrollments'));
-        _enrollments = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        const snap = await getDocs(collection(db, 'users'));
+        _enrollments = snap.docs
+            .map(d => userToEnrollmentRow(d.id, d.data()))
+            .filter(Boolean);
         renderEnrollmentsTable(_enrollments);
         // populate language filter
-        const langs = [...new Set(_enrollments.map(e => e.language).filter(Boolean))];
+        const langs = [...new Set(_enrollments.map(e => e.languageLabel || e.language).filter(Boolean))];
         const sel = document.getElementById('enrol-lang-filter');
         if (sel) {
-            sel.innerHTML = `<option value="">All Languages</option>` + langs.map(l => `<option value="${l}">${l}</option>`).join('');
+            sel.innerHTML = `<option value="">All Languages</option>` + langs.map(l => `<option value="${esc(l)}">${esc(l)}</option>`).join('');
         }
         // stats
         const total = _enrollments.length;
@@ -2002,8 +2022,23 @@ window.loadEnrollments = async function() {
         // update dashboard stat
         const dashStat = document.getElementById('stat-enrollments');
         if (dashStat) dashStat.textContent = total;
-    } catch(e) { toast('Failed to load enrollments: ' + e.message, 'error'); }
+    } catch(e) { toast('Failed to load users enrollment data: ' + e.message, 'error'); }
 };
+
+function userToEnrollmentRow(uid, user) {
+    const enrollment = user.enrollment || user;
+    if (!user.enrollment && (user.role || 'student') !== 'student') return null;
+    return {
+        _id: uid,
+        userId: uid,
+        name: user.displayName || user.name || user.nickname || enrollment.name || '—',
+        email: user.email || enrollment.email || '',
+        moodle_user: user.moodle_user || '',
+        ...enrollment,
+        status: enrollment.status || user.enrollment_status || (user.disabled ? 'inactive' : 'pending')
+    };
+}
+
 function renderEnrollmentsTable(list) {
     const body = document.getElementById('enrollments-table-body');
     if (!body) return;
@@ -2011,17 +2046,18 @@ function renderEnrollmentsTable(list) {
     const statusBadge = s => {
         if (s === 'active') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">Active</span>';
         if (s === 'completed') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700">Completed</span>';
+        if (s === 'inactive') return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500">Inactive</span>';
         return '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-700">Pending</span>';
     };
     body.innerHTML = list.map(e => `
       <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
         <td class="px-5 py-3">
           <p class="font-semibold text-slate-800">${esc(e.name || '—')}</p>
-          <p class="text-xs text-slate-400">${esc(e.email || '')}</p>
+          <p class="text-xs text-slate-400">${esc(e.email || e.moodle_user || '')}</p>
         </td>
         <td class="px-5 py-3">
           <p class="font-semibold text-slate-700">${esc(e.courseName || e.course || '—')}</p>
-          <p class="text-xs text-slate-400">${esc(e.language || '')}</p>
+          <p class="text-xs text-slate-400">${esc(e.languageLabel || e.language || '')}</p>
         </td>
         <td class="px-5 py-3 text-slate-600 capitalize">${esc(e.format || e.learningType || '—')}</td>
         <td class="px-5 py-3 text-slate-600">${e.modules === 2 || e.module === 'module2' ? 'Modules 1+2' : 'Module 1'}</td>
@@ -2034,8 +2070,8 @@ window.filterEnrollmentsTable = function() {
     const lang = document.getElementById('enrol-lang-filter').value;
     const status = document.getElementById('enrol-status-filter').value;
     renderEnrollmentsTable(_enrollments.filter(e => {
-        const text = ((e.name||'') + ' ' + (e.courseName||e.course||'') + ' ' + (e.email||'')).toLowerCase();
-        const langOk = !lang || e.language === lang;
+        const text = ((e.name||'') + ' ' + (e.courseName||e.course||'') + ' ' + (e.email||'') + ' ' + (e.moodle_user||'')).toLowerCase();
+        const langOk = !lang || e.language === lang || e.languageLabel === lang;
         const statusOk = !status || (e.status || 'pending') === status;
         return text.includes(q) && langOk && statusOk;
     }));
