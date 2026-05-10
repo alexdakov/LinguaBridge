@@ -893,6 +893,21 @@ const LANG_OPTIONS = [
     { code:'kr', label:'Korean',     slug:'korean'     }
 ];
 
+const TUTOR_LANG_FLAG = {
+    English: 'gb',
+    German: 'de',
+    Bulgarian: 'bg',
+    Russian: 'ru',
+    Chinese: 'cn',
+    Japanese: 'jp',
+    Spanish: 'es',
+    French: 'fr',
+    Italian: 'it',
+    Portuguese: 'pt',
+    Arabic: 'sa',
+    Korean: 'kr'
+};
+
 // ── Seed data for tutors from about.html ──────────────────────────────────────
 const SEED_TUTORS = [
     {
@@ -1345,6 +1360,18 @@ function sortTutors() {
     tutors.sort((a, b) => (Number(a.order) || 9999) - (Number(b.order) || 9999) || String(a.name || '').localeCompare(String(b.name || '')));
 }
 
+function renderLanguagePills(value, compact = false) {
+    const languages = String(value || '').split(',').map(s => s.trim()).filter(Boolean);
+    return languages.map(lang => {
+        const code = TUTOR_LANG_FLAG[lang] || lang.slice(0, 2).toLowerCase();
+        return `
+          <span class="inline-flex items-center gap-1.5 ${compact ? 'px-2 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'} bg-white border border-slate-200 rounded-xl font-bold text-slate-700 shadow-sm">
+            <img src="https://flagcdn.com/w40/${esc(code)}.png" alt="${esc(lang)}" class="w-4 h-auto rounded-sm">
+            <span>${esc(lang)}</span>
+          </span>`;
+    }).join('');
+}
+
 function renderTutorGrid() {
     const grid  = document.getElementById('tutor-grid');
     const empty = document.getElementById('tutor-empty');
@@ -1378,7 +1405,7 @@ function renderTutorGrid() {
                   ${badge}
                 </div>
                 <h3 class="font-['Plus_Jakarta_Sans'] text-lg font-extrabold text-slate-800 mb-1">${esc(t.name||'—')}</h3>
-                ${t.lang_teached ? `<p class="text-xs text-[#a93444] font-semibold mb-2">${esc(t.lang_teached)}</p>` : ''}
+                ${t.lang_teached ? `<div class="flex flex-wrap gap-1.5 mb-2">${renderLanguagePills(t.lang_teached, true)}</div>` : ''}
                 ${t.bio_quote ? `<p class="text-xs text-slate-500 italic line-clamp-2 border-l-2 border-[#a93444]/30 pl-2.5 mb-3">${esc(t.bio_quote)}</p>` : ''}
                 ${bullets ? `<ul class="space-y-1">${bullets}</ul>` : ''}
               </div>
@@ -1473,7 +1500,7 @@ window.updateTutorPreview = function() {
         <div class="w-3/5 p-5 flex flex-col justify-center gap-2">
           ${role ? `<span class="inline-block py-0.5 px-3 rounded-full bg-rose-50 text-[#a93444] font-bold text-[10px] uppercase tracking-widest">${esc(role)}</span>` : ''}
           <h3 class="font-['Plus_Jakarta_Sans'] text-base font-extrabold text-slate-900">${esc(name)}</h3>
-          ${langs  ? `<p class="text-xs text-[#a93444] font-semibold">${esc(langs)}</p>` : ''}
+          ${langs  ? `<div class="flex flex-wrap gap-1.5">${renderLanguagePills(langs, true)}</div>` : ''}
           ${quote  ? `<p class="text-xs text-slate-500 italic border-l-2 border-rose-200 pl-2.5 line-clamp-2">${esc(quote)}</p>` : ''}
           ${bullets.length ? `<ul class="mt-1 space-y-1">${bullets.slice(0,2).map(b=>`<li class="flex items-start gap-1.5 text-[11px] text-slate-500"><span class="material-symbols-outlined text-[13px] text-[#a93444] mt-0.5">${b.icon||'star'}</span><span>${esc(b.text)}</span></li>`).join('')}</ul>` : ''}
         </div>
