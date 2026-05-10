@@ -250,7 +250,7 @@
             const userSnap = await getDoc(doc(db, "users", userCredential.user.uid));
             if (!userSnap.exists()) { setLoading(false); showError(t.errProfile); return; }
             const role = userSnap.data().role;
-            window.location.href = role === 'tutor' ? 'tutor-portal.html' : 'student-portal.html';
+            window.location.href = role === 'admin' ? 'admin.html' : role === 'tutor' ? 'tutor-portal.html' : 'student-portal.html';
         } catch (err) {
             setLoading(false);
             showError(`${t.errProfileLoad} (${err.code})`);
