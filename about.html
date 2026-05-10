@@ -332,7 +332,7 @@
 <!-- Firestore real-time sync: loads tutor profiles managed in the Admin Portal -->
 <script type="module">
 import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const LANG_FLAG = {
     'English':'gb','German':'de','Bulgarian':'bg','Russian':'ru',
@@ -422,23 +422,19 @@ function buildTutorCard(t, i) {
         }, 'about-reader');
 
         const db = getFirestore(app);
-        onSnapshot(collection(db, 'tutors'), snap => {
-            const activeTutors = snap.docs
-                .map(d => ({ _id: d.id, ...d.data() }))
-                .filter(t => t.active === true)
-                .sort((a, b) => (Number(a.order) || 9999) - (Number(b.order) || 9999) || String(a.name || '').localeCompare(String(b.name || '')));
+        const snap = await getDocs(collection(db, 'tutors'));
+        const activeTutors = snap.docs
+            .map(d => ({ _id: d.id, ...d.data() }))
+            .filter(t => t.active === true)
+            .sort((a, b) => (Number(a.order) || 9999) - (Number(b.order) || 9999) || String(a.name || '').localeCompare(String(b.name || '')));
 
-            grid.innerHTML = activeTutors.length
-                ? activeTutors.map((t, i) => buildTutorCard(t, i)).join('')
-                : '<div class="text-center py-14 text-slate-400 text-sm font-semibold">No tutors are currently listed.</div>';
-            console.info('[LinguaBridge] Synced', activeTutors.length, 'active tutors from Firestore.');
-        }, e => {
-            grid.innerHTML = '<div class="text-center py-14 text-slate-400 text-sm font-semibold">Tutors are temporarily unavailable.</div>';
-            console.info('[LinguaBridge] Tutor sync unavailable:', e.message);
-        });
+        grid.innerHTML = activeTutors.length
+            ? activeTutors.map((t, i) => buildTutorCard(t, i)).join('')
+            : '<div class="text-center py-14 text-slate-400 text-sm font-semibold">No tutors are currently listed.</div>';
+        console.info('[LinguaBridge] Loaded', activeTutors.length, 'active tutors from Firestore.');
     } catch (e) {
         grid.innerHTML = '<div class="text-center py-14 text-slate-400 text-sm font-semibold">Tutors are temporarily unavailable.</div>';
-        console.info('[LinguaBridge] Tutor sync unavailable:', e.message);
+        console.info('[LinguaBridge] Tutor load unavailable:', e.message);
     }
 })();
 </script>

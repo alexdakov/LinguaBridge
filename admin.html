@@ -837,7 +837,7 @@
 <script type="module">
 import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 const app  = initializeApp({
@@ -857,6 +857,7 @@ let tutors         = [];
 let editingLangId  = null;
 let editingTutorId = null;
 let pendingPhotoFile = null;
+let tutorsUnsubscribe = null;
 
 // ── Settings constants ────────────────────────────────────────────────────────
 const LEARNING_TYPES = [
@@ -1312,12 +1313,28 @@ window.importFromPrices = async function() {
 //  TUTORS
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadTutors() {
-    try {
-        const snap = await getDocs(collection(db, 'tutors'));
+    if (tutorsUnsubscribe) tutorsUnsubscribe();
+    const grid  = document.getElementById('tutor-grid');
+    const empty = document.getElementById('tutor-empty');
+    grid.innerHTML = '<div class="md:col-span-2 text-center py-16 text-slate-400 text-sm font-semibold">Loading tutors from Firebase...</div>';
+    empty.classList.add('hidden');
+
+    tutorsUnsubscribe = onSnapshot(collection(db, 'tutors'), snap => {
         tutors = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
-    } catch { tutors = []; }
-    sortTutors();
-    renderTutorGrid();
+        sortTutors();
+        renderTutorGrid();
+        updateStats();
+    }, err => {
+        tutors = [];
+        grid.innerHTML = `
+          <div class="md:col-span-2 bg-white border border-red-200 rounded-2xl p-6 text-center">
+            <span class="material-symbols-outlined text-red-400 text-[42px] mb-2 block">error</span>
+            <p class="font-bold text-slate-800 mb-1">Could not load tutors from Firebase.</p>
+            <p class="text-sm text-slate-500">${esc(err.message)}</p>
+          </div>`;
+        empty.classList.add('hidden');
+        toast('Could not load tutors: ' + err.message, 'error');
+    });
 }
 
 function tutorDocId(name) {
