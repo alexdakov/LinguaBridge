@@ -16,6 +16,8 @@ async function initLanguage() {
     }
     const lang = localStorage.getItem('preferredLang') || 'en';
     applyLanguage(lang);
+    // Notify dynamic pages (blog, etc.) of the initial language on load
+    document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 }
 
 // Apply a language: swap all [data-i18n] text + update switcher UI
@@ -92,6 +94,9 @@ async function changeGlobalLanguage(lang) {
     if (typeof renderCatalog === 'function' && document.getElementById('catalog-container')) {
         renderCatalog();
     }
+
+    // Notify any page-level listeners (e.g. blog translation layer)
+    document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 }
 
 // Mobile nav toggle

@@ -177,6 +177,7 @@
 
 <!-- ── Scripts ── -->
 <script src="sanity.js"></script>
+<script src="translate.js"></script>
 <script>
     // ── Mobile menu ──
     function toggleMobileMenu(e) {
@@ -195,7 +196,7 @@
         document.getElementById('mobile-lang-dropdown').classList.add('hidden');
     });
 
-    // ── Category colour palette (same as blog.html) ──
+    // ── Category colour palette ──────────────────────────────────────────────
     const CAT_COLORS = [
         { bg:'bg-rose-50',   text:'text-[#FF7582]'  },
         { bg:'bg-violet-50', text:'text-violet-600'  },
@@ -207,13 +208,16 @@
     const catColorMap = {};
     let colorIdx = 0;
     function catColor(title) {
-        if (!catColorMap[title]) {
-            catColorMap[title] = CAT_COLORS[colorIdx++ % CAT_COLORS.length];
-        }
+        if (!catColorMap[title]) catColorMap[title] = CAT_COLORS[colorIdx++ % CAT_COLORS.length];
         return catColorMap[title];
     }
 
-    // ── Show error ──
+    // ── State ────────────────────────────────────────────────────────────────
+    let _sourcePost = null;  // original EN data — never mutated
+    let _postSlug   = null;
+    let _translating = false;
+
+    // ── Show error ───────────────────────────────────────────────────────────
     function showError(msg) {
         document.getElementById('page-loading').classList.add('hidden');
         const el = document.getElementById('page-error');
@@ -221,48 +225,71 @@
         document.getElementById('page-error-msg').textContent = msg || '';
     }
 
-    // ── Render post ──
+    // ── Translation status overlay ───────────────────────────────────────────
+    function setTranslating(on) {
+        _translating = on;
+        const body = document.getElementById('post-body');
+        if (!body) return;
+        if (on) {
+            body.style.opacity = '0.45';
+            body.style.transition = 'opacity .2s';
+            // show spinner badge
+            let badge = document.getElementById('trans-badge');
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.id = 'trans-badge';
+                badge.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white border border-rose-100 shadow-lg rounded-full px-4 py-2.5 text-sm font-semibold text-[#FF7582]';
+                badge.innerHTML = `<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FF7582" stroke-width="3" stroke-dasharray="31" stroke-dashoffset="10"/></svg>Translating…`;
+                document.body.appendChild(badge);
+            }
+            badge.style.display = 'flex';
+        } else {
+            body.style.opacity = '';
+            const badge = document.getElementById('trans-badge');
+            if (badge) badge.style.display = 'none';
+        }
+    }
+
+    // ── Render post (takes already-translated post data) ─────────────────────
     function renderPost(post) {
         document.getElementById('page-loading').classList.add('hidden');
         const article = document.getElementById('post-article');
         article.classList.remove('hidden');
 
-        // Update page title
         document.title = `${post.title || 'Post'} | LinguaBridge Blog`;
 
         // Hero image
         const heroEl  = document.getElementById('post-hero');
         const heroSrc = urlFor(post.mainImage, 1200);
-        if (heroSrc) {
-            heroEl.innerHTML = `<img src="${heroSrc}" alt="${escHtml(post.title || '')}" class="w-full h-full object-cover max-h-[520px]" loading="eager">`;
-        } else {
-            heroEl.innerHTML = `<div class="h-64 flex items-center justify-center bg-gradient-to-br from-rose-100 to-rose-200"><span class="material-symbols-outlined text-[80px] text-[#FF7582]/30">auto_stories</span></div>`;
-        }
+        heroEl.innerHTML = heroSrc
+            ? `<img src="${heroSrc}" alt="${escHtml(post.title || '')}" class="w-full h-full object-cover max-h-[520px]" loading="eager">`
+            : `<div class="h-64 flex items-center justify-center bg-gradient-to-br from-rose-100 to-rose-200"><span class="material-symbols-outlined text-[80px] text-[#FF7582]/30">auto_stories</span></div>`;
 
-        // Categories
-        const catsEl = document.getElementById('post-categories');
-        catsEl.innerHTML = (post.categories || []).map(c => {
-            const col = catColor(c.title);
-            return `<span class="${col.bg} ${col.text} text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">${escHtml(c.title)}</span>`;
-        }).join('');
+        // Categories (not translated — editorial labels)
+        document.getElementById('post-categories').innerHTML =
+            (post.categories || []).map(c => {
+                const col = catColor(c.title);
+                return `<span class="${col.bg} ${col.text} text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">${escHtml(c.title)}</span>`;
+            }).join('');
 
         // Title
         document.getElementById('post-title').textContent = post.title || '';
 
         // Author
-        const authorEl  = document.getElementById('post-author');
-        const authorImg = post.author?.image ? urlFor(post.author.image, 80) : null;
-        const authorName= post.author?.name  ? escHtml(post.author.name)    : null;
+        const authorEl   = document.getElementById('post-author');
+        const authorImg  = post.author?.image ? urlFor(post.author.image, 80) : null;
+        const authorName = post.author?.name  ? escHtml(post.author.name)     : null;
         if (authorName) {
+            const bioText = Array.isArray(post.author.bio)
+                ? (post.author.bio[0]?.children?.[0]?.text || '')
+                : '';
             authorEl.innerHTML = `
                 ${authorImg
                     ? `<img src="${authorImg}" alt="${authorName}" class="w-10 h-10 rounded-full object-cover ring-2 ring-rose-100">`
                     : `<div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center ring-2 ring-rose-100"><span class="material-symbols-outlined text-[20px] text-[#FF7582]">person</span></div>`}
                 <div>
                     <p class="text-sm font-bold text-slate-800">${authorName}</p>
-                    ${post.author?.bio
-                        ? `<p class="text-xs text-slate-400 leading-tight line-clamp-1">${escHtml(Array.isArray(post.author.bio) ? (post.author.bio[0]?.children?.[0]?.text || '') : '')}</p>`
-                        : ''}
+                    ${bioText ? `<p class="text-xs text-slate-400 leading-tight line-clamp-1">${escHtml(bioText)}</p>` : ''}
                 </div>`;
         }
 
@@ -273,20 +300,56 @@
         document.getElementById('post-body').innerHTML = renderPortableText(post.body);
     }
 
-    // ── Bootstrap ──
+    // ── Apply language to current post ───────────────────────────────────────
+    async function applyPostLanguage(lang) {
+        if (!_sourcePost) return;
+        if (lang === 'en') {
+            renderPost(_sourcePost);
+            return;
+        }
+        setTranslating(true);
+        try {
+            // Translate title
+            const [translatedTitle] = await translateStrings(
+                [_sourcePost.title || ''], lang, `title_${_postSlug}`
+            );
+            // Translate body blocks
+            const translatedBody = await translatePortableText(
+                _sourcePost.body || [], lang, _postSlug
+            );
+            renderPost({ ..._sourcePost, title: translatedTitle, body: translatedBody });
+        } catch (err) {
+            console.warn('Blog post translation error:', err);
+            renderPost(_sourcePost); // fall back to English
+        } finally {
+            setTranslating(false);
+        }
+    }
+
+    // ── Bootstrap ────────────────────────────────────────────────────────────
     async function init() {
-        const slug = new URLSearchParams(location.search).get('slug');
-        if (!slug) { showError('No post slug specified.'); return; }
+        _postSlug = new URLSearchParams(location.search).get('slug');
+        if (!_postSlug) { showError('No post slug specified.'); return; }
 
         try {
-            const post = await sanityFetch(QUERY_POST_BY_SLUG, { slug });
-            if (!post) { showError(`Post "${slug}" not found.`); return; }
-            renderPost(post);
+            const post = await sanityFetch(QUERY_POST_BY_SLUG, { slug: _postSlug });
+            if (!post) { showError(`Post "${_postSlug}" not found.`); return; }
+            _sourcePost = post;
+            // Render in English first, then apply the user's saved language.
+            // (languageChanged may fire before data arrives, so we check again here.)
+            renderPost(_sourcePost);
+            const savedLang = localStorage.getItem('preferredLang') || 'en';
+            if (savedLang !== 'en') applyPostLanguage(savedLang);
         } catch (err) {
             console.error('Post fetch error:', err);
             showError(err.message);
         }
     }
+
+    // ── Language change hook ─────────────────────────────────────────────────
+    document.addEventListener('languageChanged', e => {
+        if (!_translating) applyPostLanguage(e.detail.lang);
+    });
 
     init();
 </script>

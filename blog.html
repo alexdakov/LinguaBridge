@@ -184,6 +184,7 @@
 
 <!-- ── Scripts ── -->
 <script src="sanity.js"></script>
+<script src="translate.js"></script>
 <script>
     // ── Mobile menu ──────────────────────────────────────────────────────────
     function toggleMobileMenu(e) {
@@ -353,23 +354,90 @@
         }).join('');
     }
 
+    // ── Translation state ─────────────────────────────────────────────────────
+    let _sourcePosts = [];      // original EN posts — never mutated
+    let _currentLang = 'en';
+    let _listTranslating = false;
+
+    // ── Translation spinner ───────────────────────────────────────────────────
+    function setListTranslating(on) {
+        _listTranslating = on;
+        let badge = document.getElementById('trans-badge');
+        if (on) {
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.id = 'trans-badge';
+                badge.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white border border-rose-100 shadow-lg rounded-full px-4 py-2.5 text-sm font-semibold text-[#FF7582]';
+                badge.innerHTML = `<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FF7582" stroke-width="3" stroke-dasharray="31" stroke-dashoffset="10"/></svg>Translating…`;
+                document.body.appendChild(badge);
+            }
+            badge.style.display = 'flex';
+            document.getElementById('posts-grid').style.opacity = '0.45';
+            document.getElementById('posts-grid').style.transition = 'opacity .2s';
+        } else {
+            if (badge) badge.style.display = 'none';
+            document.getElementById('posts-grid').style.opacity = '';
+        }
+    }
+
+    // ── Apply language to post list ───────────────────────────────────────────
+    async function applyListLanguage(lang) {
+        if (!_sourcePosts.length) return;
+        _currentLang = lang;
+
+        if (lang === 'en') {
+            allPosts = _sourcePosts;
+            buildCategoryFilter(allPosts);
+            filterPosts(activeFilter);
+            return;
+        }
+
+        setListTranslating(true);
+        try {
+            // Translate all post titles in one batch, cached per lang
+            const titles = _sourcePosts.map(p => p.title || '');
+            const translatedTitles = await translateStrings(titles, lang, 'list_titles');
+
+            // Build translated post array (shallow copies)
+            allPosts = _sourcePosts.map((p, i) => ({
+                ...p,
+                title: translatedTitles[i] || p.title,
+            }));
+
+            buildCategoryFilter(allPosts);
+            filterPosts(activeFilter);
+        } catch (err) {
+            console.warn('Blog list translation error:', err);
+            allPosts = _sourcePosts; // fall back to English
+            renderPostCards(allPosts);
+        } finally {
+            setListTranslating(false);
+        }
+    }
+
     // ── Bootstrap ────────────────────────────────────────────────────────────
     async function init() {
         try {
-            allPosts = await sanityFetch(QUERY_ALL_POSTS);
+            const fetched = await sanityFetch(QUERY_ALL_POSTS);
 
-            // Hide loading skeletons, show grid
             document.getElementById('posts-loading').classList.add('hidden');
             document.getElementById('posts-grid').classList.remove('hidden');
 
-            if (!allPosts || !allPosts.length) {
+            if (!fetched || !fetched.length) {
                 document.getElementById('posts-empty').classList.remove('hidden');
                 document.getElementById('category-filters').innerHTML = '';
                 return;
             }
 
+            _sourcePosts = fetched;
+            allPosts = fetched;
             buildCategoryFilter(allPosts);
             renderPostCards(allPosts);
+
+            // If language was already set to non-EN before posts loaded,
+            // translate now (languageChanged may have fired before data arrived)
+            const savedLang = localStorage.getItem('preferredLang') || 'en';
+            if (savedLang !== 'en') applyListLanguage(savedLang);
 
         } catch (err) {
             console.error('Blog fetch error:', err);
@@ -379,6 +447,11 @@
             document.getElementById('category-filters').innerHTML = '';
         }
     }
+
+    // ── Language change hook ──────────────────────────────────────────────────
+    document.addEventListener('languageChanged', e => {
+        if (!_listTranslating) applyListLanguage(e.detail.lang);
+    });
 
     init();
 </script>
