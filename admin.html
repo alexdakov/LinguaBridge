@@ -227,35 +227,58 @@
 
       <!-- ── LANGUAGES ── -->
       <section id="section-languages" class="hidden fade-up">
-        <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
           <div>
             <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Languages</h1>
             <p class="text-slate-500 text-sm mt-0.5">Manage course offerings, levels, and pricing.</p>
           </div>
-          <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
-            <span class="material-symbols-outlined text-[18px]">add</span>Add Language
-          </button>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="importFromPrices()" id="import-prices-btn" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 hover:text-[#a93444] px-3 py-2 rounded-full transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[15px]">upload_file</span>Import prices.json
+            </button>
+            <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">add</span>Add Language
+            </button>
+          </div>
         </div>
-        <div class="flex gap-2 mb-5 flex-wrap">
+        <div class="flex gap-2 mb-5 flex-wrap items-center">
           <button onclick="openLearningTypesModal()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all shadow-sm">
-            <span class="material-symbols-outlined text-[15px]">groups</span>Manage Learning Types
+            <span class="material-symbols-outlined text-[15px]">groups</span>Learning Types
           </button>
           <button onclick="openModulesModal()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all shadow-sm">
-            <span class="material-symbols-outlined text-[15px]">view_module</span>Manage Modules
+            <span class="material-symbols-outlined text-[15px]">view_module</span>Modules
+          </button>
+          <button onclick="openPricingPlansModal()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 px-3 py-1.5 rounded-full transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[15px]">payments</span>Payment Plans
           </button>
           <div class="ml-auto flex items-center gap-2 text-[11px] text-slate-400 font-semibold">
             <span class="material-symbols-outlined text-[14px]">currency_exchange</span>
             Live rates: <span id="live-rate-usd">—</span> · <span id="live-rate-rub">—</span> · <span id="live-rate-cny">—</span>
           </div>
         </div>
-        <div id="lang-grid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+        <!-- Loading skeleton -->
+        <div id="lang-loading" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          ${[1,2,3].map(() => `<div class="bg-white rounded-2xl border border-slate-100 h-32 animate-pulse"></div>`).join('')}
+        </div>
+        <div id="lang-grid" class="hidden grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
         <div id="lang-empty" class="hidden text-center py-20">
-          <span class="material-symbols-outlined text-[52px] text-slate-400 block mb-3">translate</span>
-          <p class="text-slate-500 font-semibold mb-1">No languages yet.</p>
-          <p class="text-slate-600 text-sm mb-4">Import from the existing website data to get started.</p>
-          <button onclick="importFromPrices()" class="inline-flex items-center gap-2 bg-[#a93444]/15 border border-[#a93444]/30 text-[#a93444] px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#a93444]/25 transition-all">
-            <span class="material-symbols-outlined text-[16px]">download</span>Import from prices.json
+          <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="material-symbols-outlined text-[32px] text-slate-400">language</span>
+          </div>
+          <p class="text-slate-700 font-bold mb-1">No languages in Firebase yet.</p>
+          <p class="text-slate-500 text-sm mb-6 max-w-xs mx-auto">Populate the <code class="bg-slate-100 px-1 rounded text-xs">/languages</code>, <code class="bg-slate-100 px-1 rounded text-xs">/courses</code> and <code class="bg-slate-100 px-1 rounded text-xs">/pricingPlans</code> collections from your prices.json file.</p>
+          <button onclick="importFromPrices()" class="inline-flex items-center gap-2 bg-[#a93444] text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-lg shadow-[#a93444]/20">
+            <span class="material-symbols-outlined text-[18px]">upload_file</span>Seed from prices.json
           </button>
+          <p class="text-[11px] text-slate-400 mt-3">Seeds 6 languages, all courses, and payment plans into Firebase.</p>
+        </div>
+        <!-- Pricing plans summary bar (shown when plans are loaded) -->
+        <div id="pricing-plans-bar" class="hidden mt-6 bg-white rounded-2xl border border-slate-100 p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-[18px] text-[#a93444]">payments</span>
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider">Active Payment Plans</p>
+          </div>
+          <div id="pricing-plans-pills" class="flex flex-wrap gap-2"></div>
         </div>
       </section>
 
@@ -296,9 +319,14 @@
             <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Users</h1>
             <p class="text-slate-500 text-sm mt-0.5">All registered users from Firestore.</p>
           </div>
-          <button onclick="loadUsers()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
-            <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
-          </button>
+          <div class="flex gap-2">
+            <button onclick="openCreateUserModal()" class="flex items-center gap-1.5 text-xs font-bold text-white bg-[#a93444] hover:bg-[#7e2334] px-3 py-1.5 rounded-full transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[15px]">person_add</span>Create User
+            </button>
+            <button onclick="loadUsers()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+              <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+            </button>
+          </div>
         </div>
         <!-- Permission warning -->
         <div id="users-perm-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-xl mb-4">⚠️ Firestore rules need updating. Go to Firebase Console → Firestore → Rules and allow admins to read all user documents.</div>
@@ -324,6 +352,7 @@
                 <tr class="border-b border-slate-100 bg-slate-50">
                   <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Name</th>
                   <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Email</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Phone</th>
                   <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Role</th>
                   <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
                   <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Joined</th>
@@ -331,7 +360,7 @@
                 </tr>
               </thead>
               <tbody id="users-table-body">
-                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading users…</td></tr>
+                <tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading users…</td></tr>
               </tbody>
             </table>
           </div>
@@ -432,8 +461,27 @@
             <option value="accepted">Accepted</option>
           </select>
         </div>
-        <!-- Cards grid -->
-        <div id="requests-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        <!-- Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Name</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Email / Phone</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Language</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Format</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Submitted</th>
+                  <th class="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody id="requests-table-body">
+                <tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading requests…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       <!-- ── JOBS ── -->
@@ -471,7 +519,25 @@
             <option value="accepted">Accepted</option>
           </select>
         </div>
-        <div id="jobs-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Applicant</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Email / Phone</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Languages</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Submitted</th>
+                  <th class="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody id="jobs-table-body">
+                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading applications…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       <!-- ── AUDIT LOG ── -->
@@ -1184,6 +1250,86 @@
 </div>
 
 
+<!-- ══ REQUEST DETAIL MODAL ══════════════════════════════════════════════════ -->
+<div id="req-detail-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Request Details</h2>
+      <button onclick="closeRequestDetail()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1" id="req-detail-content"></div>
+  </div>
+</div>
+
+<!-- ══ JOB DETAIL MODAL ═══════════════════════════════════════════════════════ -->
+<div id="job-detail-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Application Details</h2>
+      <button onclick="closeJobDetail()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1" id="job-detail-content"></div>
+  </div>
+</div>
+
+<!-- ══ CREATE USER MODAL ════════════════════════════════════════════════════ -->
+<div id="create-user-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-lg rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800">Create New User</h2>
+      <button onclick="closeCreateUserModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1 flex flex-col gap-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">First Name *</label>
+          <input id="cu-firstname" type="text" placeholder="First name" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Last Name</label>
+          <input id="cu-lastname" type="text" placeholder="Last name" class="field-input">
+        </div>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Email *</label>
+        <input id="cu-email" type="email" placeholder="email@example.com" class="field-input">
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Phone</label>
+        <input id="cu-phone" type="tel" placeholder="+1 234 567 8900" class="field-input">
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Username / Nickname</label>
+        <input id="cu-username" type="text" placeholder="website username" class="field-input">
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Role</label>
+        <select id="cu-role" class="field-input appearance-none cursor-pointer">
+          <option value="student">Student</option>
+          <option value="tutor">Tutor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Notes</label>
+        <textarea id="cu-notes" rows="2" placeholder="Optional notes…" class="field-input resize-none"></textarea>
+      </div>
+    </div>
+    <div class="flex items-center justify-between px-7 py-4 border-t border-slate-100 shrink-0 gap-3">
+      <button onclick="closeCreateUserModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-400 hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitCreateUser()" class="flex items-center gap-2 bg-[#a93444] text-white px-7 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">person_add</span>Create User
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ CONFIRM DELETE ═════════════════════════════════════════════════════════ -->
 <div id="confirm-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
   <div class="bg-white border border-slate-200 rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center">
@@ -1224,6 +1370,7 @@ const db      = getFirestore(app);
 const storage = getStorage(app);
 
 let languages      = [];
+let pricingPlans   = [];
 let tutors         = [];
 let editingLangId  = null;
 let editingTutorId = null;
@@ -1423,31 +1570,62 @@ function updateStats() {
 //  LANGUAGES
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadLanguages() {
+    // Show skeleton, hide grid
+    document.getElementById('lang-loading')?.classList.remove('hidden');
+    document.getElementById('lang-grid')?.classList.add('hidden');
+    document.getElementById('lang-empty')?.classList.add('hidden');
+    document.getElementById('pricing-plans-bar')?.classList.add('hidden');
+
     try {
-        const [langSnap, courseSnap] = await Promise.all([
+        const [langSnap, courseSnap, plansSnap] = await Promise.all([
             getDocs(collection(db, 'languages')),
-            getDocs(collection(db, 'courses'))
+            getDocs(collection(db, 'courses')),
+            getDocs(collection(db, 'pricingPlans'))
         ]);
+
+        // Index courses by languageId
         const coursesByLang = {};
         courseSnap.docs.forEach(d => {
             const c = { _courseId: d.id, ...d.data() };
-            if (!coursesByLang[c.languageId]) coursesByLang[c.languageId] = [];
-            coursesByLang[c.languageId].push(c);
+            const lid = c.languageId || '';
+            if (!coursesByLang[lid]) coursesByLang[lid] = [];
+            coursesByLang[lid].push(c);
         });
+
+        // Build languages array, attaching courses
         languages = langSnap.docs.map(d => {
             const lang = { _id: d.id, ...d.data() };
-            lang.courses = (coursesByLang[lang.id || d.id] || []).sort((a,b) => (a.name||'').localeCompare(b.name||''));
+            const lid  = lang.id || d.id;
+            lang.courses = (coursesByLang[lid] || []).sort((a,b) => (a.name||'').localeCompare(b.name||''));
             return lang;
         });
-    } catch(e) { languages = []; console.error('loadLanguages failed:', e); }
+
+        // Store pricing plans globally
+        pricingPlans = plansSnap.docs.map(d => ({ _id: d.id, ...d.data() }));
+
+    } catch(e) {
+        languages = [];
+        pricingPlans = [];
+        console.error('loadLanguages failed:', e);
+    }
+
+    // Hide skeleton
+    document.getElementById('lang-loading')?.classList.add('hidden');
     renderLanguageGrid();
+    renderPricingPlansBar();
 }
 
 function renderLanguageGrid() {
     const grid  = document.getElementById('lang-grid');
     const empty = document.getElementById('lang-empty');
-    if (!languages.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+    if (!languages.length) {
+        grid.innerHTML = '';
+        grid.classList.add('hidden');
+        empty.classList.remove('hidden');
+        return;
+    }
     empty.classList.add('hidden');
+    grid.classList.remove('hidden');
     grid.innerHTML = languages.map(lang => {
         const courseCount = (lang.courses || []).length;
         const flag = lang.flag_url
@@ -1466,22 +1644,43 @@ function renderLanguageGrid() {
             </span>`
         ).join('');
 
+        // Price range across all courses (module 1 group price as baseline)
+        const prices = (lang.courses || []).map(c => c.g_m1).filter(Boolean);
+        const minPrice = prices.length ? Math.min(...prices) : null;
+        const maxPrice = prices.length ? Math.max(...prices) : null;
+        const priceRange = minPrice
+            ? (minPrice === maxPrice ? `€${minPrice}` : `€${minPrice}–€${maxPrice}`)
+            : '';
+
+        // Levels
+        const levels = [...new Set((lang.courses||[]).map(c=>c.level).filter(Boolean))].join(', ');
+
         return `
-        <div class="bg-white rounded-2xl border border-slate-200 hover:border-slate-200 transition-all overflow-hidden fade-up">
+        <div class="bg-white rounded-2xl border border-slate-200 hover:shadow-md hover:border-[#a93444]/20 transition-all overflow-hidden fade-up group">
           <div class="flex items-center gap-3 p-5 border-b border-slate-100">
             ${flag}
             <div class="flex-1 min-w-0">
               <p class="font-['Plus_Jakarta_Sans'] font-extrabold text-slate-800 text-base truncate">${esc(lang.title)}</p>
-              <p class="text-xs text-slate-500 truncate mt-0.5">${esc(lang.desc || '—')}</p>
+              <p class="text-xs text-slate-400 truncate mt-0.5">${esc(lang.desc || '—')}</p>
             </div>
           </div>
-          <div class="px-5 py-4 flex items-center justify-between gap-2 flex-wrap">
-            <div class="flex items-center gap-2 flex-wrap">
-              <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                <span class="material-symbols-outlined text-[16px] text-[#a93444]">menu_book</span>
-                ${courseCount} course${courseCount !== 1 ? 's' : ''}
-              </div>
-              ${typePills ? `<div class="flex items-center gap-1 flex-wrap">${typePills}</div>` : ''}
+          <div class="px-5 py-3 grid grid-cols-3 gap-2 border-b border-slate-50 text-center">
+            <div>
+              <p class="text-lg font-extrabold text-slate-800">${courseCount}</p>
+              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">Courses</p>
+            </div>
+            <div>
+              <p class="text-sm font-extrabold text-[#a93444] truncate">${priceRange || '—'}</p>
+              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">From / mo</p>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-slate-600 truncate">${levels || '—'}</p>
+              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">Levels</p>
+            </div>
+          </div>
+          <div class="px-5 py-3 flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-1 flex-wrap">
+              ${typePills || '<span class="text-[11px] text-slate-400">No learning types</span>'}
             </div>
             <div class="flex gap-2">
               <button onclick="openLangModal('${lang._id}')" class="h-8 px-3 rounded-full border border-[#a93444]/30 text-xs font-bold text-[#a93444] hover:bg-[#a93444]/15 transition-all flex items-center gap-1">
@@ -1495,6 +1694,71 @@ function renderLanguageGrid() {
         </div>`;
     }).join('');
 }
+
+function renderPricingPlansBar() {
+    const bar   = document.getElementById('pricing-plans-bar');
+    const pills = document.getElementById('pricing-plans-pills');
+    if (!bar || !pills) return;
+    if (!pricingPlans.length) { bar.classList.add('hidden'); return; }
+    bar.classList.remove('hidden');
+    pills.innerHTML = pricingPlans.map(p => `
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs">
+          <span class="font-bold text-slate-700">${esc(p.label || p.id)}</span>
+          ${p.discountPct ? `<span class="bg-emerald-100 text-emerald-700 font-bold px-1.5 py-0.5 rounded-full text-[10px]">-${p.discountPct}%</span>` : ''}
+          ${p.installments ? `<span class="bg-blue-100 text-blue-700 font-bold px-1.5 py-0.5 rounded-full text-[10px]">${p.installments}× payments</span>` : ''}
+          <span class="text-slate-400">${esc(p.desc || '')}</span>
+          <button onclick="editPricingPlan('${esc(p._id)}')" class="ml-auto text-slate-400 hover:text-[#a93444] transition-colors"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+        </div>`).join('');
+}
+
+window.openPricingPlansModal = function() {
+    // Build modal dynamically
+    let modal = document.getElementById('pricing-plans-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'pricing-plans-modal';
+        modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm';
+        document.body.appendChild(modal);
+    }
+    const planRow = (p) => `
+        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100" data-plan-id="${esc(p._id)}">
+          <span class="material-symbols-outlined text-[20px] text-[#a93444]">payments</span>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-slate-800 text-sm">${esc(p.label || p.id)}</p>
+            <p class="text-xs text-slate-500 truncate">${esc(p.desc || '—')}</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs shrink-0">
+            ${p.discountPct ? `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-2 py-0.5 rounded-full">${p.discountPct}% off</span>` : ''}
+            ${p.installments ? `<span class="bg-blue-50 text-blue-700 border border-blue-200 font-bold px-2 py-0.5 rounded-full">${p.installments}× payments</span>` : ''}
+          </div>
+        </div>`;
+    modal.innerHTML = `
+        <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden">
+          <div class="flex items-center justify-between p-6 border-b border-slate-100">
+            <div>
+              <h2 class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl text-slate-800">Payment Plans</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Plans loaded from <code class="bg-slate-100 px-1 rounded">pricingPlans</code> collection</p>
+            </div>
+            <button onclick="document.getElementById('pricing-plans-modal').classList.add('hidden');document.body.style.overflow=''" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </div>
+          <div class="p-6 space-y-3 max-h-[60vh] overflow-y-auto">
+            ${pricingPlans.length
+                ? pricingPlans.map(p => planRow(p)).join('')
+                : `<div class="text-center py-8 text-slate-400 text-sm">
+                     <span class="material-symbols-outlined text-[40px] block mb-2">payments</span>
+                     No payment plans in Firebase yet. Run "Seed from prices.json" to import.
+                   </div>`
+            }
+          </div>
+          <div class="p-4 border-t border-slate-100 flex justify-end">
+            <button onclick="document.getElementById('pricing-plans-modal').classList.add('hidden');document.body.style.overflow=''" class="px-5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-full transition-all">Close</button>
+          </div>
+        </div>`;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
 
 window.openLangModal = function(id = null) {
     editingLangId = id;
@@ -1738,34 +2002,115 @@ window.deleteLang = function(id, name) {
 };
 
 window.importFromPrices = async function() {
-    try {
-        const res  = await fetch('prices.json');
-        const data = await res.json();
+    const btn = document.getElementById('import-prices-btn');
+    const origHTML = btn ? btn.innerHTML : '';
 
-        // Seed pricingPlans
-        const plans = data.paymentPlans || [];
+    // ── Fetch and parse prices.json first ──────────────────────────────────────
+    let data;
+    try {
+        const res = await fetch('prices.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        data = await res.json();
+    } catch (err) {
+        toast('Could not load prices.json: ' + err.message, 'error');
+        return;
+    }
+
+    const langs     = data.languages    || [];
+    const plans     = data.paymentPlans || [];
+    const ltypes    = data.learningTypes || [];
+    const modules   = data.modules      || [];
+    const totalCourses = langs.reduce((s, l) => s + (l.courses||[]).length, 0);
+    const totalDocs = langs.length + totalCourses + plans.length;
+
+    // ── Confirm ────────────────────────────────────────────────────────────────
+    const confirmed = await new Promise(resolve => {
+        const overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm';
+        overlay.innerHTML = `
+          <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center">
+            <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <span class="material-symbols-outlined text-[30px] text-amber-500">upload_file</span>
+            </div>
+            <h3 class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl text-slate-800 mb-2">Seed Firebase from prices.json?</h3>
+            <p class="text-sm text-slate-500 mb-1">This will write to Firebase:</p>
+            <ul class="text-sm text-slate-600 mb-5 space-y-1">
+              <li><span class="font-bold text-slate-800">${langs.length}</span> languages → <code class="bg-slate-100 px-1 rounded text-xs">languages</code></li>
+              <li><span class="font-bold text-slate-800">${totalCourses}</span> courses → <code class="bg-slate-100 px-1 rounded text-xs">courses</code></li>
+              <li><span class="font-bold text-slate-800">${plans.length}</span> plans → <code class="bg-slate-100 px-1 rounded text-xs">pricingPlans</code></li>
+            </ul>
+            <p class="text-xs text-amber-600 bg-amber-50 rounded-xl px-3 py-2 mb-5">Existing documents with the same IDs will be overwritten.</p>
+            <div class="flex gap-3">
+              <button id="imp-cancel" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-all">Cancel</button>
+              <button id="imp-confirm" class="flex-1 py-2.5 rounded-xl bg-[#a93444] text-white font-bold text-sm hover:bg-[#7e2334] transition-all">Yes, Seed</button>
+            </div>
+          </div>`;
+        document.body.appendChild(overlay);
+        overlay.querySelector('#imp-cancel').onclick  = () => { overlay.remove(); resolve(false); };
+        overlay.querySelector('#imp-confirm').onclick = () => { overlay.remove(); resolve(true);  };
+    });
+    if (!confirmed) return;
+
+    // ── Progress toast ─────────────────────────────────────────────────────────
+    if (btn) btn.innerHTML = `<span class="material-symbols-outlined text-[15px] animate-spin">refresh</span><span>Seeding…</span>`;
+    let done = 0;
+    const progressToast = document.createElement('div');
+    progressToast.id = 'import-progress-toast';
+    progressToast.className = 'fixed bottom-6 right-6 z-[300] bg-slate-800 text-white rounded-2xl px-5 py-3 shadow-2xl text-sm font-semibold flex items-center gap-3 min-w-[260px]';
+    progressToast.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span id="ipt-label">Connecting to Firebase…</span><span id="ipt-count" class="ml-auto text-slate-400 text-xs">0 / ${totalDocs}</span>`;
+    document.body.appendChild(progressToast);
+
+    const updateProgress = (label) => {
+        done++;
+        const el = document.getElementById('ipt-label');
+        const ct = document.getElementById('ipt-count');
+        if (el) el.textContent = label;
+        if (ct) ct.textContent = `${done} / ${totalDocs}`;
+    };
+
+    try {
+        // ── 1. Seed pricingPlans ───────────────────────────────────────────────
         for (const plan of plans) {
             await setDoc(doc(db, 'pricingPlans', plan.id), plan);
+            updateProgress(`Plan: ${plan.label || plan.id}`);
         }
 
-        // Seed languages and courses
-        const list = data.languages || [];
+        // ── 2. Seed learningTypes and modules into settings ────────────────────
+        if (ltypes.length) await setDoc(doc(db, 'settings', 'learningTypes'), { items: ltypes });
+        if (modules.length) await setDoc(doc(db, 'settings', 'modules'), { items: modules });
+
+        // ── 3. Seed languages + courses ───────────────────────────────────────
         let langCount = 0, courseCount = 0;
-        for (const lang of list) {
-            const { courses, ...langMeta } = lang;
-            await setDoc(doc(db, 'languages', lang.id), langMeta);
+        for (const lang of langs) {
+            const { courses: langCourses, ...langMeta } = lang;
+            // Ensure id field is saved in document
+            await setDoc(doc(db, 'languages', lang.id), { ...langMeta, id: lang.id });
             langCount++;
-            for (const course of (courses || [])) {
-                await setDoc(doc(db, 'courses', course.id), { ...course, languageId: lang.id });
+            updateProgress(`Language: ${lang.title}`);
+
+            for (const course of (langCourses || [])) {
+                await setDoc(doc(db, 'courses', course.id), {
+                    ...course,
+                    languageId: lang.id   // critical for grouping in loadLanguages
+                });
                 courseCount++;
+                updateProgress(`Course: ${course.name} (${lang.title})`);
             }
         }
 
-        logAudit('import_prices', 'languages', 'prices.json', 'Import', `${langCount} languages, ${courseCount} courses, ${plans.length} plans`);
+        logAudit('import_prices_json', 'languages', 'prices.json', 'Seed', `${langCount} languages, ${courseCount} courses, ${plans.length} plans`);
+        progressToast.remove();
         await loadLanguages();
         updateStats();
-        toast(`Imported ${langCount} languages, ${courseCount} courses, ${plans.length} plans ✓`);
-    } catch (err) { toast('Import failed: ' + err.message, 'error'); }
+        toast(`✓ Seeded ${langCount} languages · ${courseCount} courses · ${plans.length} payment plans`);
+
+    } catch (err) {
+        progressToast.remove();
+        toast('Seed failed: ' + err.message, 'error');
+        console.error('importFromPrices error:', err);
+    } finally {
+        if (btn) btn.innerHTML = origHTML;
+    }
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -2561,15 +2906,64 @@ window.loadUsers = async function() {
         toast('Failed to load users: ' + e.message, 'error');
     }
 };
+window.openCreateUserModal = function() {
+    ['cu-firstname','cu-lastname','cu-email','cu-phone','cu-username','cu-notes'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    document.getElementById('cu-role').value = 'student';
+    document.getElementById('create-user-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+window.closeCreateUserModal = function() {
+    document.getElementById('create-user-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+window.submitCreateUser = async function() {
+    const firstName = document.getElementById('cu-firstname').value.trim();
+    const lastName  = document.getElementById('cu-lastname').value.trim();
+    const email     = document.getElementById('cu-email').value.trim();
+    if (!firstName || !email) { toast('First name and email are required', 'error'); return; }
+    const displayName = lastName ? `${firstName} ${lastName}` : firstName;
+    const userData = {
+        displayName,
+        firstName,
+        lastName,
+        email,
+        phone:     document.getElementById('cu-phone').value.trim(),
+        username:  document.getElementById('cu-username').value.trim(),
+        role:      document.getElementById('cu-role').value,
+        notes:     document.getElementById('cu-notes').value.trim(),
+        disabled:  false,
+        tag:       'new',
+        status:    'active',
+        createdAt: new Date().toISOString(),
+        source:    'admin_created'
+    };
+    try {
+        await addDoc(collection(db, 'users'), userData);
+        logAudit('create_user', 'users', email, displayName, userData.role);
+        closeCreateUserModal();
+        await loadUsers();
+        toast('User created ✓');
+    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
 function renderUsersTable(list) {
     const body = document.getElementById('users-table-body');
     if (!body) return;
-    if (!list.length) { body.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No users found.</td></tr>`; return; }
-    const roleColors = { admin:'bg-[#a93444]/10 text-[#a93444]', tutor:'bg-blue-100 text-blue-700', student:'bg-emerald-100 text-emerald-700' };
-    body.innerHTML = list.map(u => `
+    if (!list.length) { body.innerHTML = `<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">No users found.</td></tr>`; return; }
+    body.innerHTML = list.map(u => {
+        const fullName = u.displayName || u.name || '—';
+        const nickBadge = (u.username || u.nickname) ? `<span class="text-[10px] text-slate-400 font-mono">@${esc(u.username || u.nickname)}</span>` : '';
+        const roleColors = { admin:'bg-[#a93444]/10 text-[#a93444]', tutor:'bg-blue-100 text-blue-700', student:'bg-emerald-100 text-emerald-700' };
+        return `
       <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-        <td class="px-5 py-3 font-semibold text-slate-800">${esc(u.displayName || u.name || '—')}</td>
-        <td class="px-5 py-3 text-slate-500">${esc(u.email || '—')}</td>
+        <td class="px-5 py-3">
+          <div class="font-semibold text-slate-800">${esc(fullName)}</div>
+          ${nickBadge}
+        </td>
+        <td class="px-5 py-3 text-slate-500 text-xs">${esc(u.email || '—')}</td>
+        <td class="px-5 py-3 text-slate-500 text-xs">${esc(u.phone || '—')}</td>
         <td class="px-5 py-3">
           <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${roleColors[u.role] || 'bg-slate-100 text-slate-500'}">${esc(u.role || 'student')}</span>
         </td>
@@ -2586,7 +2980,8 @@ function renderUsersTable(list) {
             <span class="material-symbols-outlined text-[13px]">${u.disabled ? 'lock_open' : 'block'}</span>${u.disabled ? 'Enable' : 'Disable'}
           </button>
         </td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
     const statEl = document.getElementById('stat-users');
     if (statEl) statEl.textContent = _users.length;
 }
@@ -2663,6 +3058,11 @@ window.submitUserModal = async function() {
         notes:       document.getElementById('um-notes').value.trim(),
         ...customFields
     };
+    const parts = data.displayName.split(' ');
+    if (parts.length >= 2) {
+        data.firstName = parts[0];
+        data.lastName  = parts.slice(1).join(' ');
+    }
     try {
         await updateDoc(doc(db, 'users', _editingUserId), data);
         const u = _users.find(x => x._id === _editingUserId);
@@ -2864,8 +3264,8 @@ window.submitStudentModal = async function() {
 // ── Requests ──────────────────────────────────────────────────────────────────
 let _requests = [];
 window.loadRequests = async function() {
-    const grid = document.getElementById('requests-grid');
-    if (grid) grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">Loading requests…</div>';
+    const tbody = document.getElementById('requests-table-body');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading requests…</td></tr>';
     try {
         const snap = await getDocs(collection(db, 'studentRequests'));
         _requests = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
@@ -2874,59 +3274,56 @@ window.loadRequests = async function() {
                 const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
                 return tb - ta;
             });
-        renderRequestsGrid(_requests);
+        renderRequestsTable(_requests);
         // stats
         const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
         setEl('req-stat-new',       _requests.filter(r => (r.status||'new') === 'new').length);
         setEl('req-stat-contacted', _requests.filter(r => r.status === 'contacted').length);
         setEl('req-stat-pending',   _requests.filter(r => r.status === 'pending').length);
         setEl('req-stat-accepted',  _requests.filter(r => r.status === 'accepted').length);
-    } catch(e) { if (grid) grid.innerHTML = `<div class="col-span-3 text-center py-12 text-red-400 text-sm">${esc(e.message)}</div>`; }
+    } catch(e) { if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="px-5 py-10 text-center text-red-400 text-sm">${esc(e.message)}</td></tr>`; }
 };
 
-function renderRequestsGrid(list) {
-    const grid = document.getElementById('requests-grid');
-    if (!grid) return;
-    if (!list.length) { grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">No requests found.</div>'; return; }
+function renderRequestsTable(list) {
+    const body = document.getElementById('requests-table-body');
+    if (!body) return;
+    if (!list.length) {
+        body.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">No requests found.</td></tr>';
+        return;
+    }
     const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
-    grid.innerHTML = list.map(r => {
+    body.innerHTML = list.map(r => {
         const st = r.status || 'new';
         const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleDateString() : '—';
-        const tutorOpts = tutors.filter(t => {
-            const tl = (t.lang_teached||'').toLowerCase();
-            const rl = (r.language||'').toLowerCase();
-            return !rl || tl.includes(rl);
-        }).map(t => `<option value="${esc(t._id)}" ${r.assignedTutor===t._id?'selected':''}>${esc(t.name)}</option>`).join('');
-        return `<div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col gap-3 fade-up">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <p class="font-bold text-slate-800">${esc(r.name || '—')}</p>
-              <p class="text-xs text-slate-400">${esc(r.email || '')} ${r.phone ? '· ' + esc(r.phone) : ''}</p>
-            </div>
-            <span class="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold ${statusColor[st] || 'bg-slate-100 text-slate-500'}">${esc(st)}</span>
-          </div>
-          ${r.language ? `<p class="text-xs font-bold text-[#a93444]">${esc(r.language)}${r.format ? ' · ' + esc(r.format) : ''}</p>` : ''}
-          ${r.message ? `<p class="text-xs text-slate-500 line-clamp-3">${esc(r.message)}</p>` : ''}
-          <p class="text-[10px] text-slate-400">Submitted: ${date}</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-2 border-t border-slate-100">
-            <select onchange="updateRequestStatus('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
+        return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+          <td class="px-5 py-3">
+            <div class="font-semibold text-slate-800">${esc(r.name || '—')}</div>
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-500">
+            <div>${esc(r.email || '—')}</div>
+            ${r.phone ? `<div class="text-slate-400">${esc(r.phone)}</div>` : ''}
+          </td>
+          <td class="px-5 py-3 text-xs font-semibold text-[#a93444]">${esc(r.language || '—')}</td>
+          <td class="px-5 py-3 text-xs text-slate-500">${esc(r.format || '—')}</td>
+          <td class="px-5 py-3">
+            <select onchange="updateRequestStatus('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
               ${['new','contacted','pending','rejected','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
             </select>
-            ${tutors.length ? `<select onchange="assignRequestTutor('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
-              <option value="">Assign Tutor…</option>${tutorOpts}
-            </select>` : ''}
-            ${st === 'accepted' ? `<button onclick="acceptAndCreateUser('${r._id}')" class="flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 hover:bg-emerald-100 transition-all">
-              <span class="material-symbols-outlined text-[13px]">person_add</span>Create User
-            </button>` : ''}
-          </div>
-        </div>`;
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-400">${date}</td>
+          <td class="px-5 py-3">
+            <button onclick="openRequestDetail('${r._id}')" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
+              <span class="material-symbols-outlined text-[13px]">open_in_new</span>See More
+            </button>
+          </td>
+        </tr>`;
     }).join('');
 }
 
 window.filterRequests = function() {
     const q = (document.getElementById('req-search')?.value || '').toLowerCase();
     const st = document.getElementById('req-status-filter')?.value || '';
-    renderRequestsGrid(_requests.filter(r => {
+    renderRequestsTable(_requests.filter(r => {
         const text = ((r.name||'') + ' ' + (r.language||'') + ' ' + (r.email||'')).toLowerCase();
         const stOk = !st || (r.status||'new') === st;
         return text.includes(q) && stOk;
@@ -2938,7 +3335,7 @@ window.updateRequestStatus = async function(id, status) {
         await updateDoc(doc(db, 'studentRequests', id), { status });
         const r = _requests.find(x => x._id === id);
         if (r) r.status = status;
-        renderRequestsGrid(_requests);
+        renderRequestsTable(_requests);
         logAudit('update_request_status', 'studentRequests', id, '', status);
         toast('Status updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
@@ -2952,6 +3349,75 @@ window.assignRequestTutor = async function(id, tutorId) {
         if (r) r.assignedTutor = tutorId;
         toast('Tutor assigned ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+window.openRequestDetail = function(id) {
+    const r = _requests.find(x => x._id === id);
+    if (!r) return;
+    const st = r.status || 'new';
+    const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
+    const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleString() : '—';
+
+    const row = (label, value) => value ? `<div class="flex gap-3 py-2 border-b border-slate-50">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider w-32 shrink-0">${esc(label)}</span>
+      <span class="text-sm text-slate-700">${esc(String(value))}</span>
+    </div>` : '';
+
+    // Collect tutor options
+    const tutorOpts = tutors.filter(t => {
+        const tl = (t.lang_teached||'').toLowerCase();
+        const rl = (r.language||'').toLowerCase();
+        return !rl || tl.includes(rl);
+    }).map(t => `<option value="${esc(t._id)}" ${r.assignedTutor===t._id?'selected':''}>${esc(t.name)}</option>`).join('');
+
+    document.getElementById('req-detail-content').innerHTML = `
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h3 class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl text-slate-800">${esc(r.name || 'Unknown')}</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Submitted: ${date} · ID: ${esc(id)}</p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold ${statusColor[st]||'bg-slate-100 text-slate-500'}">${esc(st)}</span>
+      </div>
+      <div class="mb-5">
+        ${row('Full Name', r.name)}
+        ${row('Email', r.email)}
+        ${row('Phone', r.phone)}
+        ${row('Language', r.language)}
+        ${row('Format', r.format)}
+        ${row('Module', r.module)}
+        ${row('Payment Plan', r.plan)}
+        ${row('Currency', r.currency)}
+        ${row('Message', r.message)}
+        ${row('Assigned Tutor', r.assignedTutor)}
+        ${row('Source', r.source)}
+      </div>
+      <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
+        <div class="flex-1 min-w-[160px]">
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 block">Change Status</label>
+          <select onchange="updateRequestStatus('${id}', this.value)" class="field-input text-sm py-1.5 appearance-none">
+            ${['new','contacted','pending','rejected','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+          </select>
+        </div>
+        ${tutors.length ? `<div class="flex-1 min-w-[160px]">
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 block">Assign Tutor</label>
+          <select onchange="assignRequestTutor('${id}', this.value)" class="field-input text-sm py-1.5 appearance-none">
+            <option value="">Select tutor…</option>${tutorOpts}
+          </select>
+        </div>` : ''}
+        ${st === 'accepted' ? `<div class="flex items-end">
+          <button onclick="acceptAndCreateUser('${id}')" class="flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-emerald-600 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px]">person_add</span>Create Student User
+          </button>
+        </div>` : ''}
+      </div>
+    `;
+    document.getElementById('req-detail-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeRequestDetail = function() {
+    document.getElementById('req-detail-modal').classList.add('hidden');
+    document.body.style.overflow = '';
 };
 
 window.acceptAndCreateUser = async function(reqId) {
@@ -2978,8 +3444,8 @@ window.acceptAndCreateUser = async function(reqId) {
 // ── Jobs ──────────────────────────────────────────────────────────────────────
 let _jobs = [];
 window.loadJobs = async function() {
-    const grid = document.getElementById('jobs-grid');
-    if (grid) grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">Loading applications…</div>';
+    const tbody = document.getElementById('jobs-table-body');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading applications…</td></tr>';
     try {
         const snap = await getDocs(collection(db, 'jobApplications'));
         _jobs = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
@@ -2988,50 +3454,54 @@ window.loadJobs = async function() {
                 const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
                 return tb - ta;
             });
-        renderJobsGrid(_jobs);
+        renderJobsTable(_jobs);
         const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
         setEl('job-stat-reviewing', _jobs.filter(j => (j.status||'reviewing') === 'reviewing').length);
         setEl('job-stat-interview', _jobs.filter(j => j.status === 'interview').length);
         setEl('job-stat-accepted',  _jobs.filter(j => j.status === 'accepted').length);
         setEl('job-stat-rejected',  _jobs.filter(j => j.status === 'rejected').length);
-    } catch(e) { if (grid) grid.innerHTML = `<div class="col-span-3 text-center py-12 text-red-400 text-sm">${esc(e.message)}</div>`; }
+    } catch(e) { if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-red-400 text-sm">${esc(e.message)}</td></tr>`; }
 };
 
-function renderJobsGrid(list) {
-    const grid = document.getElementById('jobs-grid');
-    if (!grid) return;
-    if (!list.length) { grid.innerHTML = '<div class="col-span-3 text-center py-12 text-slate-400 text-sm">No applications found.</div>'; return; }
+function renderJobsTable(list) {
+    const body = document.getElementById('jobs-table-body');
+    if (!body) return;
+    if (!list.length) {
+        body.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No applications found.</td></tr>';
+        return;
+    }
     const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
-    grid.innerHTML = list.map(j => {
+    body.innerHTML = list.map(j => {
         const st = j.status || 'reviewing';
         const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleDateString() : '—';
-        return `<div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col gap-3 fade-up">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <p class="font-bold text-slate-800">${esc(j.name || '—')}</p>
-              <p class="text-xs text-slate-400">${esc(j.email || '')}</p>
-            </div>
-            <span class="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold ${statusColor[st] || 'bg-slate-100 text-slate-500'}">${esc(st)}</span>
-          </div>
-          ${j.languages ? `<p class="text-xs font-bold text-[#a93444]">${esc(j.languages)}</p>` : ''}
-          ${j.bio || j.coverLetter ? `<p class="text-xs text-slate-500 line-clamp-3">${esc(j.bio || j.coverLetter)}</p>` : ''}
-          <p class="text-[10px] text-slate-400">Submitted: ${date}</p>
-          <div class="flex flex-wrap gap-2 mt-auto pt-2 border-t border-slate-100">
-            <select onchange="updateJobStatus('${j._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none flex-1">
+        return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+          <td class="px-5 py-3">
+            <div class="font-semibold text-slate-800">${esc(j.name || j.tutorName || '—')}</div>
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-500">
+            <div>${esc(j.email || '—')}</div>
+            ${j.phone ? `<div class="text-slate-400">${esc(j.phone)}</div>` : ''}
+          </td>
+          <td class="px-5 py-3 text-xs font-semibold text-[#a93444]">${esc(j.languages || j.lang_teached || '—')}</td>
+          <td class="px-5 py-3">
+            <select onchange="updateJobStatus('${j._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
               ${['reviewing','interview','rejected','withdrawn','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
             </select>
-            ${st === 'accepted' ? `<button onclick="acceptAndCreateTutor('${j._id}')" class="flex items-center gap-1 px-3 py-1 rounded-full bg-[#a93444]/10 border border-[#a93444]/25 text-[11px] font-bold text-[#a93444] hover:bg-[#a93444]/20 transition-all">
-              <span class="material-symbols-outlined text-[13px]">person_add</span>Create Tutor
-            </button>` : ''}
-          </div>
-        </div>`;
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-400">${date}</td>
+          <td class="px-5 py-3">
+            <button onclick="openJobDetail('${j._id}')" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
+              <span class="material-symbols-outlined text-[13px]">open_in_new</span>See More
+            </button>
+          </td>
+        </tr>`;
     }).join('');
 }
 
 window.filterJobs = function() {
     const q = (document.getElementById('job-search')?.value || '').toLowerCase();
     const st = document.getElementById('job-status-filter')?.value || '';
-    renderJobsGrid(_jobs.filter(j => {
+    renderJobsTable(_jobs.filter(j => {
         const text = ((j.name||'') + ' ' + (j.languages||'') + ' ' + (j.email||'')).toLowerCase();
         const stOk = !st || (j.status||'reviewing') === st;
         return text.includes(q) && stOk;
@@ -3043,10 +3513,107 @@ window.updateJobStatus = async function(id, status) {
         await updateDoc(doc(db, 'jobApplications', id), { status });
         const j = _jobs.find(x => x._id === id);
         if (j) j.status = status;
-        renderJobsGrid(_jobs);
+        renderJobsTable(_jobs);
         logAudit('update_job_status', 'jobApplications', id, '', status);
         toast('Status updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+window.openJobDetail = function(id) {
+    const j = _jobs.find(x => x._id === id);
+    if (!j) return;
+    const st = j.status || 'reviewing';
+    const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
+    const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleString() : '—';
+
+    const row = (label, value) => value ? `<div class="flex gap-3 py-2 border-b border-slate-50">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider w-32 shrink-0">${esc(label)}</span>
+      <span class="text-sm text-slate-700">${esc(String(value))}</span>
+    </div>` : '';
+
+    const formats = Array.isArray(j.preferredFormats) ? j.preferredFormats.join(', ') : (j.preferredFormats || '');
+    const photoPreview = (j.photoUrl) ? `<img src="${esc(j.photoUrl)}" alt="Photo" class="w-16 h-16 rounded-full object-cover border-2 border-slate-100 shrink-0" onerror="this.style.display='none'">` : '';
+    const tutorDocBadge = j.tutorDocId ? `<div class="mt-2 inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="material-symbols-outlined text-[14px]">check_circle</span>Tutor created: ${esc(j.tutorDocId)}</div>` : '';
+
+    document.getElementById('job-detail-content').innerHTML = `
+      <div class="flex items-start justify-between mb-5 gap-4">
+        <div class="flex items-center gap-4">
+          ${photoPreview}
+          <div>
+            <h3 class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl text-slate-800">${esc(j.name || j.tutorName || 'Unknown')}</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Submitted: ${date}</p>
+            <p class="text-[11px] text-slate-400">Doc ID: <code class="bg-slate-100 px-1 rounded">${esc(id)}</code></p>
+            ${tutorDocBadge}
+          </div>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold shrink-0 ${statusColor[st]||'bg-slate-100 text-slate-500'}">${esc(st)}</span>
+      </div>
+
+      <div class="space-y-1 mb-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Contact</p>
+        ${row('Full Name', j.name || j.tutorName)}
+        ${row('Email', j.email)}
+        ${row('Phone', j.phone)}
+      </div>
+
+      <div class="space-y-1 mb-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Teaching</p>
+        ${row('Teaches', j.lang_teached || j.languages)}
+        ${row('Speaks', j.lang_spoken)}
+        ${row('Role / Title', j.role)}
+        ${row('Formats', formats)}
+        ${row('Availability', j.availability)}
+      </div>
+
+      <div class="space-y-1 mb-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Credentials</p>
+        ${row('PhD', j.phd)}
+        ${row('Education 1', j.school_1 || j.education)}
+        ${row('Education 2', j.school_2)}
+        ${row('Specialisation 1', j.specialisation_1 || j.experience)}
+        ${row('Specialisation 2', j.specialisation_2)}
+      </div>
+
+      ${(j.bio_quote || j.bio || j.message) ? `
+      <div class="mb-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-2">Bio / Message</p>
+        ${j.bio_quote ? `<blockquote class="border-l-4 border-[#a93444] pl-4 italic text-slate-700 text-sm mb-3">${esc(j.bio_quote)}</blockquote>` : ''}
+        ${j.message ? `<p class="text-sm text-slate-600 bg-slate-50 rounded-xl p-3">${esc(j.message)}</p>` : ''}
+      </div>` : ''}
+
+      ${(j.linkedin || j.website || j.notes) ? `
+      <div class="space-y-1 mb-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Other</p>
+        ${row('LinkedIn', j.linkedin)}
+        ${row('Website', j.website)}
+        ${row('Notes', j.notes)}
+      </div>` : ''}
+
+      <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
+        <div class="flex-1 min-w-[180px]">
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1 block">Change Status</label>
+          <select onchange="updateJobStatus('${id}', this.value)" class="field-input text-sm py-1.5 appearance-none">
+            ${['reviewing','interview','rejected','withdrawn','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+          </select>
+        </div>
+        ${(st === 'accepted' && !j.tutorDocId) ? `<div class="flex items-end">
+          <button onclick="acceptAndCreateTutor('${id}')" class="flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-emerald-600 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px]">person_add</span>Create Tutor Profile
+          </button>
+        </div>` : st === 'accepted' && j.tutorDocId ? `<div class="flex items-end">
+          <span class="flex items-center gap-1.5 text-emerald-600 text-xs font-semibold bg-emerald-50 px-3 py-2 rounded-full">
+            <span class="material-symbols-outlined text-[14px]">check</span>Tutor profile already created
+          </span>
+        </div>` : ''}
+      </div>
+    `;
+    document.getElementById('job-detail-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeJobDetail = function() {
+    document.getElementById('job-detail-modal').classList.add('hidden');
+    document.body.style.overflow = '';
 };
 
 window.acceptAndCreateTutor = async function(jobId) {
@@ -3054,28 +3621,45 @@ window.acceptAndCreateTutor = async function(jobId) {
     if (!j) return;
     const takenOrders = tutors.map(t => Number(t.order)).filter(n => n > 0);
     const nextTutorOrder = takenOrders.length ? Math.max(...takenOrders) + 1 : 1;
+
+    // Map all fields from the job application to the tutor schema
     const tutorData = {
         name:             j.name || '',
         role:             j.role || 'Language Tutor',
-        lang_teached:     j.languages || '',
-        lang_spoken:      '',
-        bio_quote:        '',
-        phd:              '',
-        school_1:         '',
-        school_2:         '',
-        specialisation_1: '',
-        specialisation_2: '',
-        photoUrl:         '',
-        active:           false,
+        lang_teached:     j.lang_teached || j.languages || '',
+        lang_spoken:      j.lang_spoken || '',
+        bio_quote:        j.bio_quote || '',
+        phd:              j.phd || '',
+        school_1:         j.school_1 || '',
+        school_2:         j.school_2 || '',
+        specialisation_1: j.specialisation_1 || '',
+        specialisation_2: j.specialisation_2 || '',
+        photoUrl:         j.photoUrl || '',
+        active:           false,   // admin must manually activate
         order:            nextTutorOrder,
         tag:              'new',
+        email:            j.email || '',
+        phone:            j.phone || '',
+        source:           'job_application',
+        jobApplicationId: jobId,
         createdAt:        new Date().toISOString()
     };
-    const newId = tutorDocId(j.name || 'Tutor_' + Date.now());
+
+    // Build doc ID: FirstName_LastName_PrimaryLang (e.g. "Alex_Dakov_Japanese")
+    const langSlug = (j.lang_teached || j.languages || 'general').split(',')[0].trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
+    const nameSlug = (j.name || j.tutorName || 'Tutor').trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
+    const newTutorDocId = `${nameSlug}_${langSlug}`;
+
     try {
-        await setDoc(doc(db, 'tutors', newId), tutorData);
-        logAudit('accept_job', 'jobApplications', jobId, j.name || '', 'Tutor created');
-        toast('Tutor profile created — remember to add photo & activate ✓');
+        await setDoc(doc(db, 'tutors', newTutorDocId), tutorData);
+        // Mark job as accepted
+        await updateDoc(doc(db, 'jobApplications', jobId), { status: 'accepted', tutorDocId: newTutorDocId });
+        const idx = _jobs.findIndex(x => x._id === jobId);
+        if (idx >= 0) { _jobs[idx].status = 'accepted'; _jobs[idx].tutorDocId = newTutorDocId; }
+        logAudit('accept_job', 'jobApplications', jobId, j.name || '', `Tutor doc created: ${newTutorDocId}`);
+        toast(`Tutor profile created (${newTutorDocId}) — review & activate in Tutors ✓`);
+        closeModal('job-detail-modal');
+        renderJobsTable(_jobs);
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
 };
 

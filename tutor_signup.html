@@ -172,9 +172,205 @@
 
             <!-- SCROLLABLE FORM PANEL -->
             <div id="tutor-form-container" class="bg-white rounded-[32px] p-8 md:p-12 border border-slate-100 shadow-sm">
-                <div class="text-center py-12">
-                    <p class="text-slate-400" data-i18n="tutor_signup.loading">Loading application form...</p>
+
+                <!-- Success State -->
+                <div id="form-success" class="hidden text-center py-16">
+                    <div class="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[40px] text-[#a93444]">check_circle</span>
+                    </div>
+                    <h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900 mb-3">Application Submitted!</h2>
+                    <p class="text-slate-500 text-sm max-w-sm mx-auto">Thank you for applying to join our tutor community. Our team will review your application and get back to you within 10 business days.</p>
+                    <a href="index.html" class="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-[#a93444] text-white rounded-xl font-semibold hover:bg-[#8a2535] transition-colors">
+                        <span class="material-symbols-outlined text-sm">home</span> Back to Home
+                    </a>
                 </div>
+
+                <!-- Application Form -->
+                <form id="tutor-form" class="space-y-8">
+                    <div>
+                        <h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900 mb-1">Tutor Application</h2>
+                        <p class="text-slate-500 text-sm">All fields marked <span class="text-[#a93444]">*</span> are required.</p>
+                    </div>
+
+                    <!-- Error Banner -->
+                    <div id="form-error" class="hidden bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 flex items-start gap-3">
+                        <span class="material-symbols-outlined text-red-500 shrink-0 mt-0.5">error</span>
+                        <span id="form-error-msg">Something went wrong. Please try again.</span>
+                    </div>
+
+                    <!-- ── SECTION 1: Personal Info ── -->
+                    <fieldset class="space-y-5">
+                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Personal Information</legend>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">First Name <span class="text-[#a93444]">*</span></label>
+                                <input type="text" id="tf-first-name" required placeholder="e.g. Alex"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Last Name <span class="text-[#a93444]">*</span></label>
+                                <input type="text" id="tf-last-name" required placeholder="e.g. Dakov"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Email Address <span class="text-[#a93444]">*</span></label>
+                                <input type="email" id="tf-email" required placeholder="you@example.com"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Phone Number</label>
+                                <input type="tel" id="tf-phone" placeholder="+359 88 000 0000"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Photo URL <span class="text-xs font-normal text-slate-400">(optional — link to a profile photo)</span></label>
+                            <input type="url" id="tf-photo-url" placeholder="https://example.com/photo.jpg"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                        </div>
+                    </fieldset>
+
+                    <hr class="border-slate-100">
+
+                    <!-- ── SECTION 2: Teaching ── -->
+                    <fieldset class="space-y-5">
+                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Languages & Teaching</legend>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Primary Language You Teach <span class="text-[#a93444]">*</span></label>
+                            <p class="text-[11px] text-slate-400 mb-2">This will be used to create your profile ID. If you teach multiple, list them comma-separated — the first one becomes the primary.</p>
+                            <input type="text" id="tf-lang-teached" required placeholder="e.g. Japanese, English"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Languages You Speak <span class="text-[#a93444]">*</span></label>
+                            <p class="text-[11px] text-slate-400 mb-2">List all languages you are comfortable communicating in, comma-separated.</p>
+                            <input type="text" id="tf-lang-spoken" required placeholder="e.g. Japanese, English, Bulgarian"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Your Role / Title</label>
+                            <input type="text" id="tf-role" placeholder="e.g. Native Japanese Tutor, Business English Coach"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                        </div>
+                    </fieldset>
+
+                    <hr class="border-slate-100">
+
+                    <!-- ── SECTION 3: Credentials ── -->
+                    <fieldset class="space-y-5">
+                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Education & Credentials</legend>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">PhD / Doctorate <span class="text-xs font-normal text-slate-400">(if applicable)</span></label>
+                            <input type="text" id="tf-phd" placeholder="e.g. PhD in Applied Linguistics, University of Tokyo"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Education 1</label>
+                                <input type="text" id="tf-school-1" placeholder="e.g. BA in Japanese Studies"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Education 2</label>
+                                <input type="text" id="tf-school-2" placeholder="e.g. JLPT N1 Certified"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Specialisation 1</label>
+                                <input type="text" id="tf-spec-1" placeholder="e.g. Business Japanese"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Specialisation 2</label>
+                                <input type="text" id="tf-spec-2" placeholder="e.g. Conversational Fluency"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <hr class="border-slate-100">
+
+                    <!-- ── SECTION 4: About You ── -->
+                    <fieldset class="space-y-5">
+                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">About You</legend>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Bio / Personal Quote <span class="text-[#a93444]">*</span></label>
+                            <p class="text-[11px] text-slate-400 mb-2">Write 1–3 sentences about yourself, your teaching style, or what drives you. This will appear as your quote on the website.</p>
+                            <textarea id="tf-bio-quote" required rows="4" placeholder="e.g. Language learning transformed my life — I want to pass that gift on to every student I work with."
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Additional Message <span class="text-xs font-normal text-slate-400">(optional)</span></label>
+                            <textarea id="tf-message" rows="3" placeholder="Anything else you'd like us to know about you?"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
+                        </div>
+                    </fieldset>
+
+                    <hr class="border-slate-100">
+
+                    <!-- ── SECTION 5: Availability ── -->
+                    <fieldset class="space-y-5">
+                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Availability</legend>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-3">Preferred Teaching Format <span class="text-xs font-normal text-slate-400">(select all that apply)</span></label>
+                            <div class="flex flex-wrap gap-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="group" class="tf-format accent-[#a93444] w-4 h-4">
+                                    <span class="text-sm text-slate-700">Group sessions</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="individual" class="tf-format accent-[#a93444] w-4 h-4">
+                                    <span class="text-sm text-slate-700">Individual (1-on-1)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="selfpaced" class="tf-format accent-[#a93444] w-4 h-4">
+                                    <span class="text-sm text-slate-700">Self-paced online modules</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Weekly Availability</label>
+                            <select id="tf-availability"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all bg-white">
+                                <option value="">— Select hours per week —</option>
+                                <option value="1-5">1–5 hours/week (part-time)</option>
+                                <option value="5-10">5–10 hours/week</option>
+                                <option value="10-20">10–20 hours/week</option>
+                                <option value="20+">20+ hours/week (full-time)</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Terms -->
+                    <div class="flex items-start gap-3 bg-slate-50 rounded-xl p-4">
+                        <input type="checkbox" id="tf-terms" required class="mt-0.5 accent-[#a93444] w-4 h-4 shrink-0">
+                        <label for="tf-terms" class="text-xs text-slate-600 leading-relaxed">
+                            I agree to the <a href="terms.html" target="_blank" class="text-[#a93444] font-semibold hover:underline">Terms & Conditions</a> and <a href="privacy_policy.html" target="_blank" class="text-[#a93444] font-semibold hover:underline">Privacy Policy</a>. I understand my application will be reviewed by the LinguaBridge team.
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" id="tf-submit-btn"
+                        class="w-full flex items-center justify-center gap-2 bg-[#a93444] text-white px-6 py-4 rounded-xl font-bold text-sm hover:bg-[#8a2535] active:scale-95 transition-all shadow-lg shadow-[#a93444]/20 disabled:opacity-60 disabled:cursor-not-allowed">
+                        <span id="tf-submit-label">Submit Application</span>
+                        <span id="tf-submit-spinner" class="hidden material-symbols-outlined text-[18px] animate-spin">refresh</span>
+                        <span class="material-symbols-outlined text-[18px]" id="tf-submit-icon">send</span>
+                    </button>
+
+                    <p class="text-center text-[11px] text-slate-400">Applications are typically reviewed within 10 business days.</p>
+                </form>
             </div>
         </div>
     </div>
@@ -209,5 +405,167 @@
 
 <script src="script.js"></script>
 <script src="language-manager.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// ── Firebase init ──────────────────────────────────────────────
+const firebaseConfig = {
+    apiKey: "AIzaSyC-cYGMFi9RAR9jFbAHanRBlrchp_1G55Q",
+    authDomain: "linguabridge-bde57.firebaseapp.com",
+    projectId: "linguabridge-bde57",
+    storageBucket: "linguabridge-bde57.appspot.com",
+    messagingSenderId: "1063362453140",
+    appId: "1:1063362453140:web:c476ced3b04a09703d7219"
+};
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+// ── Helpers ────────────────────────────────────────────────────
+function esc(v) { return (v || '').toString().trim(); }
+
+function slugify(str) {
+    return str.trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
+}
+
+function showError(msg) {
+    const el = document.getElementById('form-error');
+    const ml = document.getElementById('form-error-msg');
+    if (el && ml) { ml.textContent = msg; el.classList.remove('hidden'); el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+}
+function hideError() {
+    document.getElementById('form-error')?.classList.add('hidden');
+}
+
+// ── Build unique doc ID ────────────────────────────────────────
+// Format: FirstName_LastName_PrimaryLang  e.g. Alex_Dakov_Japanese
+function buildDocId(firstName, lastName, langTeached) {
+    const namePart = slugify(`${firstName}_${lastName}`);
+    const langPart = slugify(langTeached.split(',')[0]);
+    return `${namePart}_${langPart}`;
+}
+
+// ── Form submission ────────────────────────────────────────────
+document.getElementById('tutor-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+
+    const btn        = document.getElementById('tf-submit-btn');
+    const label      = document.getElementById('tf-submit-label');
+    const spinner    = document.getElementById('tf-submit-spinner');
+    const icon       = document.getElementById('tf-submit-icon');
+
+    // Gather values
+    const firstName     = esc(document.getElementById('tf-first-name').value);
+    const lastName      = esc(document.getElementById('tf-last-name').value);
+    const email         = esc(document.getElementById('tf-email').value);
+    const phone         = esc(document.getElementById('tf-phone').value);
+    const photoUrl      = esc(document.getElementById('tf-photo-url').value);
+    const langTeached   = esc(document.getElementById('tf-lang-teached').value);
+    const langSpoken    = esc(document.getElementById('tf-lang-spoken').value);
+    const role          = esc(document.getElementById('tf-role').value);
+    const phd           = esc(document.getElementById('tf-phd').value);
+    const school1       = esc(document.getElementById('tf-school-1').value);
+    const school2       = esc(document.getElementById('tf-school-2').value);
+    const spec1         = esc(document.getElementById('tf-spec-1').value);
+    const spec2         = esc(document.getElementById('tf-spec-2').value);
+    const bioQuote      = esc(document.getElementById('tf-bio-quote').value);
+    const message       = esc(document.getElementById('tf-message').value);
+    const availability  = esc(document.getElementById('tf-availability').value);
+    const termsChecked  = document.getElementById('tf-terms').checked;
+
+    const formats = [...document.querySelectorAll('.tf-format:checked')].map(c => c.value);
+
+    // Validation
+    if (!firstName || !lastName) { showError('Please enter your first and last name.'); return; }
+    if (!email)                   { showError('Please enter your email address.'); return; }
+    if (!langTeached)             { showError('Please enter the language(s) you teach.'); return; }
+    if (!langSpoken)              { showError('Please enter the language(s) you speak.'); return; }
+    if (!bioQuote)                { showError('Please write a short bio or personal quote.'); return; }
+    if (!termsChecked)            { showError('Please agree to the Terms & Conditions before submitting.'); return; }
+
+    // Build doc ID
+    const docId = buildDocId(firstName, lastName, langTeached);
+
+    // Check for existing application
+    btn.disabled = true;
+    label.textContent = 'Submitting…';
+    spinner.classList.remove('hidden');
+    icon.classList.add('hidden');
+
+    try {
+        const existing = await getDoc(doc(db, 'jobApplications', docId));
+        if (existing.exists()) {
+            showError('An application with this name and language already exists. Please contact us if you need to update it.');
+            btn.disabled = false;
+            label.textContent = 'Submit Application';
+            spinner.classList.add('hidden');
+            icon.classList.remove('hidden');
+            return;
+        }
+
+        const fullName = `${firstName} ${lastName}`.trim();
+        const now = new Date().toISOString();
+
+        const payload = {
+            // Identity
+            name:              fullName,
+            firstName,
+            lastName,
+            email,
+            phone,
+            photoUrl,
+
+            // Teaching
+            lang_teached:      langTeached,
+            lang_spoken:       langSpoken,
+            role:              role || 'Tutor',
+            preferredFormats:  formats,
+            availability,
+
+            // Credentials
+            phd,
+            school_1:          school1,
+            school_2:          school2,
+            specialisation_1:  spec1,
+            specialisation_2:  spec2,
+
+            // Bio
+            bio_quote:         bioQuote,
+            message,
+
+            // Metadata
+            status:            'pending',
+            active:            false,
+            submittedAt:       now,
+            agreedToTerms:     true,
+            source:            'tutor_signup_form'
+        };
+
+        await setDoc(doc(db, 'jobApplications', docId), payload);
+
+        // Show success state
+        document.getElementById('tutor-form').classList.add('hidden');
+        document.getElementById('form-success').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+        console.error('Submission error:', err);
+        showError('There was a problem submitting your application. Please try again or contact us directly.');
+        btn.disabled = false;
+        label.textContent = 'Submit Application';
+        spinner.classList.add('hidden');
+        icon.classList.remove('hidden');
+    }
+});
+
+// ── Animate spin ───────────────────────────────────────────────
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { to { transform: rotate(360deg); } } .animate-spin { animation: spin 0.9s linear infinite; }';
+document.head.appendChild(style);
+</script>
 </body>
 </html>
