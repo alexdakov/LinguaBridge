@@ -248,27 +248,12 @@
         </div>
     </section>
 
-    <!-- Meet our Tutors -->
-    <section class="py-16 px-8 bg-slate-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.tutors.badge">Expert Instruction</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold text-slate-900 mt-3" data-i18n="about.tutors.title">Meet our Tutors</h2>
-                <div class="w-12 h-1 bg-[#FF7582]/30 mx-auto mt-5 rounded-full"></div>
-            </div>
-
-            <div id="tutors-grid" class="space-y-16">
-                <div class="text-center py-14 text-slate-400 text-sm font-semibold">Loading tutors...</div>
-            </div>
-        </div>
-    </section>
-
     <!-- Learning Formats Section -->
     <section class="py-16 px-4 md:px-8 bg-white border-t border-slate-100">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-10">
                 <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.formats.badge">How We Teach</span>
-                <h2 class="font-['Plus_Jakarta_Sans'] text-3xl font-bold text-slate-900 mt-2" data-i18n="about.formats.title">Three Ways to Learn</h2>
+                <h2 class="font-[‘Plus_Jakarta_Sans’] text-3xl font-bold text-slate-900 mt-2" data-i18n="about.formats.title">Three Ways to Learn</h2>
                 <p class="text-slate-500 mt-3 max-w-2xl mx-auto" data-i18n="about.formats.desc">Whether you prefer live instruction or flexible self-paced study, we have a format that fits your life.</p>
             </div>
             <div class="grid md:grid-cols-3 gap-6">
@@ -287,6 +272,21 @@
                     <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.sp.title">Self-Paced Learning</h3>
                     <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.sp.text">Study at your own pace over 3 months. Each course is split into 2 monthly modules and includes 4 × 30-min online tutor consultations (2h total).</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet our Tutors -->
+    <section class="py-16 px-8 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.tutors.badge">Expert Instruction</span>
+                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold text-slate-900 mt-3" data-i18n="about.tutors.title">Meet our Tutors</h2>
+                <div class="w-12 h-1 bg-[#FF7582]/30 mx-auto mt-5 rounded-full"></div>
+            </div>
+
+            <div id="tutors-grid" class="space-y-16">
+                <div class="text-center py-14 text-slate-400 text-sm font-semibold">Loading tutors...</div>
             </div>
         </div>
     </section>
@@ -337,7 +337,8 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 const LANG_FLAG = {
     'English':'gb','German':'de','Bulgarian':'bg','Russian':'ru',
     'Chinese':'cn','Japanese':'jp','Spanish':'es','French':'fr',
-    'Italian':'it','Portuguese':'pt','Arabic':'sa','Korean':'kr'
+    'Italian':'it','Portuguese':'pt','Arabic':'sa','Korean':'kr',
+    'Ukrainian':'ua'
 };
 
 function esc(str) {
@@ -393,7 +394,7 @@ function buildTutorCard(t, i) {
         ? `<div class="lg:w-2/5 relative group">
             <div class="absolute ${bOff} w-full h-full border-2 ${accBorder} rounded-3xl transition-all duration-500 ${bHov}"></div>
             <div class="relative rounded-3xl overflow-hidden shadow-xl h-[380px]">
-              <img alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${esc(t.photoUrl)}"/>
+              <img alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${esc(t.photoUrl)}" style="object-position:${t.photoX !== undefined ? t.photoX : 50}% ${t.photoY !== undefined ? t.photoY : 50}%"/>
             </div>
           </div>`
         : '';

@@ -1081,7 +1081,7 @@ async function handleEnrol() {
   const basePrice = getBasePrice();
 
   try {
-    await window._fbAddDoc(window._fbCollection(window._fbDb, 'enrollments'), {
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'studentRequests'), {
       name,
       email,
       phone: phone || null,

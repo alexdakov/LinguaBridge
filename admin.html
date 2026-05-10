@@ -209,18 +209,49 @@
             </div>
           </div>
         </div>
+        <div class="grid md:grid-cols-2 gap-5 mb-5">
+          <!-- Pending Enrolment Requests -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-[#a93444]">inbox</span>
+                <span class="font-bold text-slate-800 text-sm">Pending Requests</span>
+                <span id="dash-req-badge" class="hidden bg-[#a93444] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+              </div>
+              <button onclick="showSection('requests')" class="text-[11px] font-bold text-[#a93444] hover:underline">See all →</button>
+            </div>
+            <div id="dash-requests-list" class="divide-y divide-slate-50 max-h-64 overflow-y-auto">
+              <div class="px-5 py-8 text-center text-slate-400 text-xs">Loading…</div>
+            </div>
+          </div>
+          <!-- Pending Job Applications -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px] text-[#a93444]">work</span>
+                <span class="font-bold text-slate-800 text-sm">Job Applications</span>
+                <span id="dash-jobs-badge" class="hidden bg-amber-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+              </div>
+              <button onclick="showSection('jobs')" class="text-[11px] font-bold text-[#a93444] hover:underline">See all →</button>
+            </div>
+            <div id="dash-jobs-list" class="divide-y divide-slate-50 max-h-64 overflow-y-auto">
+              <div class="px-5 py-8 text-center text-slate-400 text-xs">Loading…</div>
+            </div>
+          </div>
+        </div>
+        <!-- Coming soon row (keep but shrink to 3 compact cards) -->
         <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-2xl p-5 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-500">person_add</span><span class="font-bold text-slate-400 text-sm">Firebase User Management</span></div>
-            <p class="text-xs text-slate-600">Create, suspend and manage student &amp; tutor accounts directly from here.</p>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
+            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">person_add</span><span class="font-bold text-slate-400 text-xs">Firebase User Management</span></div>
+            <p class="text-xs text-slate-500">Create, suspend and manage accounts directly.</p>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-500">school</span><span class="font-bold text-slate-400 text-sm">Moodle Sync</span></div>
-            <p class="text-xs text-slate-600">Enrol / unenrol students, manage courses, and sync Moodle data from here.</p>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
+            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">school</span><span class="font-bold text-slate-400 text-xs">Moodle Sync</span></div>
+            <p class="text-xs text-slate-500">Enrol / unenrol students and sync Moodle data.</p>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-[20px] text-slate-500">article</span><span class="font-bold text-slate-400 text-sm">Sanity CMS</span></div>
-            <p class="text-xs text-slate-600">Quick-publish blog posts and update site content without leaving the portal.</p>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
+            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">article</span><span class="font-bold text-slate-400 text-xs">Sanity CMS</span></div>
+            <p class="text-xs text-slate-500">Quick-publish blog posts and update site content.</p>
           </div>
         </div>
       </section>
@@ -233,9 +264,6 @@
             <p class="text-slate-500 text-sm mt-0.5">Manage course offerings, levels, and pricing.</p>
           </div>
           <div class="flex items-center gap-2 flex-wrap">
-            <button onclick="importFromPrices()" id="import-prices-btn" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 border border-slate-200 bg-white hover:border-[#a93444]/40 hover:text-[#a93444] px-3 py-2 rounded-full transition-all shadow-sm">
-              <span class="material-symbols-outlined text-[15px]">upload_file</span>Import prices.json
-            </button>
             <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
               <span class="material-symbols-outlined text-[18px]">add</span>Add Language
             </button>
@@ -265,12 +293,8 @@
           <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <span class="material-symbols-outlined text-[32px] text-slate-400">language</span>
           </div>
-          <p class="text-slate-700 font-bold mb-1">No languages in Firebase yet.</p>
-          <p class="text-slate-500 text-sm mb-6 max-w-xs mx-auto">Populate the <code class="bg-slate-100 px-1 rounded text-xs">/languages</code>, <code class="bg-slate-100 px-1 rounded text-xs">/courses</code> and <code class="bg-slate-100 px-1 rounded text-xs">/pricingPlans</code> collections from your prices.json file.</p>
-          <button onclick="importFromPrices()" class="inline-flex items-center gap-2 bg-[#a93444] text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-lg shadow-[#a93444]/20">
-            <span class="material-symbols-outlined text-[18px]">upload_file</span>Seed from prices.json
-          </button>
-          <p class="text-[11px] text-slate-400 mt-3">Seeds 6 languages, all courses, and payment plans into Firebase.</p>
+          <p class="text-slate-700 font-bold mb-1">No languages found in Firebase.</p>
+          <p class="text-slate-500 text-sm mb-2 max-w-xs mx-auto">Ensure the <code class="bg-slate-100 px-1 rounded text-xs">/languages</code> and <code class="bg-slate-100 px-1 rounded text-xs">/courses</code> collections exist in Firestore.</p>
         </div>
         <!-- Pricing plans summary bar (shown when plans are loaded) -->
         <div id="pricing-plans-bar" class="hidden mt-6 bg-white rounded-2xl border border-slate-100 p-4">
@@ -1117,22 +1141,26 @@
             </div>
             <input id="t-photo-input" type="file" accept="image/*" class="hidden" onchange="handlePhotoSelect(event)">
             <!-- Repositioning controls (shown after photo upload) -->
-            <div id="t-photo-reposition" class="hidden mt-3 bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-3">
-              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Photo Positioning</p>
-              <div class="flex items-center gap-3">
-                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Horizontal</label>
-                <input id="t-photo-x" type="range" data-pos="x" min="-50" max="50" step="1" value="0" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
-                <span id="t-photo-x-val" class="text-xs text-slate-400 w-8 text-right">0</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Vertical</label>
-                <input id="t-photo-y" type="range" data-pos="y" min="-50" max="50" step="1" value="0" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
-                <span id="t-photo-y-val" class="text-xs text-slate-400 w-8 text-right">0</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <label class="text-xs font-semibold text-slate-500 w-20 shrink-0">Scale</label>
-                <input id="t-photo-scale" type="range" min="0.8" max="1.5" step="0.05" value="1" oninput="applyPhotoPosition()" class="flex-1 accent-[#a93444]">
-                <span id="t-photo-scale-val" class="text-xs text-slate-400 w-8 text-right">1</span>
+            <div id="t-photo-reposition" class="hidden mt-3">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Drag to reposition</p>
+              <div class="flex items-start gap-3">
+                <div id="t-photo-drag-container"
+                     class="relative rounded-xl overflow-hidden cursor-grab select-none border-2 border-[#a93444]/20 shadow-sm shrink-0"
+                     style="width:120px;height:160px;background:#f1f5f9;touch-action:none">
+                  <img id="t-photo-drag-img"
+                       class="w-full h-full object-cover pointer-events-none"
+                       style="object-position:50% 50%">
+                  <!-- crosshair centre marker -->
+                  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="w-5 h-5 rounded-full border-2 border-white/70 shadow"></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between h-full gap-2 pt-1">
+                  <p class="text-[11px] text-slate-500 leading-snug">Drag the photo to frame the subject correctly.</p>
+                  <button type="button" onclick="resetPhotoPosition()" class="text-[11px] text-slate-400 hover:text-[#a93444] flex items-center gap-1 transition-colors">
+                    <span class="material-symbols-outlined text-[14px]">refresh</span>Reset
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1390,6 +1418,7 @@ const DEFAULT_MODULES = [
 
 let _learningTypes = [...LEARNING_TYPES];
 let _modules       = [...DEFAULT_MODULES];
+let _autoSeeded    = false;
 
 // ── Modal currency ────────────────────────────────────────────────────────────
 const MODAL_RATES = { eur: 1, usd: 1.10, rub: 100, cny: 7.9 };
@@ -1489,6 +1518,7 @@ onAuthStateChanged(auth, async user => {
     document.getElementById('admin-app').classList.remove('hidden');
     await Promise.all([ loadLanguages(), loadTutors(), loadSettings() ]);
     updateStats();
+    loadDashboard();
 });
 
 document.getElementById('logout-btn').addEventListener('click', () =>
@@ -1514,6 +1544,7 @@ window.showSection = function(name) {
         );
     });
     // Lazy-load on first visit
+    if (name === 'dashboard') { loadDashboard(); }
     if (name === 'students' && !_sectionLoaded.students) { _sectionLoaded.students = true; loadStudents(); }
     if (name === 'users'    && !_sectionLoaded.users)    { _sectionLoaded.users    = true; loadUsers(); }
     if (name === 'requests' && !_sectionLoaded.requests) { _sectionLoaded.requests = true; loadRequests(); }
@@ -1609,10 +1640,109 @@ async function loadLanguages() {
         console.error('loadLanguages failed:', e);
     }
 
+    // Auto-seed if both languages and pricingPlans are empty
+    if (languages.length === 0 && pricingPlans.length === 0 && !_autoSeeded) {
+        _autoSeeded = true;
+        const loadingEl = document.getElementById('lang-loading');
+        if (loadingEl) {
+            loadingEl.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 text-center py-8 text-slate-400 text-sm font-semibold">Setting up language data in Firebase…</div>';
+            loadingEl.classList.remove('hidden');
+        }
+        await _autoSeedLanguages();
+        await loadLanguages();
+        return;
+    }
+
     // Hide skeleton
     document.getElementById('lang-loading')?.classList.add('hidden');
     renderLanguageGrid();
     renderPricingPlansBar();
+}
+
+async function _autoSeedLanguages() {
+    const SEED_PRICING_PLANS = [
+        { id:'full',      label:'Full Course', desc:'Pay for both modules at once — 5% discount', discountPct:5 },
+        { id:'monthly',   label:'Monthly',     desc:'3 monthly payments per module', installments:3 },
+        { id:'perlesson', label:'Per Lesson',  desc:'Flexible pay-as-you-go rate (higher price)' }
+    ];
+    const SEED_LEARNING_TYPES = { items: [
+        { id:'group',     label:'Group',      icon:'groups',   desc:'Small group tutor sessions' },
+        { id:'individual',label:'Individual', icon:'person',   desc:'One-on-one tutor sessions' },
+        { id:'selfpaced', label:'Self-Paced', icon:'schedule', desc:'Self-paced online modules' }
+    ]};
+    const SEED_MODULES = { items: [
+        { id:'module1', name:'Module 1', weeks:13, months:3, label:'1 Module (3 months)' },
+        { id:'module2', name:'Module 2', weeks:13, months:3, label:'2 Modules (6 months)' }
+    ]};
+
+    const ALL_TYPES = ['group','individual','selfpaced'];
+    const GI_TYPES  = ['group','individual'];
+
+    const SEED_LANGUAGES = [
+        { id:'english',  title:'English',   flag_url:'https://flagcdn.com/w80/gb.png', flag_code:'gb',
+          desc:'A language shaped by diversity—blending traditions, accents, and influences from across the globe, reflected in its literature, media, and everyday life.' },
+        { id:'german',   title:'German',    flag_url:'https://flagcdn.com/w80/de.png', flag_code:'de',
+          desc:'Rooted in precision and depth, German reflects a culture known for philosophy, engineering, classical music, and a strong sense of structure.' },
+        { id:'bulgarian',title:'Bulgarian', flag_url:'https://flagcdn.com/w80/bg.png', flag_code:'bg',
+          desc:'A South Slavic language rich in tradition, folklore, and history, spoken across the Balkans and the Bulgarian diaspora worldwide.' },
+        { id:'russian',  title:'Russian',   flag_url:'https://flagcdn.com/w80/ru.png', flag_code:'ru',
+          desc:'One of the most widely spoken languages in the world, Russian opens doors across Eastern Europe, Central Asia, and global culture and science.' },
+        { id:'chinese',  title:'Chinese',   flag_url:'https://flagcdn.com/w80/cn.png', flag_code:'cn',
+          desc:"The world's most spoken language, offering access to one of humanity's oldest civilizations, vibrant modern culture, and the world's largest economy." },
+        { id:'japanese', title:'Japanese',  flag_url:'https://flagcdn.com/w80/jp.png', flag_code:'jp',
+          desc:'A fascinating language of precision and nuance, Japanese unlocks one of the world\'s most unique cultures, from anime to Zen philosophy.' }
+    ];
+
+    const SEED_COURSES = [
+        // English
+        { id:'en-a1a2', languageId:'english', name:'English Foundations',        level:'A1–A2', learningTypes:ALL_TYPES, g_m1:360,  g_m2:684,  g_lesson:19, i_m1:720,  i_m2:1368, i_lesson:37, sp_m1:240, sp_m2:460  },
+        { id:'en-b1b2', languageId:'english', name:'Fluency & Logic',             level:'B1–B2', learningTypes:ALL_TYPES, g_m1:380,  g_m2:720,  g_lesson:22, i_m1:760,  i_m2:1444, i_lesson:42, sp_m1:260, sp_m2:495  },
+        { id:'en-c1c2', languageId:'english', name:'Advanced Mastery',            level:'C1–C2', learningTypes:ALL_TYPES, g_m1:410,  g_m2:780,  g_lesson:26, i_m1:820,  i_m2:1558, i_lesson:50, sp_m1:280, sp_m2:532  },
+        { id:'en-business',   languageId:'english', name:'Business English',      level:'B1–C1', learningTypes:ALL_TYPES, g_m1:420,  g_m2:798,  g_lesson:28, i_m1:840,  i_m2:1596, i_lesson:54, sp_m1:285, sp_m2:541  },
+        { id:'en-ielts',      languageId:'english', name:'IELTS / Cambridge Prep',level:'B2–C2', learningTypes:ALL_TYPES, g_m1:430,  g_m2:817,  g_lesson:29, i_m1:860,  i_m2:1634, i_lesson:55, sp_m1:300, sp_m2:570  },
+        { id:'en-academic',   languageId:'english', name:'Academic Admissions',   level:'B2–C1', learningTypes:ALL_TYPES, g_m1:415,  g_m2:789,  g_lesson:27, i_m1:820,  i_m2:1558, i_lesson:52, sp_m1:280, sp_m2:532  },
+        { id:'en-conversational', languageId:'english', name:'Conversational English', level:'A2–C1', learningTypes:GI_TYPES, g_m1:400, g_m2:760, g_lesson:25, i_m1:780, i_m2:1482, i_lesson:48 },
+        // German
+        { id:'de-a1a2', languageId:'german', name:'German Foundations',           level:'A1–A2', learningTypes:ALL_TYPES, g_m1:396,  g_m2:752,  g_lesson:23, i_m1:792,  i_m2:1504, i_lesson:42, sp_m1:264, sp_m2:506  },
+        { id:'de-b1b2', languageId:'german', name:'Intermediate German',          level:'B1–B2', learningTypes:ALL_TYPES, g_m1:418,  g_m2:795,  g_lesson:26, i_m1:836,  i_m2:1588, i_lesson:48, sp_m1:286, sp_m2:546  },
+        { id:'de-c1c2', languageId:'german', name:'German Excellence',            level:'C1–C2', learningTypes:ALL_TYPES, g_m1:451,  g_m2:856,  g_lesson:30, i_m1:902,  i_m2:1714, i_lesson:55, sp_m1:308, sp_m2:587  },
+        { id:'de-business',   languageId:'german', name:'Business German',        level:'B1–C1', learningTypes:ALL_TYPES, g_m1:440,  g_m2:836,  g_lesson:32, i_m1:880,  i_m2:1672, i_lesson:59, sp_m1:295, sp_m2:561  },
+        { id:'de-testdaf',    languageId:'german', name:'TestDaF / Goethe Prep',  level:'B2–C2', learningTypes:ALL_TYPES, g_m1:451,  g_m2:856,  g_lesson:30, i_m1:902,  i_m2:1714, i_lesson:55, sp_m1:308, sp_m2:587  },
+        { id:'de-academic',   languageId:'german', name:'Academic Admissions',    level:'B2–C1', learningTypes:ALL_TYPES, g_m1:430,  g_m2:817,  g_lesson:28, i_m1:860,  i_m2:1634, i_lesson:52, sp_m1:286, sp_m2:543  },
+        { id:'de-conversational', languageId:'german', name:'Conversational German', level:'A2–C1', learningTypes:GI_TYPES, g_m1:418, g_m2:795, g_lesson:26, i_m1:836, i_m2:1588, i_lesson:48 },
+        // Bulgarian
+        { id:'bg-a1a2', languageId:'bulgarian', name:'Bulgarian Foundations',     level:'A1–A2', learningTypes:ALL_TYPES, g_m1:288,  g_m2:547,  g_lesson:15, i_m1:576,  i_m2:1094, i_lesson:28, sp_m1:192, sp_m2:365  },
+        { id:'bg-b1b2', languageId:'bulgarian', name:'Bulgarian Fluency',         level:'B1–B2', learningTypes:ALL_TYPES, g_m1:304,  g_m2:578,  g_lesson:17, i_m1:608,  i_m2:1155, i_lesson:30, sp_m1:208, sp_m2:395  },
+        { id:'bg-c1c2', languageId:'bulgarian', name:'Advanced Bulgarian',        level:'C1–C2', learningTypes:ALL_TYPES, g_m1:328,  g_m2:624,  g_lesson:18, i_m1:656,  i_m2:1246, i_lesson:32, sp_m1:224, sp_m2:425  },
+        // Russian
+        { id:'ru-a1a2', languageId:'russian', name:'Russian Foundations',         level:'A1–A2', learningTypes:ALL_TYPES, g_m1:324,  g_m2:616,  g_lesson:17, i_m1:648,  i_m2:1231, i_lesson:31, sp_m1:216, sp_m2:410  },
+        { id:'ru-b1b2', languageId:'russian', name:'Russian Fluency',             level:'B1–B2', learningTypes:ALL_TYPES, g_m1:342,  g_m2:650,  g_lesson:19, i_m1:684,  i_m2:1299, i_lesson:34, sp_m1:234, sp_m2:445  },
+        { id:'ru-c1c2', languageId:'russian', name:'Advanced Russian',            level:'C1–C2', learningTypes:ALL_TYPES, g_m1:369,  g_m2:701,  g_lesson:21, i_m1:738,  i_m2:1403, i_lesson:37, sp_m1:252, sp_m2:480  },
+        // Chinese
+        { id:'cn-a1a2', languageId:'chinese', name:'Chinese Foundations',         level:'A1–A2', learningTypes:ALL_TYPES, g_m1:450,  g_m2:855,  g_lesson:26, i_m1:900,  i_m2:1710, i_lesson:49, sp_m1:300, sp_m2:570  },
+        { id:'cn-b1b2', languageId:'chinese', name:'Chinese Fluency',             level:'B1–B2', learningTypes:ALL_TYPES, g_m1:475,  g_m2:902,  g_lesson:28, i_m1:950,  i_m2:1805, i_lesson:52, sp_m1:325, sp_m2:618  },
+        { id:'cn-c1c2', languageId:'chinese', name:'Advanced Chinese',            level:'C1–C2', learningTypes:ALL_TYPES, g_m1:513,  g_m2:974,  g_lesson:30, i_m1:1025, i_m2:1947, i_lesson:57, sp_m1:350, sp_m2:665  },
+        // Japanese
+        { id:'jp-a1a2', languageId:'japanese', name:'Japanese Foundations',       level:'A1–A2', learningTypes:ALL_TYPES, g_m1:430,  g_m2:817,  g_lesson:25, i_m1:860,  i_m2:1634, i_lesson:47, sp_m1:286, sp_m2:543  },
+        { id:'jp-b1b2', languageId:'japanese', name:'Japanese Fluency',           level:'B1–B2', learningTypes:ALL_TYPES, g_m1:452,  g_m2:859,  g_lesson:27, i_m1:904,  i_m2:1718, i_lesson:50, sp_m1:309, sp_m2:587  },
+        { id:'jp-c1c2', languageId:'japanese', name:'Advanced Japanese',          level:'C1–C2', learningTypes:ALL_TYPES, g_m1:488,  g_m2:927,  g_lesson:29, i_m1:976,  i_m2:1854, i_lesson:54, sp_m1:334, sp_m2:635  }
+    ];
+
+    try {
+        for (const plan of SEED_PRICING_PLANS) {
+            await setDoc(doc(db, 'pricingPlans', plan.id), plan);
+        }
+        await setDoc(doc(db, 'settings', 'learningTypes'), SEED_LEARNING_TYPES);
+        await setDoc(doc(db, 'settings', 'modules'), SEED_MODULES);
+        for (const lang of SEED_LANGUAGES) {
+            await setDoc(doc(db, 'languages', lang.id), lang);
+        }
+        for (const course of SEED_COURSES) {
+            await setDoc(doc(db, 'courses', course.id), course);
+        }
+    } catch(e) {
+        console.error('_autoSeedLanguages failed:', e);
+    }
 }
 
 function renderLanguageGrid() {
@@ -2220,7 +2350,7 @@ function renderTutorGrid() {
     empty.classList.add('hidden');
     grid.innerHTML = visibleTutors.map(t => {
         const photo = t.photoUrl
-            ? `<img src="${esc(t.photoUrl)}" alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">`
+            ? `<img src="${esc(t.photoUrl)}" alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" style="object-position:${t.photoX !== undefined ? t.photoX : 50}% ${t.photoY !== undefined ? t.photoY : 50}%">`
             : `<div class="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center"><span class="material-symbols-outlined text-[60px] text-slate-800/20">person</span></div>`;
         const badge = t.active !== false
             ? `<span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/20">Visible</span>`
@@ -2316,19 +2446,75 @@ function renderTutorLangPills() {
 }
 
 // Photo position state
-let _photoPos = { x: 0, y: 0, scale: 1 };
+let _photoPos = { x: 50, y: 50 };  // CSS percentage (0-100, 50=center)
+
 window.applyPhotoPosition = function() {
-    const x = parseFloat(document.getElementById('t-photo-x')?.value || 0);
-    const y = parseFloat(document.getElementById('t-photo-y')?.value || 0);
-    const s = parseFloat(document.getElementById('t-photo-scale')?.value || 1);
-    _photoPos = { x, y, scale: s };
-    document.getElementById('t-photo-x-val').textContent = x;
-    document.getElementById('t-photo-y-val').textContent = y;
-    document.getElementById('t-photo-scale-val').textContent = s;
-    const img = document.getElementById('t-photo-preview');
-    if (img) img.style.objectPosition = `${50 + x}% ${50 + y}%`;
+    // Sync drag preview with current _photoPos
+    const dragImg = document.getElementById('t-photo-drag-img');
+    if (dragImg) dragImg.style.objectPosition = `${_photoPos.x}% ${_photoPos.y}%`;
+    // Also update the small circular preview in the drop zone
+    const prev = document.getElementById('t-photo-preview');
+    if (prev) prev.style.objectPosition = `${_photoPos.x}% ${_photoPos.y}%`;
     updateTutorPreview();
 };
+
+window.resetPhotoPosition = function() {
+    _photoPos = { x: 50, y: 50 };
+    applyPhotoPosition();
+};
+
+// ── Drag-to-reposition logic ──────────────────────────────────────────────────
+(function() {
+    let dragging = false, startCX, startCY, startPX, startPY;
+
+    function getContainer() { return document.getElementById('t-photo-drag-container'); }
+
+    function pointerDown(e) {
+        const t = e.type === 'touchstart' ? e.touches[0] : e;
+        dragging = true;
+        startCX = t.clientX; startCY = t.clientY;
+        startPX = _photoPos.x; startPY = _photoPos.y;
+        e.preventDefault();
+    }
+    function pointerMove(e) {
+        if (!dragging) return;
+        const t = e.type === 'touchmove' ? e.touches[0] : e;
+        const c = getContainer();
+        if (!c) return;
+        const w = c.offsetWidth || 120;
+        const h = c.offsetHeight || 160;
+        // Dragging RIGHT moves the "focus" LEFT (negative delta)
+        const dx = ((t.clientX - startCX) / w) * -60;
+        const dy = ((t.clientY - startCY) / h) * -60;
+        _photoPos.x = Math.max(0, Math.min(100, startPX + dx));
+        _photoPos.y = Math.max(0, Math.min(100, startPY + dy));
+        applyPhotoPosition();
+        e.preventDefault();
+    }
+    function pointerUp() { dragging = false; }
+
+    document.addEventListener('mousemove', pointerMove);
+    document.addEventListener('mouseup',   pointerUp);
+    document.addEventListener('touchmove', pointerMove, { passive: false });
+    document.addEventListener('touchend',  pointerUp);
+
+    // Attach mousedown/touchstart to drag container once DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        const c = getContainer();
+        if (!c) return;
+        c.addEventListener('mousedown', pointerDown);
+        c.addEventListener('touchstart', pointerDown, { passive: false });
+    });
+
+    // Also attach via a helper called when the reposition div becomes visible
+    window._initPhotoDrag = function() {
+        const c = getContainer();
+        if (!c || c._dragBound) return;
+        c.addEventListener('mousedown', pointerDown);
+        c.addEventListener('touchstart', pointerDown, { passive: false });
+        c._dragBound = true;
+    };
+})();
 
 window.toggleTutorPreviewPane = function() {
     const col = document.getElementById('tutor-preview-col');
@@ -2362,7 +2548,7 @@ window.addTutorCustomField = function() {
 window.openTutorModal = function(id = null) {
     editingTutorId = id;
     pendingPhotoFile = null;
-    _photoPos = { x: 0, y: 0, scale: 1 };
+    _photoPos = { x: 50, y: 50 };
     _selectedTutorLangs = [];
     document.getElementById('tutor-modal-title').textContent = id ? 'Edit Tutor' : 'Add Tutor';
     // Reset fields
@@ -2377,12 +2563,8 @@ window.openTutorModal = function(id = null) {
     document.getElementById('t-photo-placeholder').classList.remove('hidden');
     document.getElementById('t-change-photo-btn').classList.add('hidden');
     document.getElementById('t-photo-reposition').classList.add('hidden');
-    document.getElementById('t-photo-x').value = 0;
-    document.getElementById('t-photo-y').value = 0;
-    document.getElementById('t-photo-scale').value = 1;
-    document.getElementById('t-photo-x-val').textContent = 0;
-    document.getElementById('t-photo-y-val').textContent = 0;
-    document.getElementById('t-photo-scale-val').textContent = 1;
+    const dragImg = document.getElementById('t-photo-drag-img');
+    if (dragImg) { dragImg.src = ''; dragImg.style.objectPosition = '50% 50%'; }
     document.getElementById('t-active').checked = true;
     document.getElementById('t-custom-fields').innerHTML = '';
     // Hide preview col
@@ -2406,9 +2588,8 @@ window.openTutorModal = function(id = null) {
             document.getElementById('t-spec-2').value     = t.specialisation_2 || '';
             document.getElementById('t-active').checked   = t.active !== false;
             // Photo position
-            if (t.photoX !== undefined) { document.getElementById('t-photo-x').value = t.photoX; document.getElementById('t-photo-x-val').textContent = t.photoX; _photoPos.x = t.photoX; }
-            if (t.photoY !== undefined) { document.getElementById('t-photo-y').value = t.photoY; document.getElementById('t-photo-y-val').textContent = t.photoY; _photoPos.y = t.photoY; }
-            if (t.photoScale !== undefined) { document.getElementById('t-photo-scale').value = t.photoScale; document.getElementById('t-photo-scale-val').textContent = t.photoScale; _photoPos.scale = t.photoScale; }
+            _photoPos.x = t.photoX !== undefined ? t.photoX : 50;
+            _photoPos.y = t.photoY !== undefined ? t.photoY : 50;
             // Languages taught multi-select
             _selectedTutorLangs = (t.lang_teached || '').split(',').map(s => s.trim()).filter(Boolean);
             renderTutorLangPills();
@@ -2454,13 +2635,15 @@ window.handlePhotoSelect = function(e) {
 };
 
 function setPhotoPreview(url) {
-    const img = document.getElementById('t-photo-preview');
-    img.src = url;
-    img.classList.remove('hidden');
-    img.style.objectPosition = `${50+_photoPos.x}% ${50+_photoPos.y}%`;
-    document.getElementById('t-photo-placeholder').classList.add('hidden');
-    document.getElementById('t-change-photo-btn').classList.remove('hidden');
-    document.getElementById('t-photo-reposition').classList.remove('hidden');
+    const prev = document.getElementById('t-photo-preview');
+    const dragImg = document.getElementById('t-photo-drag-img');
+    if (prev) { prev.src = url; prev.classList.remove('hidden'); }
+    if (dragImg) { dragImg.src = url; }
+    document.getElementById('t-photo-placeholder')?.classList.add('hidden');
+    document.getElementById('t-change-photo-btn')?.classList.remove('hidden');
+    document.getElementById('t-photo-reposition')?.classList.remove('hidden');
+    _initPhotoDrag();
+    applyPhotoPosition();
 }
 
 window.updateTutorPreview = function() {
@@ -2479,7 +2662,7 @@ window.updateTutorPreview = function() {
         { icon: 'verified', text: document.getElementById('t-spec-2')?.value }
     ].filter(b => b.text && b.text.trim());
     const photoPart = (photo && !photo.endsWith('/admin.html'))
-        ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover" style="object-position:${50+_photoPos.x}% ${50+_photoPos.y}%;transform:scale(${_photoPos.scale})">`
+        ? `<img src="${photo}" alt="${esc(name)}" class="w-full h-full object-cover" style="object-position:${_photoPos.x}% ${_photoPos.y}%">`
         : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[50px] text-slate-800/60">person</span></div>`;
     previewCard.innerHTML = `
       <div class="flex min-h-[220px]">
@@ -2543,9 +2726,8 @@ window.submitTutorModal = async function() {
             specialisation_1: document.getElementById('t-spec-1').value.trim(),
             specialisation_2: document.getElementById('t-spec-2').value.trim(),
             photoUrl,
-            photoX:     _photoPos.x,
-            photoY:     _photoPos.y,
-            photoScale: _photoPos.scale,
+            photoX: _photoPos.x,
+            photoY: _photoPos.y,
             customFields,
         };
         if (!editingTutorId || editingTutorId !== nextId) {
@@ -2880,7 +3062,7 @@ window.setModalCurrency = function(cur, idx) {
 async function logAudit(action, targetCollection, targetId, targetName, details) {
     try {
         const user = auth.currentUser;
-        await addDoc(collection(db, 'auditLog'), {
+        await addDoc(collection(db, 'auditLogs'), {
             action,
             targetCollection,
             targetId:   String(targetId || ''),
@@ -3268,7 +3450,7 @@ window.loadRequests = async function() {
     if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading requests…</td></tr>';
     try {
         const snap = await getDocs(collection(db, 'studentRequests'));
-        _requests = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
+        _requests = snap.docs.map(d => ({ _id: d.id, _source: 'enrollment', ...d.data() }))
             .sort((a, b) => {
                 const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
                 const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
@@ -3301,10 +3483,15 @@ function renderRequestsTable(list) {
           </td>
           <td class="px-5 py-3 text-xs text-slate-500">
             <div>${esc(r.email || '—')}</div>
-            ${r.phone ? `<div class="text-slate-400">${esc(r.phone)}</div>` : ''}
+            ${(r.phone || r.contact) ? `<div class="text-slate-400">${esc(r.phone || r.contact)}</div>` : ''}
           </td>
-          <td class="px-5 py-3 text-xs font-semibold text-[#a93444]">${esc(r.language || '—')}</td>
-          <td class="px-5 py-3 text-xs text-slate-500">${esc(r.format || '—')}</td>
+          <td class="px-5 py-3 text-xs">
+            <span class="font-semibold text-[#a93444]">${esc(r.languageLabel || r.language || '—')}</span>
+            ${r.courseName ? `<div class="text-slate-400 text-[11px]">${esc(r.courseName)}</div>` : ''}
+          </td>
+          <td class="px-5 py-3 text-xs text-slate-500">
+            <div>${esc(r.learningType || r.format || '—')}</div>
+          </td>
           <td class="px-5 py-3">
             <select onchange="updateRequestStatus('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
               ${['new','contacted','pending','rejected','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
@@ -3332,8 +3519,8 @@ window.filterRequests = function() {
 
 window.updateRequestStatus = async function(id, status) {
     try {
-        await updateDoc(doc(db, 'studentRequests', id), { status });
         const r = _requests.find(x => x._id === id);
+        await updateDoc(doc(db, 'studentRequests', id), { status });
         if (r) r.status = status;
         renderRequestsTable(_requests);
         logAudit('update_request_status', 'studentRequests', id, '', status);
@@ -3344,8 +3531,8 @@ window.updateRequestStatus = async function(id, status) {
 window.assignRequestTutor = async function(id, tutorId) {
     if (!tutorId) return;
     try {
-        await updateDoc(doc(db, 'studentRequests', id), { assignedTutor: tutorId });
         const r = _requests.find(x => x._id === id);
+        await updateDoc(doc(db, 'studentRequests', id), { assignedTutor: tutorId });
         if (r) r.assignedTutor = tutorId;
         toast('Tutor assigned ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
@@ -3366,7 +3553,7 @@ window.openRequestDetail = function(id) {
     // Collect tutor options
     const tutorOpts = tutors.filter(t => {
         const tl = (t.lang_teached||'').toLowerCase();
-        const rl = (r.language||'').toLowerCase();
+        const rl = (r.languageLabel || r.language||'').toLowerCase();
         return !rl || tl.includes(rl);
     }).map(t => `<option value="${esc(t._id)}" ${r.assignedTutor===t._id?'selected':''}>${esc(t.name)}</option>`).join('');
 
@@ -3379,17 +3566,23 @@ window.openRequestDetail = function(id) {
         <span class="px-3 py-1 rounded-full text-xs font-bold ${statusColor[st]||'bg-slate-100 text-slate-500'}">${esc(st)}</span>
       </div>
       <div class="mb-5">
-        ${row('Full Name', r.name)}
+        ${row('Name', r.name)}
         ${row('Email', r.email)}
-        ${row('Phone', r.phone)}
-        ${row('Language', r.language)}
-        ${row('Format', r.format)}
-        ${row('Module', r.module)}
-        ${row('Payment Plan', r.plan)}
+        ${row('Phone', r.phone || r.contact)}
+        ${row('Language', r.languageLabel || r.language)}
+        ${row('Course', r.courseName)}
+        ${row('Level', r.level)}
+        ${row('Format', r.learningType || r.format)}
+        ${row('Modules', r.modules ? `Module ${r.modules === 1 ? '1 (3 months)' : '1+2 (6 months)'}` : null)}
+        ${row('Payment Plan', r.paymentPlan || r.plan)}
         ${row('Currency', r.currency)}
+        ${row('Base Price', r.basePrice ? `€${r.basePrice}` : null)}
+        ${row('Final Price', r.finalPrice ? `€${r.finalPrice}` : null)}
+        ${row('Promo Code', r.promoCode)}
+        ${row('Discount', r.discountPct ? `${r.discountPct}%` : null)}
         ${row('Message', r.message)}
-        ${row('Assigned Tutor', r.assignedTutor)}
         ${row('Source', r.source)}
+        ${row('Assigned Tutor', r.assignedTutor)}
       </div>
       <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
         <div class="flex-1 min-w-[160px]">
@@ -3725,7 +3918,7 @@ window.loadAuditLog = function() {
 
     if (_auditUnsubscribe) _auditUnsubscribe();
 
-    const q = query(collection(db, 'auditLog'), orderBy('timestamp', 'desc'), limit(200));
+    const q = query(collection(db, 'auditLogs'), orderBy('timestamp', 'desc'), limit(200));
     _auditUnsubscribe = onSnapshot(q, snap => {
         _auditLog = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
         renderAuditTable(_auditLog);
@@ -3782,6 +3975,83 @@ window.filterAuditLog = function() {
     const action = document.getElementById('audit-action-filter')?.value || '';
     renderAuditTable(action ? _auditLog.filter(e => e.action === action) : _auditLog);
 };
+
+// ── Dashboard live panels ─────────────────────────────────────────────────────
+async function loadDashboard() {
+    const reqList = document.getElementById('dash-requests-list');
+    const jobList = document.getElementById('dash-jobs-list');
+    try {
+        const snap = await getDocs(collection(db, 'studentRequests'));
+        const all = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        const pending = all.filter(r => !['accepted','rejected','enrolled'].includes(r.status || 'new'))
+                           .sort((a, b) => {
+                               const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
+                               const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
+                               return tb - ta;
+                           });
+        const badge = document.getElementById('dash-req-badge');
+        if (badge) { badge.textContent = pending.length; badge.classList.toggle('hidden', !pending.length); }
+
+        if (!pending.length) {
+            if (reqList) reqList.innerHTML = '<div class="px-5 py-8 text-center text-slate-400 text-xs">No pending requests.</div>';
+        } else {
+            if (reqList) reqList.innerHTML = pending.slice(0, 6).map(r => {
+                const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleDateString() : '—';
+                const st = r.status || 'new';
+                const stColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600' };
+                return `<div class="flex items-center gap-3 px-5 py-3 hover:bg-slate-50 transition-colors cursor-pointer" onclick="showSection('requests')">
+                  <div class="w-8 h-8 rounded-full bg-[#a93444]/15 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-[#a93444]">person</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="font-semibold text-slate-800 text-sm truncate">${esc(r.name || '—')}</span>
+                    </div>
+                    <p class="text-xs text-slate-500 truncate">${esc(r.languageLabel || r.language || r.source || '—')} · ${date}</p>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${stColor[st] || 'bg-slate-100 text-slate-500'} shrink-0">${esc(st)}</span>
+                </div>`;
+            }).join('');
+        }
+    } catch(e) {
+        if (reqList) reqList.innerHTML = `<div class="px-5 py-6 text-center text-red-400 text-xs">${esc(e.message)}</div>`;
+    }
+
+    try {
+        const jSnap = await getDocs(collection(db, 'jobApplications'));
+        const jobs = jSnap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        const pendingJobs = jobs.filter(j => !['accepted','rejected','withdrawn'].includes(j.status || 'pending'))
+                                .sort((a, b) => {
+                                    const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
+                                    const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
+                                    return tb - ta;
+                                });
+        const badge = document.getElementById('dash-jobs-badge');
+        if (badge) { badge.textContent = pendingJobs.length; badge.classList.toggle('hidden', !pendingJobs.length); }
+
+        if (!pendingJobs.length) {
+            if (jobList) jobList.innerHTML = '<div class="px-5 py-8 text-center text-slate-400 text-xs">No pending applications.</div>';
+        } else {
+            if (jobList) jobList.innerHTML = pendingJobs.slice(0, 6).map(j => {
+                const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleDateString() : '—';
+                const st = j.status || 'pending';
+                const stColor = { pending:'bg-amber-100 text-amber-700', reviewing:'bg-blue-100 text-blue-700', interview:'bg-purple-100 text-purple-700' };
+                return `<div class="flex items-center gap-3 px-5 py-3 hover:bg-slate-50 transition-colors cursor-pointer" onclick="showSection('jobs')">
+                  <div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[16px] text-amber-500">work</span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="font-semibold text-slate-800 text-sm truncate">${esc(j.name || j.tutorName || '—')}</p>
+                    <p class="text-xs text-slate-500 truncate">${esc(j.lang_teached || j.languages || '—')} · ${date}</p>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${stColor[st] || 'bg-slate-100 text-slate-500'} shrink-0">${esc(st)}</span>
+                </div>`;
+            }).join('');
+        }
+    } catch(e) {
+        if (jobList) jobList.innerHTML = `<div class="px-5 py-6 text-center text-red-400 text-xs">${esc(e.message)}</div>`;
+    }
+}
 
 // ── Live currency rates ───────────────────────────────────────────────────────
 (async function fetchLiveRates() {
