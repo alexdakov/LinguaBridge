@@ -186,10 +186,10 @@
                 </div>
 
                 <!-- Application Form -->
-                <form id="tutor-form" class="space-y-8">
+                <form id="tutor-form" class="space-y-6">
                     <div>
-                        <h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900 mb-1">Tutor Application</h2>
-                        <p class="text-slate-500 text-sm">All fields marked <span class="text-[#a93444]">*</span> are required.</p>
+                        <h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-900 mb-1">Tutor Application – LinguaBridge</h2>
+                        <p class="text-slate-500 text-sm">Apply to become a language tutor. Fill in the form below and we'll contact you shortly.</p>
                     </div>
 
                     <!-- Error Banner -->
@@ -198,160 +198,90 @@
                         <span id="form-error-msg">Something went wrong. Please try again.</span>
                     </div>
 
-                    <!-- ── SECTION 1: Personal Info ── -->
-                    <fieldset class="space-y-5">
-                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Personal Information</legend>
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">First Name <span class="text-[#a93444]">*</span></label>
-                                <input type="text" id="tf-first-name" required placeholder="e.g. Alex"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Last Name <span class="text-[#a93444]">*</span></label>
-                                <input type="text" id="tf-last-name" required placeholder="e.g. Dakov"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Full Name <span class="text-[#a93444]">*</span></label>
+                        <input type="text" id="tf-name" required placeholder="e.g. Alex Dakov"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Email Address <span class="text-[#a93444]">*</span></label>
+                        <input type="email" id="tf-email" required placeholder="you@example.com"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                    </div>
+
+                    <!-- Contact / Phone -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Contact via <span class="text-[#a93444]">*</span></label>
+                        <p class="text-xs text-slate-400 mb-2">Include country code, e.g. +359…</p>
+                        <input type="tel" id="tf-phone" required placeholder="+359 88 000 0000"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                    </div>
+
+                    <!-- Languages taught -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Which language(s) do you teach? <span class="text-[#a93444]">*</span></label>
+                        <input type="text" id="tf-lang-teached" required placeholder="e.g. Japanese, English"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                    </div>
+
+                    <!-- Education -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Education and qualifications <span class="text-[#a93444]">*</span></label>
+                        <textarea id="tf-education" required rows="3" placeholder="e.g. BA in Japanese Studies, University of Sofia"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Certificates -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Do you hold any certificates? <span class="text-xs font-normal text-slate-400">(e.g. CELTA)</span></label>
+                        <input type="text" id="tf-certificates" placeholder="e.g. CELTA, JLPT N1, Goethe C2"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
+                    </div>
+
+                    <!-- Teaching experience -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Teaching experience <span class="text-[#a93444]">*</span></label>
+                        <textarea id="tf-experience" required rows="3" placeholder="Describe your teaching background — years of experience, types of students, platforms used…"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Preferred working hours -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Preferred working hours <span class="text-[#a93444]">*</span></label>
+                        <select id="tf-availability" required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all bg-white">
+                            <option value="">— Select availability —</option>
+                            <option value="1-5 hrs/week">1–5 hours / week (part-time)</option>
+                            <option value="5-10 hrs/week">5–10 hours / week</option>
+                            <option value="10-20 hrs/week">10–20 hours / week</option>
+                            <option value="20+ hrs/week">20+ hours / week (full-time)</option>
+                            <option value="weekends">Weekends only</option>
+                            <option value="evenings">Evenings only</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+
+                    <!-- Short intro -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Short intro about yourself <span class="text-[#a93444]">*</span></label>
+                        <textarea id="tf-bio" required rows="4" placeholder="Tell us a bit about yourself — your passion for languages, teaching style, and what motivates you."
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- CV Upload -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Upload your CV <span class="text-xs font-normal text-slate-400">(PDF only, optional)</span></label>
+                        <div id="cv-drop-zone" class="border-2 border-dashed border-slate-200 rounded-xl p-6 flex flex-col items-center gap-2 cursor-pointer hover:border-[#a93444]/40 transition-colors"
+                             onclick="document.getElementById('tf-cv-input').click()">
+                            <span class="material-symbols-outlined text-[36px] text-slate-300">upload_file</span>
+                            <p id="cv-label" class="text-sm text-slate-500 font-semibold">Click to select a PDF file</p>
+                            <p class="text-xs text-slate-400">Max 5 MB</p>
                         </div>
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Email Address <span class="text-[#a93444]">*</span></label>
-                                <input type="email" id="tf-email" required placeholder="you@example.com"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Phone Number</label>
-                                <input type="tel" id="tf-phone" placeholder="+359 88 000 0000"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Photo URL <span class="text-xs font-normal text-slate-400">(optional — link to a profile photo)</span></label>
-                            <input type="url" id="tf-photo-url" placeholder="https://example.com/photo.jpg"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                        </div>
-                    </fieldset>
-
-                    <hr class="border-slate-100">
-
-                    <!-- ── SECTION 2: Teaching ── -->
-                    <fieldset class="space-y-5">
-                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Languages & Teaching</legend>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Primary Language You Teach <span class="text-[#a93444]">*</span></label>
-                            <p class="text-[11px] text-slate-400 mb-2">This will be used to create your profile ID. If you teach multiple, list them comma-separated — the first one becomes the primary.</p>
-                            <input type="text" id="tf-lang-teached" required placeholder="e.g. Japanese, English"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Languages You Speak <span class="text-[#a93444]">*</span></label>
-                            <p class="text-[11px] text-slate-400 mb-2">List all languages you are comfortable communicating in, comma-separated.</p>
-                            <input type="text" id="tf-lang-spoken" required placeholder="e.g. Japanese, English, Bulgarian"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Your Role / Title</label>
-                            <input type="text" id="tf-role" placeholder="e.g. Native Japanese Tutor, Business English Coach"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                        </div>
-                    </fieldset>
-
-                    <hr class="border-slate-100">
-
-                    <!-- ── SECTION 3: Credentials ── -->
-                    <fieldset class="space-y-5">
-                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Education & Credentials</legend>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">PhD / Doctorate <span class="text-xs font-normal text-slate-400">(if applicable)</span></label>
-                            <input type="text" id="tf-phd" placeholder="e.g. PhD in Applied Linguistics, University of Tokyo"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Education 1</label>
-                                <input type="text" id="tf-school-1" placeholder="e.g. BA in Japanese Studies"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Education 2</label>
-                                <input type="text" id="tf-school-2" placeholder="e.g. JLPT N1 Certified"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Specialisation 1</label>
-                                <input type="text" id="tf-spec-1" placeholder="e.g. Business Japanese"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Specialisation 2</label>
-                                <input type="text" id="tf-spec-2" placeholder="e.g. Conversational Fluency"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all">
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <hr class="border-slate-100">
-
-                    <!-- ── SECTION 4: About You ── -->
-                    <fieldset class="space-y-5">
-                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">About You</legend>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Bio / Personal Quote <span class="text-[#a93444]">*</span></label>
-                            <p class="text-[11px] text-slate-400 mb-2">Write 1–3 sentences about yourself, your teaching style, or what drives you. This will appear as your quote on the website.</p>
-                            <textarea id="tf-bio-quote" required rows="4" placeholder="e.g. Language learning transformed my life — I want to pass that gift on to every student I work with."
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Additional Message <span class="text-xs font-normal text-slate-400">(optional)</span></label>
-                            <textarea id="tf-message" rows="3" placeholder="Anything else you'd like us to know about you?"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all resize-none"></textarea>
-                        </div>
-                    </fieldset>
-
-                    <hr class="border-slate-100">
-
-                    <!-- ── SECTION 5: Availability ── -->
-                    <fieldset class="space-y-5">
-                        <legend class="text-[10px] font-bold uppercase tracking-widest text-[#a93444] mb-4 block">Availability</legend>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-3">Preferred Teaching Format <span class="text-xs font-normal text-slate-400">(select all that apply)</span></label>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" value="group" class="tf-format accent-[#a93444] w-4 h-4">
-                                    <span class="text-sm text-slate-700">Group sessions</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" value="individual" class="tf-format accent-[#a93444] w-4 h-4">
-                                    <span class="text-sm text-slate-700">Individual (1-on-1)</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" value="selfpaced" class="tf-format accent-[#a93444] w-4 h-4">
-                                    <span class="text-sm text-slate-700">Self-paced online modules</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Weekly Availability</label>
-                            <select id="tf-availability"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/30 focus:border-[#a93444] transition-all bg-white">
-                                <option value="">— Select hours per week —</option>
-                                <option value="1-5">1–5 hours/week (part-time)</option>
-                                <option value="5-10">5–10 hours/week</option>
-                                <option value="10-20">10–20 hours/week</option>
-                                <option value="20+">20+ hours/week (full-time)</option>
-                            </select>
-                        </div>
-                    </fieldset>
+                        <input id="tf-cv-input" type="file" accept="application/pdf,.pdf" class="hidden" onchange="handleCVSelect(event)">
+                    </div>
 
                     <!-- Terms -->
                     <div class="flex items-start gap-3 bg-slate-50 rounded-xl p-4">
@@ -372,6 +302,7 @@
                     <p class="text-center text-[11px] text-slate-400">Applications are typically reviewed within 10 business days.</p>
                 </form>
             </div>
+
         </div>
     </div>
 </main>
@@ -407,22 +338,48 @@
 <script src="language-manager.js"></script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 // ── Firebase init ──────────────────────────────────────────────
 const firebaseConfig = {
-    apiKey: "AIzaSyC-cYGMFi9RAR9jFbAHanRBlrchp_1G55Q",
-    authDomain: "linguabridge-bde57.firebaseapp.com",
-    projectId: "linguabridge-bde57",
-    storageBucket: "linguabridge-bde57.appspot.com",
-    messagingSenderId: "1063362453140",
-    appId: "1:1063362453140:web:c476ced3b04a09703d7219"
+    apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+    authDomain:        "linguabridge-2574f.firebaseapp.com",
+    projectId:         "linguabridge-2574f",
+    storageBucket:     "linguabridge-2574f.firebasestorage.app",
+    messagingSenderId: "640116284028",
+    appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
 };
-const app  = initializeApp(firebaseConfig);
-const db   = getFirestore(app);
-const auth = getAuth(app);
+const app     = initializeApp(firebaseConfig);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+// ── CV file state ──────────────────────────────────────────────
+let _cvFile = null;
+
+window.handleCVSelect = function(event) {
+    const file = event.target.files[0];
+    const label = document.getElementById('cv-label');
+    if (!file) { _cvFile = null; if (label) label.textContent = 'Click to select a PDF file'; return; }
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        _cvFile = null;
+        if (label) label.textContent = 'Click to select a PDF file';
+        showError('Please upload a PDF file only.');
+        event.target.value = '';
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        _cvFile = null;
+        if (label) label.textContent = 'Click to select a PDF file';
+        showError('File is too large. Maximum size is 5 MB.');
+        event.target.value = '';
+        return;
+    }
+    _cvFile = file;
+    if (label) label.textContent = `✓ ${file.name}`;
+    hideError();
+};
 
 // ── Helpers ────────────────────────────────────────────────────
 function esc(v) { return (v || '').toString().trim(); }
@@ -434,18 +391,31 @@ function slugify(str) {
 function showError(msg) {
     const el = document.getElementById('form-error');
     const ml = document.getElementById('form-error-msg');
-    if (el && ml) { ml.textContent = msg; el.classList.remove('hidden'); el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+    if (el && ml) { ml.textContent = msg; el.classList.remove('hidden'); el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
 }
 function hideError() {
     document.getElementById('form-error')?.classList.add('hidden');
 }
 
+function resetBtn() {
+    const btn     = document.getElementById('tf-submit-btn');
+    const label   = document.getElementById('tf-submit-label');
+    const spinner = document.getElementById('tf-submit-spinner');
+    const icon    = document.getElementById('tf-submit-icon');
+    if (btn)     btn.disabled = false;
+    if (label)   label.textContent = 'Submit Application';
+    if (spinner) spinner.classList.add('hidden');
+    if (icon)    icon.classList.remove('hidden');
+}
+
 // ── Build unique doc ID ────────────────────────────────────────
 // Format: FirstName_LastName_PrimaryLang  e.g. Alex_Dakov_Japanese
-function buildDocId(firstName, lastName, langTeached) {
-    const namePart = slugify(`${firstName}_${lastName}`);
+function buildDocId(fullName, langTeached) {
+    const parts    = fullName.trim().split(/\s+/);
+    const first    = slugify(parts[0] || 'Tutor');
+    const rest     = slugify(parts.slice(1).join('_') || 'Unknown');
     const langPart = slugify(langTeached.split(',')[0]);
-    return `${namePart}_${langPart}`;
+    return `${first}_${rest}_${langPart}`;
 }
 
 // ── Form submission ────────────────────────────────────────────
@@ -453,99 +423,87 @@ document.getElementById('tutor-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     hideError();
 
-    const btn        = document.getElementById('tf-submit-btn');
-    const label      = document.getElementById('tf-submit-label');
-    const spinner    = document.getElementById('tf-submit-spinner');
-    const icon       = document.getElementById('tf-submit-icon');
+    const btn     = document.getElementById('tf-submit-btn');
+    const label   = document.getElementById('tf-submit-label');
+    const spinner = document.getElementById('tf-submit-spinner');
+    const icon    = document.getElementById('tf-submit-icon');
 
-    // Gather values
-    const firstName     = esc(document.getElementById('tf-first-name').value);
-    const lastName      = esc(document.getElementById('tf-last-name').value);
-    const email         = esc(document.getElementById('tf-email').value);
-    const phone         = esc(document.getElementById('tf-phone').value);
-    const photoUrl      = esc(document.getElementById('tf-photo-url').value);
-    const langTeached   = esc(document.getElementById('tf-lang-teached').value);
-    const langSpoken    = esc(document.getElementById('tf-lang-spoken').value);
-    const role          = esc(document.getElementById('tf-role').value);
-    const phd           = esc(document.getElementById('tf-phd').value);
-    const school1       = esc(document.getElementById('tf-school-1').value);
-    const school2       = esc(document.getElementById('tf-school-2').value);
-    const spec1         = esc(document.getElementById('tf-spec-1').value);
-    const spec2         = esc(document.getElementById('tf-spec-2').value);
-    const bioQuote      = esc(document.getElementById('tf-bio-quote').value);
-    const message       = esc(document.getElementById('tf-message').value);
-    const availability  = esc(document.getElementById('tf-availability').value);
-    const termsChecked  = document.getElementById('tf-terms').checked;
-
-    const formats = [...document.querySelectorAll('.tf-format:checked')].map(c => c.value);
+    // Gather values from new form fields
+    const name          = esc(document.getElementById('tf-name')?.value);
+    const email         = esc(document.getElementById('tf-email')?.value);
+    const phone         = esc(document.getElementById('tf-phone')?.value);
+    const langTeached   = esc(document.getElementById('tf-lang-teached')?.value);
+    const education     = esc(document.getElementById('tf-education')?.value);
+    const certificates  = esc(document.getElementById('tf-certificates')?.value);
+    const experience    = esc(document.getElementById('tf-experience')?.value);
+    const availability  = esc(document.getElementById('tf-availability')?.value);
+    const bio           = esc(document.getElementById('tf-bio')?.value);
+    const termsChecked  = document.getElementById('tf-terms')?.checked;
 
     // Validation
-    if (!firstName || !lastName) { showError('Please enter your first and last name.'); return; }
-    if (!email)                   { showError('Please enter your email address.'); return; }
-    if (!langTeached)             { showError('Please enter the language(s) you teach.'); return; }
-    if (!langSpoken)              { showError('Please enter the language(s) you speak.'); return; }
-    if (!bioQuote)                { showError('Please write a short bio or personal quote.'); return; }
-    if (!termsChecked)            { showError('Please agree to the Terms & Conditions before submitting.'); return; }
+    if (!name)          { showError('Please enter your full name.'); return; }
+    if (!email)         { showError('Please enter your email address.'); return; }
+    if (!phone)         { showError('Please enter your contact number (include country code).'); return; }
+    if (!langTeached)   { showError('Please enter the language(s) you teach.'); return; }
+    if (!education)     { showError('Please describe your education and qualifications.'); return; }
+    if (!experience)    { showError('Please describe your teaching experience.'); return; }
+    if (!availability)  { showError('Please select your preferred working hours.'); return; }
+    if (!bio)           { showError('Please write a short intro about yourself.'); return; }
+    if (!termsChecked)  { showError('Please agree to the Terms & Conditions before submitting.'); return; }
 
     // Build doc ID
-    const docId = buildDocId(firstName, lastName, langTeached);
+    const docId = buildDocId(name, langTeached);
 
-    // Check for existing application
+    // Disable button while working
     btn.disabled = true;
     label.textContent = 'Submitting…';
     spinner.classList.remove('hidden');
     icon.classList.add('hidden');
 
     try {
+        // Check for existing application
         const existing = await getDoc(doc(db, 'jobApplications', docId));
         if (existing.exists()) {
-            showError('An application with this name and language already exists. Please contact us if you need to update it.');
-            btn.disabled = false;
-            label.textContent = 'Submit Application';
-            spinner.classList.add('hidden');
-            icon.classList.remove('hidden');
+            showError('An application with this name and language already exists. Please contact us if you need to update your application.');
+            resetBtn();
             return;
         }
 
-        const fullName = `${firstName} ${lastName}`.trim();
+        // Upload CV to Firebase Storage (optional)
+        let cvUrl = '';
+        if (_cvFile) {
+            label.textContent = 'Uploading CV…';
+            try {
+                const cvPath = `cvs/${docId}_${Date.now()}.pdf`;
+                const cvRef  = storageRef(storage, cvPath);
+                await uploadBytes(cvRef, _cvFile);
+                cvUrl = await getDownloadURL(cvRef);
+            } catch (uploadErr) {
+                console.warn('CV upload failed (Storage rules?), continuing without CV:', uploadErr);
+            }
+        }
+
+        // Save application to Firestore
+        label.textContent = 'Saving…';
         const now = new Date().toISOString();
 
-        const payload = {
-            // Identity
-            name:              fullName,
-            firstName,
-            lastName,
+        await setDoc(doc(db, 'jobApplications', docId), {
+            name,
             email,
             phone,
-            photoUrl,
-
-            // Teaching
-            lang_teached:      langTeached,
-            lang_spoken:       langSpoken,
-            role:              role || 'Tutor',
-            preferredFormats:  formats,
+            lang_teached:   langTeached,
+            education,
+            certificates,
+            experience,
             availability,
-
-            // Credentials
-            phd,
-            school_1:          school1,
-            school_2:          school2,
-            specialisation_1:  spec1,
-            specialisation_2:  spec2,
-
-            // Bio
-            bio_quote:         bioQuote,
-            message,
-
-            // Metadata
-            status:            'pending',
-            active:            false,
-            submittedAt:       now,
-            agreedToTerms:     true,
-            source:            'tutor_signup_form'
-        };
-
-        await setDoc(doc(db, 'jobApplications', docId), payload);
+            bio_quote:      bio,
+            cvUrl,
+            status:         'pending',
+            active:         false,
+            submittedAt:    now,
+            agreedToTerms:  true,
+            source:         'tutor_signup_form'
+        });
 
         // Show success state
         document.getElementById('tutor-form').classList.add('hidden');
@@ -555,10 +513,7 @@ document.getElementById('tutor-form').addEventListener('submit', async (e) => {
     } catch (err) {
         console.error('Submission error:', err);
         showError('There was a problem submitting your application. Please try again or contact us directly.');
-        btn.disabled = false;
-        label.textContent = 'Submit Application';
-        spinner.classList.add('hidden');
-        icon.classList.remove('hidden');
+        resetBtn();
     }
 });
 

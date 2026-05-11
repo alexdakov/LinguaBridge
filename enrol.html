@@ -342,25 +342,94 @@ function buildForm(prices) {
         <!-- Contact form -->
         <div id="step-contact" class="step-enter hidden">
           <div class="border-t border-rose-100 pt-6">
-            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-xl mb-1" data-i18n="enrol.contactTitle">Your Details</h2>
-            <p class="text-slate-500 text-sm mb-5" data-i18n="enrol.contactSubtitle">Complete your enrollment — we'll confirm your spot within 24 hours.</p>
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.name">Full Name <span class="text-rose-500">*</span></label>
-                <input id="cf-name" type="text" placeholder="Jane Smith" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+            <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-slate-800 text-xl mb-1">Student Application – LinguaBridge</h2>
+            <p class="text-slate-500 text-sm mb-5">Fill in your details below. We'll contact you shortly to match you with the right tutor.</p>
+            <div class="space-y-5">
+
+              <!-- Full Name + Email -->
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name <span class="text-rose-500">*</span></label>
+                  <input id="cf-name" type="text" placeholder="Jane Smith" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address <span class="text-rose-500">*</span></label>
+                  <input id="cf-email" type="email" placeholder="jane@example.com" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+                </div>
               </div>
+
+              <!-- Phone -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.email">Email <span class="text-rose-500">*</span></label>
-                <input id="cf-email" type="email" placeholder="jane@example.com" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Phone number / WhatsApp / Viber / Telegram <span class="text-rose-500">*</span></label>
+                <input id="cf-phone" type="tel" placeholder="+359 88 000 0000 (include country code)" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
               </div>
+
+              <!-- Native Language -->
               <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.phone">Phone (optional)</label>
-                <input id="cf-phone" type="tel" placeholder="+1 555 000 0000" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+                <label class="block text-sm font-semibold text-slate-700 mb-1">What is your native language? <span class="text-rose-500">*</span></label>
+                <input id="cf-native-lang" type="text" placeholder="e.g. Bulgarian, Russian, Arabic…" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
               </div>
-              <div class="sm:col-span-2">
-                <label class="block text-sm font-semibold text-slate-700 mb-1" data-i18n="enrol.field.message">Message (optional)</label>
-                <textarea id="cf-message" rows="3" placeholder="Any questions or special requests..." class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition resize-none"></textarea>
+
+              <!-- Current Level -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">What is your current level? <span class="text-rose-500">*</span></label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="level-options">
+                  ${['Beginner (A1)', 'Elementary (A2)', 'Intermediate (B1–B2)', 'Advanced (C1–C2)', 'Not sure'].map((l, i) => `
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium">
+                    <input type="radio" name="cf-level" value="${l}" class="accent-primary w-4 h-4 shrink-0"> ${l}
+                  </label>`).join('')}
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium sm:col-span-3">
+                    <input type="radio" name="cf-level" value="other-level" class="accent-primary w-4 h-4 shrink-0">
+                    <span>Other:</span>
+                    <input type="text" id="cf-level-other" placeholder="Describe your level…" onclick="this.previousElementSibling.previousElementSibling.checked=true" class="flex-1 border-0 border-b border-slate-300 focus:outline-none focus:border-primary text-sm bg-transparent px-1">
+                  </label>
+                </div>
               </div>
+
+              <!-- Lesson Type -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">What type of lessons are you interested in? <span class="text-rose-500">*</span></label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  ${['One-on-one live lessons', 'Group lessons', 'Self-paced course', 'Conversation practice', 'Exam preparation (e.g., TORFL, IELTS)'].map(t => `
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium">
+                    <input type="checkbox" name="cf-lesson-type" value="${t}" class="accent-primary w-4 h-4 shrink-0"> ${t}
+                  </label>`).join('')}
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium sm:col-span-2">
+                    <input type="checkbox" name="cf-lesson-type" value="other-type" class="accent-primary w-4 h-4 shrink-0">
+                    <span>Other:</span>
+                    <input type="text" id="cf-lesson-other" placeholder="Describe…" onclick="this.previousElementSibling.previousElementSibling.checked=true" class="flex-1 border-0 border-b border-slate-300 focus:outline-none focus:border-primary text-sm bg-transparent px-1">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Preferred Schedule -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Preferred learning schedule <span class="text-rose-500">*</span></label>
+                <input id="cf-schedule" type="text" placeholder="e.g. Weekday evenings, Saturday mornings…" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition" />
+              </div>
+
+              <!-- How did you find us -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">How did you find us? <span class="text-rose-500">*</span></label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  ${['Instagram', 'Facebook', 'Google Search', 'Friend referral'].map(s => `
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium">
+                    <input type="radio" name="cf-referral" value="${s}" class="accent-primary w-4 h-4 shrink-0"> ${s}
+                  </label>`).join('')}
+                  <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 cursor-pointer hover:border-primary/40 hover:bg-rose-50/50 transition-all has-[:checked]:border-primary has-[:checked]:bg-rose-50 text-sm text-slate-700 font-medium sm:col-span-3">
+                    <input type="radio" name="cf-referral" value="other-referral" class="accent-primary w-4 h-4 shrink-0">
+                    <span>Other:</span>
+                    <input type="text" id="cf-referral-other" placeholder="Tell us how…" onclick="this.previousElementSibling.previousElementSibling.checked=true" class="flex-1 border-0 border-b border-slate-300 focus:outline-none focus:border-primary text-sm bg-transparent px-1">
+                  </label>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-1">Any additional notes <span class="text-xs font-normal text-slate-400">(optional)</span></label>
+                <textarea id="cf-message" rows="3" placeholder="Goals, questions, special requests…" class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition resize-none"></textarea>
+              </div>
+
             </div>
 
             <div id="contact-error" class="hidden mt-3 text-sm text-red-500 font-medium"></div>
@@ -1053,11 +1122,43 @@ function showSuccess(title, msg) {
 }
 
 // ─── Enrol Now ───────────────────────────────────────────────────────────────
+// ── Helper: read new contact-step fields ────────────────────────────────────
+function readContactFields() {
+  const name       = document.getElementById('cf-name')?.value.trim() || '';
+  const email      = document.getElementById('cf-email')?.value.trim() || '';
+  const phone      = document.getElementById('cf-phone')?.value.trim() || '';
+  const nativeLang = document.getElementById('cf-native-lang')?.value.trim() || '';
+  const schedule   = document.getElementById('cf-schedule')?.value.trim() || '';
+  const message    = document.getElementById('cf-message')?.value.trim() || '';
+
+  // Level (radio)
+  const levelRadio = document.querySelector('input[name="cf-level"]:checked');
+  let level = levelRadio?.value || '';
+  if (level === 'other-level') {
+    level = document.getElementById('cf-level-other')?.value.trim() || 'Other';
+  }
+
+  // Lesson types (checkboxes)
+  const lessonChecks = [...document.querySelectorAll('input[name="cf-lesson-type"]:checked')].map(cb => {
+    if (cb.value === 'other-type') {
+      return document.getElementById('cf-lesson-other')?.value.trim() || 'Other';
+    }
+    return cb.value;
+  }).filter(Boolean);
+
+  // Referral (radio)
+  const refRadio = document.querySelector('input[name="cf-referral"]:checked');
+  let referral = refRadio?.value || '';
+  if (referral === 'other-referral') {
+    referral = document.getElementById('cf-referral-other')?.value.trim() || 'Other';
+  }
+
+  return { name, email, phone, nativeLang, schedule, level, lessonTypes: lessonChecks, referral, message };
+}
+
 async function handleEnrol() {
-  const name = document.getElementById('cf-name')?.value.trim();
-  const email = document.getElementById('cf-email')?.value.trim();
-  const phone = document.getElementById('cf-phone')?.value.trim();
-  const message = document.getElementById('cf-message')?.value.trim();
+  const fields = readContactFields();
+  const { name, email, phone, nativeLang, schedule, level, lessonTypes, referral, message } = fields;
   const errEl = document.getElementById('contact-error');
 
   if (!name || !email) {
@@ -1066,6 +1167,30 @@ async function handleEnrol() {
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     if (errEl) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!phone) {
+    if (errEl) { errEl.textContent = 'Please enter your phone / WhatsApp / Viber / Telegram number.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!nativeLang) {
+    if (errEl) { errEl.textContent = 'Please enter your native language.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!level) {
+    if (errEl) { errEl.textContent = 'Please select your current level.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!lessonTypes.length) {
+    if (errEl) { errEl.textContent = 'Please select at least one lesson type.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!schedule) {
+    if (errEl) { errEl.textContent = 'Please enter your preferred learning schedule.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!referral) {
+    if (errEl) { errEl.textContent = 'Please tell us how you found us.'; errEl.classList.remove('hidden'); }
     return;
   }
   if (errEl) errEl.classList.add('hidden');
@@ -1078,29 +1203,38 @@ async function handleEnrol() {
   setButtonLoading('btn-enrol', true);
 
   const finalPrice = getFinalPrice();
-  const basePrice = getBasePrice();
+  const basePrice  = getBasePrice();
 
   try {
     await window._fbAddDoc(window._fbCollection(window._fbDb, 'studentRequests'), {
+      // Contact
       name,
       email,
-      phone: phone || null,
-      language: state.selectedLang?.id || null,
-      languageLabel: state.selectedLang?.title || null,
-      flagCode: state.selectedLang?.flag_code || null,
-      courseId: state.selectedCourse?.id || null,
-      courseName: state.selectedCourse?.name || null,
-      level: state.selectedCourse?.level || null,
-      learningType: state.selectedFormat || null,
-      modules: state.selectedModule === 'module1' ? 1 : state.selectedModule === 'module2' ? 2 : null,
-      paymentPlan: state.selectedPlan || null,
-      currency: state.selectedCurrency,
-      basePrice: basePrice || null,
-      promoCode: state.promoCode || null,
-      discountPct: state.promoDiscount || 0,
-      finalPrice: finalPrice || null,
-      message: message || null,
-      submittedAt: window._fbServerTimestamp()
+      phone,
+      // Student background
+      nativeLanguage:  nativeLang,
+      currentLevel:    level,
+      lessonTypes,
+      schedule,
+      referral,
+      // Selected course (from multi-step flow)
+      language:        state.selectedLang?.id || null,
+      languageLabel:   state.selectedLang?.title || null,
+      flagCode:        state.selectedLang?.flag_code || null,
+      courseId:        state.selectedCourse?.id || null,
+      courseName:      state.selectedCourse?.name || null,
+      level:           state.selectedCourse?.level || level,
+      learningType:    state.selectedFormat || (lessonTypes[0] || null),
+      modules:         state.selectedModule === 'module1' ? 1 : state.selectedModule === 'module2' ? 2 : null,
+      paymentPlan:     state.selectedPlan || null,
+      currency:        state.selectedCurrency,
+      basePrice:       basePrice || null,
+      promoCode:       state.promoCode || null,
+      discountPct:     state.promoDiscount || 0,
+      finalPrice:      finalPrice || null,
+      message:         message || null,
+      source:          'enrol_form',
+      submittedAt:     window._fbServerTimestamp()
     });
     setButtonLoading('btn-enrol', false);
     showSuccess("You're enrolled!", "We'll be in touch within 24 hours to confirm your spot.");
@@ -1112,14 +1246,16 @@ async function handleEnrol() {
 
 // ─── Send a Request ──────────────────────────────────────────────────────────
 async function handleRequest() {
-  const name = document.getElementById('cf-name')?.value.trim();
-  const email = document.getElementById('cf-email')?.value.trim();
-  const phone = document.getElementById('cf-phone')?.value.trim();
-  const message = document.getElementById('cf-message')?.value.trim();
+  const fields = readContactFields();
+  const { name, email, phone, nativeLang, schedule, level, lessonTypes, referral, message } = fields;
   const errEl = document.getElementById('contact-error');
 
   if (!name || !email) {
     if (errEl) { errEl.textContent = 'Please fill in your name and email.'; errEl.classList.remove('hidden'); }
+    return;
+  }
+  if (!phone) {
+    if (errEl) { errEl.textContent = 'Please enter your phone / WhatsApp / Viber / Telegram number.'; errEl.classList.remove('hidden'); }
     return;
   }
   if (errEl) errEl.classList.add('hidden');
@@ -1132,16 +1268,23 @@ async function handleRequest() {
   setButtonLoading('btn-request', true);
 
   try {
-    await window._fbAddDoc(window._fbCollection(window._fbDb, 'contactRequests'), {
+    await window._fbAddDoc(window._fbCollection(window._fbDb, 'studentRequests'), {
       name,
       email,
-      phone: phone || null,
-      language: state.selectedLang?.id || null,
-      courseId: state.selectedCourse?.id || null,
-      learningType: state.selectedFormat || null,
-      message: message || null,
-      source: 'enrol_page',
-      submittedAt: window._fbServerTimestamp()
+      phone,
+      nativeLanguage:  nativeLang || null,
+      currentLevel:    level || null,
+      lessonTypes:     lessonTypes.length ? lessonTypes : null,
+      schedule:        schedule || null,
+      referral:        referral || null,
+      language:        state.selectedLang?.id || null,
+      languageLabel:   state.selectedLang?.title || null,
+      courseId:        state.selectedCourse?.id || null,
+      courseName:      state.selectedCourse?.name || null,
+      learningType:    state.selectedFormat || (lessonTypes[0] || null),
+      message:         message || null,
+      source:          'enrol_request',
+      submittedAt:     window._fbServerTimestamp()
     });
     setButtonLoading('btn-request', false);
     showSuccess("Request received!", "We'll reach out soon to help you find the perfect course.");

@@ -189,25 +189,27 @@ const catalogI18n = {
 
 // 2. DATA LOADER
 async function loadCatalog() {
+    // If Firestore already provided complete language+course data, use it directly
+    if (window._firestoreLanguages && window._firestoreLanguages.length) {
+        courseData = window._firestoreLanguages;
+        renderLanguageNav();
+        renderCatalog();
+        return;
+    }
+
+    // Fallback: try loading from prices.json (works on a server, not file://)
     try {
         const response = await fetch('prices.json');
         if (!response.ok) throw new Error("JSON not found");
         const data = await response.json();
-
-        // If Firestore has up-to-date language data, use it instead of prices.json languages
-        if (window._firestoreLanguages && window._firestoreLanguages.length) {
-            courseData = window._firestoreLanguages;
-        } else {
-            courseData = data.languages;
-        }
-
+        courseData = data.languages;
         renderLanguageNav();
         renderCatalog();
     } catch (error) {
         console.error(error);
         const container = document.getElementById('catalog-container');
         if (container) {
-            container.innerHTML = `<p class="text-center text-red-500 py-10 font-bold">Error: Use Live Server to load prices.json</p>`;
+            container.innerHTML = `<p class="text-center text-slate-500 py-10">Could not load course data. Please try refreshing the page.</p>`;
         }
     }
 }

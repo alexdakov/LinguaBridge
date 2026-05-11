@@ -83,7 +83,7 @@
         </a>
       </div>
       <div class="flex items-center gap-3">
-        <span id="admin-name" class="hidden sm:block text-xs text-slate-500 font-semibold"></span>
+        <span id="admin-name" class="hidden sm:block text-xs text-slate-600 font-semibold bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200"></span>
         <button id="logout-btn" class="h-9 flex items-center gap-1.5 text-sm font-semibold text-slate-400 border border-slate-200 bg-slate-50 px-4 rounded-full hover:bg-slate-100 hover:border-slate-300 hover:text-slate-800 active:scale-95 transition-all">
           <span class="material-symbols-outlined text-[16px]">logout</span>
           <span class="hidden sm:inline">Sign Out</span>
@@ -239,21 +239,6 @@
             </div>
           </div>
         </div>
-        <!-- Coming soon row (keep but shrink to 3 compact cards) -->
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">person_add</span><span class="font-bold text-slate-400 text-xs">Firebase User Management</span></div>
-            <p class="text-xs text-slate-500">Create, suspend and manage accounts directly.</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">school</span><span class="font-bold text-slate-400 text-xs">Moodle Sync</span></div>
-            <p class="text-xs text-slate-500">Enrol / unenrol students and sync Moodle data.</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200 opacity-50">
-            <div class="flex items-center gap-2 mb-1"><span class="material-symbols-outlined text-[18px] text-slate-400">article</span><span class="font-bold text-slate-400 text-xs">Sanity CMS</span></div>
-            <p class="text-xs text-slate-500">Quick-publish blog posts and update site content.</p>
-          </div>
-        </div>
       </section>
 
       <!-- ── LANGUAGES ── -->
@@ -264,6 +249,9 @@
             <p class="text-slate-500 text-sm mt-0.5">Manage course offerings, levels, and pricing.</p>
           </div>
           <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="seedDefaultData()" class="flex items-center gap-2 border border-slate-200 bg-white text-slate-600 px-4 py-2.5 rounded-full text-sm font-bold hover:border-[#a93444]/40 hover:text-[#a93444] active:scale-95 transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">download</span>Seed Default Data
+            </button>
             <button onclick="openLangModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all shadow-sm">
               <span class="material-symbols-outlined text-[18px]">add</span>Add Language
             </button>
@@ -285,16 +273,36 @@
           </div>
         </div>
         <!-- Loading skeleton -->
-        <div id="lang-loading" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
-          ${[1,2,3].map(() => `<div class="bg-white rounded-2xl border border-slate-100 h-32 animate-pulse"></div>`).join('')}
+        <div id="lang-loading" class="flex flex-col gap-2">
+          <div class="bg-white rounded-2xl border border-slate-100 h-14 animate-pulse"></div>
+          <div class="bg-white rounded-2xl border border-slate-100 h-14 animate-pulse opacity-70"></div>
+          <div class="bg-white rounded-2xl border border-slate-100 h-14 animate-pulse opacity-40"></div>
         </div>
-        <div id="lang-grid" class="hidden grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+        <!-- Languages table -->
+        <div id="lang-table-wrap" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-100 bg-slate-50/80">
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400 w-[40%]">Language</th>
+                <th class="px-4 py-3 text-center text-[10px] font-bold uppercase tracking-widest text-slate-400">Courses</th>
+                <th class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">From / mo</th>
+                <th class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400 hidden md:table-cell">Levels</th>
+                <th class="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400 hidden lg:table-cell">Types</th>
+                <th class="px-5 py-3 text-right text-[10px] font-bold uppercase tracking-widest text-slate-400">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="lang-table-body"></tbody>
+          </table>
+        </div>
         <div id="lang-empty" class="hidden text-center py-20">
           <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <span class="material-symbols-outlined text-[32px] text-slate-400">language</span>
           </div>
           <p class="text-slate-700 font-bold mb-1">No languages found in Firebase.</p>
-          <p class="text-slate-500 text-sm mb-2 max-w-xs mx-auto">Ensure the <code class="bg-slate-100 px-1 rounded text-xs">/languages</code> and <code class="bg-slate-100 px-1 rounded text-xs">/courses</code> collections exist in Firestore.</p>
+          <p id="lang-empty-msg" class="text-slate-500 text-sm mb-2 max-w-xs mx-auto">Could not read the <code class="bg-slate-100 px-1 rounded text-xs">/languages</code> collection. Check Firestore security rules.</p>
+          <button onclick="loadLanguages()" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 hover:bg-rose-50 px-3 py-1.5 rounded-full transition-colors">
+            <span class="material-symbols-outlined text-[14px]">refresh</span>Retry
+          </button>
         </div>
         <!-- Pricing plans summary bar (shown when plans are loaded) -->
         <div id="pricing-plans-bar" class="hidden mt-6 bg-white rounded-2xl border border-slate-100 p-4">
@@ -335,6 +343,51 @@
           </button>
         </div>
       </section>
+
+      <!-- Add Student Modal -->
+      <div id="add-student-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden">
+          <div class="flex items-center justify-between p-6 border-b border-slate-100">
+            <h2 class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl text-slate-800">Add New Student</h2>
+            <button onclick="document.getElementById('add-student-modal').classList.add('hidden');document.body.style.overflow=''" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-all">
+              <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">First Name *</label>
+                <input id="as-first-name" type="text" placeholder="Alex" class="field-input text-sm">
+              </div>
+              <div>
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Last Name *</label>
+                <input id="as-last-name" type="text" placeholder="Dakov" class="field-input text-sm">
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Email *</label>
+              <input id="as-email" type="email" placeholder="student@example.com" class="field-input text-sm">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Phone</label>
+              <input id="as-phone" type="tel" placeholder="+359 88 000 0000" class="field-input text-sm">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Username / Nickname</label>
+              <input id="as-username" type="text" placeholder="e.g. alex-dakov" class="field-input text-sm">
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Notes</label>
+              <textarea id="as-notes" rows="2" placeholder="Any additional information…" class="field-input text-sm resize-none"></textarea>
+            </div>
+            <div id="as-error" class="hidden bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-sm text-red-600"></div>
+          </div>
+          <div class="flex gap-3 px-6 pb-6">
+            <button onclick="document.getElementById('add-student-modal').classList.add('hidden');document.body.style.overflow=''" class="flex-1 py-2.5 rounded-full border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-all">Cancel</button>
+            <button onclick="submitAddStudent()" class="flex-1 py-2.5 rounded-full bg-[#a93444] text-white font-bold text-sm hover:bg-[#7e2334] transition-all">Add Student</button>
+          </div>
+        </div>
+      </div>
 
       <!-- ── USERS ── -->
       <section id="section-users" class="hidden fade-up">
@@ -398,9 +451,14 @@
             <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Students</h1>
             <p class="text-slate-500 text-sm mt-0.5">All students from the Firestore users collection.</p>
           </div>
-          <button onclick="loadStudents()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
-            <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
-          </button>
+          <div class="flex gap-2">
+            <button onclick="openAddStudentModal()" class="flex items-center gap-1.5 text-xs font-bold text-white bg-[#a93444] hover:bg-[#7e2334] px-3 py-1.5 rounded-full transition-all shadow-sm">
+              <span class="material-symbols-outlined text-[15px]">person_add</span>Add Student
+            </button>
+            <button onclick="loadStudents()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+              <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+            </button>
+          </div>
         </div>
         <!-- Permission warning -->
         <div id="students-perm-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-700 text-sm px-4 py-3 rounded-xl mb-4">⚠️ Firestore rules need updating. Go to Firebase Console → Firestore → Rules and allow admins to read all user documents.</div>
@@ -788,7 +846,19 @@
       <!-- ── SETTINGS ── -->
       <section id="section-settings" class="hidden fade-up">
         <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800 mb-1">Settings</h1>
-        <p class="text-slate-500 text-sm mb-6">Platform configuration and learning type management.</p>
+        <p class="text-slate-500 text-sm mb-6">Platform configuration and admin profile.</p>
+
+        <!-- Admin Profile — managed via Users section -->
+        <div class="flex items-start gap-3 bg-white border border-slate-200 rounded-2xl p-5 mb-6 max-w-lg">
+          <div class="w-9 h-9 bg-[#a93444]/10 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-[18px] text-[#a93444]">manage_accounts</span>
+          </div>
+          <div>
+            <p class="font-bold text-slate-800 text-sm mb-0.5">Admin Profile</p>
+            <p class="text-xs text-slate-500 leading-relaxed">Your display name and nickname are managed directly in the <button onclick="showSection('users')" class="text-[#a93444] font-semibold hover:underline">Users section</button>. Find your admin user record, click <strong>Edit</strong>, and update the First Name, Last Name, and Nickname fields — the top bar and audit log will reflect the changes immediately.</p>
+          </div>
+        </div>
+
         <div class="bg-blue-50 border border-blue-200 text-blue-700 text-sm px-4 py-3 rounded-xl mb-6 flex items-start gap-2">
           <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5">info</span>
           <span>Learning types and modules are now managed from the <button onclick="showSection('languages')" class="font-bold underline">Languages section</button> via the pill buttons at the top.</span>
@@ -972,8 +1042,16 @@
     <div class="modal-scroll px-7 py-6 flex-1 flex flex-col gap-4">
       <div class="grid sm:grid-cols-2 gap-4">
         <div>
-          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Display Name</label>
-          <input id="um-displayName" type="text" class="field-input">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">First Name *</label>
+          <input id="um-firstname" type="text" placeholder="First name" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Last Name</label>
+          <input id="um-lastname" type="text" placeholder="Last name" class="field-input">
+        </div>
+        <div>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Nickname</label>
+          <input id="um-nickname" type="text" placeholder="e.g. alex-admin" class="field-input">
         </div>
         <div>
           <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 block">Email</label>
@@ -1400,6 +1478,7 @@ const storage = getStorage(app);
 let languages      = [];
 let pricingPlans   = [];
 let tutors         = [];
+let _cachedAdminNick = '';   // username/nickname cached at login — used in audit log
 let editingLangId  = null;
 let editingTutorId = null;
 let pendingPhotoFile = null;
@@ -1513,7 +1592,39 @@ onAuthStateChanged(auth, async user => {
             window.location.href = 'index.html'; return;
         }
     } catch {}
-    document.getElementById('admin-name').textContent = user.displayName || user.email || '';
+    // Fetch admin's Firestore profile — try every possible field name
+    let adminNick    = '';
+    let adminDisplay = user.displayName || '';
+    try {
+        const adminSnap = await getDoc(doc(db, 'users', user.uid));
+        if (adminSnap.exists()) {
+            const ad = adminSnap.data();
+            // Display name: Firestore fields first, then Firebase Auth, then email prefix
+            adminDisplay = ad.displayName || ad.name || ad.fullName
+                        || user.displayName
+                        || (user.email || '').split('@')[0]
+                        || '';
+            // Nickname: try all common field names
+            adminNick = ad.username || ad.nickname || ad.nick || ad.handle || '';
+        }
+    } catch {}
+
+    // Final fallback — always show at least the email prefix
+    if (!adminDisplay) adminDisplay = (user.email || '').split('@')[0];
+
+    // Cache for audit log use
+    _cachedAdminNick = adminNick || adminDisplay;
+
+    const adminLabel = adminNick
+        ? `${adminDisplay} | ${adminNick}`
+        : adminDisplay;
+
+    const adminEl = document.getElementById('admin-name');
+    if (adminEl) {
+        adminEl.textContent = adminLabel;
+        adminEl.title = user.email || '';          // hover shows full email
+        adminEl.classList.remove('hidden');
+    }
     document.getElementById('auth-loading').classList.add('hidden');
     document.getElementById('admin-app').classList.remove('hidden');
     await Promise.all([ loadLanguages(), loadTutors(), loadSettings() ]);
@@ -1601,9 +1712,9 @@ function updateStats() {
 //  LANGUAGES
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadLanguages() {
-    // Show skeleton, hide grid
+    // Show skeleton, hide table
     document.getElementById('lang-loading')?.classList.remove('hidden');
-    document.getElementById('lang-grid')?.classList.add('hidden');
+    document.getElementById('lang-table-wrap')?.classList.add('hidden');
     document.getElementById('lang-empty')?.classList.add('hidden');
     document.getElementById('pricing-plans-bar')?.classList.add('hidden');
 
@@ -1637,15 +1748,20 @@ async function loadLanguages() {
     } catch(e) {
         languages = [];
         pricingPlans = [];
+        const errMsg = e?.code === 'permission-denied'
+            ? 'Permission denied — add Firestore read rules for /languages, /courses, /pricingPlans.'
+            : `Error: ${e?.message || e}`;
         console.error('loadLanguages failed:', e);
+        const msgEl = document.getElementById('lang-empty-msg');
+        if (msgEl) msgEl.textContent = errMsg;
     }
 
-    // Auto-seed if both languages and pricingPlans are empty
-    if (languages.length === 0 && pricingPlans.length === 0 && !_autoSeeded) {
+    // Auto-seed if languages is empty
+    if (languages.length === 0 && !_autoSeeded) {
         _autoSeeded = true;
         const loadingEl = document.getElementById('lang-loading');
         if (loadingEl) {
-            loadingEl.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 text-center py-8 text-slate-400 text-sm font-semibold">Setting up language data in Firebase…</div>';
+            loadingEl.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-semibold">Setting up language data in Firebase…</div>';
             loadingEl.classList.remove('hidden');
         }
         await _autoSeedLanguages();
@@ -1745,85 +1861,146 @@ async function _autoSeedLanguages() {
     }
 }
 
-function renderLanguageGrid() {
-    const grid  = document.getElementById('lang-grid');
+// Manual seed button — overwrites Firestore with the built-in default data
+window.seedDefaultData = async function() {
+    if (!confirm('This will overwrite all languages, courses, and payment plans in Firestore with the default data. Continue?')) return;
+    const btn = event?.target?.closest('button');
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> Seeding…'; }
+    _autoSeeded = false;
+    try {
+        await _autoSeedLanguages();
+        await loadLanguages();
+        logAudit('seed_default_data', 'languages', 'default', 'Seed', '6 languages + courses');
+        toast('Default data seeded to Firestore ✓');
+    } catch(e) { toast('Seed failed: ' + e.message, 'error'); }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">download</span> Seed Default Data'; }
+};
+
+function renderLanguageGrid() { renderLanguageTable(); }  // alias kept for any old calls
+
+function renderLanguageTable() {
+    const wrap  = document.getElementById('lang-table-wrap');
     const empty = document.getElementById('lang-empty');
     if (!languages.length) {
-        grid.innerHTML = '';
-        grid.classList.add('hidden');
-        empty.classList.remove('hidden');
+        if (wrap)  wrap.classList.add('hidden');
+        if (empty) empty.classList.remove('hidden');
         return;
     }
-    empty.classList.add('hidden');
-    grid.classList.remove('hidden');
-    grid.innerHTML = languages.map(lang => {
+    if (empty) empty.classList.add('hidden');
+    if (wrap)  wrap.classList.remove('hidden');
+
+    const typeIconMap = { group:'groups', individual:'person', selfpaced:'schedule' };
+
+    const body = document.getElementById('lang-table-body');
+    if (!body) return;
+    body.innerHTML = languages.map(lang => {
+        const id          = lang._id;
         const courseCount = (lang.courses || []).length;
         const flag = lang.flag_url
-            ? `<img src="${lang.flag_url}" alt="${esc(lang.title)}" class="h-8 w-auto rounded-sm shadow-sm">`
-            : `<span class="material-symbols-outlined text-[32px] text-slate-400">flag</span>`;
+            ? `<img src="${esc(lang.flag_url)}" alt="${esc(lang.title)}" class="h-6 w-auto rounded-sm shadow-sm inline-block">`
+            : '<span class="material-symbols-outlined text-[22px] text-slate-400">flag</span>';
 
-        // Collect unique learning types across all courses
-        const allTypes = new Set();
-        (lang.courses || []).forEach(c => {
-            (c.learningTypes || []).forEach(lt => allTypes.add(lt));
-        });
-        const typeIconMap = { group:'groups', individual:'person', selfpaced:'schedule' };
-        const typePills = [...allTypes].slice(0,3).map(lt =>
-            `<span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-full px-2 py-0.5 text-[10px] text-slate-500">
-              <span class="material-symbols-outlined text-[12px]">${typeIconMap[lt] || 'star'}</span>${lt}
-            </span>`
-        ).join('');
-
-        // Price range across all courses (module 1 group price as baseline)
-        const prices = (lang.courses || []).map(c => c.g_m1).filter(Boolean);
+        const prices   = (lang.courses || []).map(c => c.g_m1).filter(Boolean);
         const minPrice = prices.length ? Math.min(...prices) : null;
         const maxPrice = prices.length ? Math.max(...prices) : null;
         const priceRange = minPrice
-            ? (minPrice === maxPrice ? `€${minPrice}` : `€${minPrice}–€${maxPrice}`)
-            : '';
+            ? (minPrice === maxPrice ? `€${minPrice}` : `€${minPrice} – €${maxPrice}`)
+            : '—';
 
-        // Levels
-        const levels = [...new Set((lang.courses||[]).map(c=>c.level).filter(Boolean))].join(', ');
+        const levels = [...new Set((lang.courses||[]).map(c=>c.level).filter(Boolean))].join(', ') || '—';
+
+        const allTypes = new Set();
+        (lang.courses||[]).forEach(c => (c.learningTypes||[]).forEach(lt => allTypes.add(lt)));
+        const typeIcons = [...allTypes].map(lt =>
+            `<span class="inline-flex items-center gap-0.5 text-[11px] text-slate-500">
+               <span class="material-symbols-outlined text-[14px] text-slate-400">${typeIconMap[lt]||'star'}</span>${lt}
+             </span>`
+        ).join('<span class="text-slate-200 mx-1">|</span>');
+
+        // Expanded course sub-rows
+        const courseRows = (lang.courses||[]).map(c => `
+          <tr class="border-b border-slate-100 last:border-0">
+            <td class="pl-16 pr-4 py-2.5">
+              <p class="font-semibold text-slate-700 text-sm">${esc(c.name)}</p>
+              <p class="text-[10px] text-slate-400">${esc(c.id||'')}</p>
+            </td>
+            <td class="px-4 py-2.5 text-xs text-slate-500">${esc(c.level||'—')}</td>
+            <td class="px-4 py-2.5 text-xs text-slate-600">
+              ${c.g_m1  ? `<span class="bg-blue-50 text-blue-700 font-semibold px-1.5 py-0.5 rounded mr-1">G €${c.g_m1}</span>`   : ''}
+              ${c.i_m1  ? `<span class="bg-violet-50 text-violet-700 font-semibold px-1.5 py-0.5 rounded mr-1">I €${c.i_m1}</span>` : ''}
+              ${c.sp_m1 ? `<span class="bg-amber-50 text-amber-700 font-semibold px-1.5 py-0.5 rounded">SP €${c.sp_m1}</span>`     : ''}
+            </td>
+            <td class="px-4 py-2.5 text-[10px] text-slate-400 hidden md:table-cell">${esc((c.learningTypes||[]).join(', ')||'—')}</td>
+            <td class="px-4 py-2.5 text-[10px] text-slate-400 hidden lg:table-cell">${esc(c.dur||'60 min')}</td>
+            <td></td>
+          </tr>`).join('');
 
         return `
-        <div class="bg-white rounded-2xl border border-slate-200 hover:shadow-md hover:border-[#a93444]/20 transition-all overflow-hidden fade-up group">
-          <div class="flex items-center gap-3 p-5 border-b border-slate-100">
-            ${flag}
-            <div class="flex-1 min-w-0">
-              <p class="font-['Plus_Jakarta_Sans'] font-extrabold text-slate-800 text-base truncate">${esc(lang.title)}</p>
-              <p class="text-xs text-slate-400 truncate mt-0.5">${esc(lang.desc || '—')}</p>
-            </div>
-          </div>
-          <div class="px-5 py-3 grid grid-cols-3 gap-2 border-b border-slate-50 text-center">
-            <div>
-              <p class="text-lg font-extrabold text-slate-800">${courseCount}</p>
-              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">Courses</p>
-            </div>
-            <div>
-              <p class="text-sm font-extrabold text-[#a93444] truncate">${priceRange || '—'}</p>
-              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">From / mo</p>
-            </div>
-            <div>
-              <p class="text-[11px] font-bold text-slate-600 truncate">${levels || '—'}</p>
-              <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">Levels</p>
-            </div>
-          </div>
-          <div class="px-5 py-3 flex items-center justify-between gap-2 flex-wrap">
-            <div class="flex items-center gap-1 flex-wrap">
-              ${typePills || '<span class="text-[11px] text-slate-400">No learning types</span>'}
-            </div>
-            <div class="flex gap-2">
-              <button onclick="openLangModal('${lang._id}')" class="h-8 px-3 rounded-full border border-[#a93444]/30 text-xs font-bold text-[#a93444] hover:bg-[#a93444]/15 transition-all flex items-center gap-1">
-                <span class="material-symbols-outlined text-[14px]">edit</span>Edit
+        <tr class="border-b border-slate-100 hover:bg-slate-50/40 transition-colors">
+          <td class="px-4 py-3.5">
+            <div class="flex items-center gap-2.5">
+              <button onclick="toggleLangExpand('${esc(id)}')" title="Expand courses"
+                class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all text-slate-400 shrink-0">
+                <span class="material-symbols-outlined text-[17px]" id="lei-${esc(id)}">chevron_right</span>
               </button>
-              <button onclick="deleteLang('${lang._id}','${esc(lang.title)}')" class="h-8 w-8 rounded-full border border-slate-200 text-slate-600 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400 transition-all flex items-center justify-center">
-                <span class="material-symbols-outlined text-[16px]">delete</span>
+              ${flag}
+              <div class="min-w-0">
+                <p class="font-bold text-slate-800 leading-tight">${esc(lang.title)}</p>
+                <p class="text-[11px] text-slate-400 truncate max-w-[200px]">${esc(lang.desc||'')}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3.5 text-center">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#a93444]/10 text-[#a93444] text-xs font-extrabold">${courseCount}</span>
+          </td>
+          <td class="px-4 py-3.5">
+            <span class="text-sm font-bold text-[#a93444]">${priceRange}</span>
+            ${minPrice ? '<p class="text-[10px] text-slate-400">Group / mo</p>' : ''}
+          </td>
+          <td class="px-4 py-3.5 text-xs text-slate-500 hidden md:table-cell leading-relaxed">${esc(levels)}</td>
+          <td class="px-4 py-3.5 hidden lg:table-cell">
+            <div class="flex flex-wrap items-center gap-1">${typeIcons||'—'}</div>
+          </td>
+          <td class="px-4 py-3.5">
+            <div class="flex items-center justify-end gap-2">
+              <button onclick="openLangModal('${esc(id)}')"
+                class="h-7 px-2.5 rounded-full border border-[#a93444]/30 text-[11px] font-bold text-[#a93444] hover:bg-[#a93444]/10 transition-all flex items-center gap-1">
+                <span class="material-symbols-outlined text-[13px]">edit</span>Edit
+              </button>
+              <button onclick="deleteLang('${esc(id)}','${esc(lang.title)}')"
+                class="h-7 w-7 rounded-full border border-slate-200 text-slate-400 hover:bg-red-50 hover:border-red-200 hover:text-red-400 transition-all flex items-center justify-center">
+                <span class="material-symbols-outlined text-[14px]">delete</span>
               </button>
             </div>
-          </div>
-        </div>`;
+          </td>
+        </tr>
+        <tr id="led-${esc(id)}" class="hidden">
+          <td colspan="6" class="bg-slate-50/60 pb-1 pt-0">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-slate-100">
+                  <th class="pl-16 pr-4 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400">Course</th>
+                  <th class="px-4 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400">Level</th>
+                  <th class="px-4 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400">Prices / mo</th>
+                  <th class="px-4 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 hidden md:table-cell">Types</th>
+                  <th class="px-4 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 hidden lg:table-cell">Duration</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>${courseRows}</tbody>
+            </table>
+          </td>
+        </tr>`;
     }).join('');
 }
+
+window.toggleLangExpand = function(id) {
+    const detail = document.getElementById(`led-${id}`);
+    const icon   = document.getElementById(`lei-${id}`);
+    if (!detail) return;
+    const open = detail.classList.toggle('hidden') === false;
+    if (icon) icon.textContent = open ? 'expand_more' : 'chevron_right';
+};
 
 function renderPricingPlansBar() {
     const bar   = document.getElementById('pricing-plans-bar');
@@ -1878,7 +2055,7 @@ window.openPricingPlansModal = function() {
                 ? pricingPlans.map(p => planRow(p)).join('')
                 : `<div class="text-center py-8 text-slate-400 text-sm">
                      <span class="material-symbols-outlined text-[40px] block mb-2">payments</span>
-                     No payment plans in Firebase yet. Run "Seed from prices.json" to import.
+                     No payment plans configured yet.
                    </div>`
             }
           </div>
@@ -3062,6 +3239,8 @@ window.setModalCurrency = function(cur, idx) {
 async function logAudit(action, targetCollection, targetId, targetName, details) {
     try {
         const user = auth.currentUser;
+        // Use cached nick (set at login) — no extra Firestore read per action
+        const userNick = _cachedAdminNick || (user?.email || '').split('@')[0] || 'unknown';
         await addDoc(collection(db, 'auditLogs'), {
             action,
             targetCollection,
@@ -3070,6 +3249,7 @@ async function logAudit(action, targetCollection, targetId, targetName, details)
             details:    String(details || ''),
             userId:     user?.uid || 'unknown',
             userEmail:  user?.email || 'unknown',
+            userNick,
             timestamp:  new Date().toISOString()
         });
     } catch { /* audit log failure should never break the main operation */ }
@@ -3135,8 +3315,11 @@ function renderUsersTable(list) {
     if (!body) return;
     if (!list.length) { body.innerHTML = `<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">No users found.</td></tr>`; return; }
     body.innerHTML = list.map(u => {
-        const fullName = u.displayName || u.name || '—';
-        const nickBadge = (u.username || u.nickname) ? `<span class="text-[10px] text-slate-400 font-mono">@${esc(u.username || u.nickname)}</span>` : '';
+        const firstName = u.firstName || '';
+        const lastName  = u.lastName  || '';
+        const fullName  = u.displayName || (firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName || u.name || '—');
+        const nick = u.nickname || u.username || '';
+        const nickBadge = nick ? `<span class="text-[10px] text-slate-400 font-mono">@${esc(nick)}</span>` : '';
         const roleColors = { admin:'bg-[#a93444]/10 text-[#a93444]', tutor:'bg-blue-100 text-blue-700', student:'bg-emerald-100 text-emerald-700' };
         return `
       <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
@@ -3184,8 +3367,14 @@ window.openUserModal = function(uid) {
     _editingUserId = uid;
     const u = _users.find(x => x._id === uid);
     if (!u) return;
-    document.getElementById('user-modal-title').textContent = `Edit User — ${u.displayName || u.email || uid}`;
-    document.getElementById('um-displayName').value  = u.displayName || u.name || '';
+    const fullName = u.displayName || u.name || '';
+    const nameParts = fullName.trim().split(/\s+/);
+    const firstN = u.firstName || nameParts[0] || '';
+    const lastN  = u.lastName  || (nameParts.length > 1 ? nameParts.slice(1).join(' ') : '');
+    document.getElementById('user-modal-title').textContent = `Edit User — ${fullName || u.email || uid}`;
+    document.getElementById('um-firstname').value    = firstN;
+    document.getElementById('um-lastname').value     = lastN;
+    document.getElementById('um-nickname').value     = u.nickname || u.username || u.nick || '';
     document.getElementById('um-email').value        = u.email || '';
     document.getElementById('um-role').value         = u.role || 'student';
     document.getElementById('um-phone').value        = u.phone || '';
@@ -3194,7 +3383,7 @@ window.openUserModal = function(uid) {
     document.getElementById('um-active').checked     = !u.disabled;
     document.getElementById('um-notes').value        = u.notes || '';
     // Custom fields: any key not in standard set
-    const STANDARD = new Set(['displayName','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
+    const STANDARD = new Set(['displayName','firstName','lastName','nickname','username','nick','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
     const wrap = document.getElementById('um-custom-fields');
     wrap.innerHTML = '';
     Object.entries(u).forEach(([k, v]) => {
@@ -3229,8 +3418,16 @@ window.submitUserModal = async function() {
         const inputs = row.querySelectorAll('input');
         if (inputs.length >= 2) { const k = inputs[0].value.trim(); const v = inputs[1].value.trim(); if (k) customFields[k] = v; }
     });
+    const firstName = document.getElementById('um-firstname').value.trim();
+    const lastName  = document.getElementById('um-lastname').value.trim();
+    const nickname  = document.getElementById('um-nickname').value.trim();
+    const displayName = lastName ? `${firstName} ${lastName}` : firstName;
     const data = {
-        displayName: document.getElementById('um-displayName').value.trim(),
+        displayName,
+        firstName,
+        lastName,
+        nickname,
+        username: nickname,   // keep both fields consistent
         email:       document.getElementById('um-email').value.trim(),
         role:        document.getElementById('um-role').value,
         phone:       document.getElementById('um-phone').value.trim(),
@@ -3240,18 +3437,20 @@ window.submitUserModal = async function() {
         notes:       document.getElementById('um-notes').value.trim(),
         ...customFields
     };
-    const parts = data.displayName.split(' ');
-    if (parts.length >= 2) {
-        data.firstName = parts[0];
-        data.lastName  = parts.slice(1).join(' ');
-    }
     try {
         await updateDoc(doc(db, 'users', _editingUserId), data);
         const u = _users.find(x => x._id === _editingUserId);
         if (u) Object.assign(u, data);
+        // If editing the currently logged-in admin, refresh top-bar + cached nick
+        if (auth.currentUser && auth.currentUser.uid === _editingUserId) {
+            _cachedAdminNick = nickname || displayName;
+            const adminLabel = nickname ? `${displayName} | ${nickname}` : displayName;
+            const adminEl = document.getElementById('admin-name');
+            if (adminEl) adminEl.textContent = adminLabel;
+        }
         filterUsersTable();
         closeUserModal();
-        logAudit('update_user', 'users', _editingUserId, data.displayName || _editingUserId, '');
+        logAudit('update_user', 'users', _editingUserId, displayName || _editingUserId, '');
         toast('User updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
 };
@@ -3274,6 +3473,54 @@ window.filterUsersTable = function() {
         const statusOk = !status || (status==='inactive' ? u.disabled : !u.disabled);
         return text.includes(q) && roleOk && statusOk;
     }));
+};
+
+window.openAddStudentModal = function() {
+    ['as-first-name','as-last-name','as-email','as-phone','as-username','as-notes'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    document.getElementById('as-error')?.classList.add('hidden');
+    document.getElementById('add-student-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.submitAddStudent = async function() {
+    const firstName = document.getElementById('as-first-name')?.value.trim();
+    const lastName  = document.getElementById('as-last-name')?.value.trim();
+    const email     = document.getElementById('as-email')?.value.trim();
+    const phone     = document.getElementById('as-phone')?.value.trim();
+    const username  = document.getElementById('as-username')?.value.trim();
+    const notes     = document.getElementById('as-notes')?.value.trim();
+    const errEl     = document.getElementById('as-error');
+
+    if (!firstName || !lastName) { errEl.textContent = 'First and last name are required.'; errEl.classList.remove('hidden'); return; }
+    if (!email)                   { errEl.textContent = 'Email is required.'; errEl.classList.remove('hidden'); return; }
+    errEl.classList.add('hidden');
+
+    const displayName = `${firstName} ${lastName}`;
+    const userData = {
+        displayName,
+        firstName,
+        lastName,
+        email,
+        phone:     phone || '',
+        username:  username || '',
+        notes:     notes || '',
+        role:      'student',
+        status:    'active',
+        tag:       'new',
+        createdAt: new Date().toISOString(),
+        source:    'admin_manual'
+    };
+    try {
+        await addDoc(collection(db, 'users'), userData);
+        logAudit('create_student', 'users', email, displayName, 'manual');
+        document.getElementById('add-student-modal').classList.add('hidden');
+        document.body.style.overflow = '';
+        toast('Student added ✓');
+        loadStudents();
+    } catch(e) { errEl.textContent = 'Failed: ' + e.message; errEl.classList.remove('hidden'); }
 };
 
 // ── Students ──────────────────────────────────────────────────────────────────
@@ -3363,7 +3610,7 @@ window.openStudentModal = function(uid) {
         </div>`
     ).join('');
     // Custom fields
-    const STANDARD = new Set(['displayName','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
+    const STANDARD = new Set(['displayName','firstName','lastName','nickname','username','nick','name','email','role','phone','moodle_user','moodle_pass','disabled','notes','createdAt','updatedAt','uid','tag','status','source','requestId','enrolledCourses','enrollment','enrollment_status','photoUrl']);
     const cfWrap = document.getElementById('sm-custom-fields');
     cfWrap.innerHTML = '';
     Object.entries(s).forEach(([k, v]) => {
@@ -3545,10 +3792,15 @@ window.openRequestDetail = function(id) {
     const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
     const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleString() : '—';
 
-    const row = (label, value) => value ? `<div class="flex gap-3 py-2 border-b border-slate-50">
-      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider w-32 shrink-0">${esc(label)}</span>
-      <span class="text-sm text-slate-700">${esc(String(value))}</span>
-    </div>` : '';
+    // Always-visible row — never filtered out
+    const F = (label, val) => `<div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60 transition-colors">
+      <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-44 shrink-0 pt-0.5">${esc(label)}</span>
+      <span class="text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">${esc(String(val || '—'))}</span>
+    </div>`;
+    const SEC = t => `<div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${t}</p></div>`;
+
+    const lessonTypesVal = Array.isArray(r.lessonTypes) ? r.lessonTypes.join(', ') : (r.lessonTypes || '');
+    const modulesVal     = r.modules ? `Module ${r.modules === 1 ? '1 — 3 months' : '1+2 — 6 months'}` : '';
 
     // Collect tutor options
     const tutorOpts = tutors.filter(t => {
@@ -3565,24 +3817,39 @@ window.openRequestDetail = function(id) {
         </div>
         <span class="px-3 py-1 rounded-full text-xs font-bold ${statusColor[st]||'bg-slate-100 text-slate-500'}">${esc(st)}</span>
       </div>
-      <div class="mb-5">
-        ${row('Name', r.name)}
-        ${row('Email', r.email)}
-        ${row('Phone', r.phone || r.contact)}
-        ${row('Language', r.languageLabel || r.language)}
-        ${row('Course', r.courseName)}
-        ${row('Level', r.level)}
-        ${row('Format', r.learningType || r.format)}
-        ${row('Modules', r.modules ? `Module ${r.modules === 1 ? '1 (3 months)' : '1+2 (6 months)'}` : null)}
-        ${row('Payment Plan', r.paymentPlan || r.plan)}
-        ${row('Currency', r.currency)}
-        ${row('Base Price', r.basePrice ? `€${r.basePrice}` : null)}
-        ${row('Final Price', r.finalPrice ? `€${r.finalPrice}` : null)}
-        ${row('Promo Code', r.promoCode)}
-        ${row('Discount', r.discountPct ? `${r.discountPct}%` : null)}
-        ${row('Message', r.message)}
-        ${row('Source', r.source)}
-        ${row('Assigned Tutor', r.assignedTutor)}
+
+      <div class="divide-y divide-slate-100 mb-5 rounded-xl border border-slate-100 overflow-hidden text-sm">
+
+        ${SEC('Contact')}
+        ${F('Full Name',                 r.name)}
+        ${F('Email Address',             r.email)}
+        ${F('Phone / WhatsApp / Viber',  r.phone || r.contact)}
+
+        ${SEC('Student Background')}
+        ${F('Native Language',           r.nativeLanguage)}
+        ${F('Current Level',             r.currentLevel || r.level)}
+        ${F('Lesson Type(s)',            lessonTypesVal)}
+        ${F('Preferred Schedule',        r.schedule)}
+        ${F('How They Found Us',         r.referral)}
+
+        ${SEC('Course Selection')}
+        ${F('Language',                  r.languageLabel || r.language)}
+        ${F('Course',                    r.courseName)}
+        ${F('Level',                     r.level)}
+        ${F('Format',                    r.learningType || r.format)}
+        ${F('Modules',                   modulesVal)}
+        ${F('Payment Plan',              r.paymentPlan || r.plan)}
+        ${F('Currency',                  r.currency)}
+        ${F('Base Price',                r.basePrice ? `€${r.basePrice}` : '')}
+        ${F('Promo Code',                r.promoCode)}
+        ${F('Discount',                  r.discountPct ? `${r.discountPct}%` : '')}
+        ${F('Final Price',               r.finalPrice ? `€${r.finalPrice}` : '')}
+
+        ${SEC('Additional')}
+        ${F('Message / Notes',  r.message || r.notes)}
+        ${F('Source',           r.source)}
+        ${F('Assigned Tutor',   r.assignedTutor)}
+
       </div>
       <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
         <div class="flex-1 min-w-[160px]">
@@ -3719,17 +3986,12 @@ window.openJobDetail = function(id) {
     const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
     const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleString() : '—';
 
-    const row = (label, value) => value ? `<div class="flex gap-3 py-2 border-b border-slate-50">
-      <span class="text-xs font-bold text-slate-400 uppercase tracking-wider w-32 shrink-0">${esc(label)}</span>
-      <span class="text-sm text-slate-700">${esc(String(value))}</span>
-    </div>` : '';
-
-    const formats = Array.isArray(j.preferredFormats) ? j.preferredFormats.join(', ') : (j.preferredFormats || '');
     const photoPreview = (j.photoUrl) ? `<img src="${esc(j.photoUrl)}" alt="Photo" class="w-16 h-16 rounded-full object-cover border-2 border-slate-100 shrink-0" onerror="this.style.display='none'">` : '';
     const tutorDocBadge = j.tutorDocId ? `<div class="mt-2 inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="material-symbols-outlined text-[14px]">check_circle</span>Tutor created: ${esc(j.tutorDocId)}</div>` : '';
 
     document.getElementById('job-detail-content').innerHTML = `
-      <div class="flex items-start justify-between mb-5 gap-4">
+      <!-- Header -->
+      <div class="flex items-start justify-between mb-6 gap-4">
         <div class="flex items-center gap-4">
           ${photoPreview}
           <div>
@@ -3742,45 +4004,65 @@ window.openJobDetail = function(id) {
         <span class="px-3 py-1 rounded-full text-xs font-bold shrink-0 ${statusColor[st]||'bg-slate-100 text-slate-500'}">${esc(st)}</span>
       </div>
 
-      <div class="space-y-1 mb-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Contact</p>
-        ${row('Full Name', j.name || j.tutorName)}
-        ${row('Email', j.email)}
-        ${row('Phone', j.phone)}
+      <!-- All form fields — always shown, empty = dash -->
+      <div class="divide-y divide-slate-100 mb-6 rounded-xl border border-slate-100 overflow-hidden text-sm">
+
+        <!-- CONTACT section header -->
+        <div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Contact</p></div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Full Name</span>
+          <span class="text-slate-800">${esc(j.name || j.tutorName || '—')}</span>
+        </div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Email Address</span>
+          <span class="text-slate-800">${esc(j.email || '—')}</span>
+        </div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Contact via (Phone)</span>
+          <span class="text-slate-800">${esc(j.phone || '—')}</span>
+        </div>
+
+        <!-- TEACHING section header -->
+        <div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Teaching</p></div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Language(s) taught</span>
+          <span class="text-slate-800">${esc(j.lang_teached || j.languages || '—')}</span>
+        </div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Preferred working hours</span>
+          <span class="text-slate-800">${esc(j.availability || '—')}</span>
+        </div>
+
+        <!-- CREDENTIALS section header -->
+        <div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Credentials</p></div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Education and qualifications</span>
+          <span class="text-slate-800 whitespace-pre-wrap">${esc(j.education || j.school_1 || '—')}</span>
+        </div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Certificates (e.g. CELTA)</span>
+          <span class="text-slate-800">${esc(j.certificates || j.school_2 || '—')}</span>
+        </div>
+        <div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-48 shrink-0 pt-0.5">Teaching experience</span>
+          <span class="text-slate-800 whitespace-pre-wrap">${esc(j.experience || j.specialisation_1 || '—')}</span>
+        </div>
+
+        <!-- BIO section -->
+        <div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Short intro about yourself</p></div>
+        <div class="px-4 py-3">
+          <p class="text-slate-800 whitespace-pre-wrap leading-relaxed ${(j.bio_quote || j.bio) ? 'border-l-4 border-[#a93444]/30 pl-3' : 'italic text-slate-400'}">${esc(j.bio_quote || j.bio || '—')}</p>
+        </div>
+
+        <!-- CV -->
+        <div class="px-4 py-2 bg-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">CV (PDF)</p></div>
+        <div class="flex gap-3 px-4 py-2.5 items-center">
+          ${j.cvUrl
+            ? `<a href="${esc(j.cvUrl)}" target="_blank" class="inline-flex items-center gap-1.5 text-[#a93444] font-semibold hover:underline"><span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>View CV</a>`
+            : `<span class="text-slate-400 italic text-xs">Not uploaded</span>`}
+        </div>
+
       </div>
-
-      <div class="space-y-1 mb-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Teaching</p>
-        ${row('Teaches', j.lang_teached || j.languages)}
-        ${row('Speaks', j.lang_spoken)}
-        ${row('Role / Title', j.role)}
-        ${row('Formats', formats)}
-        ${row('Availability', j.availability)}
-      </div>
-
-      <div class="space-y-1 mb-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Credentials</p>
-        ${row('PhD', j.phd)}
-        ${row('Education 1', j.school_1 || j.education)}
-        ${row('Education 2', j.school_2)}
-        ${row('Specialisation 1', j.specialisation_1 || j.experience)}
-        ${row('Specialisation 2', j.specialisation_2)}
-      </div>
-
-      ${(j.bio_quote || j.bio || j.message) ? `
-      <div class="mb-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-2">Bio / Message</p>
-        ${j.bio_quote ? `<blockquote class="border-l-4 border-[#a93444] pl-4 italic text-slate-700 text-sm mb-3">${esc(j.bio_quote)}</blockquote>` : ''}
-        ${j.message ? `<p class="text-sm text-slate-600 bg-slate-50 rounded-xl p-3">${esc(j.message)}</p>` : ''}
-      </div>` : ''}
-
-      ${(j.linkedin || j.website || j.notes) ? `
-      <div class="space-y-1 mb-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 pb-1">Other</p>
-        ${row('LinkedIn', j.linkedin)}
-        ${row('Website', j.website)}
-        ${row('Notes', j.notes)}
-      </div>` : ''}
 
       <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
         <div class="flex-1 min-w-[180px]">
@@ -3820,14 +4102,14 @@ window.acceptAndCreateTutor = async function(jobId) {
         name:             j.name || '',
         role:             j.role || 'Language Tutor',
         lang_teached:     j.lang_teached || j.languages || '',
-        lang_spoken:      j.lang_spoken || '',
-        bio_quote:        j.bio_quote || '',
-        phd:              j.phd || '',
-        school_1:         j.school_1 || '',
-        school_2:         j.school_2 || '',
-        specialisation_1: j.specialisation_1 || '',
-        specialisation_2: j.specialisation_2 || '',
+        bio_quote:        j.bio_quote || j.bio || '',
+        // Map new application fields → tutor credential fields
+        school_1:         j.education || j.school_1 || '',
+        school_2:         j.certificates || j.school_2 || '',
+        specialisation_1: j.experience || j.specialisation_1 || '',
+        specialisation_2: '',
         photoUrl:         j.photoUrl || '',
+        cvUrl:            j.cvUrl || '',
         active:           false,   // admin must manually activate
         order:            nextTutorOrder,
         tag:              'new',
@@ -3854,6 +4136,14 @@ window.acceptAndCreateTutor = async function(jobId) {
         closeModal('job-detail-modal');
         renderJobsTable(_jobs);
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
+};
+
+// ── Admin Profile ─────────────────────────────────────────────────────────────
+// Admin name/nickname is now managed via Users section (edit your own user record).
+// The saveAdminProfile helper is kept for legacy compatibility but directs the user.
+window.saveAdminProfile = function() {
+    showSection('users');
+    toast('Edit your user record in the Users section to update your name.');
 };
 
 // ── Settings modals ───────────────────────────────────────────────────────────
@@ -3958,7 +4248,7 @@ function renderAuditTable(list) {
         const actionLabel = (entry.action || '').replace(/_/g, ' ');
         return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
           <td class="px-5 py-3 text-xs text-slate-400 whitespace-nowrap">${esc(timeStr)}</td>
-          <td class="px-5 py-3 text-xs text-slate-600 max-w-[160px] truncate">${esc(entry.userEmail || entry.userId || '—')}</td>
+          <td class="px-5 py-3 text-xs text-slate-600 max-w-[160px] truncate" title="${esc(entry.userEmail || '')}">${esc(entry.userNick || entry.userEmail || entry.userId || '—')}</td>
           <td class="px-5 py-3">
             <span class="inline-flex px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${color}">${esc(actionLabel)}</span>
           </td>
