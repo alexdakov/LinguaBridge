@@ -11,7 +11,7 @@
         const password = document.querySelector('input[type="password"]').value;
 
         // Convert nickname to the shadow email used in Firebase Auth
-        const shadowEmail = `${nickname.toLowerCase()}@linguabridge.com`;
+        const shadowEmail = `${nickname.toLowerCase()}@linguabridge.study`;
 
         try {
             // 1. Authenticate with Firebase
