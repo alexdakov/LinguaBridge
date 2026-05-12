@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#dde4e6",
+                        "secondary-container": "#fec29f",
+                        "on-tertiary-container": "#3c3731",
+                        "on-surface-variant": "#574142",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#a93444",
+                        "outline-variant": "#debfc0",
+                        "on-secondary-container": "#794e32",
+                        "surface-bright": "#f4fafd",
+                        "on-primary-fixed-variant": "#881b2e",
+                        "tertiary-fixed-dim": "#cec5bd",
+                        "tertiary-fixed": "#eae1d8",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffdbc8",
+                        "inverse-primary": "#ffb2b6",
+                        "surface-dim": "#d4dbdd",
+                        "on-tertiary-fixed": "#1f1b16",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#ebf2f4",
+                        "primary-fixed-dim": "#ffb2b6",
+                        "on-surface": "#161d1f",
+                        "secondary": "#815438",
+                        "primary": "#a93444",
+                        "surface-container-highest": "#dde4e6",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#311300",
+                        "background": "#f4fafd",
+                        "primary-container": "#ff7582",
+                        "tertiary": "#645d57",
+                        "tertiary-container": "#a8a098",
+                        "on-background": "#161d1f",
+                        "on-primary-fixed": "#40000d",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#730720",
+                        "surface": "#f4fafd",
+                        "surface-container-high": "#e2e9ec",
+                        "primary-fixed": "#ffdada",
+                        "surface-container": "#e8eff1",
+                        "secondary-fixed-dim": "#f5ba97",
+                        "on-tertiary-fixed-variant": "#4b4640",
+                        "outline": "#8a7172",
+                        "surface-container-low": "#eef5f7",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2b3234",
+                        "on-secondary-fixed-variant": "#653d23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "margin": "32px",
+                        "section-padding": "80px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .coral-shadow {
+            box-shadow: 0 10px 30px -10px rgba(169, 52, 68, 0.12);
+        }
+        .table-stripe tr:nth-child(even) {
+            background-color: #fcf4f4;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 dark:border-slate-800/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_SANS'] antialiased">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+
+<!-- Logo points to home -->
+<a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+    <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+    <span>LinguaBridge</span>
+</a>
+        
+        <!-- Desktop Nav: Standardized Headings & Alignment -->
+        <div class="hidden md:flex items-center gap-stack-lg">
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="index.html">Home</a>
+            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="languages.html">Languages</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html">About</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html">Contact</a>
+             <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="Moodle/e-portal.html">
+                <span class="material-symbols-outlined text-[18px]">school</span>
+                <span data-i18n="nav.portal">e-Portal</span>
+            </a>
+        </div>
+
+        <div class="flex items-center gap-6">
+
+            <!-- Language Switcher -->
+<div class="flex items-center gap-6">
+    <div class="flex items-center bg-rose-50/50 py-1.5 rounded-full text-xs font-semibold text-[#FF7582] gap-2 border border-rose-100/50 p-1">
+        <span class="cursor-pointer bg-primary-container text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all">
+            <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-4 h-auto"> EN
+        </span>
+        
+        <span class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+            <img src="https://flagcdn.com/w40/bg.png" alt="Bulgarian" class="w-4 h-auto"> BG
+        </span>
+        
+        <span class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+            <img src="https://flagcdn.com/w40/ru.png" alt="Russian" class="w-4 h-auto"> RU
+        </span>
+    </div>
+            <!-- Standardized Enrol Now Button -->
+            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all">
+    Enrol Now
+</button>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-20 font-sans">
+    <section class="py-16 bg-[#F8FAFC]">
+        <div class="max-w-[1200px] mx-auto px-6 text-center mb-16">
+            <span class="text-[#B03A48] text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Our Curriculum</span>
+            <h2 class="text-4xl md:text-5xl font-h1 font-bold text-on-surface mb-8">Course Catalog</h2>
+            
+            <!-- FLAG FILTER BAR -->
+            <div id="language-nav" class="flex flex-wrap justify-center items-center gap-4 mb-10 text-slate-300">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="w-24 h-1 bg-rose-100 mx-auto rounded-full mb-12"></div>
+
+<!-- FILTERS -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-10 bg-white p-6 rounded-2xl shadow-sm border border-slate-100 max-w-3xl mx-auto mb-16">
+    <!-- Toggle Section -->
+    <div class="flex items-center gap-4">
+        <span id="label-group" class="text-sm font-bold text-primary">Group</span>
+        <button onclick="toggleType()" id="type-toggle" class="w-12 h-6 rounded-full relative p-1 transition-all duration-300" style="background-color: #64748b;">
+            <div id="toggle-knob" class="w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 transform translate-x-0"></div>
+        </button>
+        <span id="label-individual" class="text-sm font-bold text-slate-400">Individual</span>
+    </div>
+
+    <!-- Vertical Divider -->
+    <div class="hidden md:block w-px h-6 bg-slate-200"></div>
+
+    <!-- Currency Section (Cleaned up) -->
+    <div class="flex items-center gap-2" id="currency-bar">
+        <button onclick="setCurrency('usd')" class="curr-btn w-10 h-10 rounded-xl text-xl font-bold transition-all bg-white shadow-sm border border-rose-100 text-primary" data-curr="usd">$</button>
+        <button onclick="setCurrency('eur')" class="curr-btn w-10 h-10 rounded-xl text-xl font-bold transition-all text-slate-400 hover:text-primary" data-curr="eur">€</button>
+        <button onclick="setCurrency('rub')" class="curr-btn w-10 h-10 rounded-xl text-xl font-bold transition-all text-slate-400 hover:text-primary" data-curr="rub">₽</button>
+        <button onclick="setCurrency('cny')" class="curr-btn w-10 h-10 rounded-xl text-xl font-bold transition-all text-slate-400 hover:text-primary" data-curr="cny">¥</button>
+    </div>
+</div>
+            </div>
+
+            <!-- THE MISSING PART: This is where the table is injected -->
+            <div id="catalog-container" class="max-w-5xl mx-auto text-left space-y-16">
+
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        
+<!-- Brand Section -->
+<div class="flex flex-col items-center md:items-start">
+    <div class="flex items-center gap-3 mb-2">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+        <div class="flex items-baseline gap-2">
+            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
+            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+        </div>
+    </div>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+</div>
+
+        <!-- Legal Links & Privacy Action -->
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            
+            <!-- Privacy Action Link -->
+            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                Delete Data
+            </a>
+        </div>
+
+        <!-- Tutor Action -->
+        <div class="flex items-center">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+                Become Tutor
+            </a>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* Fixed: Removed invalid "..." and consolidated styles */
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .coral-shadow {
+        box-shadow: 0 10px 30px -10px rgba(169, 52, 68, 0.12);
+    }
+
+    .table-stripe tr:nth-child(even) {
+        background-color: #fcf4f4;
+    }
+
+    @keyframes fadeIn {
+        from { 
+            opacity: 0; 
+            transform: translateY(10px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    }
+    
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+</style>
+
+<script src="script.js"></script>
+</body></html>

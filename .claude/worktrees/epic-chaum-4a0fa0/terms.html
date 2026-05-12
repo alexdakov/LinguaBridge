@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Terms of Service - LinguaBridge Language Center</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .policy-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .policy-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 117, 130, 0.3);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#a93444",
+                        "on-surface": "#161d1f",
+                        "primary-container": "#ff7582",
+                        "background": "#f4fafd",
+                        "on-surface-variant": "#574142",
+                        "outline-variant": "#debfc0",
+                        "on-primary-fixed-variant": "#881b2e",
+                        "primary-fixed": "#ffdada",
+                        "secondary-fixed": "#ffdbc8",
+                        "on-secondary-fixed-variant": "#653d23",
+                        "tertiary-fixed": "#eae1d8",
+                        "on-tertiary-fixed": "#1f1b16",
+                        "surface-container-low": "#eef5f7",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "spacing": {
+                        "section-padding": "80px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                    },
+                    "fontFamily": {
+                        "h1": ["Plus Jakarta Sans"],
+                        "h2": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background font-['Be_Vietnam_Pro'] text-on-surface selection:bg-primary-container selection:text-white">
+
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 dark:border-slate-800/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_SANS'] antialiased">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+        <!-- Logo points to home -->
+    <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+    <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+    <span>LinguaBridge</span>
+    </a>
+        
+        <!-- Desktop Nav: Standardized Headings & Alignment -->
+        <div class="hidden md:flex items-center gap-stack-lg">
+            <!-- Active state for Home Page -->
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html">Languages</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html">About</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html">Contact</a>
+         <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="Moodle/e-portal.html">
+                <span class="material-symbols-outlined text-[18px]">school</span>
+                <span data-i18n="nav.portal">e-Portal</span>
+            </a>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <!-- Language Switcher -->
+<div class="flex items-center bg-rose-50/50 py-1.5 rounded-full text-xs font-semibold text-[#FF7582] gap-2 border border-rose-100/50 p-1">
+    <button onclick="changeGlobalLanguage('en')" class="cursor-pointer bg-[#FF7582] text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all">
+        <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-4 h-auto"> EN
+    </button>
+    
+    <button onclick="changeGlobalLanguage('bg')" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+        <img src="https://flagcdn.com/w40/bg.png" alt="Bulgarian" class="w-4 h-auto"> BG
+    </button>
+    
+    <button onclick="changeGlobalLanguage('ru')" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+        <img src="https://flagcdn.com/w40/ru.png" alt="Russian" class="w-4 h-auto"> RU
+    </button>
+</div>
+            <!-- Standardized Enrol Now Button -->
+            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all">Enrol Now</button>
+        </div>
+    </div>
+</header>
+
+<main class="pt-32 pb-section-padding">
+    <div class="max-w-7xl mx-auto px-8">
+        
+        <!-- Hero Header: Full width alignment -->
+        <section class="mb-16">
+            <div class="mb-stack-md flex items-center gap-2">
+                <span class="inline-block w-8 h-1 bg-primary-container rounded-full"></span>
+                <span class="text-sm font-semibold text-primary uppercase tracking-widest">Global Learning Agreement</span>
+            </div>
+            <h1 class="text-5xl font-bold font-['Plus_Jakarta_Sans'] text-on-surface mb-stack-md leading-tight">Terms of Use.</h1>
+            
+            <div class="max-w-7xl space-y-6">
+                <p class="text-xl text-on-surface-variant font-medium leading-relaxed italic border-l-4 border-primary-container pl-6 py-2 bg-white/50 rounded-r-2xl">
+                    "LinguaBridge is a multi-generational learning center. These terms are designed to facilitate academic excellence while ensuring the safety of every student, from young children to adult professionals."
+                </p>
+                <p class="text-lg text-on-surface-variant leading-relaxed">
+                    By enrolling in our programs or using our digital platform, you enter into a binding agreement with LinguaBridge. We have elaborated on our policies regarding scheduling, safety, and academic integrity to provide absolute clarity for all families and individuals.
+                </p>
+            </div>
+
+            <div class="mt-stack-lg flex flex-wrap gap-3">
+                <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 text-sm text-on-surface-variant flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base">history</span>
+                    Last Updated: May 6, 2026
+                </div>
+                <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 text-sm text-on-surface-variant flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base">verified_user</span>
+                    Universal Version: 2.0.1
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+            
+            <!-- Sidebar Navigation -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sticky top-24 space-y-4">
+                    <h4 class="font-bold text-base text-on-surface mb-4 uppercase tracking-widest text-[10px]">Academic Roadmap</h4>
+                    <ul class="space-y-3">
+                        <li><a class="text-sm font-medium text-primary border-l-2 border-primary pl-3 block" href="#enrollment">1. Enrollment & Minors</a></li>
+                        <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#sessions">2. Sessions & Scheduling</a></li>
+                        <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#safeguarding">3. Student Safeguarding</a></li>
+                        <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#integrity">4. Academic Integrity</a></li>
+                        <li><a class="text-sm font-medium text-on-surface-variant hover:text-primary border-l-2 border-transparent hover:border-outline-variant pl-3 transition-all block" href="#financial">5. Financial Policies</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Detailed Terms Content -->
+            <div class="lg:col-span-9 space-y-20">
+                
+                <!-- Section 1: Enrollment & Minors -->
+                <div class="scroll-mt-32" id="enrollment">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant shrink-0">
+                            <span class="material-symbols-outlined">family_restroom</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Enrollment & Minor Provisions</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-6">Our center welcomes learners of all ages. To ensure a legal and safe environment, specific registration requirements apply:</p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="p-6 bg-white rounded-2xl border border-outline-variant/30 policy-card">
+                                    <h4 class="font-bold text-lg mb-3 text-primary">Adult Learners (18+)</h4>
+                                    <p class="text-sm text-on-surface-variant leading-relaxed">Adults may register independently and are solely responsible for their conduct and adherence to the Center's professional standards during all sessions.</p>
+                                </div>
+                                <div class="p-6 bg-white rounded-2xl border border-outline-variant/30 policy-card">
+                                    <h4 class="font-bold text-lg mb-3 text-primary">Young Learners (Under 18)</h4>
+                                    <p class="text-sm text-on-surface-variant leading-relaxed">Enrollment must be completed by a legal guardian. Guardians agree to monitor their child's digital interactions and maintain communication with Center faculty.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Sessions -->
+                <div class="scroll-mt-32" id="sessions">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant shrink-0">
+                            <span class="material-symbols-outlined">event_available</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Sessions & Scheduling</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-6">Efficiency is key to language acquisition. We maintain a strict scheduling policy to respect the time of both students and instructors:</p>
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-outline-variant/20">
+                                    <span class="material-symbols-outlined text-primary-container mt-1">history_toggle_off</span>
+                                    <div>
+                                        <p class="font-bold text-sm text-on-surface mb-1">24-Hour Cancellation Rule</p>
+                                        <p class="text-xs text-on-surface-variant">Sessions must be rescheduled or cancelled at least 24 hours in advance. Failure to do so results in a full session charge to compensate the instructor's time.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4 p-5 bg-white rounded-xl border border-outline-variant/20">
+                                    <span class="material-symbols-outlined text-primary-container mt-1">alarm_on</span>
+                                    <div>
+                                        <p class="font-bold text-sm text-on-surface mb-1">Punctuality Policy</p>
+                                        <p class="text-xs text-on-surface-variant">Instructors will wait for 15 minutes. If a student is absent beyond this window without notice, the session is forfeited and considered complete.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Safeguarding -->
+                <div class="scroll-mt-32" id="safeguarding">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed shrink-0">
+                            <span class="material-symbols-outlined">shield_person</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Student Safeguarding & Conduct</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-6">We provide a sanctuary for learning. Conduct that compromises the psychological or physical safety of our members is strictly prohibited:</p>
+                            <div class="p-6 bg-surface-container-low border border-outline-variant/30 rounded-2xl">
+                                <ul class="text-sm text-on-surface-variant space-y-4">
+                                    <li class="flex gap-4">
+                                        <span class="material-symbols-outlined text-primary text-base">visibility</span>
+                                        <span><strong>Professional Environment:</strong> All sessions must occur in a quiet, appropriate setting. Proper attire is required for all video interactions regardless of age.</span>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="material-symbols-outlined text-primary text-base">forum</span>
+                                        <span><strong>Communication:</strong> Interactions between students and tutors must remain within Center-approved platforms. Private contact for minors is strictly forbidden.</span>
+                                    </li>
+                                    <li class="flex gap-4">
+                                        <span class="material-symbols-outlined text-primary text-base">block</span>
+                                        <span><strong>Zero Tolerance:</strong> Harassment, discriminatory language, or inappropriate content sharing results in immediate, permanent expulsion without refund.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Integrity -->
+                <div class="scroll-mt-32" id="integrity">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-slate-200 flex items-center justify-center text-on-surface shrink-0">
+                            <span class="material-symbols-outlined">menu_book</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Academic Integrity & Materials</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-4">Our curriculum is the result of years of expert pedagogical research. Use of these materials is governed by specific intellectual property rights:</p>
+                            <div class="bg-white border border-outline-variant/20 rounded-2xl overflow-hidden">
+                                <div class="p-5 border-b border-outline-variant/10">
+                                    <p class="text-sm font-bold text-on-surface">Personal Use License</p>
+                                    <p class="text-xs text-on-surface-variant">Materials are provided solely for the enrolled student's personal development. Recording sessions or distributing PDF worksheets is a violation of international copyright.</p>
+                                </div>
+                                <div class="p-5">
+                                    <p class="text-sm font-bold text-on-surface">Homework & Testing</p>
+                                    <p class="text-xs text-on-surface-variant">Students are expected to submit their own work. Reliance on unauthorized AI tools or external translation services during assessments undermines the learning process and may result in a non-completion status.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Financial -->
+                <div class="scroll-mt-32" id="financial">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-900 shrink-0">
+                            <span class="material-symbols-outlined">payments</span>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] mb-4">Financial Terms & Refunds</h2>
+                            <p class="text-on-surface-variant leading-relaxed mb-6">Transparency in billing ensures a healthy partnership between the Center and our students:</p>
+                            <div class="p-6 bg-red-50 border border-red-200 rounded-2xl">
+                                <ul class="text-sm text-red-900 space-y-3">
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary-container">•</span> 
+                                        Prepayment is required for all session blocks and group courses.
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary-container">•</span> 
+                                        Refunds are eligible only if requested within 14 days of purchase and before the start of the first session.
+                                    </li>
+                                    <li class="flex gap-3 font-medium">
+                                        <span class="text-primary-container">•</span> 
+                                        Unused session credits expire 180 days after the date of purchase.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Help CTA -->
+                <div class="p-8 bg-on-surface text-white rounded-3xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-xl">
+                    <div class="max-w-md text-center md:text-left">
+                        <h3 class="text-xl font-bold mb-2">Still Have Questions?</h3>
+                        <p class="text-sm opacity-80 leading-relaxed">Our administrative team is available to discuss specific family needs or corporate arrangements.</p>
+                    </div>
+                    <a href="mailto:hello.linguabridge@gmail.com" class="px-8 py-4 bg-primary-container text-white rounded-full font-bold hover:scale-105 transition-all whitespace-nowrap shadow-lg">
+                        Consult Our Office
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        
+<!-- Brand Section -->
+<div class="flex flex-col items-center md:items-start">
+    <div class="flex items-center gap-3 mb-2">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+        <div class="flex items-baseline gap-2">
+            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
+            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+        </div>
+    </div>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+</div>
+
+        <!-- Legal Links & Privacy Action -->
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            
+            <!-- Privacy Action Link -->
+            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                Delete Data
+            </a>
+        </div>
+
+        <!-- Tutor Action -->
+        <div class="flex items-center">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+                Become Tutor
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

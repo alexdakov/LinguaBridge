@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>e-Portal | LinguaBridge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        .portal-container {
+            height: calc(100vh - 80px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4fafd;
+        }
+        .loader {
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden">
+
+<header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-rose-50/50 shadow-sm font-['Plus_Jakarta_SANS']">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+        <a href="../index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+            <img src="../Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+            <span>LinguaBridge</span>
+        </a>
+        
+        <div class="hidden lg:block">
+            <span class="text-slate-500 text-sm italic font-medium">Learning Management System</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="../index.html" class="group flex items-center gap-2 text-sm font-bold text-slate-600 bg-slate-50 border border-slate-200 px-6 py-2.5 rounded-full hover:bg-slate-100 hover:text-slate-900 transition-all duration-200">
+                <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">home</span> 
+                Back to Home
+            </a>
+
+            <button onclick="window.location.reload()" class="flex items-center gap-2 text-sm font-bold text-white bg-[#FF7582] px-6 py-2.5 rounded-full hover:bg-[#ff5f6e] hover:shadow-md active:scale-95 transition-all duration-200">
+                <span class="material-symbols-outlined text-[18px]">refresh</span> 
+                Refresh Portal
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="pt-20">
+    <div class="portal-container">
+        <div id="portal-loader" class="loader">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF7582] mx-auto mb-4"></div>
+            <p class="text-slate-500 font-semibold animate-pulse">Connecting to your classroom...</p>
+        </div>
+    </div>
+</main>
+
+<script>
+    async function initPortal() {
+        const loader = document.getElementById('portal-loader');
+
+        try {
+            const response = await fetch('moodle-link.txt');
+            if (!response.ok) throw new Error('Could not find link file');
+
+            let url = await response.text();
+            url = url.trim();
+
+            // Redirect directly — Moodle blocks iframe embedding via X-Frame-Options
+            window.location.href = url;
+
+        } catch (error) {
+            loader.innerHTML = `
+                <span class="material-symbols-outlined text-red-400 text-5xl mb-4">error</span>
+                <p class="text-red-500 font-bold">Portal Offline</p>
+                <p class="text-slate-400 text-sm">Please try again in a few minutes.</p>
+            `;
+            console.error('Portal Error:', error);
+        }
+    }
+
+    initPortal();
+</script>
+<script src="../language-manager.js"></script>
+    <script src="../script.js"></script>
+
+</body>
+</html>

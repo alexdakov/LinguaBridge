@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Contact Us | LinguaBridge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#ff7582",
+                        "accent": "#a93444",
+                        "background": "#f8fafc",
+                        "surface": "#ffffff",
+                        "input-bg": "#f1f5f9"
+                    },
+                    "fontFamily": {
+                        "h1": ["Plus Jakarta Sans"],
+                        "body": ["Be Vietnam Pro"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border-radius: 2.5rem;
+            box-shadow: 0 40px 100px -20px rgba(255, 117, 130, 0.12);
+            border: 1px solid rgba(255, 117, 130, 0.08);
+        }
+
+        .custom-input {
+            background-color: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 1.25rem;
+            padding: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+        }
+
+        .custom-input:focus {
+            background-color: #ffffff;
+            border-color: #ff7582;
+            box-shadow: 0 10px 25px -5px rgba(255, 117, 130, 0.15);
+            outline: none;
+        }
+
+        .instruction-step {
+            transition: transform 0.3s ease;
+        }
+        .instruction-step:hover {
+            transform: translateX(8px);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-slate-900 font-body antialiased">
+
+    <!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-rose-50/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_SANS'] antialiased">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+  <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+    <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+    <span>LinguaBridge</span>
+</a>
+        
+        <div class="hidden md:flex items-center gap-8">
+            <a class="text-stone-600 hover:text-[#FF7582] transition-colors" href="index.html">Home</a>
+            <a class="text-stone-600 hover:text-[#FF7582] transition-colors" href="languages.html">Languages</a>
+            <a class="text-stone-600 hover:text-[#FF7582] transition-colors" href="about.html">About</a>
+            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="contact.html">Contact</a>
+             <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="Moodle/e-portal.html">
+                <span class="material-symbols-outlined text-[18px]">school</span>
+                <span data-i18n="nav.portal">e-Portal</span>
+            </a>
+        </div>
+
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-rose-50/50 py-1.5 rounded-full text-xs font-semibold text-[#FF7582] gap-2 border border-rose-100/50 p-1">
+    <button onclick="changeGlobalLanguage('en')" class="cursor-pointer bg-[#FF7582] text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all">
+        <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-4 h-auto"> EN
+    </button>
+    
+    <button onclick="changeGlobalLanguage('bg')" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+        <img src="https://flagcdn.com/w40/bg.png" alt="Bulgarian" class="w-4 h-auto"> BG
+    </button>
+    
+    <button onclick="changeGlobalLanguage('ru')" class="cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+        <img src="https://flagcdn.com/w40/ru.png" alt="Russian" class="w-4 h-auto"> RU
+    </button>
+</div>
+            <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all">
+                Enrol Now
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-44 pb-32 px-10">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Headline moved above the grid -->
+        <header class="mb-20">
+            <span class="text-primary font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Reach Out</span>
+            <h1 class="font-h1 text-6xl font-extrabold leading-[1.1] text-slate-900 mb-6">
+                Connect with our <span class="text-primary">experts.</span>
+            </h1>
+            <p class="text-lg text-slate-500 leading-relaxed max-w-1xl">
+                Choose the most convenient way for you to start your language journey. Our team typically responds within 24 hours.
+            </p>
+        </header>
+
+        <div class="grid lg:grid-cols-12 gap-20 items-start">
+            
+            <!-- Left Section: Instructions -->
+            <div class="lg:col-span-5 space-y-10">
+<div class="instruction-step flex gap-6">
+    <div class="w-14 h-14 shrink-0 bg-white shadow-lg shadow-rose-50 text-primary rounded-2xl flex items-center justify-center">
+        <span class="material-symbols-outlined text-3xl">contact_mail</span>
+    </div>
+    <div>
+        <h3 class="font-bold text-xl text-slate-800 mb-2">Automated Direct Mail</h3>
+        <p class="text-slate-500 text-[15px] leading-relaxed mb-6">
+            Fill out the form and click "Send". This will launch your default email app with all details pre-composed.
+        </p>
+        
+        <!-- Condensed 3-Step Guide -->
+        <div class="space-y-4 border-l-2 border-rose-100 pl-4">
+            <div class="flex gap-3">
+                <span class="font-bold text-primary text-sm">01</span>
+                <p class="text-slate-500 text-sm">Enter your contact details and inquiry subject in the designated fields.</p>
+            </div>
+            <div class="flex gap-3">
+                <span class="font-bold text-primary text-sm">02</span>
+                <p class="text-slate-500 text-sm">Type your message and click the <strong>"Send Message"</strong> button.</p>
+            </div>
+            <div class="flex gap-3">
+                <span class="font-bold text-primary text-sm">03</span>
+                <p class="text-slate-500 text-sm">Review the pre-composed draft in your mail app and hit send to finish.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <div class="instruction-step flex gap-6">
+                    <div class="w-14 h-14 shrink-0 bg-white shadow-lg shadow-rose-50 text-primary rounded-2xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-3xl">content_copy</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800 mb-2">Manual Clipboard</h3>
+                        <p class="text-slate-500 text-[15px] mb-4">Prefer using a web-based service? Copy our address below:</p>
+                        <div class="flex items-center gap-3 bg-slate-200/50 p-2 pl-5 rounded-2xl border border-slate-200/50 w-fit">
+                            <span class="font-mono font-bold text-slate-700 text-sm">hello.linguabridge@gmail.com</span>
+                            <button onclick="navigator.clipboard.writeText('hello.linguabridge@gmail.com')" class="p-2.5 bg-white text-primary rounded-xl shadow-sm hover:scale-110 active:scale-90 transition-all">
+                                <span class="material-symbols-outlined text-sm">copy_all</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instruction-step flex gap-6">
+                    <div class="w-14 h-14 shrink-0 bg-white shadow-lg shadow-rose-50 text-primary rounded-2xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-3xl">hub</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-slate-800 mb-2">Social Networks</h3>
+                        <p class="text-slate-500 text-[15px] mb-5">DM our community managers for quick inquiries.</p>
+                        <div class="flex gap-4">
+                            <a href="#" class="flex items-center gap-3 px-6 py-3 bg-white rounded-2xl border border-slate-100 font-bold text-xs text-slate-600 hover:border-primary transition-all shadow-sm">
+                                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="w-4 h-4" alt="IG">
+                                Instagram
+                            </a>
+                            <a href="#" class="flex items-center gap-3 px-6 py-3 bg-white rounded-2xl border border-slate-100 font-bold text-xs text-slate-600 hover:border-primary transition-all shadow-sm">
+                                <img src="https://cdn-icons-png.flaticon.com/512/145/145813.png" class="w-4 h-4" alt="VK">
+                                VKontakte
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section: The Form (Aligned to the start of Direct Mail step) -->
+            <div class="lg:col-span-7">
+                <div class="contact-card p-10 md:p-16">
+                    <form onsubmit="handleMailAction(event)" class="space-y-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-3">
+                                <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase">Name</label>
+                                <input id="userName" required class="w-full custom-input" placeholder="John Doe" type="text"/>
+                            </div>
+                            <div class="space-y-3">
+                                <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase">Email Address</label>
+                                <input id="userEmail" required class="w-full custom-input" placeholder="john@example.com" type="email"/>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase">Subject</label>
+                            <input id="userSubject" required class="w-full custom-input" placeholder="How can we help?" type="text"/>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-slate-400 ml-1 tracking-wider uppercase">Your Message</label>
+                            <textarea id="userMsg" required class="w-full custom-input resize-none" placeholder="Tell us more about your interests..." rows="6"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-5 bg-primary text-white font-extrabold rounded-[1.5rem] shadow-2xl shadow-rose-200 hover:translate-y-[-4px] hover:shadow-primary/30 transition-all active:translate-y-0 flex items-center justify-center gap-4 text-xl">
+                            <span>Send Message</span>
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        
+<!-- Brand Section -->
+<div class="flex flex-col items-center md:items-start">
+    <div class="flex items-center gap-3 mb-2">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+        <div class="flex items-baseline gap-2">
+            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
+            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+        </div>
+    </div>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+</div>
+
+        <!-- Legal Links & Privacy Action -->
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            
+            <!-- Privacy Action Link -->
+            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                Delete Data
+            </a>
+        </div>
+
+        <!-- Tutor Action -->
+        <div class="flex items-center">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+                Become Tutor
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function handleMailAction(event) {
+        event.preventDefault();
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('userEmail').value;
+        const subject = document.getElementById('userSubject').value;
+        const message = document.getElementById('userMsg').value;
+
+        const mailTo = "hello.linguabridge@gmail.com";
+        const encodedSubject = encodeURIComponent(`Inquiry: ${subject}`);
+        const encodedBody = encodeURIComponent(`Name: ${name}\nReply-To: ${email}\n\nMessage:\n${message}`);
+
+        window.location.href = `mailto:${mailTo}?subject=${encodedSubject}&body=${encodedBody}`;
+    }
+</script>
+
+</body>
+</html>

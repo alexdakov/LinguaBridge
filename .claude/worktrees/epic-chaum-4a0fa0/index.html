@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LinguaBridge | Your Bridge to the World</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff7582",
+                        "secondary": "#815438",
+                        "surface-container-low": "#eef5f7",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#40000d",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#dde4e6",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#730720",
+                        "tertiary": "#645d57",
+                        "primary": "#a93444",
+                        "outline-variant": "#debfc0",
+                        "on-background": "#161d1f",
+                        "background": "#f4fafd",
+                        "tertiary-fixed-dim": "#cec5bd",
+                        "primary-fixed": "#ffdada",
+                        "on-secondary-fixed-variant": "#653d23",
+                        "surface-container-high": "#e2e9ec",
+                        "secondary-container": "#fec29f",
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#a93444",
+                        "inverse-on-surface": "#ebf2f4",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#574142",
+                        "on-tertiary-fixed-variant": "#4b4640",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#3c3731",
+                        "primary-fixed-dim": "#ffb2b6",
+                        "secondary-fixed-dim": "#f5ba97",
+                        "on-tertiary-fixed": "#1f1b16",
+                        "outline": "#8a7172",
+                        "on-secondary-container": "#794e32",
+                        "inverse-surface": "#2b3234",
+                        "on-primary-fixed-variant": "#881b2e",
+                        "tertiary-container": "#a8a098",
+                        "inverse-primary": "#ffb2b6",
+                        "surface-bright": "#f4fafd",
+                        "surface-container": "#e8eff1",
+                        "surface-variant": "#dde4e6",
+                        "tertiary-fixed": "#eae1d8",
+                        "surface": "#f4fafd",
+                        "on-secondary-fixed": "#311300",
+                        "surface-dim": "#d4dbdd",
+                        "on-surface": "#161d1f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "margin": "32px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "section-padding": "80px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "h3": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .coral-glow {
+            box-shadow: 0 10px 40px -10px rgba(255, 117, 130, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 117, 130, 0.1);
+        }
+        
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+
+<!-- TopAppBar -->
+<!-- Header - EXACTLY AS PROVIDED -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 dark:border-slate-800/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_SANS'] antialiased">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
+            <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
+            <span>LinguaBridge</span>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-stack-lg">
+            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="index.html" data-i18n="nav.home">Home</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html" data-i18n="nav.languages">Languages</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html" data-i18n="nav.about">About</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html" data-i18n="nav.contact">Contact</a>
+            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all flex items-center gap-1" href="Moodle/e-portal.html">
+                <span class="material-symbols-outlined text-[18px]">school</span>
+                <span data-i18n="nav.portal">e-Portal</span>
+            </a>
+        </div>
+<div class="flex items-center gap-6">
+    <div class="flex items-center bg-rose-50/50 py-1.5 rounded-full text-xs font-semibold text-[#FF7582] gap-2 border border-rose-100/50 p-1">
+        <span onclick="changeGlobalLanguage('en')" class="lang-btn lang-btn-en cursor-pointer bg-primary-container text-white px-3 py-1 rounded-full flex items-center gap-1.5 transition-all">
+            <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-4 h-auto"> EN
+        </span>
+        <span onclick="changeGlobalLanguage('bg')" class="lang-btn lang-btn-bg cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+            <img src="https://flagcdn.com/w40/bg.png" alt="Bulgarian" class="w-4 h-auto"> BG
+        </span>
+        <span onclick="changeGlobalLanguage('ru')" class="lang-btn lang-btn-ru cursor-pointer hover:bg-rose-100/50 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all opacity-70 hover:opacity-100 text-slate-600">
+            <img src="https://flagcdn.com/w40/ru.png" alt="Russian" class="w-4 h-auto"> RU
+        </span>
+    </div>
+    <button onclick="window.location.href='enrol.html'" class="bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 ease-in-out hover:shadow-lg transition-all" data-i18n="nav.enrol">
+        Enrol Now
+    </button>
+</div>
+    </div>
+</header>
+
+<main>
+
+<!-- Hero Section -->
+<section class="pt-20 pb-10 px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1 space-y-6 text-center md:text-left">
+<h1 class="font-h1 text-h1 leading-tight" data-i18n="hero.headline">Master any <span class="text-[#ff7582]">language</span> with ease.</h1>
+<p class="font-body-lg text-body-lg text-tertiary max-w-md mx-auto md:mx-0" data-i18n="hero.subheadline">
+                    Learn foreign languages online with private lessons — it's easy and affordable. Study with the best teachers and native speakers.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+<button onclick="window.location.href='languages.html'" class="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full coral-glow hover:scale-[1.02] active:scale-95 transition-all" data-i18n="hero.cta">
+    View All Courses
+</button>
+
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="absolute -inset-4 bg-gradient-to-tr from-[#ff7582]/20 to-orange-200/20 rounded-[2rem] blur-2xl"></div>
+    <img alt="Home Page Hero" class="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3] image-fade-mask" src="Media/main_intro.png"/>
+</div>
+</section>
+
+<!-- How do we teach section -->
+<section class="py-10 px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-slate-900 mb-6" data-i18n="teach.title">How do we teach?</h2>
+            <p class="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed" data-i18n="teach.intro">
+                We are a leading language education team, dedicated to delivering quality and value through innovative and engaging teaching methods.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Flexible Timing - Blue/Cyan Gradient -->
+            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-cyan-50 to-blue-50 border border-blue-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-500 mb-5 shadow-sm">
+                    <span class="material-symbols-outlined">schedule</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature1.title">Flexible Timing</h3>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature1.text">Flexible scheduling designed to fit your routine, including evening and weekend options.</p>
+            </div>
+
+            <!-- Anywhere Access - Rose/Orange Gradient -->
+            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#FF7582] mb-8 shadow-sm">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature2.title">Anywhere Access</h3>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature2.text">Join your lessons from anywhere in the world without disrupting your daily commitments.</p>
+            </div>
+
+            <!-- Maximum Efficiency - Purple/Indigo Gradient -->
+            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-purple-500 mb-8 shadow-sm">
+                    <span class="material-symbols-outlined">bolt</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature3.title">Maximum Efficiency</h3>
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature3.text">Focused, practical lessons built around real-life situations to achieve measurable progress.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Standout Stats -->
+<section class="py-10 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-12 text-center">
+        <div class="space-y-2">
+            <div class="text-6xl font-black text-[#FF7582]">5</div>
+            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat1">Languages with personalized support</p>
+        </div>
+        <div class="space-y-2 border-y md:border-y-0 md:border-x border-slate-800 py-12 md:py-0">
+            <div class="text-6xl font-black text-[#FF7582]">152</div>
+            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat2">Students joined via Teams & Zoom</p>
+        </div>
+        <div class="space-y-2">
+            <div class="text-6xl font-black text-[#FF7582]">95%</div>
+            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat3">Successful course completion</p>
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Steps Section -->
+<section class="py-10 px-8 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-5xl mx-auto text-center">
+        <span class="text-[#FF7582] font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block" data-i18n="steps.label">Get Started</span>
+        <h2 class="text-4xl font-bold text-slate-900 mb-8" data-i18n="steps.title">Start Learning in 3 Easy Steps</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Step 1: Light Coral -->
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 bg-[#ffccd1] text-[#730720] rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-md">1</div>
+                <h4 class="text-lg font-bold mb-3 text-slate-900" data-i18n="steps.step1.title">Choose your course</h4>
+                <p class="text-slate-500 text-sm" data-i18n="steps.step1.text">Select from a variety of language options tailored to your goals.</p>
+            </div>
+
+            <!-- Step 2: Medium Coral (Your Brand Color) -->
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 bg-[#FF7582] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-lg">2</div>
+                <h4 class="text-lg font-bold mb-3 text-slate-900" data-i18n="steps.step2.title">Book your lesson</h4>
+                <p class="text-slate-500 text-sm" data-i18n="steps.step2.text">Pick a time that works for you with our easy scheduling system.</p>
+            </div>
+
+            <!-- Step 3: Dark Coral / Deep Red -->
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 bg-[#a93444] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-xl">3</div>
+                <h4 class="text-lg font-bold mb-3 text-slate-900" data-i18n="steps.step3.title">Pay and get your tutor</h4>
+                <p class="text-slate-500 text-sm" data-i18n="steps.step3.text">Secure your spot and start your linguistic journey immediately.</p>
+            </div>
+        </div>
+        
+        <button onclick="window.location.href='enrol.html'" class="mt-8 bg-[#FF7582] text-white px-12 py-4 rounded-full font-bold hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95" data-i18n="steps.cta">
+            Apply Now
+        </button>
+    </div>
+</section>
+
+<!-- Our Languages Section -->
+<section class="py-10 max-w-7xl mx-auto px-8">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+        <div>
+            <h2 class="font-h2 text-h2 text-on-surface" data-i18n="languages.title">Our Languages</h2>
+            <p class="text-tertiary font-body-lg mt-2" data-i18n="languages.subtitle">Turn language into real results — from daily conversations to career growth.</p>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <a class="bg-white text-[#ff7582] px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-rose-50 transition-colors shadow-sm" href="languages.html">
+                <span data-i18n="languages.catalog">See all languages</span> <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+
+            <!-- Navigation Arrows -->
+            <div class="flex gap-2">
+                <button onclick="scrollLanguages(-300)" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-rose-50 transition-colors bg-white shadow-sm" aria-label="Scroll left">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button onclick="scrollLanguages(300)" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-rose-50 transition-colors bg-white shadow-sm" aria-label="Scroll right">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrollable Container -->
+<div id="languageSlider" class="flex overflow-x-auto gap-8 scroll-smooth no-scrollbar pb-6" style="scrollbar-width: none; -ms-overflow-style: none;">
+    
+    <!-- English -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="English" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/gb.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">English</span>
+                    <h4 class="text-2xl font-bold">English</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+    <!-- Bulgarian -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="Bulgarian" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/bg.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Български</span>
+                    <h4 class="text-2xl font-bold">Bulgarian</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+    <!-- German -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="German" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/de.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Deutsch</span>
+                    <h4 class="text-2xl font-bold">German</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+    <!-- Chinese -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="Chinese" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/cn.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">中文</span>
+                    <h4 class="text-2xl font-bold">Chinese</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+    <!-- Russian -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="Russian" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/ru.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Русский</span>
+                    <h4 class="text-2xl font-bold">Russian</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+    <!-- Japanese -->
+    <div class="min-w-[280px] group cursor-pointer">
+        <a href="languages.html" class="block">
+            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
+                <img alt="Japanese" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/jp.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">日本語</span>
+                    <h4 class="text-2xl font-bold">Japanese</h4>
+                </div>
+            </div>
+        </a>
+        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
+    </div>
+
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        
+<!-- Brand Section -->
+<div class="flex flex-col items-center md:items-start">
+    <div class="flex items-center gap-3 mb-2">
+        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+        <div class="flex items-baseline gap-2">
+            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
+            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+        </div>
+    </div>
+    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
+</div>
+
+        <!-- Legal Links & Privacy Action -->
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
+            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
+            
+            <!-- Privacy Action Link -->
+            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                <span data-i18n="footer.deleteData">Delete Data</span>
+            </a>
+        </div>
+
+        <!-- Tutor Action -->
+        <div class="flex items-center">
+            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
+                Become Tutor
+            </a>
+        </div>
+    </div>
+</footer>
+<script src="language-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
