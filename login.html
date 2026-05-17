@@ -135,7 +135,7 @@
 <header class="fixed top-0 w-full z-50 bg-white/20 backdrop-blur-md border-b border-white/30">
 <div class="flex justify-between items-center max-w-[1440px] mx-auto px-gutter h-20">
 <div class="font-headline-lg text-headline-lg font-extrabold text-primary">LinguaBridge</div>
-<a class="flex items-center gap-2 glass-panel px-6 py-2 rounded-full font-label-md text-label-md text-primary hover:bg-white/60 transition-all duration-300" href="home.html">
+<a class="flex items-center gap-2 glass-panel px-6 py-2 rounded-full font-label-md text-label-md text-primary hover:bg-white/60 transition-all duration-300" href="index.html">
 <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
                 Back to Home
             </a>
@@ -183,7 +183,7 @@
 <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Welcome Back</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">Sign in to continue your linguistic adventure.</p>
 </div>
-<form action="#" class="space-y-6" method="POST">
+<form id="login-form" class="space-y-6" onsubmit="handleLogin(event)">
 <!-- Nickname/Email Field -->
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface px-1" for="nickname">Nickname or Email</label>
@@ -196,7 +196,7 @@
 <div class="space-y-2">
 <div class="flex justify-between items-center px-1">
 <label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
-<a class="font-label-sm text-label-sm text-secondary hover:underline" href="#">Forgot password?</a>
+<button type="button" onclick="toggleForgotPanel()" class="font-label-sm text-label-sm text-secondary hover:underline">Forgot password?</button>
 </div>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
@@ -206,44 +206,40 @@
 </button>
 </div>
 </div>
-<!-- Error Message (Placeholder) -->
-<div class="hidden flex items-center gap-2 p-4 rounded-xl bg-error-container text-on-error-container font-label-md">
+<!-- Error Message -->
+<div id="login-error" class="hidden flex items-center gap-2 p-4 rounded-xl bg-error-container text-on-error-container font-label-md">
 <span class="material-symbols-outlined text-[18px]">error</span>
-<span>Invalid credentials. Please try again.</span>
+<span id="login-error-text">Invalid credentials. Please try again.</span>
 </div>
 <!-- Login Button -->
 <button class="w-full bg-primary text-white py-4 rounded-full font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:bg-secondary hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" type="submit">
                             Log In
                         </button>
-<div class="relative flex items-center py-2">
-<div class="flex-grow border-t border-outline-variant/30"></div>
-<span class="flex-shrink mx-4 text-outline font-label-sm">OR CONTINUE WITH</span>
-<div class="flex-grow border-t border-outline-variant/30"></div>
-</div>
-<!-- Social Login Buttons -->
-<div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-center gap-3 py-3 px-4 glass-panel rounded-2xl hover:bg-white/80 transition-all font-label-md text-on-surface" type="button">
-<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwf_0AuW70W-V15H_EQXQAIm_7bPR1ScjZ-bwBHa7JT_j8YQNGxqIdmTkkGbFqeMsskHJQqycwJdhoj-6HOzs-Im_sAxmt7iol3FZe36AGdukaaLbQfzRxsrrGYs-uUoAKOKz2Cz7QRWCFVEjA7VDThRn6FJ8zJ2m6uJ6DDGcrprSLE5mYTPf6aaaUrzz1fkPbOZId0Y5Jt5veLFMewY4vHSq1X53WIehmcL_KlOwQGorBVBgGeAtnBFmd6RXsLjXqx7qXm0H2Kdmm"/>
-                                Google
-                            </button>
-<button class="flex items-center justify-center gap-3 py-3 px-4 glass-panel rounded-2xl hover:bg-white/80 transition-all font-label-md text-on-surface" type="button">
-<span class="material-symbols-outlined text-[#1877F2]" data-weight="fill">social_leaderboard</span>
-                                Facebook
-                            </button>
-</div>
 </form>
-<div class="mt-10 text-center">
-<p class="font-body-md text-on-surface-variant">
-                            Don't have an account? 
-                            <a class="text-primary font-bold hover:underline" href="#">Create Account</a>
-</p>
-</div>
-<!-- Language Switcher Small -->
-<div class="mt-8 flex justify-center gap-4 border-t border-white/20 pt-6">
-<button class="text-primary font-bold font-label-sm">English</button>
-<button class="text-on-surface-variant font-label-sm hover:text-primary">Français</button>
-<button class="text-on-surface-variant font-label-sm hover:text-primary">Español</button>
-<button class="text-on-surface-variant font-label-sm hover:text-primary">Deutsch</button>
+
+<!-- Forgot Password Panel -->
+<div id="forgot-panel" class="hidden mt-6 p-6 rounded-2xl bg-white/50 border border-white/60 space-y-4">
+  <div class="flex items-start gap-3">
+    <span class="material-symbols-outlined text-primary mt-0.5" style="font-size:20px">info</span>
+    <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+      Password resets are handled by our admin team. Fill in your email and we'll get back to you as soon as possible.
+    </p>
+  </div>
+  <div class="space-y-3">
+    <input id="fp-email" type="email" placeholder="Your email address" required
+      class="w-full bg-white/60 border-none rounded-xl py-3 px-4 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary outline-none"/>
+    <textarea id="fp-message" rows="2" placeholder="Optional message (e.g. your nickname or account details)"
+      class="w-full bg-white/60 border-none rounded-xl py-3 px-4 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary outline-none resize-none"></textarea>
+  </div>
+  <div id="fp-error" class="hidden text-sm text-red-600 font-label-sm"></div>
+  <div id="fp-success" class="hidden text-sm text-emerald-700 font-label-sm flex items-center gap-2">
+    <span class="material-symbols-outlined text-[16px]">check_circle</span>
+    Request sent! Our admin will contact you shortly.
+  </div>
+  <button onclick="submitForgotPassword()" id="fp-btn"
+    class="w-full bg-primary text-white py-3 rounded-full font-label-md font-bold hover:bg-primary/90 transition-all">
+    Send Reset Request
+  </button>
 </div>
 </div>
 </div>
@@ -289,4 +285,107 @@
 </footer>
 <!-- Background Images / Contextual Prompts -->
 <img class="hidden" data-alt="A high-fidelity digital rendering of a soft, glassmorphic globe floating in a minimalist, luminous space. The lighting is ethereal and soft, reflecting off translucent layers of pink and white. The background is a clean, creamy white with subtle organic gradients. The overall mood is peaceful, human-centric, and technologically advanced, perfectly capturing the Luminous Humanism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzvmlOkEgUCvd7iqh4vMXwnRGv4CiHXx7kvidEgmIsqNf97HLtnUASu9l3fLaIrvF-dQFBPQFFZcgyXi6wmFz82BuPCuWOzzcJGjyjecydYdJhPeOuNilTxLEgbLszEyvnBb6RV62_o0jBNe7x1bVXvEEe-7F21Ua9qzD0MB5-FCurc6sTMBNEreM3a8wi22fHENmD2x_JsLBuuuqKsv9JDw8m_vmSpwyiy4nmwfl8B_7775RL4iMcC8BsBG8chyk1dpgf3_j2CyVH"/>
+<script type="module">
+import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const app  = initializeApp({
+    apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
+    authDomain:        "linguabridge-2574f.firebaseapp.com",
+    projectId:         "linguabridge-2574f",
+    storageBucket:     "linguabridge-2574f.firebasestorage.app",
+    messagingSenderId: "640116284028",
+    appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
+});
+const auth = getAuth(app);
+
+const ERROR_MESSAGES = {
+    'auth/invalid-email':        'Please enter a valid email address.',
+    'auth/user-not-found':       'No account found with that email.',
+    'auth/wrong-password':       'Incorrect password. Please try again.',
+    'auth/invalid-credential':   'Incorrect email or password.',
+    'auth/too-many-requests':    'Too many attempts. Please wait a moment and try again.',
+    'auth/user-disabled':        'This account has been disabled. Contact support.',
+};
+
+const FUNCTIONS_BASE = 'https://us-central1-linguabridge-2574f.cloudfunctions.net';
+
+window.toggleForgotPanel = function() {
+    const panel = document.getElementById('forgot-panel');
+    panel.classList.toggle('hidden');
+    if (!panel.classList.contains('hidden')) {
+        const email = document.getElementById('nickname').value.trim();
+        if (email.includes('@')) document.getElementById('fp-email').value = email;
+    }
+};
+
+window.submitForgotPassword = async function() {
+    const email   = document.getElementById('fp-email').value.trim();
+    const message = document.getElementById('fp-message').value.trim();
+    const errEl   = document.getElementById('fp-error');
+    const sucEl   = document.getElementById('fp-success');
+    const btn     = document.getElementById('fp-btn');
+
+    errEl.classList.add('hidden');
+    sucEl.classList.add('hidden');
+    if (!email) { errEl.textContent = 'Please enter your email.'; errEl.classList.remove('hidden'); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+        const resp = await fetch(`${FUNCTIONS_BASE}/submitPasswordResetRequest`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, message })
+        });
+        if (!resp.ok) throw new Error(await resp.text());
+        sucEl.classList.remove('hidden');
+        btn.classList.add('hidden');
+    } catch (e) {
+        errEl.textContent = 'Failed to send. Please try again.';
+        errEl.classList.remove('hidden');
+        btn.disabled = false; btn.textContent = 'Send Reset Request';
+    }
+};
+
+window.handleLogin = async function(e) {
+    e.preventDefault();
+    const emailInput = document.getElementById('nickname').value.trim();
+    const password   = document.getElementById('password').value;
+    const errDiv     = document.getElementById('login-error');
+    const errText    = document.getElementById('login-error-text');
+    const btn        = e.target.querySelector('button[type="submit"]');
+
+    errDiv.classList.add('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+
+    try {
+        const cred       = await signInWithEmailAndPassword(auth, emailInput, password);
+        const tokenResult = await cred.user.getIdTokenResult();
+        const claims      = tokenResult.claims;
+
+        if (claims.admin) {
+            window.location.href = 'admin.html';
+        } else if (claims.role === 'tutor') {
+            window.location.href = 'tutors/tutor-portal.html';
+        } else {
+            window.location.href = 'students/student-portal.html';
+        }
+    } catch (err) {
+        const msg = ERROR_MESSAGES[err.code] || 'Sign-in failed. Please try again.';
+        errText.textContent = msg;
+        errDiv.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Log In';
+    }
+};
+
+// Toggle password visibility
+document.querySelector('button[type="button"]')?.addEventListener('click', function() {
+    const pwd  = document.getElementById('password');
+    const icon = this.querySelector('.material-symbols-outlined');
+    if (pwd.type === 'password') { pwd.type = 'text';     icon.textContent = 'visibility_off'; }
+    else                         { pwd.type = 'password'; icon.textContent = 'visibility';     }
+});
+</script>
 </body></html>

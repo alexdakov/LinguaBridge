@@ -229,6 +229,9 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs')">
         <span class="material-symbols-outlined text-[20px]">work</span>Jobs
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('pwreset')">
+        <span class="material-symbols-outlined text-[20px]">lock_reset</span>PW Requests
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('audit')">
         <span class="material-symbols-outlined text-[20px]">history</span>Audit Log
       </button>
@@ -263,6 +266,9 @@
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">work</span>Jobs
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('pwreset');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">lock_reset</span>PW Requests
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('audit');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">history</span>Audit Log
@@ -734,6 +740,45 @@
       </section>
 
       <!-- ── AUDIT LOG ── -->
+      <!-- ── Password Reset Requests ── -->
+      <section id="section-pwreset" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Password Reset Requests</h1>
+            <p class="text-slate-500 text-sm mt-0.5">Users who clicked "Forgot password?" on the login page.</p>
+          </div>
+          <button onclick="loadPwResetRequests()" class="flex items-center gap-1.5 text-xs font-bold text-[#a93444] border border-[#a93444]/30 bg-[#a93444]/10 hover:bg-[#a93444]/20 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-[15px]">refresh</span>Refresh
+          </button>
+        </div>
+        <div class="flex gap-3 mb-4">
+          <input id="pwr-search" oninput="filterPwRequests()" placeholder="Search by email…"
+            class="flex-1 border border-slate-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#a93444]/20"/>
+          <select id="pwr-status-filter" onchange="filterPwRequests()"
+            class="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-100">
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">Email</th>
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">Message</th>
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">Status</th>
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">Submitted</th>
+                <th class="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">Action</th>
+              </tr>
+            </thead>
+            <tbody id="pwr-table-body">
+              <tr><td colspan="5" class="px-5 py-10 text-center text-slate-400 text-sm">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <section id="section-audit" class="hidden fade-up">
         <div class="flex items-center justify-between mb-6">
           <div>
@@ -1573,6 +1618,7 @@ import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.8.0/fire
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc, setDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-functions.js";
 
 const app  = initializeApp({
     apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
@@ -1582,9 +1628,17 @@ const app  = initializeApp({
     messagingSenderId: "640116284028",
     appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
 });
-const auth    = getAuth(app);
-const db      = getFirestore(app);
-const storage = getStorage(app);
+const auth      = getAuth(app);
+const db        = getFirestore(app);
+const storage   = getStorage(app);
+const functions = getFunctions(app, 'us-central1');
+const _getEnrollments         = httpsCallable(functions, 'getEnrollments');
+const _getApplications        = httpsCallable(functions, 'getApplications');
+const _updateEnrollmentStatus = httpsCallable(functions, 'updateEnrollmentStatus');
+const _updateApplicationStatus= httpsCallable(functions, 'updateApplicationStatus');
+const _approveStudent             = httpsCallable(functions, 'approveStudent');
+const _approveTutor               = httpsCallable(functions, 'approveTutor');
+const _sendPasswordResetLink      = httpsCallable(functions, 'sendPasswordResetLink');
 
 let languages      = [];
 let pricingPlans   = [];
@@ -1748,9 +1802,9 @@ document.getElementById('logout-btn').addEventListener('click', () =>
 );
 
 // ── Section switching ─────────────────────────────────────────────────────────
-const _sectionLoaded = { audit: false };
+const _sectionLoaded = { audit: false, pwreset: false };
 window.showSection = function(name) {
-    ['dashboard','languages','tutors','students','users','requests','jobs','audit','wiki','settings'].forEach(s => {
+    ['dashboard','languages','tutors','students','users','requests','jobs','pwreset','audit','wiki','settings'].forEach(s => {
         const el = document.getElementById(`section-${s}`);
         if (el) {
             el.classList.toggle('hidden', s !== name);
@@ -1772,6 +1826,7 @@ window.showSection = function(name) {
     if (name === 'requests' && !_sectionLoaded.requests) { _sectionLoaded.requests = true; loadRequests(); }
     if (name === 'jobs'     && !_sectionLoaded.jobs)     { _sectionLoaded.jobs     = true; loadJobs(); }
     if (name === 'audit'    && !_sectionLoaded.audit)    { _sectionLoaded.audit    = true; loadAuditLog(); }
+    if (name === 'pwreset'  && !_sectionLoaded.pwreset)  { _sectionLoaded.pwreset  = true; loadPwResetRequests(); }
 };
 
 window.toggleSidebar = function() {
@@ -3807,20 +3862,14 @@ window.loadRequests = async function() {
     const tbody = document.getElementById('requests-table-body');
     if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">Loading requests…</td></tr>';
     try {
-        const snap = await getDocs(collection(db, 'studentRequests'));
-        _requests = snap.docs.map(d => ({ _id: d.id, _source: 'enrollment', ...d.data() }))
-            .sort((a, b) => {
-                const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
-                const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
-                return tb - ta;
-            });
+        const res = await _getEnrollments();
+        _requests = res.data.enrollments || [];
         renderRequestsTable(_requests);
-        // stats
         const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-        setEl('req-stat-new',       _requests.filter(r => (r.status||'new') === 'new').length);
-        setEl('req-stat-contacted', _requests.filter(r => r.status === 'contacted').length);
-        setEl('req-stat-pending',   _requests.filter(r => r.status === 'pending').length);
-        setEl('req-stat-accepted',  _requests.filter(r => r.status === 'accepted').length);
+        setEl('req-stat-new',      _requests.filter(r => (r.status||'pending') === 'pending').length);
+        setEl('req-stat-contacted', 0);
+        setEl('req-stat-pending',  _requests.filter(r => r.status === 'pending').length);
+        setEl('req-stat-accepted', _requests.filter(r => r.status === 'approved').length);
     } catch(e) { if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="px-5 py-10 text-center text-red-400 text-sm">${esc(e.message)}</td></tr>`; }
 };
 
@@ -3831,33 +3880,33 @@ function renderRequestsTable(list) {
         body.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-400 text-sm">No requests found.</td></tr>';
         return;
     }
-    const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
+    const statusColor = { pending:'bg-amber-100 text-amber-700', approved:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600' };
     body.innerHTML = list.map(r => {
-        const st = r.status || 'new';
-        const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleDateString() : '—';
+        const st   = r.status || 'pending';
+        const date = r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '—';
         return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
           <td class="px-5 py-3">
             <div class="font-semibold text-slate-800">${esc(r.name || '—')}</div>
           </td>
           <td class="px-5 py-3 text-xs text-slate-500">
             <div>${esc(r.email || '—')}</div>
-            ${(r.phone || r.contact) ? `<div class="text-slate-400">${esc(r.phone || r.contact)}</div>` : ''}
+            ${r.phone ? `<div class="text-slate-400">${esc(r.phone)}</div>` : ''}
           </td>
           <td class="px-5 py-3 text-xs">
-            <span class="font-semibold text-[#a93444]">${esc(r.languageLabel || r.language || '—')}</span>
+            <span class="font-semibold text-[#a93444]">${esc(r.languageLabel || r.language || r.courseId || '—')}</span>
             ${r.courseName ? `<div class="text-slate-400 text-[11px]">${esc(r.courseName)}</div>` : ''}
           </td>
           <td class="px-5 py-3 text-xs text-slate-500">
             <div>${esc(r.learningType || r.format || '—')}</div>
           </td>
           <td class="px-5 py-3">
-            <select onchange="updateRequestStatus('${r._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
-              ${['new','contacted','pending','rejected','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+            <select onchange="updateRequestStatus(${r.id}, this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
+              ${['pending','approved','rejected'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
             </select>
           </td>
           <td class="px-5 py-3 text-xs text-slate-400">${date}</td>
           <td class="px-5 py-3">
-            <button onclick="openRequestDetail('${r._id}')" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
+            <button onclick="openRequestDetail(${r.id})" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
               <span class="material-symbols-outlined text-[13px]">open_in_new</span>See More
             </button>
           </td>
@@ -3877,31 +3926,26 @@ window.filterRequests = function() {
 
 window.updateRequestStatus = async function(id, status) {
     try {
-        const r = _requests.find(x => x._id === id);
-        await updateDoc(doc(db, 'studentRequests', id), { status });
+        await _updateEnrollmentStatus({ enrollmentId: id, status });
+        const r = _requests.find(x => x.id === id);
         if (r) r.status = status;
         renderRequestsTable(_requests);
-        logAudit('update_request_status', 'studentRequests', id, '', status);
+        logAudit('update_enrollment_status', 'student_enrollments', id, '', status);
         toast('Status updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
 };
 
 window.assignRequestTutor = async function(id, tutorId) {
     if (!tutorId) return;
-    try {
-        const r = _requests.find(x => x._id === id);
-        await updateDoc(doc(db, 'studentRequests', id), { assignedTutor: tutorId });
-        if (r) r.assignedTutor = tutorId;
-        toast('Tutor assigned ✓');
-    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+    toast('Tutor assignment is managed via the approval flow.', 'info');
 };
 
 window.openRequestDetail = function(id) {
-    const r = _requests.find(x => x._id === id);
+    const r = _requests.find(x => x.id === id);
     if (!r) return;
-    const st = r.status || 'new';
-    const statusColor = { new:'bg-amber-100 text-amber-700', contacted:'bg-blue-100 text-blue-700', pending:'bg-slate-100 text-slate-600', rejected:'bg-red-100 text-red-600', accepted:'bg-emerald-100 text-emerald-700' };
-    const date = r.submittedAt ? new Date(r.submittedAt.toDate ? r.submittedAt.toDate() : r.submittedAt).toLocaleString() : '—';
+    const st = r.status || 'pending';
+    const statusColor = { pending:'bg-amber-100 text-amber-700', approved:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600' };
+    const date = r.createdAt ? new Date(r.createdAt).toLocaleString() : '—';
 
     // Always-visible row — never filtered out
     const F = (label, val) => `<div class="flex gap-3 px-4 py-2.5 hover:bg-slate-50/60 transition-colors">
@@ -3992,24 +4036,24 @@ window.closeRequestDetail = function() {
 };
 
 window.acceptAndCreateUser = async function(reqId) {
-    const r = _requests.find(x => x._id === reqId);
+    const r = _requests.find(x => x.id === reqId);
     if (!r) return;
-    const userData = {
-        displayName: r.name || '',
-        email:       r.email || '',
-        phone:       r.phone || '',
-        role:        'student',
-        tag:         'new',
-        status:      'active',
-        createdAt:   new Date().toISOString(),
-        source:      'request',
-        requestId:   reqId
-    };
+    const chosenNickname = prompt(`Choose a nickname for ${r.name || r.email}:`);
+    if (!chosenNickname?.trim()) return;
     try {
-        await addDoc(collection(db, 'users'), userData);
-        logAudit('accept_request', 'studentRequests', reqId, r.name || '', 'User created');
-        toast('Student user created ✓');
-    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+        const res = await _approveStudent({ enrollmentId: reqId, chosenNickname: chosenNickname.trim() });
+        const { uid, resetLink } = res.data;
+        const idx = _requests.findIndex(x => x.id === reqId);
+        if (idx >= 0) _requests[idx].status = 'approved';
+        renderRequestsTable(_requests);
+        logAudit('approve_student', 'student_enrollments', reqId, r.name || '', `uid: ${uid}`);
+        toast(`Student account created ✓  Reset link: ${resetLink || 'sent'}`, 'success');
+        if (resetLink) {
+            if (confirm('Copy password-reset link to clipboard?')) {
+                navigator.clipboard.writeText(resetLink).catch(() => {});
+            }
+        }
+    } catch(e) { toast('Failed: ' + (e.message || JSON.stringify(e)), 'error'); }
 };
 
 // ── Jobs ──────────────────────────────────────────────────────────────────────
@@ -4018,18 +4062,13 @@ window.loadJobs = async function() {
     const tbody = document.getElementById('jobs-table-body');
     if (tbody) tbody.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading applications…</td></tr>';
     try {
-        const snap = await getDocs(collection(db, 'jobApplications'));
-        _jobs = snap.docs.map(d => ({ _id: d.id, ...d.data() }))
-            .sort((a, b) => {
-                const ta = a.submittedAt ? new Date(a.submittedAt.toDate ? a.submittedAt.toDate() : a.submittedAt) : 0;
-                const tb = b.submittedAt ? new Date(b.submittedAt.toDate ? b.submittedAt.toDate() : b.submittedAt) : 0;
-                return tb - ta;
-            });
+        const res = await _getApplications();
+        _jobs = res.data.applications || [];
         renderJobsTable(_jobs);
         const setEl = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-        setEl('job-stat-reviewing', _jobs.filter(j => (j.status||'reviewing') === 'reviewing').length);
-        setEl('job-stat-interview', _jobs.filter(j => j.status === 'interview').length);
-        setEl('job-stat-accepted',  _jobs.filter(j => j.status === 'accepted').length);
+        setEl('job-stat-reviewing', _jobs.filter(j => (j.status||'pending') === 'pending').length);
+        setEl('job-stat-interview', 0);
+        setEl('job-stat-accepted',  _jobs.filter(j => j.status === 'approved').length);
         setEl('job-stat-rejected',  _jobs.filter(j => j.status === 'rejected').length);
     } catch(e) { if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="px-5 py-10 text-center text-red-400 text-sm">${esc(e.message)}</td></tr>`; }
 };
@@ -4041,27 +4080,27 @@ function renderJobsTable(list) {
         body.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No applications found.</td></tr>';
         return;
     }
-    const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
+    const statusColor = { pending:'bg-amber-100 text-amber-700', approved:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600' };
     body.innerHTML = list.map(j => {
-        const st = j.status || 'reviewing';
-        const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleDateString() : '—';
+        const st   = j.status || 'pending';
+        const date = j.createdAt ? new Date(j.createdAt).toLocaleDateString() : '—';
         return `<tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
           <td class="px-5 py-3">
-            <div class="font-semibold text-slate-800">${esc(j.name || j.tutorName || '—')}</div>
+            <div class="font-semibold text-slate-800">${esc(j.name || '—')}</div>
           </td>
           <td class="px-5 py-3 text-xs text-slate-500">
             <div>${esc(j.email || '—')}</div>
-            ${j.phone ? `<div class="text-slate-400">${esc(j.phone)}</div>` : ''}
+            ${j.phone_number ? `<div class="text-slate-400">${esc(j.phone_number)}</div>` : ''}
           </td>
-          <td class="px-5 py-3 text-xs font-semibold text-[#a93444]">${esc(j.languages || j.lang_teached || '—')}</td>
+          <td class="px-5 py-3 text-xs font-semibold text-[#a93444]">${esc(j.mainLanguage || j.main_language || '—')}</td>
           <td class="px-5 py-3">
-            <select onchange="updateJobStatus('${j._id}', this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
-              ${['reviewing','interview','rejected','withdrawn','accepted'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+            <select onchange="updateJobStatus(${j.id}, this.value)" class="text-xs border border-slate-200 rounded-lg px-2 py-1 bg-white cursor-pointer hover:border-[#a93444]/40 focus:outline-none">
+              ${['pending','approved','rejected'].map(s => `<option value="${s}" ${st===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
             </select>
           </td>
           <td class="px-5 py-3 text-xs text-slate-400">${date}</td>
           <td class="px-5 py-3">
-            <button onclick="openJobDetail('${j._id}')" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
+            <button onclick="openJobDetail(${j.id})" class="h-7 px-2.5 rounded-full border border-slate-200 text-[11px] font-bold text-slate-600 hover:bg-slate-50 transition-all flex items-center gap-1 whitespace-nowrap">
               <span class="material-symbols-outlined text-[13px]">open_in_new</span>See More
             </button>
           </td>
@@ -4081,21 +4120,21 @@ window.filterJobs = function() {
 
 window.updateJobStatus = async function(id, status) {
     try {
-        await updateDoc(doc(db, 'jobApplications', id), { status });
-        const j = _jobs.find(x => x._id === id);
+        await _updateApplicationStatus({ applicationId: id, status });
+        const j = _jobs.find(x => x.id === id);
         if (j) j.status = status;
         renderJobsTable(_jobs);
-        logAudit('update_job_status', 'jobApplications', id, '', status);
+        logAudit('update_application_status', 'tutor_applications', id, '', status);
         toast('Status updated ✓');
     } catch(e) { toast('Failed: ' + e.message, 'error'); }
 };
 
 window.openJobDetail = function(id) {
-    const j = _jobs.find(x => x._id === id);
+    const j = _jobs.find(x => x.id === id);
     if (!j) return;
-    const st = j.status || 'reviewing';
-    const statusColor = { reviewing:'bg-blue-100 text-blue-700', interview:'bg-amber-100 text-amber-700', accepted:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600', withdrawn:'bg-slate-100 text-slate-500' };
-    const date = j.submittedAt ? new Date(j.submittedAt.toDate ? j.submittedAt.toDate() : j.submittedAt).toLocaleString() : '—';
+    const st = j.status || 'pending';
+    const statusColor = { pending:'bg-amber-100 text-amber-700', approved:'bg-emerald-100 text-emerald-700', rejected:'bg-red-100 text-red-600' };
+    const date = j.createdAt ? new Date(j.createdAt).toLocaleString() : '—';
 
     const photoPreview = (j.photoUrl) ? `<img src="${esc(j.photoUrl)}" alt="Photo" class="w-16 h-16 rounded-full object-cover border-2 border-slate-100 shrink-0" onerror="this.style.display='none'">` : '';
     const tutorDocBadge = j.tutorDocId ? `<div class="mt-2 inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full"><span class="material-symbols-outlined text-[14px]">check_circle</span>Tutor created: ${esc(j.tutorDocId)}</div>` : '';
@@ -4203,50 +4242,23 @@ window.closeJobDetail = function() {
 };
 
 window.acceptAndCreateTutor = async function(jobId) {
-    const j = _jobs.find(x => x._id === jobId);
+    const j = _jobs.find(x => x.id === jobId);
     if (!j) return;
-    const takenOrders = tutors.map(t => Number(t.order)).filter(n => n > 0);
-    const nextTutorOrder = takenOrders.length ? Math.max(...takenOrders) + 1 : 1;
-
-    // Map all fields from the job application to the tutor schema
-    const tutorData = {
-        name:             j.name || '',
-        role:             j.role || 'Language Tutor',
-        lang_teached:     j.lang_teached || j.languages || '',
-        bio_quote:        j.bio_quote || j.bio || '',
-        // Map new application fields → tutor credential fields
-        school_1:         j.education || j.school_1 || '',
-        school_2:         j.certificates || j.school_2 || '',
-        specialisation_1: j.experience || j.specialisation_1 || '',
-        specialisation_2: '',
-        photoUrl:         j.photoUrl || '',
-        cvUrl:            j.cvUrl || '',
-        active:           false,   // admin must manually activate
-        order:            nextTutorOrder,
-        tag:              'new',
-        email:            j.email || '',
-        phone:            j.phone || '',
-        source:           'job_application',
-        jobApplicationId: jobId,
-        createdAt:        new Date().toISOString()
-    };
-
-    // Build doc ID: FirstName_LastName_PrimaryLang (e.g. "Alex_Dakov_Japanese")
-    const langSlug = (j.lang_teached || j.languages || 'general').split(',')[0].trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
-    const nameSlug = (j.name || j.tutorName || 'Tutor').trim().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '');
-    const newTutorDocId = `${nameSlug}_${langSlug}`;
-
+    const chosenNickname = prompt(`Choose a nickname for ${j.name || j.email}:`);
+    if (!chosenNickname?.trim()) return;
     try {
-        await setDoc(doc(db, 'tutors', newTutorDocId), tutorData);
-        // Mark job as accepted
-        await updateDoc(doc(db, 'jobApplications', jobId), { status: 'accepted', tutorDocId: newTutorDocId });
-        const idx = _jobs.findIndex(x => x._id === jobId);
-        if (idx >= 0) { _jobs[idx].status = 'accepted'; _jobs[idx].tutorDocId = newTutorDocId; }
-        logAudit('accept_job', 'jobApplications', jobId, j.name || '', `Tutor doc created: ${newTutorDocId}`);
-        toast(`Tutor profile created (${newTutorDocId}) — review & activate in Tutors ✓`);
-        closeModal('job-detail-modal');
+        const res = await _approveTutor({ applicationId: jobId, chosenNickname: chosenNickname.trim() });
+        const { uid, resetLink } = res.data;
+        const idx = _jobs.findIndex(x => x.id === jobId);
+        if (idx >= 0) _jobs[idx].status = 'approved';
         renderJobsTable(_jobs);
-    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+        logAudit('approve_tutor', 'tutor_applications', jobId, j.name || '', `uid: ${uid}`);
+        toast(`Tutor account created ✓`, 'success');
+        closeModal('job-detail-modal');
+        if (resetLink && confirm('Copy password-reset link to clipboard?')) {
+            navigator.clipboard.writeText(resetLink).catch(() => {});
+        }
+    } catch(e) { toast('Failed: ' + (e.message || JSON.stringify(e)), 'error'); }
 };
 
 // ── Admin Profile ─────────────────────────────────────────────────────────────
@@ -4307,6 +4319,73 @@ window.openModulesModal = function() {
 window.closeModulesModal = function() {
     document.getElementById('mod-modal').classList.add('hidden');
     document.body.style.overflow = '';
+};
+
+// ── Password Reset Requests ───────────────────────────────────────────────────
+let _pwrData = [];
+
+window.loadPwResetRequests = async function() {
+    const body = document.getElementById('pwr-table-body');
+    if (!body) return;
+    body.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-slate-400 text-sm">Loading…</td></tr>`;
+    try {
+        const { getFirestore, collection, getDocs, orderBy, query } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        const fsdb = getFirestore();
+        const snap = await getDocs(query(collection(fsdb, 'passwordResetRequests'), orderBy('createdAt', 'desc')));
+        _pwrData = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderPwrTable(_pwrData);
+    } catch (e) {
+        body.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-red-500 text-sm">${e.message}</td></tr>`;
+    }
+};
+
+function renderPwrTable(rows) {
+    const body = document.getElementById('pwr-table-body');
+    if (!body) return;
+    if (!rows.length) {
+        body.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-slate-400 text-sm">No requests found.</td></tr>`;
+        return;
+    }
+    body.innerHTML = rows.map(r => {
+        const ts = r.createdAt?.toDate ? r.createdAt.toDate().toLocaleString() : '—';
+        const statusBadge = r.status === 'resolved'
+            ? `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">Resolved</span>`
+            : `<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>`;
+        const actionBtn = r.status === 'pending'
+            ? `<button onclick="sendResetLinkForRequest('${r.id}','${r.email}')" class="text-xs font-bold text-[#a93444] hover:underline">Send Reset Link</button>`
+            : `<span class="text-xs text-slate-400">Done</span>`;
+        return `<tr class="hover:bg-slate-50 transition-colors">
+            <td class="px-5 py-3 text-sm text-slate-700">${r.email || '—'}</td>
+            <td class="px-5 py-3 text-sm text-slate-500 max-w-xs truncate">${r.message || '—'}</td>
+            <td class="px-5 py-3">${statusBadge}</td>
+            <td class="px-5 py-3 text-xs text-slate-400">${ts}</td>
+            <td class="px-5 py-3">${actionBtn}</td>
+        </tr>`;
+    }).join('');
+}
+
+window.filterPwRequests = function() {
+    const q = (document.getElementById('pwr-search')?.value || '').toLowerCase();
+    const s = document.getElementById('pwr-status-filter')?.value || '';
+    const filtered = _pwrData.filter(r =>
+        (!q || (r.email || '').toLowerCase().includes(q)) &&
+        (!s || r.status === s)
+    );
+    renderPwrTable(filtered);
+};
+
+window.sendResetLinkForRequest = async function(requestId, email) {
+    if (!confirm(`Send a password reset link for ${email}?`)) return;
+    try {
+        const res = await _sendPasswordResetLink({ requestId, email });
+        const link = res.data?.resetLink || '';
+        prompt(`Reset link for ${email} (copy and share it):`, link);
+        // Refresh to show resolved status
+        _sectionLoaded.pwreset = false;
+        loadPwResetRequests();
+    } catch (e) {
+        alert('Error: ' + (e.message || 'Could not generate reset link.'));
+    }
 };
 
 // ── Audit Log UI ──────────────────────────────────────────────────────────────

@@ -142,94 +142,79 @@
 <body class="bg-background text-on-background font-body-md">
 <!-- Side Navigation Bar -->
 <aside class="h-screen w-72 flex flex-col fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant/10 z-50">
-<div class="flex flex-col h-full py-10">
-<!-- Brand Logo -->
-<div class="px-8 mb-12">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary text-xl" data-icon="translate">translate</span>
-</div>
-<span class="text-headline-md font-extrabold text-primary tracking-tight">LinguaBridge</span>
-</div>
-</div>
-<!-- User Profile -->
-<div class="px-8 mb-10">
-<div class="flex items-center gap-4 p-3 bg-surface-container-low rounded-2xl">
-<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-container text-on-primary-container font-bold text-lg">
-                        SJ
-                    </div>
-<div>
-<p class="font-bold text-on-surface text-body-md leading-none mb-1">Sarah Jenkins</p>
-<p class="text-label-sm text-on-surface-variant font-medium">Dept Lead</p>
-</div>
-</div>
-</div>
-<!-- Nav Links -->
-<nav class="flex-grow px-4 space-y-1">
-<a class="flex items-center gap-3 px-5 py-3.5 bg-primary text-on-primary rounded-xl transition-all shadow-sm font-semibold" href="#">
-<span class="material-symbols-outlined text-[22px]" data-icon="grid_view">grid_view</span>
-<span class="text-label-md">Dashboard</span>
-</a>
-<a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-lessons.html">
-<span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" data-icon="auto_stories">auto_stories</span>
-<span class="text-label-md">Lessons</span>
-</a>
-<a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-students_list.html">
-<span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" data-icon="group">group</span>
-<span class="text-label-md">Students</span>
-</a>
-<a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-schedule.html">
-<span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" data-icon="event_available">event_available</span>
-<span class="text-label-md">Schedule</span>
-</a>
-<a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-payments.html">
-<span class="material-symbols-outlined text-[22px] group-hover:scale-110 transition-transform" data-icon="account_balance_wallet">account_balance_wallet</span>
-<span class="text-label-md">Payments</span>
-</a>
-</nav>
-<!-- CTA -->
-<div class="px-6 mt-auto">
-<button class="w-full h-14 bg-primary-container text-on-primary-container rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all soft-shadow">
-<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
-<span>New Lesson</span>
-</button>
-</div>
-</div>
+  <div class="flex flex-col h-full py-10">
+    <div class="px-8 mb-12">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary text-xl">translate</span>
+        </div>
+        <span class="text-headline-md font-extrabold text-primary tracking-tight">LinguaBridge</span>
+      </div>
+    </div>
+    <nav class="flex-grow px-4 space-y-1">
+        <a class="flex items-center gap-3 px-5 py-3.5 bg-primary text-on-primary rounded-xl transition-all shadow-sm font-semibold" href="#">
+          <span class="material-symbols-outlined text-[22px]">grid_view</span>
+          <span class="text-label-md">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-lessons.html">
+          <span class="material-symbols-outlined text-[22px]">auto_stories</span>
+          <span class="text-label-md">Lessons</span>
+        </a>
+        <a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-students_list.html">
+          <span class="material-symbols-outlined text-[22px]">group</span>
+          <span class="text-label-md">Students</span>
+        </a>
+        <a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-schedule.html">
+          <span class="material-symbols-outlined text-[22px]">event_available</span>
+          <span class="text-label-md">Schedule</span>
+        </a>
+        <a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-payments.html">
+          <span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+          <span class="text-label-md">Payments</span>
+        </a>
+        <a class="flex items-center gap-3 px-5 py-3.5 text-on-surface-variant hover:bg-secondary-container/30 hover:text-primary transition-all rounded-xl group" href="tutors-digital_campus.html">
+          <span class="material-symbols-outlined text-[22px]">school</span>
+          <span class="text-label-md">Digital Campus</span>
+        </a>
+    </nav>
+    <div class="px-6 mt-auto">
+      <button class="w-full h-14 bg-primary-container text-on-primary-container rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-primary hover:text-on-primary transition-all">
+        <span class="material-symbols-outlined">add_circle</span>
+        <span>New Lesson</span>
+      </button>
+    </div>
+  </div>
 </aside>
 <!-- Top App Bar -->
-<header class="flex justify-between items-center h-24 px-margin ml-72 sticky top-0 z-40 glass-panel">
-<div class="flex items-center bg-surface-container-lowest rounded-2xl px-5 py-3 w-[440px] border border-outline-variant/10 soft-shadow">
-<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-body-md w-full ml-3 placeholder-on-surface-variant/50" placeholder="Search resources, students, or classes..." type="text"/>
-<span class="text-[10px] font-bold text-outline-variant px-1.5 py-0.5 border border-outline-variant/30 rounded bg-surface">⌘K</span>
-</div>
-<div class="flex items-center gap-4">
-<button class="w-11 h-11 flex items-center justify-center hover:bg-surface-container rounded-xl transition-all text-on-surface-variant relative">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-background"></span>
-</button>
-<button class="w-11 h-11 flex items-center justify-center hover:bg-surface-container rounded-xl transition-all text-on-surface-variant">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<div class="relative" id="portal-lang-wrap">
-<button id="portal-lang-btn" onclick="togglePortalLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-primary px-3 py-2 rounded-full hover:bg-rose-100 transition-all text-sm font-medium">
-<span class="material-symbols-outlined" style="font-size:18px;line-height:1">language</span>
-<svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</button>
-<div id="portal-lang-dropdown" class="hidden absolute right-0 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 min-w-[110px]" style="top:44px;z-index:9999">
-<button onclick="changePortalLang('en');closePortalLang()" class="portal-lang-btn portal-lang-btn-en w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors text-primary bg-rose-50"><img src="https://flagcdn.com/w40/gb.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> EN</button>
-<button onclick="changePortalLang('bg');closePortalLang()" class="portal-lang-btn portal-lang-btn-bg w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/bg.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> BG</button>
-<button onclick="changePortalLang('ru');closePortalLang()" class="portal-lang-btn portal-lang-btn-ru w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/ru.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> RU</button>
-<button onclick="changePortalLang('zh');closePortalLang()" class="portal-lang-btn portal-lang-btn-zh w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/cn.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> 中文</button>
-</div>
-</div>
-<button onclick="handlePortalLogout()" class="flex items-center justify-center w-9 h-9 rounded-full text-on-surface-variant hover:bg-surface-container transition-all" title="Logout">
-<span class="material-symbols-outlined" style="font-size:20px;line-height:1">logout</span>
-</button>
-</button>
-</div>
+<header class="fixed top-0 right-0 left-72 z-40 h-20 glass-panel border-b border-outline-variant/10 flex justify-between items-center px-8">
+  <div class="flex items-center bg-surface-container-lowest rounded-2xl px-5 py-3 w-[380px] border border-outline-variant/10">
+    <span class="material-symbols-outlined text-on-surface-variant">search</span>
+    <input class="bg-transparent border-none focus:ring-0 text-body-md w-full ml-3 placeholder-on-surface-variant/50" placeholder="Search resources, students, or classes..." type="text"/>
+  </div>
+  <div class="flex items-center gap-3">
+    <button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container rounded-xl transition-all text-on-surface-variant relative">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-background"></span>
+    </button>
+        <div class="relative" id="portal-lang-wrap">
+          <button id="portal-lang-btn" onclick="togglePortalLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-primary px-3 py-2 rounded-full hover:bg-rose-100 transition-all text-sm font-medium">
+            <span class="material-symbols-outlined" style="font-size:18px;line-height:1">language</span>
+            <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div id="portal-lang-dropdown" class="hidden absolute right-0 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 min-w-[110px]" style="top:44px;z-index:9999">
+            <button onclick="changePortalLang('en');closePortalLang()" class="portal-lang-btn portal-lang-btn-en w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors text-primary bg-rose-50"><img src="https://flagcdn.com/w40/gb.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> EN</button>
+            <button onclick="changePortalLang('bg');closePortalLang()" class="portal-lang-btn portal-lang-btn-bg w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/bg.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> BG</button>
+            <button onclick="changePortalLang('ru');closePortalLang()" class="portal-lang-btn portal-lang-btn-ru w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/ru.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> RU</button>
+            <button onclick="changePortalLang('zh');closePortalLang()" class="portal-lang-btn portal-lang-btn-zh w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/cn.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> 中文</button>
+          </div>
+        </div>
+        <button onclick="handlePortalLogout()" class="flex items-center justify-center w-9 h-9 rounded-full text-on-surface-variant hover:bg-surface-container transition-all" title="Logout">
+          <span class="material-symbols-outlined" style="font-size:20px;line-height:1">logout</span>
+        </button>
+  </div>
 </header>
 <!-- Main Content Canvas -->
-<main class="ml-72 p-margin max-w-[1400px]">
+<main class="ml-72 pt-20 p-margin max-w-[1400px]">
 <!-- Welcome Section -->
 <section class="mb-lg">
 <div class="flex items-baseline gap-2 mb-1">

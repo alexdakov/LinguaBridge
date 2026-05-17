@@ -54,6 +54,10 @@ function splitName(fullName = '') {
   };
 }
 
+function safeParseJSON(str) {
+  try { return str ? JSON.parse(str) : {}; } catch { return {}; }
+}
+
 /** Generate a cryptographically random temporary password. */
 function tmpPassword() {
   // 20 random chars + forced uppercase + digit + symbol to satisfy policies
@@ -275,6 +279,7 @@ exports.approveStudent = onCall(async (request) => {
       disabled:      false,
     });
     uid = userRecord.uid;
+    await getAuth().setCustomUserClaims(uid, { role: 'student' });
   } catch (authErr) {
     throw new HttpsError('already-exists',
       `Firebase Auth: ${authErr.message}`, { code: authErr.code });
@@ -367,6 +372,7 @@ exports.approveTutor = onCall(async (request) => {
       disabled:      false,
     });
     uid = userRecord.uid;
+    await getAuth().setCustomUserClaims(uid, { role: 'tutor' });
   } catch (authErr) {
     throw new HttpsError('already-exists',
       `Firebase Auth: ${authErr.message}`, { code: authErr.code });
@@ -405,6 +411,150 @@ exports.approveTutor = onCall(async (request) => {
   const resetLink = await getAuth().generatePasswordResetLink(app.EMAIL).catch(() => null);
 
   return { success: true, uid, resetLink };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2c. ADMIN CALLABLE: getEnrollments
+// Returns all student_enrollments rows, newest first.
+// ─────────────────────────────────────────────────────────────────────────────
+exports.getEnrollments = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const result = await db.execute(
+    `SELECT id, first_name, last_name, email, phone_number,
+            requested_course_id, status, firebase_uid, notes, created_at
+       FROM student_enrollments
+      ORDER BY created_at DESC`,
+  );
+  const enrollments = result.rows.map(r => {
+    const extra = safeParseJSON(r.NOTES);
+    return {
+      id:              r.ID,
+      name:            `${r.FIRST_NAME || ''} ${r.LAST_NAME || ''}`.trim(),
+      email:           r.EMAIL,
+      phone:           r.PHONE_NUMBER,
+      courseId:        r.REQUESTED_COURSE_ID,
+      status:          r.STATUS,
+      firebaseUid:     r.FIREBASE_UID,
+      createdAt:       r.CREATED_AT,
+      ...extra,
+    };
+  });
+  return { enrollments };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2d. ADMIN CALLABLE: getApplications
+// Returns all tutor_applications rows, newest first.
+// ─────────────────────────────────────────────────────────────────────────────
+exports.getApplications = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const result = await db.execute(
+    `SELECT id, first_name, last_name, email, experience_years,
+            main_language, cv_url, status, notes, created_at
+       FROM tutor_applications
+      ORDER BY created_at DESC`,
+  );
+  const applications = result.rows.map(r => {
+    const extra = safeParseJSON(r.NOTES);
+    return {
+      id:              r.ID,
+      name:            `${r.FIRST_NAME || ''} ${r.LAST_NAME || ''}`.trim(),
+      email:           r.EMAIL,
+      experienceYears: r.EXPERIENCE_YEARS,
+      mainLanguage:    r.MAIN_LANGUAGE,
+      cvUrl:           r.CV_URL,
+      status:          r.STATUS,
+      createdAt:       r.CREATED_AT,
+      ...extra,
+    };
+  });
+  return { applications };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2e. ADMIN CALLABLE: updateEnrollmentStatus
+// ─────────────────────────────────────────────────────────────────────────────
+exports.updateEnrollmentStatus = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const { enrollmentId, status } = request.data;
+  const VALID = ['pending', 'approved', 'rejected'];
+  if (!enrollmentId || !VALID.includes(status)) {
+    throw new HttpsError('invalid-argument', `status must be one of: ${VALID.join(', ')}`);
+  }
+  await db.execute(
+    `UPDATE student_enrollments SET status = :status WHERE id = :id`,
+    { status, id: enrollmentId },
+  );
+  return { success: true };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2f. ADMIN CALLABLE: updateApplicationStatus
+// ─────────────────────────────────────────────────────────────────────────────
+exports.updateApplicationStatus = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const { applicationId, status } = request.data;
+  const VALID = ['pending', 'approved', 'rejected'];
+  if (!applicationId || !VALID.includes(status)) {
+    throw new HttpsError('invalid-argument', `status must be one of: ${VALID.join(', ')}`);
+  }
+  await db.execute(
+    `UPDATE tutor_applications SET status = :status WHERE id = :id`,
+    { status, id: applicationId },
+  );
+  return { success: true };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2g. PUBLIC: submitPasswordResetRequest
+// POST body: { email, message? }
+// Stores request in Firestore for admin review.
+// ─────────────────────────────────────────────────────────────────────────────
+exports.submitPasswordResetRequest = onRequest(
+  { cors: false },
+  async (req, res) => {
+    if (handlePreflight(req, res)) return;
+    setCors(req, res);
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    const { email = '', message = '' } = req.body || {};
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Valid email required' });
+    }
+
+    const { getFirestore, Timestamp } = require('firebase-admin/firestore');
+    const fsdb = getFirestore();
+    await fsdb.collection('passwordResetRequests').add({
+      email:     email.toLowerCase().trim(),
+      message:   message.trim() || null,
+      status:    'pending',
+      createdAt: Timestamp.now(),
+    });
+
+    return res.status(201).json({ success: true });
+  },
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2h. ADMIN CALLABLE: sendPasswordResetLink
+// Generates a Firebase password-reset link and marks the request resolved.
+// ─────────────────────────────────────────────────────────────────────────────
+exports.sendPasswordResetLink = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const { requestId, email } = request.data;
+  if (!requestId || !email) throw new HttpsError('invalid-argument', 'requestId and email required.');
+
+  const resetLink = await getAuth().generatePasswordResetLink(email);
+
+  const { getFirestore, Timestamp } = require('firebase-admin/firestore');
+  const fsdb = getFirestore();
+  await fsdb.collection('passwordResetRequests').doc(requestId).update({
+    status:     'resolved',
+    resolvedAt: Timestamp.now(),
+    resolvedBy: request.auth.uid,
+  });
+
+  return { success: true, resetLink };
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
