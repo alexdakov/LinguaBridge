@@ -130,17 +130,48 @@
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-white/20">
 <div class="flex justify-between items-center h-20 px-container-padding-desktop w-full max-w-7xl mx-auto">
-<div class="font-display-lg text-headline-md font-bold text-brand tracking-tight">LinguaBridge</div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Home</a>
-<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Languages</a>
-<a class="text-brand font-bold" href="#">About</a>
-<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Contact</a>
-<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Blog</a>
-</div>
-<button class="bg-brand text-on-primary px-6 py-3 rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all shadow-md shadow-brand/10">
-                Start Learning
+    <div class="font-display-lg text-headline-md font-bold text-brand tracking-tight">LinguaBridge</div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="index.html">Home</a>
+        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="languages.html">Languages</a>
+        <a class="text-brand font-bold border-b-2 border-brand pb-1" href="about.html">About</a>
+        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="contact.html">Contact</a>
+        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="blog.html">Blog</a>
+    </div>
+    <div class="flex items-center gap-2">
+        <div class="relative">
+            <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-brand px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
+                <span class="material-symbols-outlined text-[20px]">language</span>
+                <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
+            <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
+                <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
+                <button onclick="changeGlobalLanguage('bg');closeMobileLang()" class="lang-btn lang-btn-bg flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
+                <button onclick="changeGlobalLanguage('ru');closeMobileLang()" class="lang-btn lang-btn-ru flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
+                <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
+            </div>
+        </div>
+        <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-brand text-on-primary px-6 py-2.5 rounded-full font-label-md active:scale-95 transition-all shadow-md shadow-brand/10 hover:opacity-90">
+            <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
+        </button>
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-black/5 transition-all">
+            <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+    </div>
+</div>
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-black/5 px-4 py-3">
+    <nav class="flex flex-col gap-1">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Home</a>
+        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Languages</a>
+        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">About</a>
+        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Contact</a>
+        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Blog</a>
+        <div class="pt-2 border-t border-black/5 mt-1">
+            <button onclick="window.location.href='login.html'" class="w-full flex items-center justify-center gap-2 bg-brand text-on-primary px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+                <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
+            </button>
+        </div>
+    </nav>
 </div>
 </nav>
 <main class="pt-20">
@@ -429,4 +460,22 @@
 </div>
 </div>
 </footer>
+<script>
+function toggleMobileLang(e) { if (e) e.stopPropagation(); document.getElementById('mobile-lang-dropdown').classList.toggle('hidden'); }
+function closeMobileLang() { document.getElementById('mobile-lang-dropdown').classList.add('hidden'); }
+function changeGlobalLanguage(lang) {
+    localStorage.setItem('preferredLang', lang); closeMobileLang();
+    document.querySelectorAll('.lang-btn').forEach(b => { b.classList.remove('text-primary','bg-rose-50'); b.classList.add('opacity-70','text-slate-600'); });
+    const a = document.querySelector('.lang-btn-' + lang);
+    if (a) { a.classList.add('text-primary','bg-rose-50'); a.classList.remove('opacity-70','text-slate-600'); }
+}
+function toggleMobileMenu(e) { if (e) e.stopPropagation(); document.getElementById('mobile-menu').classList.toggle('hidden'); }
+document.addEventListener('click', function(e) {
+    const lb = document.getElementById('mobile-lang-btn'); const ld = document.getElementById('mobile-lang-dropdown');
+    if (ld && !ld.classList.contains('hidden') && !lb?.contains(e.target) && !ld?.contains(e.target)) ld.classList.add('hidden');
+    const mb = document.getElementById('mobile-menu-btn'); const mm = document.getElementById('mobile-menu');
+    if (mm && !mm.classList.contains('hidden') && !mb?.contains(e.target) && !mm?.contains(e.target)) mm.classList.add('hidden');
+});
+(function(){ const lang = localStorage.getItem('preferredLang') || 'en'; const a = document.querySelector('.lang-btn-' + lang); if (a) { a.classList.add('text-primary','bg-rose-50'); a.classList.remove('opacity-70','text-slate-600'); } })();
+</script>
 </body></html>
