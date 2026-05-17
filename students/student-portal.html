@@ -119,27 +119,27 @@
 <span class="font-label-md text-label-md">Dashboard</span>
 </a>
 <!-- My Courses -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="students-courses.html">
 <span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
 <span class="font-label-md text-label-md">My Courses</span>
 </a>
 <!-- Teaching Schedule -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="students-schedule.html">
 <span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
 <span class="font-label-md text-label-md">Teaching Schedule</span>
 </a>
 <!-- Payments & Credits -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="students-payments.html">
 <span class="material-symbols-outlined" data-icon="payments">payments</span>
 <span class="font-label-md text-label-md">Payments &amp; Credits</span>
 </a>
 <!-- Digital Campus -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="students-digital_campus.html">
 <span class="material-symbols-outlined" data-icon="language">language</span>
 <span class="font-label-md text-label-md">Digital Campus</span>
 </a>
 <!-- Classroom -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="student-classroom.html">
 <span class="material-symbols-outlined" data-icon="school">school</span>
 <span class="font-label-md text-label-md">Classroom</span>
 </a>
@@ -168,6 +168,21 @@
 </button>
 <button class="text-on-surface-variant hover:text-primary transition-colors opacity-80 active:opacity-100">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="relative" id="portal-lang-wrap">
+<button id="portal-lang-btn" onclick="togglePortalLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-primary px-3 py-2 rounded-full hover:bg-rose-100 transition-all text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size:18px;line-height:1">language</span>
+<svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div id="portal-lang-dropdown" class="hidden absolute right-0 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 min-w-[110px]" style="top:44px;z-index:9999">
+<button onclick="changePortalLang('en');closePortalLang()" class="portal-lang-btn portal-lang-btn-en w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors text-primary bg-rose-50"><img src="https://flagcdn.com/w40/gb.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> EN</button>
+<button onclick="changePortalLang('bg');closePortalLang()" class="portal-lang-btn portal-lang-btn-bg w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/bg.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> BG</button>
+<button onclick="changePortalLang('ru');closePortalLang()" class="portal-lang-btn portal-lang-btn-ru w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/ru.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> RU</button>
+<button onclick="changePortalLang('zh');closePortalLang()" class="portal-lang-btn portal-lang-btn-zh w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/cn.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> 中文</button>
+</div>
+</div>
+<button onclick="handlePortalLogout()" class="flex items-center justify-center w-9 h-9 rounded-full text-on-surface-variant hover:bg-surface-container transition-all" title="Logout">
+<span class="material-symbols-outlined" style="font-size:20px;line-height:1">logout</span>
 </button>
 <div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
 <img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A clean professional profile portrait of a person with a neutral friendly expression, styled in a minimalist and bright lighting aesthetic. The background is a soft, solid pale seafoam green that matches the calm educational brand environment. High-end photography with shallow depth of field and soft ambient highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHwUCJ31o_jz23rX7NDIrqg84aLoYjMPre0G8Q45C0s7ymg-YsVIbQxpNIzry7i369rzwF-ucOUe5RglsgQXHYnNNcWoFlHIjPtbFSFfCJvrDq37-2MVdEoQueGEPfPabrYtkPdsv5C3COPs8iroBtA8OoPeOAJpcq5g2xBW7V7VZwD6NuZVUeMHPqcsJfK101YBWC64ml_a5EVZgsJVFNmu2Cr1LZzs6swNWR2lbBtO0NwPwaqxRZo2OWEq_uMfiApFPusV0yhWGE"/>

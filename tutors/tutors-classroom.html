@@ -122,23 +122,23 @@
 <p class="font-label-sm text-label-sm text-on-surface-variant">Senior Educator</p>
 </div>
 <div class="flex-1 space-y-xs">
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="tutor-portal.html">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="font-label-md text-label-md">Dashboard</span>
 </a>
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="tutors-lessons.html">
 <span class="material-symbols-outlined">menu_book</span>
 <span class="font-label-md text-label-md">Lessons</span>
 </a>
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="tutors-students_list.html">
 <span class="material-symbols-outlined">group</span>
 <span class="font-label-md text-label-md">Students</span>
 </a>
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="tutors-schedule.html">
 <span class="material-symbols-outlined">calendar_month</span>
 <span class="font-label-md text-label-md">Schedule</span>
 </a>
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="tutors-payments.html">
 <span class="material-symbols-outlined">payments</span>
 <span class="font-label-md text-label-md">Payments</span>
 </a>
@@ -155,7 +155,7 @@
 <span class="material-symbols-outlined">settings</span>
 <span class="font-label-md text-label-md">Settings</span>
 </a>
-<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors" href="#">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors" href="#" onclick="handlePortalLogout(); return false;">
 <span class="material-symbols-outlined">logout</span>
 <span class="font-label-md text-label-md">Logout</span>
 </a>
@@ -178,6 +178,21 @@
 <span class="material-symbols-outlined text-on-surface-variant">help_outline</span>
 </button>
 </div>
+<div class="relative" id="portal-lang-wrap">
+<button id="portal-lang-btn" onclick="togglePortalLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-primary px-3 py-2 rounded-full hover:bg-rose-100 transition-all text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size:18px;line-height:1">language</span>
+<svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div id="portal-lang-dropdown" class="hidden absolute right-0 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 min-w-[110px]" style="top:44px;z-index:9999">
+<button onclick="changePortalLang('en');closePortalLang()" class="portal-lang-btn portal-lang-btn-en w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors text-primary bg-rose-50"><img src="https://flagcdn.com/w40/gb.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> EN</button>
+<button onclick="changePortalLang('bg');closePortalLang()" class="portal-lang-btn portal-lang-btn-bg w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/bg.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> BG</button>
+<button onclick="changePortalLang('ru');closePortalLang()" class="portal-lang-btn portal-lang-btn-ru w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/ru.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> RU</button>
+<button onclick="changePortalLang('zh');closePortalLang()" class="portal-lang-btn portal-lang-btn-zh w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium hover:bg-rose-50 transition-colors opacity-70 text-slate-600"><img src="https://flagcdn.com/w40/cn.png" class="w-5 h-3.5 rounded-sm object-cover" alt=""> 中文</button>
+</div>
+</div>
+<button onclick="handlePortalLogout()" class="flex items-center justify-center w-9 h-9 rounded-full text-on-surface-variant hover:bg-surface-container transition-all" title="Logout">
+<span class="material-symbols-outlined" style="font-size:20px;line-height:1">logout</span>
+</button>
 <div class="flex items-center gap-sm bg-surface-container-lowest p-xs pr-md rounded-full shadow-sm">
 <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-label-sm">TP</div>
 <span class="font-label-md text-label-md">Tutor Portal</span>
