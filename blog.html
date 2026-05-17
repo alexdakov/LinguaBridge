@@ -7,97 +7,108 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
             extend: {
-              "colors": {
-                      "on-secondary-fixed": "#3f0018",
-                      "error": "#ba1a1a",
-                      "secondary-fixed-dim": "#ffb1c2",
-                      "tertiary": "#463234",
-                      "on-surface": "#1f1a1b",
-                      "surface-container-highest": "#eae0e1",
-                      "on-primary-fixed": "#3f001c",
-                      "on-primary": "#ffffff",
-                      "surface-container-high": "#efe6e7",
-                      "outline-variant": "#dbc0c5",
-                      "background": "#f8f6f7",
-                      "secondary-fixed": "#ffd9df",
-                      "secondary": "#ae2957",
-                      "surface": "#f8f6f7",
-                      "primary-fixed": "#ffd9e1",
-                      "secondary-container": "#fe6793",
-                      "outline": "#887176",
-                      "primary": "#6f0737",
-                      "surface-bright": "#f8f6f7",
-                      "on-primary-fixed-variant": "#851c47",
-                      "on-tertiary": "#ffffff",
-                      "on-secondary-fixed-variant": "#8d0840",
-                      "inverse-surface": "#342f30",
-                      "on-secondary-container": "#6b002d",
-                      "tertiary-container": "#5f484b",
-                      "surface-container-low": "#fbf1f2",
-                      "tertiary-fixed": "#fbdbde",
-                      "surface-variant": "#eae0e1",
-                      "inverse-on-surface": "#f8eeef",
-                      "on-tertiary-fixed-variant": "#574144",
-                      "on-tertiary-fixed": "#281719",
-                      "on-surface-variant": "#554246",
-                      "on-primary-container": "#ffa6bf",
-                      "on-error-container": "#93000a",
-                      "surface-tint": "#a4355f",
-                      "error-container": "#ffdad6",
-                      "surface-container": "#f5eced",
-                      "on-error": "#ffffff",
-                      "on-tertiary-container": "#d6b8bb",
-                      "primary-container": "#8e244e",
-                      "surface-container-lowest": "#ffffff",
-                      "tertiary-fixed-dim": "#debfc2",
-                      "inverse-primary": "#ffb1c6",
-                      "primary-fixed-dim": "#ffb1c6",
-                      "surface-dim": "#e1d8d9",
-                      "on-secondary": "#ffffff",
-                      "on-background": "#1f1a1b"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "gutter": "24px",
-                      "container-padding-desktop": "40px",
-                      "container-padding-mobile": "20px",
-                      "unit": "8px",
-                      "section-gap": "80px"
-              },
-              "fontFamily": {
-                      "headline-lg": ["Plus Jakarta Sans"],
-                      "headline-md": ["Plus Jakarta Sans"],
-                      "body-lg": ["Plus Jakarta Sans"],
-                      "display-lg": ["Plus Jakarta Sans"],
-                      "label-sm": ["Plus Jakarta Sans"],
-                      "headline-lg-mobile": ["Plus Jakarta Sans"],
-                      "label-md": ["Plus Jakarta Sans"],
-                      "body-md": ["Plus Jakarta Sans"]
-              },
-              "fontSize": {
-                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                      "headline-md": ["26px", {"lineHeight": "1.3", "fontWeight": "700"}],
-                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
-              }
-            },
-          },
+                "colors": {
+                    "tertiary-container": "#5f484b",
+                    "primary-fixed": "#ffd9e1",
+                    "surface-dim": "#e1d8d9",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#eae0e1",
+                    "inverse-surface": "#342f30",
+                    "on-surface": "#1f1a1b",
+                    "inverse-primary": "#ffb1c6",
+                    "on-secondary-container": "#6b002d",
+                    "on-primary-fixed-variant": "#851c47",
+                    "surface-tint": "#a4355f",
+                    "surface-container-highest": "#eae0e1",
+                    "on-tertiary-fixed-variant": "#574144",
+                    "surface-container-low": "#fbf1f2",
+                    "surface-container": "#f5eced",
+                    "outline-variant": "#dbc0c5",
+                    "secondary-fixed-dim": "#ffb1c2",
+                    "on-primary-container": "#ffa6bf",
+                    "surface-container-high": "#efe6e7",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fe6793",
+                    "inverse-on-surface": "#f8eeef",
+                    "secondary": "#ae2957",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#3f0018",
+                    "on-background": "#1f1a1b",
+                    "tertiary": "#463234",
+                    "on-primary-fixed": "#3f001c",
+                    "on-error-container": "#93000a",
+                    "background": "#f5f5f7",
+                    "on-tertiary-container": "#d6b8bb",
+                    "surface": "#ffffff",
+                    "on-tertiary-fixed": "#281719",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffd9df",
+                    "primary-fixed-dim": "#ffb1c6",
+                    "tertiary-fixed-dim": "#debfc2",
+                    "primary-container": "#8e244e",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#8d0840",
+                    "primary": "#a93444",
+                    "outline": "#887176",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#554246",
+                    "surface-bright": "#f5f5f7",
+                    "tertiary-fixed": "#fbdbde",
+                    "on-primary": "#ffffff"
+                },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+                "spacing": {
+                    "xs": "8px",
+                    "sm": "12px",
+                    "base": "16px",
+                    "md": "20px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "padding": "20px",
+                    "margin": "24px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "container-padding-mobile": "20px",
+                    "container-desktop": "40px",
+                    "container-padding-desktop": "40px",
+                    "section-gap": "80px"
+                },
+                "fontFamily": {
+                    "sans": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+                },
+                "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                }
+            }
         }
-    </script>
+    }
+</script>
 <style>
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
@@ -110,17 +121,17 @@
         }
     </style>
 </head>
-<body class="bg-[#f8f6f7] font-body-md text-on-surface antialiased organic-gradient min-h-screen">
+<body class="bg-background text-on-background font-body-md">
 <!-- TopNavBar -->
-<header class="fixed top-0 w-full z-50 bg-[#f8f6f7]/60 backdrop-blur-[20px] border-b border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-<nav class="flex justify-between items-center h-20 px-container-padding-desktop w-full max-w-7xl mx-auto">
-    <div class="font-display-lg text-headline-md font-bold text-primary tracking-tight">LinguaBridge</div>
+<header class="sticky top-0 w-full z-50 glass-panel border-b border-white/30 shadow-sm">
+<nav class="flex justify-between items-center max-w-6xl mx-auto px-container-desktop py-4">
+    <div class="text-headline-md font-headline-md font-extrabold text-primary tracking-tight">LinguaBridge</div>
     <div class="hidden md:flex items-center gap-8">
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="index.html">Home</a>
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="languages.html">Languages</a>
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="about.html">About</a>
-        <a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="contact.html">Contact</a>
-        <a class="text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-300" href="blog.html">Blog</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="index.html">Home</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="languages.html">Languages</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="about.html">About</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="contact.html">Contact</a>
+        <a class="text-primary font-bold border-b-2 border-primary font-label-md text-label-md transition-colors duration-300" href="blog.html">Blog</a>
     </div>
     <div class="flex items-center gap-2">
         <div class="relative">
@@ -135,14 +146,29 @@
                 <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
             </div>
         </div>
-        <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md active:scale-95 transition-all hover:opacity-90">
+        <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md active:scale-95 transition-all shadow-md hover:shadow-lg hover:opacity-90">
             <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
         </button>
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-black/5 transition-all">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container transition-all">
             <span class="material-symbols-outlined text-[22px]">menu</span>
         </button>
     </div>
 </nav>
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-surface-container px-4 py-3">
+    <nav class="flex flex-col gap-1">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Home</a>
+        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Languages</a>
+        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">About</a>
+        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Contact</a>
+        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Blog</a>
+        <div class="pt-2 border-t border-surface-container mt-1">
+            <button onclick="window.location.href='login.html'" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+                <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
+            </button>
+        </div>
+    </nav>
+</div>
+</header>
 <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-black/5 px-4 py-3">
     <nav class="flex flex-col gap-1">
         <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-primary transition-all">Home</a>

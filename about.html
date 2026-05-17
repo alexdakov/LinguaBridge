@@ -7,98 +7,108 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "brand-red": "#a93444",
-                        "on-surface-variant": "#554246",
-                        "on-secondary-fixed": "#3f0018",
-                        "surface-dim": "#e1d8d9",
-                        "on-surface": "#1f1a1b",
-                        "primary": "#a93444",
-                        "error-container": "#ffdad6",
-                        "surface-container": "#f5eced",
-                        "surface": "#fff8f8",
-                        "on-tertiary-fixed": "#281719",
-                        "primary-fixed": "#ffd9e1",
-                        "outline-variant": "#dbc0c5",
-                        "on-tertiary": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed": "#fbdbde",
-                        "surface-bright": "#fff8f8",
-                        "on-secondary-container": "#6b002d",
-                        "inverse-on-surface": "#f8eeef",
-                        "surface-container-highest": "#eae0e1",
-                        "inverse-primary": "#ffb1c6",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed-dim": "#debfc2",
-                        "surface-variant": "#eae0e1",
-                        "surface-container-low": "#fbf1f2",
-                        "secondary-fixed": "#ffd9df",
-                        "on-primary-fixed-variant": "#851c47",
-                        "on-error-container": "#93000a",
-                        "primary-fixed-dim": "#ffb1c6",
-                        "on-tertiary-container": "#d6b8bb",
-                        "background": "#F5F5F7",
-                        "surface-container-high": "#efe6e7",
-                        "primary-container": "#a93444",
-                        "inverse-surface": "#342f30",
-                        "on-tertiary-fixed-variant": "#574144",
-                        "on-secondary": "#ffffff",
-                        "surface-tint": "#a4355f",
-                        "secondary-fixed-dim": "#ffb1c2",
-                        "on-primary-container": "#ffa6bf",
-                        "on-secondary-fixed-variant": "#8d0840",
-                        "secondary": "#ae2957",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-fixed": "#3f001c",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#5f484b",
-                        "secondary-container": "#fe6793",
-                        "outline": "#887176",
-                        "on-background": "#1f1a1b",
-                        "tertiary": "#463234"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "section-gap": "100px",
-                        "container-padding-mobile": "20px",
-                        "gutter": "24px",
-                        "container-padding-desktop": "40px",
-                        "unit": "8px"
-                    },
-                    "fontFamily": {
-                        "label-md": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "display-lg": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
-                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
-                    }
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "tertiary-container": "#5f484b",
+                    "primary-fixed": "#ffd9e1",
+                    "surface-dim": "#e1d8d9",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#eae0e1",
+                    "inverse-surface": "#342f30",
+                    "on-surface": "#1f1a1b",
+                    "inverse-primary": "#ffb1c6",
+                    "on-secondary-container": "#6b002d",
+                    "on-primary-fixed-variant": "#851c47",
+                    "surface-tint": "#a4355f",
+                    "surface-container-highest": "#eae0e1",
+                    "on-tertiary-fixed-variant": "#574144",
+                    "surface-container-low": "#fbf1f2",
+                    "surface-container": "#f5eced",
+                    "outline-variant": "#dbc0c5",
+                    "secondary-fixed-dim": "#ffb1c2",
+                    "on-primary-container": "#ffa6bf",
+                    "surface-container-high": "#efe6e7",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fe6793",
+                    "inverse-on-surface": "#f8eeef",
+                    "secondary": "#ae2957",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#3f0018",
+                    "on-background": "#1f1a1b",
+                    "tertiary": "#463234",
+                    "on-primary-fixed": "#3f001c",
+                    "on-error-container": "#93000a",
+                    "background": "#f5f5f7",
+                    "on-tertiary-container": "#d6b8bb",
+                    "surface": "#ffffff",
+                    "on-tertiary-fixed": "#281719",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffd9df",
+                    "primary-fixed-dim": "#ffb1c6",
+                    "tertiary-fixed-dim": "#debfc2",
+                    "primary-container": "#8e244e",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#8d0840",
+                    "primary": "#a93444",
+                    "outline": "#887176",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#554246",
+                    "surface-bright": "#f5f5f7",
+                    "tertiary-fixed": "#fbdbde",
+                    "on-primary": "#ffffff"
                 },
-            },
+                "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+                },
+                "spacing": {
+                    "xs": "8px",
+                    "sm": "12px",
+                    "base": "16px",
+                    "md": "20px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "padding": "20px",
+                    "margin": "24px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "container-padding-mobile": "20px",
+                    "container-desktop": "40px",
+                    "container-padding-desktop": "40px",
+                    "section-gap": "80px"
+                },
+                "fontFamily": {
+                    "sans": ["Plus Jakarta Sans", "sans-serif"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+                },
+                "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                }
+            }
         }
-    </script>
+    }
+</script>
 <style>
         .glass-panel {
             background: rgba(255, 255, 255, 0.85);
@@ -118,29 +128,29 @@
         .hero-gradient {
             background: radial-gradient(circle at center, #ffffff 0%, #F5F5F7 100%);
         }
-        .text-brand {
+        .text-primary {
             color: #a93444;
         }
-        .bg-brand {
+        .bg-primary {
             background-color: #a93444;
         }
     </style>
 </head>
-<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<body class="bg-background text-on-background font-body-md">
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-white/20">
-<div class="flex justify-between items-center h-20 px-container-padding-desktop w-full max-w-7xl mx-auto">
-    <div class="font-display-lg text-headline-md font-bold text-brand tracking-tight">LinguaBridge</div>
+<header class="sticky top-0 w-full z-50 glass-panel border-b border-white/30 shadow-sm">
+<nav class="flex justify-between items-center max-w-6xl mx-auto px-container-desktop py-4">
+    <div class="text-headline-md font-headline-md font-extrabold text-primary tracking-tight">LinguaBridge</div>
     <div class="hidden md:flex items-center gap-8">
-        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="index.html">Home</a>
-        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="languages.html">Languages</a>
-        <a class="text-brand font-bold border-b-2 border-brand pb-1" href="about.html">About</a>
-        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="contact.html">Contact</a>
-        <a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="blog.html">Blog</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="index.html">Home</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="languages.html">Languages</a>
+        <a class="text-primary font-bold border-b-2 border-primary font-label-md text-label-md transition-colors duration-300" href="about.html">About</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="contact.html">Contact</a>
+        <a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="blog.html">Blog</a>
     </div>
     <div class="flex items-center gap-2">
         <div class="relative">
-            <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-brand px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
+            <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-primary px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
                 <span class="material-symbols-outlined text-[20px]">language</span>
                 <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
@@ -151,34 +161,36 @@
                 <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
             </div>
         </div>
-        <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-brand text-on-primary px-6 py-2.5 rounded-full font-label-md active:scale-95 transition-all shadow-md shadow-brand/10 hover:opacity-90">
+        <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md active:scale-95 transition-all shadow-md hover:shadow-lg hover:opacity-90">
             <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
         </button>
-        <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-black/5 transition-all">
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container transition-all">
             <span class="material-symbols-outlined text-[22px]">menu</span>
         </button>
     </div>
-</div>
-<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-black/5 px-4 py-3">
+</nav>
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-surface-container px-4 py-3">
     <nav class="flex flex-col gap-1">
-        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Home</a>
-        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Languages</a>
-        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">About</a>
-        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Contact</a>
-        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-black/5 hover:text-brand transition-all">Blog</a>
-        <div class="pt-2 border-t border-black/5 mt-1">
-            <button onclick="window.location.href='login.html'" class="w-full flex items-center justify-center gap-2 bg-brand text-on-primary px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Home</a>
+        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Languages</a>
+        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">About</a>
+        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Contact</a>
+        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface font-semibold hover:bg-surface-container-low hover:text-primary transition-all">Blog</a>
+        <div class="pt-2 border-t border-surface-container mt-1">
+            <button onclick="window.location.href='login.html'" class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
                 <span class="material-symbols-outlined text-[18px]">school</span>e-Portal
             </button>
         </div>
     </nav>
+</div>
+</header>
 </div>
 </nav>
 <main class="pt-20">
 <!-- Hero Section -->
 <section class="relative pt-32 pb-24 px-container-padding-desktop flex flex-col items-center text-center hero-gradient">
 <div class="max-w-4xl relative z-10">
-<h1 class="font-display-lg text-display-lg text-brand mb-6 leading-tight">Bridging Cultures Through Mastery</h1>
+<h1 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">Bridging Cultures Through Mastery</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
                     We believe language is more than words—it's a gateway to empathy, understanding, and global harmony. LinguaBridge connects hearts and minds through refined academic excellence.
                 </p>
@@ -188,7 +200,7 @@
 <section class="py-section-gap px-container-padding-desktop max-w-7xl mx-auto relative">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 <div class="space-y-8">
-<span class="inline-block px-4 py-1 rounded-full bg-brand/10 text-brand font-label-md">Our Journey</span>
+<span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-label-md">Our Journey</span>
 <h2 class="font-headline-lg text-headline-lg text-on-surface leading-snug">The Evolution of Global Communication</h2>
 <div class="space-y-4">
 <p class="text-on-surface-variant font-body-md leading-relaxed">
@@ -201,21 +213,21 @@
 </div>
 <div class="glass-panel p-10 rounded-[40px] shadow-xl shadow-black/5 border border-white/40">
 <div class="mb-6">
-<span class="material-symbols-outlined text-brand text-5xl" data-icon="diversity_3">diversity_3</span>
+<span class="material-symbols-outlined text-primary text-5xl" data-icon="diversity_3">diversity_3</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-brand mb-4">Human-Centered Approach</h3>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Human-Centered Approach</h3>
 <p class="text-on-surface-variant mb-6">Every curriculum is hand-crafted by linguists who understand that learning a language is a deeply emotional experience.</p>
 <ul class="space-y-4">
 <li class="flex items-center gap-3 group">
-<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
 <span class="font-label-md">Personalized Learning Paths</span>
 </li>
 <li class="flex items-center gap-3 group">
-<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
 <span class="font-label-md">Empathy-Driven Feedback</span>
 </li>
 <li class="flex items-center gap-3 group">
-<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
 <span class="font-label-md">Cultural Immersion Modules</span>
 </li>
 </ul>
@@ -234,7 +246,7 @@
 <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
 <span class="material-symbols-outlined text-3xl">verified</span>
 </div>
-<h4 class="font-headline-md text-headline-md mb-4 text-brand">Authenticity</h4>
+<h4 class="font-headline-md text-headline-md mb-4 text-primary">Authenticity</h4>
 <p class="text-on-surface-variant font-body-md leading-relaxed">We focus on local idioms, accents, and the social context that textbooks often miss.</p>
 </div>
 <!-- Innovation -->
@@ -242,7 +254,7 @@
 <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
 <span class="material-symbols-outlined text-3xl">lightbulb</span>
 </div>
-<h4 class="font-headline-md text-headline-md mb-4 text-brand">Innovation</h4>
+<h4 class="font-headline-md text-headline-md mb-4 text-primary">Innovation</h4>
 <p class="text-on-surface-variant font-body-md leading-relaxed">Our adaptive platform supplements human instruction with intelligent feedback loops.</p>
 </div>
 <!-- Connection -->
@@ -250,7 +262,7 @@
 <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
 <span class="material-symbols-outlined text-3xl">public</span>
 </div>
-<h4 class="font-headline-md text-headline-md mb-4 text-brand">Connection</h4>
+<h4 class="font-headline-md text-headline-md mb-4 text-primary">Connection</h4>
 <p class="text-on-surface-variant font-body-md leading-relaxed">Fostering a global community where borders dissolve through meaningful conversation.</p>
 </div></div>
 </div>
@@ -261,7 +273,7 @@
 <div class="lg:w-1/3">
 <h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">How We Teach</h2>
 <p class="text-on-surface-variant font-body-md mb-10 leading-relaxed">A rigorous yet flexible framework designed for the modern learner.</p>
-<div class="p-10 bg-brand rounded-[40px] text-on-primary shadow-2xl shadow-brand/20 transition-transform hover:scale-[1.02]">
+<div class="p-10 bg-primary rounded-[40px] text-on-primary shadow-2xl shadow-primary/20 transition-transform hover:scale-[1.02]">
 <div class="flex items-center gap-4 mb-6">
 <span class="material-symbols-outlined text-4xl" data-icon="auto_stories">auto_stories</span>
 <span class="font-headline-md">7-Level Path</span>
@@ -271,14 +283,14 @@
 </div>
 <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="glass-panel p-8 rounded-[32px] flex flex-col">
-<h5 class="font-headline-md text-brand mb-3">24/7 LMS Access</h5>
+<h5 class="font-headline-md text-primary mb-3">24/7 LMS Access</h5>
 <p class="text-on-surface-variant mb-6 text-sm">Practice anytime with interactive exercises and curated media.</p>
 <div class="mt-auto overflow-hidden rounded-2xl border border-white/20">
 <img alt="LMS Interface" class="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX4w7-uvb2aya-9w-G_5X_uuBxQuEYJiptPWISaxHF6KfIoFO7w6T8dEL_gfjFvsEDQirrGy_ftMgcrqS0MQJErUufcrL_Dtqr0S97ElPkoolQa4a4qVmU6xPnwzUtYM_a09S8aKT7Xlw657UGNi12Dkya5FHY_1TRPBLr8-vhPlAw1tzk0JbBDbRyK7q_ov66Dv8kI5AFmAN17Be57DM8JjlUwV881B_oVGefufv0xsryCZOjUJoq9HPNqhnDomDF1MoUEPshm5uX"/>
 </div>
 </div>
 <div class="glass-panel p-8 rounded-[32px] flex flex-col">
-<h5 class="font-headline-md text-brand mb-3">Live Masterclasses</h5>
+<h5 class="font-headline-md text-primary mb-3">Live Masterclasses</h5>
 <p class="text-on-surface-variant mb-6 text-sm">Weekly sessions with leads to dive deep into grammar and culture.</p>
 <div class="mt-auto overflow-hidden rounded-2xl border border-white/20">
 <img alt="Live Session" class="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMqWcorNfUjUPd52qnVyzQ0qDVe380_QbMaStRndqyDgLK_bpFG3gyctjp6SIYpNkkr-iAC-9RP6iQ8fU9aHWwoSaozwR1RX8QGXBYG1o2ou9_8b6eu-X9O5RIcUTJeSEJdIG4b21L2qcksoEoqHpYGa7jSTp7yDOAdkr0ZbRD4sLSLicD3SWDG7kL8J7nmQi1d2jxxS2yiw62U2fx23UIqui_7dBTkvI_oEVinN4Av8WC7KLaQl40jnN9TeeuDEhZxLwJvAK0bmE5"/>
@@ -408,11 +420,11 @@
 </section>
 <!-- CTA Section -->
 <section class="py-24 px-container-padding-desktop">
-<div class="max-w-7xl mx-auto glass-panel p-16 rounded-[64px] text-center border-white/40 shadow-2xl shadow-brand/10 relative overflow-hidden">
-<div class="absolute inset-0 bg-brand/5 opacity-50 pointer-events-none"></div>
-<h2 class="font-display-lg text-headline-lg text-brand mb-6 relative z-10">Ready to Start Your Journey?</h2>
+<div class="max-w-7xl mx-auto glass-panel p-16 rounded-[64px] text-center border-white/40 shadow-2xl shadow-primary/10 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 opacity-50 pointer-events-none"></div>
+<h2 class="font-display-lg text-headline-lg text-primary mb-6 relative z-10">Ready to Start Your Journey?</h2>
 <p class="text-on-surface-variant font-body-lg max-w-2xl mx-auto mb-12 relative z-10">Join a community of global communicators dedicated to mastery and cultural understanding.</p>
-<button class="bg-brand text-on-primary px-12 py-5 rounded-full font-headline-md hover:opacity-90 transition-all duration-300 active:scale-95 transform shadow-xl shadow-brand/30 relative z-10">
+<button class="bg-primary text-on-primary px-12 py-5 rounded-full font-headline-md hover:opacity-90 transition-all duration-300 active:scale-95 transform shadow-xl shadow-primary/30 relative z-10">
                     Join the Community
                 </button>
 </div>
@@ -422,31 +434,31 @@
 <footer class="w-full py-20 bg-white/50 border-t border-black/5 mt-10">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-container-padding-desktop max-w-7xl mx-auto">
 <div class="space-y-6">
-<div class="font-display-lg text-headline-md font-bold text-brand">LinguaBridge</div>
+<div class="font-display-lg text-headline-md font-bold text-primary">LinguaBridge</div>
 <p class="font-body-md text-on-surface-variant leading-relaxed">Luminous Humanism in global communication. Bridging cultures since 2018.</p>
 </div>
 <div>
-<h6 class="font-headline-md text-brand mb-8">Company</h6>
+<h6 class="font-headline-md text-primary mb-8">Company</h6>
 <ul class="space-y-4">
-<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Privacy Policy</a></li>
-<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Terms of Service</a></li>
-<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Cookie Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Cookie Policy</a></li>
 </ul>
 </div>
 <div>
-<h6 class="font-headline-md text-brand mb-8">Support</h6>
+<h6 class="font-headline-md text-primary mb-8">Support</h6>
 <ul class="space-y-4">
-<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Language Partners</a></li>
-<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Help Center</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Language Partners</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Help Center</a></li>
 </ul>
 </div>
 <div>
-<h6 class="font-headline-md text-brand mb-8">Follow Us</h6>
+<h6 class="font-headline-md text-primary mb-8">Follow Us</h6>
 <div class="flex gap-4">
-<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-brand hover:bg-brand hover:text-white transition-all duration-300" href="#">
+<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300" href="#">
 <span class="material-symbols-outlined" data-icon="share">share</span>
 </a>
-<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-brand hover:bg-brand hover:text-white transition-all duration-300" href="#">
+<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300" href="#">
 <span class="material-symbols-outlined" data-icon="mail">mail</span>
 </a>
 </div>
@@ -455,8 +467,8 @@
 <div class="max-w-7xl mx-auto px-container-padding-desktop mt-20 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
 <p class="font-label-sm text-on-surface-variant/60">© 2024 LinguaBridge. Luminous Humanism in global communication.</p>
 <div class="flex gap-8">
-<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-brand transition-colors">English (US)</span>
-<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-brand transition-colors">Global Community</span>
+<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-primary transition-colors">English (US)</span>
+<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-primary transition-colors">Global Community</span>
 </div>
 </div>
 </footer>
