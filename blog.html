@@ -7,11 +7,94 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: { extend: { colors: { "primary": "#a93444", "primary-container": "#ff7582", "secondary": "#815438" } } }
-    }
-</script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff7582",
+                        "secondary": "#815438",
+                        "surface-container-low": "#eef5f7",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#40000d",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#dde4e6",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#730720",
+                        "tertiary": "#645d57",
+                        "primary": "#a93444",
+                        "outline-variant": "#debfc0",
+                        "on-background": "#161d1f",
+                        "background": "#f4fafd",
+                        "tertiary-fixed-dim": "#cec5bd",
+                        "primary-fixed": "#ffdada",
+                        "on-secondary-fixed-variant": "#653d23",
+                        "surface-container-high": "#e2e9ec",
+                        "secondary-container": "#fec29f",
+                        "secondary-fixed": "#ffdbc8",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#a93444",
+                        "inverse-on-surface": "#ebf2f4",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#574142",
+                        "on-tertiary-fixed-variant": "#4b4640",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#3c3731",
+                        "primary-fixed-dim": "#ffb2b6",
+                        "secondary-fixed-dim": "#f5ba97",
+                        "on-tertiary-fixed": "#1f1b16",
+                        "outline": "#8a7172",
+                        "on-secondary-container": "#794e32",
+                        "inverse-surface": "#2b3234",
+                        "on-primary-fixed-variant": "#881b2e",
+                        "tertiary-container": "#a8a098",
+                        "inverse-primary": "#ffb2b6",
+                        "surface-bright": "#f4fafd",
+                        "surface-container": "#e8eff1",
+                        "surface-variant": "#dde4e6",
+                        "tertiary-fixed": "#eae1d8",
+                        "surface": "#f4fafd",
+                        "on-secondary-fixed": "#311300",
+                        "surface-dim": "#d4dbdd",
+                        "on-surface": "#161d1f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "margin": "32px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "section-padding": "80px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "h3": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
 <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
@@ -22,7 +105,7 @@
     .shimmer { background: linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; }
 </style>
 </head>
-<body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
+<body class="bg-surface font-body-md text-on-surface antialiased">
 
 <!-- ── Header ── -->
 <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_Sans'] antialiased">
@@ -39,7 +122,7 @@
             <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1" href="blog.html" data-i18n="nav.blog">Blog</a>
         </div>
         <div class="flex items-center gap-2 md:gap-6">
-            <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+            <button onclick="window.location.href='login.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
                 <span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span>
             </button>
             <div class="relative">
@@ -67,7 +150,7 @@
             <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
             <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FF7582] font-semibold bg-rose-50" data-i18n="nav.blog">Blog</a>
             <div class="pt-2 border-t border-rose-50 mt-1">
-                <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
+                <button onclick="window.location.href='login.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
                     <span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span>
                 </button>
             </div>
