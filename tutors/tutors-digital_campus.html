@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Campus - TutorFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#0d1e25",
+                        "surface-container": "#dff1fb",
+                        "on-tertiary-container": "#c0e2b5",
+                        "surface-container-highest": "#d4e5ef",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#524348",
+                        "primary": "#65394a",
+                        "background": "#f4faff",
+                        "on-surface": "#0d1e25",
+                        "on-error": "#ffffff",
+                        "outline": "#827377",
+                        "surface-tint": "#805062",
+                        "primary-fixed": "#ffd9e4",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#e2f3fd",
+                        "primary-container": "#805062",
+                        "on-primary-container": "#ffcadb",
+                        "surface-container-high": "#d9ebf5",
+                        "outline-variant": "#d4c2c6",
+                        "tertiary-container": "#486642",
+                        "surface": "#f4faff",
+                        "on-primary-fixed-variant": "#65394a",
+                        "secondary-fixed": "#f4dde4",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#330f1f",
+                        "inverse-surface": "#23333a",
+                        "surface-variant": "#d4e5ef",
+                        "on-secondary-fixed": "#24181d",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#f3b6cb",
+                        "secondary-container": "#f1dae1",
+                        "primary-fixed-dim": "#f3b6cb",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "tertiary-fixed": "#c9ecbe",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#e7f6ff",
+                        "surface-dim": "#cbdde7",
+                        "tertiary": "#314e2c",
+                        "on-surface-variant": "#504447",
+                        "tertiary-fixed-dim": "#aed0a4",
+                        "on-tertiary-fixed-variant": "#314e2c",
+                        "on-primary-container": "#ffcadb",
+                        "surface-bright": "#f4faff",
+                        "secondary": "#6b5a60",
+                        "on-tertiary-fixed": "#052105"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "32px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .canvas-container {
+            height: calc(100vh - 64px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[4px_0_20px_0_rgba(55,71,79,0.04)] flex flex-col p-md z-50">
+<div class="mb-lg px-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">TutorFlow</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Language Center Portal</p>
+</div>
+<nav class="flex-1 space-y-base overflow-y-auto">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Lessons</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<!-- Active State: Digital Campus -->
+<a class="flex items-center gap-sm px-md py-sm bg-primary-container text-on-primary-container rounded-xl font-bold transition-transform active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-label-md text-label-md">Digital Campus</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant/30 space-y-base">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 rounded-xl transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<div class="flex items-center gap-sm px-sm pt-md border-t border-outline-variant/30">
+<img alt="Tutor Profile Picture" class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A professional portrait of a female language tutor with a warm smile, wearing a professional cream blazer. The background is a soft-focus academic setting with warm sunlight filtering through a window, maintaining the earthy and calm Terra Erudite color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiAOGxNsKD6ayryPP_Zf4ruTT5iMEZcDGqqm86twS_en9fT5IrxByKTqDe08F6aLqGLN25pIKnpoZYsk9xgYvJbxD04yWeEb6YNZ0pWKOb_e5DDsvvaS8cKmhJg0Zj9ETGs2anqIESAwzcpP8kT0qcLZIsgUhqks79lB9597nUOoz2gg5c6feY-gie1fuM-R0-4Llc4aV2fPep1OKhYCpR09CM-gTxbL1jjQTtwXG76lm7nLv6lGLcAEv6rK7-WiKfsUdkh8kNbwzv"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Elena Vance</span>
+<span class="text-[10px] uppercase font-bold text-primary tracking-wider">Master Tutor</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-288px)] h-16 flex justify-between items-center px-32 bg-background/80 backdrop-blur-md z-40">
+<div class="flex items-center gap-md">
+<nav class="flex items-center gap-lg">
+<span class="text-primary font-bold font-label-md text-label-md">Digital Campus</span>
+<span class="text-on-surface-variant font-label-md text-label-md">LMS Integration</span>
+</nav>
+</div>
+<div class="flex items-center gap-lg">
+<!-- Search Bar Positioned on Right as per JSON -->
+<div class="relative hidden lg:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant/60">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full w-64 text-label-sm focus:ring-1 focus:ring-primary/20 placeholder-on-surface-variant/40" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content (Digital Campus Immersive Shell) -->
+<main class="ml-72 mt-16 p-margin min-h-screen bg-background">
+<!-- Moodle LMS Immersive Container -->
+<div class="canvas-container w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col relative outline outline-outline-variant/30">
+<!-- Contextual Status Bar (Within the Canvas) -->
+<div class="flex items-center justify-between px-md py-sm bg-surface-container-low/50 border-b border-outline-variant/20">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label-sm text-label-sm text-tertiary">Moodle Cloud Active</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Course: Advanced Business English III</span>
+</div>
+<div class="flex gap-base">
+<button class="flex items-center gap-xs px-sm py-1 rounded-lg text-on-surface-variant hover:bg-secondary-container/50 transition-colors">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+<span class="font-label-sm text-label-sm">Expand</span>
+</button>
+<button class="flex items-center gap-xs px-sm py-1 rounded-lg text-on-surface-variant hover:bg-secondary-container/50 transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+<span class="font-label-sm text-label-sm">Pop-out</span>
+</button>
+</div>
+</div>
+<!-- The Simulated Embed View -->
+<div class="flex-1 w-full bg-white relative overflow-hidden">
+<!-- Mock Moodle Interface Layer -->
+<div class="absolute inset-0 flex flex-col p-lg">
+<!-- Moodle Branding Header -->
+<div class="flex items-center gap-md mb-xl">
+<div class="w-12 h-12 bg-tertiary-container rounded-xl flex items-center justify-center text-on-tertiary-container shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background">Moodle Course Content</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Academic Term 2024 • Session B</p>
+</div>
+</div>
+<!-- Bento Grid for LMS Quick Actions (Visual Polish for Embed) -->
+<div class="grid grid-cols-12 gap-gutter flex-1">
+<!-- Main Content Stream Mock -->
+<div class="col-span-8 space-y-md">
+<div class="p-lg bg-surface-container-low/20 rounded-xl border border-outline-variant/20 hover:bg-white transition-all cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex gap-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Unit 4: Global Economic Trends.pdf</h3>
+<p class="text-xs text-on-surface-variant mt-1">Uploaded yesterday by Coordinator</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-base py-0.5 rounded-full">New</span>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low/20 rounded-xl border border-outline-variant/20">
+<div class="flex items-start gap-md mb-md">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">quiz</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Weekly Assessment: Passive Voice Mastery</h3>
+<p class="text-xs text-on-surface-variant mt-1">Due: Friday, Oct 25 • 24 Students Assigned</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 65%;"></div>
+</div>
+<div class="mt-base flex justify-between">
+<span class="text-xs font-bold text-primary">16 / 24 Submissions</span>
+<span class="text-xs text-on-surface-variant">65% Completion</span>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low/20 rounded-xl border border-outline-variant/20 opacity-60">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Video Lecture: Negotiating in English</h3>
+<p class="text-xs text-on-surface-variant mt-1">1h 15m • Ready for viewing</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Actions Mock -->
+<div class="col-span-4 space-y-md">
+<div class="p-md bg-secondary-container/30 rounded-xl border border-outline-variant/20">
+<h4 class="font-label-sm text-label-sm text-on-secondary-container uppercase tracking-widest mb-sm">Active Students</h4>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="A close-up headshot of a student with a friendly expression, wearing casual dark clothing. The lighting is soft and professional, set against a neutral, warm-toned academic library background with hints of soft green." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbX7dR6QVj53W3H5N4MAnHul1IaVpnHxP6DoEDKy5mPFXZY-LZWT1HrFjDSchkJZYH_39W1iY0sTJiCZ6YBynvz_mvjCRvpyYwa4fRryoE25_JLwXZffsriZXo0a2_jpjpBr8LPS8oNuZyFbs0qVwUcgk3ar3_SB9F-KWMvv8psqCDSp0lMvwU5FFnQsOrlXqWj33pEKqbr2Rdi3mknPIZYwdJuwxxkUVntOlVUiWBxglio8LXrpp8KPncFoQKzTNZ8a9R1PDexVUq"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="A portrait of a young female student looking focused, with long dark hair, wearing a professional navy sweater. The background is a minimalist classroom setting with natural morning light and soft neutral colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhSuiqUnUHdqvq2ap8cchSzJ0pIgtAeS0aL2qCAnZYjT0QIR8W3Hgf8cPQ1hQrVS0_3jaLcVxGpwIiSAJMvsG49FU9bEKVpLNkwMw0G9kKSi-jTuHVLJgBaIgtMC1_Ci-OyDQbCM_xWG-AfiZ43PLgzo3WmOCX7kclS4mkwpSeq9pXgopTEcy7ySikSUvWSBa-5fg3J0ZytkWkhQglYdm_4tJzJMlc9bisrBSh-rAXuYMSLu9hkdrFnCaEqX7VLgvESd7YJ0dtpkf1"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" data-alt="A headshot of a young male student smiling, wearing a light grey hoodie. The image is bright and airy with a modern educational office background, emphasizing clean lines and the Terra Erudite earthy palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ8tla32z2w2erWootJAOkAiFtCUrrj8QqMsOd2YfR5KMA40Oh_u2QSdlETKGhZZivH1_xrjOhfuzBGym8n-YxLkF8dPFN5KbdRnQC_-LIjZBNaio6QeUmOnf0CCfY4_nAkgCrYIt-OIOlsIgknMKreiEITRiqUBXeFDrdBNRioKf9WIjUdnTERS8-8GIuBpvUqdiqBsUaq83023UVAJ7f9TeluTclxbaFsxCHp49cQ66y8OuP5cY3Yw2MlEXDhweCTs34yJWTjoQ0"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+<p class="text-xs text-on-surface-variant mt-md">Currently browsing Course Unit 4</p>
+</div>
+<div class="p-md bg-tertiary-container/10 rounded-xl border border-tertiary-container/20">
+<h4 class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-sm">LMS Notifications</h4>
+<ul class="space-y-base">
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-[16px] text-tertiary mt-0.5">chat</span>
+<p class="text-xs text-on-surface">3 new forum replies in "Negotiation Tactics"</p>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">warning</span>
+<p class="text-xs text-on-surface">Server maintenance scheduled for Sunday</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Subtle Background Watermark for Brand Identity -->
+<div class="absolute bottom-[-50px] right-[-50px] opacity-[0.03] select-none pointer-events-none">
+<span class="material-symbols-outlined text-[400px]">school</span>
+</div>
+<!-- Glassmorphism Overlay for "Embed Feeling" -->
+<div class="absolute inset-0 bg-white/5 pointer-events-none border-[12px] border-surface-container-low/20"></div>
+</div>
+<!-- Footer Tools within Container -->
+<div class="px-md py-sm bg-surface-container-low/30 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">TutorFlow Moodle Connector v2.4.1</span>
+<div class="flex items-center gap-md">
+<button class="text-primary font-bold font-label-sm text-label-sm hover:underline">Sync Logs</button>
+<button class="text-primary font-bold font-label-sm text-label-sm hover:underline">Settings</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

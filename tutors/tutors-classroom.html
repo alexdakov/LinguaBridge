@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Linguist Portal - Classroom</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "background": "#f4faff",
+                        "surface-container-highest": "#d4e5ef",
+                        "surface-container": "#dff1fb",
+                        "secondary": "#6b5a60",
+                        "tertiary-fixed-dim": "#aed0a4",
+                        "on-primary-fixed-variant": "#65394b",
+                        "secondary-fixed-dim": "#d7c1c8",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#504447",
+                        "secondary-container": "#f4dce4",
+                        "on-secondary-fixed": "#25181e",
+                        "on-tertiary-fixed": "#052105",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#d4c2c6",
+                        "tertiary-container": "#b3d5a9",
+                        "surface-bright": "#f4faff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#0d1e25",
+                        "surface-container-high": "#d9ebf5",
+                        "surface": "#f4faff",
+                        "on-surface": "#0d1e25",
+                        "error": "#ba1a1a",
+                        "primary": "#805062",
+                        "on-tertiary-container": "#405d3a",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#f4dce4",
+                        "tertiary": "#486642",
+                        "primary-fixed-dim": "#f2b6cb",
+                        "on-tertiary-fixed-variant": "#314e2c",
+                        "surface-dim": "#cbdde7",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#330f1f",
+                        "inverse-surface": "#23333a",
+                        "inverse-on-surface": "#e2f3fd",
+                        "primary-container": "#f8bbd0",
+                        "on-secondary-fixed-variant": "#524249",
+                        "surface-container-low": "#e7f6ff",
+                        "outline": "#827377",
+                        "tertiary-fixed": "#c9ecbf",
+                        "on-primary-container": "#76485a",
+                        "surface-variant": "#d4e5ef",
+                        "on-secondary-container": "#716066",
+                        "inverse-primary": "#f2b6cb",
+                        "primary-fixed": "#ffd9e4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#805062"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "32px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f4faff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SIDE NAVBAR -->
+<nav class="bg-surface-container-lowest shadow-[4px_0_20px_rgba(0,0,0,0.04)] h-screen w-64 fixed left-0 top-0 flex flex-col py-md px-sm z-20">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Linguist Portal</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Senior Educator</p>
+</div>
+<div class="flex-1 space-y-xs">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Lessons</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-primary font-bold border-r-4 border-primary bg-secondary-container/30 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Classroom</span>
+</a>
+</div>
+<button class="mt-lg mb-md mx-sm bg-primary-container text-on-primary-container py-sm rounded-xl font-label-md text-label-md shadow-sm active:scale-95 transition-transform">
+            Start New Lesson
+        </button>
+<div class="mt-auto border-t border-surface-container pt-md space-y-xs">
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm rounded-xl text-on-surface-variant font-medium hover:bg-secondary-container/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- TOP APP BAR -->
+<header class="w-full h-16 fixed top-0 z-10 bg-background/80 backdrop-blur-md flex justify-between items-center pl-72 pr-md">
+<div class="flex items-center gap-md">
+<div class="bg-surface-container px-md py-sm rounded-full flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md placeholder-on-surface-variant/60 w-64" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">help_outline</span>
+</button>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-lowest p-xs pr-md rounded-full shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-label-sm">TP</div>
+<span class="font-label-md text-label-md">Tutor Portal</span>
+</div>
+</div>
+</header>
+<!-- MAIN CONTENT CANVAS -->
+<main class="ml-64 pt-16 h-screen flex flex-col">
+<!-- CLASSROOM HEADER / STUDENT CONTEXT -->
+<div class="px-md py-md flex justify-between items-center bg-background">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container flex items-center justify-center text-primary font-bold text-headline-md">AM</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background">Arthur Miller</h2>
+<div class="flex items-center gap-sm mt-xs">
+<span class="px-sm py-xs bg-tertiary-container/30 text-on-tertiary-container rounded-full font-label-sm text-label-sm">B2 Upper-Intermediate</span>
+<span class="text-on-surface-variant/60">•</span>
+<span class="text-on-surface-variant font-label-md text-label-md italic">Today's Topic: "Business Negotiation Idioms"</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-sm text-primary font-bold">
+<span class="material-symbols-outlined">timer</span>
+<span class="font-headline-md text-headline-md tracking-widest">24:45</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant/60 uppercase tracking-wider">Remaining Time</span>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-md py-sm rounded-xl font-label-md text-label-md shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">edit_note</span>
+                    Logbook
+                </button>
+</div>
+</div>
+<!-- DASHBOARD SPLIT VIEW -->
+<div class="flex-1 flex px-md pb-md gap-md overflow-hidden">
+<!-- LEFT PANEL: VIDEO AREA -->
+<div class="flex-[2] flex flex-col gap-md">
+<!-- MAIN VIDEO CONTAINER -->
+<div class="relative flex-1 bg-on-surface rounded-[32px] overflow-hidden shadow-sm group">
+<!-- Student Placeholder Video -->
+<img class="w-full h-full object-cover opacity-90" data-alt="A focused high-angle medium shot of a young adult man in a professional home office setting, looking into a webcam and nodding. The lighting is soft and natural from a side window, with a bookshelf and a calm, minimalist interior design in the background. The overall aesthetic is clean, modern, and aligned with educational professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyLaG3h3vwPAydXaDgayX1QCrjrmSxfyEY5qzut48n2z5FbdLQzLo7wyAXHsqG4SvUvBriH_6X8QRpJqySAWDBfnGiD1NHdvbCRIkkLzLG95Ypj-xxtb879ruy_JFxabdIeg9qAOBkIQEXsiKWladQiQiAFSQz7pN1PdbNViFcaTS_boGPUUlWXgpuN69hIp_9W_G1Y7VkELow4Hct5eAvsVCrNDCPf9xln5c2AUKcBG_sa9cPIEokgPpROg5plZ5n_oCeVUjZb5YA"/>
+<!-- Self View (Picture-in-Picture) -->
+<div class="absolute top-md right-md w-48 h-32 bg-surface-container rounded-2xl overflow-hidden border-2 border-white shadow-lg">
+<div class="w-full h-full bg-surface-container-highest flex items-center justify-center relative">
+<span class="material-symbols-outlined text-primary scale-150">account_circle</span>
+<div class="absolute bottom-base left-base bg-black/40 px-sm py-xs rounded text-[10px] text-white">You (Tutor)</div>
+</div>
+</div>
+<!-- Call Controls Floating -->
+<div class="absolute bottom-lg left-1/2 -translate-x-1/2 flex items-center gap-md px-lg py-sm glass-panel rounded-full shadow-xl">
+<button class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">screen_share</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-error text-on-error flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">call_end</span>
+</button>
+</div>
+<!-- Connection Status -->
+<div class="absolute top-md left-md bg-black/30 px-md py-sm rounded-full backdrop-blur-sm flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+<span class="text-white font-label-sm text-label-sm">Live Connection (Stable)</span>
+</div>
+</div>
+<!-- QUICK TOOLS CAROUSEL -->
+<div class="grid grid-cols-4 gap-sm">
+<div class="bg-surface-container-lowest p-md rounded-2xl flex flex-col items-center gap-xs shadow-sm cursor-pointer hover:bg-secondary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">draw</span>
+<span class="font-label-sm text-label-sm">Whiteboard</span>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl flex flex-col items-center gap-xs shadow-sm cursor-pointer hover:bg-secondary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">translate</span>
+<span class="font-label-sm text-label-sm">Dictionary</span>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl flex flex-col items-center gap-xs shadow-sm cursor-pointer hover:bg-secondary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">record_voice_over</span>
+<span class="font-label-sm text-label-sm">Record Clip</span>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl flex flex-col items-center gap-xs shadow-sm cursor-pointer hover:bg-secondary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary">add_reaction</span>
+<span class="font-label-sm text-label-sm">Reactions</span>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: LESSON MATERIALS & NOTES -->
+<div class="flex-1 flex flex-col gap-md overflow-hidden">
+<!-- LESSON PLAN CARD -->
+<div class="bg-surface-container-lowest p-lg rounded-[32px] shadow-sm flex flex-col h-1/2">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-primary">Lesson Plan</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_horiz</span>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md pr-sm">
+<div class="flex gap-md">
+<div class="w-1 bg-primary rounded-full"></div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">1. Warm-up (5m)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Review last week's idiom "Cut to the chase".</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-1 bg-secondary-container rounded-full"></div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">2. Key Concepts (15m)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Negotiation vocabulary: Leverage, Stalemate, Concession.</p>
+<div class="mt-sm flex gap-sm">
+<div class="px-sm py-xs bg-background rounded-lg border border-outline-variant flex items-center gap-sm cursor-pointer">
+<span class="material-symbols-outlined text-label-md">picture_as_pdf</span>
+<span class="font-label-sm text-label-sm">Vocab_Sheet.pdf</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-1 bg-secondary-container rounded-full"></div>
+<div>
+<h4 class="font-label-md text-label-md text-on-background">3. Roleplay (20m)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Simulate a price negotiation scenario.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- SHARED NOTES / WHITEBOARD AREA -->
+<div class="bg-surface-container-lowest p-lg rounded-[32px] shadow-sm flex flex-col flex-1">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">notes</span>
+<h3 class="font-headline-md text-headline-md text-primary">Shared Notes</h3>
+</div>
+<div class="flex gap-sm">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-background border border-outline-variant text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md">format_bold</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-background border border-outline-variant text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md">format_italic</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-background border border-outline-variant text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md">list</span>
+</button>
+</div>
+</div>
+<div class="flex-1 bg-background rounded-2xl p-md">
+<textarea class="w-full h-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-background resize-none placeholder-on-surface-variant/40" placeholder="Type shared lesson notes here... Arthur can see these in real-time.">Idioms discussed:
+- Ball is in your court (It's your move)
+- Sweeten the deal (Offer something extra)
+- Close the gap (Reach an agreement)</textarea>
+</div>
+<div class="mt-md flex items-center justify-between text-on-surface-variant/60">
+<span class="font-label-sm text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">cloud_done</span>
+                            Saved just now
+                        </span>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary border-2 border-white flex items-center justify-center text-[10px] text-white">T</div>
+<div class="w-6 h-6 rounded-full bg-secondary border-2 border-white flex items-center justify-center text-[10px] text-white">AM</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

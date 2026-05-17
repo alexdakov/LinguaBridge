@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Campus - TutorFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-sky": "#f4faff",
+                        "tertiary-fixed-dim": "#aed0a4",
+                        "secondary-container": "#e0f2fe",
+                        "primary-fixed-dim": "#bae6fd",
+                        "secondary": "#475569",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0f9ff",
+                        "surface-container-high": "#e0f2fe",
+                        "on-primary": "#ffffff",
+                        "error-container": "#fee2e2",
+                        "on-secondary-container": "#0c4a6e",
+                        "on-primary-container": "#0c4a6e",
+                        "inverse-primary": "#7dd3fc",
+                        "on-primary-fixed": "#082f49",
+                        "on-tertiary-fixed-variant": "#14532d",
+                        "on-primary-fixed-variant": "#075985",
+                        "primary-fixed": "#e0f2fe",
+                        "inverse-on-surface": "#f0f9ff",
+                        "background": "#f8fafc",
+                        "surface-container-highest": "#bae6fd",
+                        "on-tertiary-fixed": "#052105",
+                        "primary": "#0284c7",
+                        "outline": "#94a3b8",
+                        "surface-dim": "#e2e8f0",
+                        "on-surface-variant": "#64748b",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#cbd5e1",
+                        "surface-container-low": "#f1f5f9",
+                        "on-error-container": "#991b1b",
+                        "on-tertiary-container": "#14532d",
+                        "surface-tint": "#0284c7",
+                        "tertiary": "#166534",
+                        "on-secondary-fixed-variant": "#334155",
+                        "outline-variant": "#cbd5e1",
+                        "tertiary-fixed": "#dcfce7",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#0284c7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#0f172a",
+                        "surface": "#f8fafc",
+                        "secondary-fixed": "#f1f5f9",
+                        "on-background": "#0f172a",
+                        "on-surface": "#0f172a",
+                        "surface-variant": "#f1f5f9",
+                        "surface-bright": "#f8fafc",
+                        "tertiary-container": "#dcfce7",
+                        "inverse-surface": "#1e293b",
+                        "error": "#ef4444"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "margin": "32px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "caption-xs": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "caption-xs": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .canvas-container {
+            height: calc(100vh - 64px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[4px_0_20px_0_rgba(2,132,199,0.05)] flex flex-col p-md z-50">
+<div class="mb-lg px-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">TutorFlow</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Language Center Portal</p>
+</div>
+<nav class="flex-1 space-y-base overflow-y-auto">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Lessons</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Schedule</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<!-- Active State: Digital Campus -->
+<a class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-xl font-bold transition-transform active:scale-[0.98] shadow-sm shadow-primary/20" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-label-md text-label-md">Digital Campus</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant/30 space-y-base">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-secondary-container/50 hover:text-primary rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<div class="flex items-center gap-sm px-sm pt-md border-t border-outline-variant/30">
+<img alt="Tutor Profile Picture" class="w-10 h-10 rounded-full object-cover shadow-sm border border-outline-variant/50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiAOGxNsKD6ayryPP_Zf4ruTT5iMEZcDGqqm86twS_en9fT5IrxByKTqDe08F6aLqGLN25pIKnpoZYsk9xgYvJbxD04yWeEb6YNZ0pWKOb_e5DDsvvaS8cKmhJg0Zj9ETGs2anqIESAwzcpP8kT0qcLZIsgUhqks79lB9597nUOoz2gg5c6feY-gie1fuM-R0-4Llc4aV2fPep1OKhYCpR09CM-gTxbL1jjQTtwXG76lm7nLv6lGLcAEv6rK7-WiKfsUdkh8kNbwzv"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Elena Vance</span>
+<span class="text-[10px] uppercase font-bold text-primary tracking-wider">Master Tutor</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-288px)] h-16 flex justify-between items-center px-32 bg-background/80 backdrop-blur-md z-40 border-b border-outline-variant/10">
+<div class="flex items-center gap-md">
+<nav class="flex items-center gap-lg">
+<span class="text-primary font-bold font-label-md text-label-md">Digital Campus</span>
+<span class="text-on-surface-variant font-label-md text-label-md">LMS Integration</span>
+</nav>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative hidden lg:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant/60">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full w-64 text-label-sm focus:ring-2 focus:ring-primary/20 placeholder-on-surface-variant/40" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-72 mt-16 p-margin min-h-screen bg-background">
+<!-- Moodle LMS Immersive Container -->
+<div class="canvas-container w-full bg-surface-container-lowest rounded-xl shadow-lg shadow-blue-900/5 overflow-hidden flex flex-col relative outline outline-outline-variant/30">
+<!-- Contextual Status Bar -->
+<div class="flex items-center justify-between px-md py-sm bg-surface-container-low border-b border-outline-variant/20">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Moodle Cloud Active</span>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Course: Advanced Business English III</span>
+</div>
+<div class="flex gap-base">
+<button class="flex items-center gap-xs px-sm py-1 rounded-lg text-on-surface-variant hover:bg-secondary-container/70 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+<span class="font-label-sm text-label-sm">Expand</span>
+</button>
+<button class="flex items-center gap-xs px-sm py-1 rounded-lg text-on-surface-variant hover:bg-secondary-container/70 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+<span class="font-label-sm text-label-sm">Pop-out</span>
+</button>
+</div>
+</div>
+<!-- Simulated Embed View -->
+<div class="flex-1 w-full bg-white relative overflow-hidden">
+<div class="absolute inset-0 flex flex-col p-lg">
+<!-- Moodle Branding Header -->
+<div class="flex items-center gap-md mb-xl">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-on-primary shadow-md shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background">Moodle Course Content</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Academic Term 2024 • Session B</p>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter flex-1">
+<!-- Main Content Stream -->
+<div class="col-span-8 space-y-md overflow-y-auto pr-2">
+<div class="p-lg bg-surface-container-low/40 rounded-xl border border-outline-variant/30 hover:bg-surface-container-low hover:border-primary/30 transition-all cursor-pointer group">
+<div class="flex items-start justify-between">
+<div class="flex gap-md">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Unit 4: Global Economic Trends.pdf</h3>
+<p class="text-xs text-on-surface-variant mt-1">Uploaded yesterday by Coordinator</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-primary-fixed text-primary px-base py-0.5 rounded-full font-bold">New</span>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low/40 rounded-xl border border-outline-variant/30">
+<div class="flex items-start gap-md mb-md">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">quiz</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Weekly Assessment: Passive Voice Mastery</h3>
+<p class="text-xs text-on-surface-variant mt-1">Due: Friday, Oct 25 • 24 Students Assigned</p>
+</div>
+</div>
+<div class="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 65%;"></div>
+</div>
+<div class="mt-base flex justify-between">
+<span class="text-xs font-bold text-primary">16 / 24 Submissions</span>
+<span class="text-xs text-on-surface-variant">65% Completion</span>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low/40 rounded-xl border border-outline-variant/30 opacity-60">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-dim flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Video Lecture: Negotiating in English</h3>
+<p class="text-xs text-on-surface-variant mt-1">1h 15m • Ready for viewing</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Actions -->
+<div class="col-span-4 space-y-md">
+<div class="p-md bg-secondary-container/40 rounded-xl border border-primary/10">
+<h4 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-sm font-bold">Active Students</h4>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbX7dR6QVj53W3H5N4MAnHul1IaVpnHxP6DoEDKy5mPFXZY-LZWT1HrFjDSchkJZYH_39W1iY0sTJiCZ6YBynvz_mvjCRvpyYwa4fRryoE25_JLwXZffsriZXo0a2_jpjpBr8LPS8oNuZyFbs0qVwUcgk3ar3_SB9F-KWMvv8psqCDSp0lMvwU5FFnQsOrlXqWj33pEKqbr2Rdi3mknPIZYwdJuwxxkUVntOlVUiWBxglio8LXrpp8KPncFoQKzTNZ8a9R1PDexVUq"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhSuiqUnUHdqvq2ap8cchSzJ0pIgtAeS0aL2qCAnZYjT0QIR8W3Hgf8cPQ1hQrVS0_3jaLcVxGpwIiSAJMvsG49FU9bEKVpLNkwMw0G9kKSi-jTuHVLJgBaIgtMC1_Ci-OyDQbCM_xWG-AfiZ43PLgzo3WmOCX7kclS4mkwpSeq9pXgopTEcy7ySikSUvWSBa-5fg3J0ZytkWkhQglYdm_4tJzJMlc9bisrBSh-rAXuYMSLu9hkdrFnCaEqX7VLgvESd7YJ0dtpkf1"/>
+<img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ8tla32z2w2erWootJAOkAiFtCUrrj8QqMsOd2YfR5KMA40Oh_u2QSdlETKGhZZivH1_xrjOhfuzBGym8n-YxLkF8dPFN5KbdRnQC_-LIjZBNaio6QeUmOnf0CCfY4_nAkgCrYIt-OIOlsIgknMKreiEITRiqUBXeFDrdBNRioKf9WIjUdnTERS8-8GIuBpvUqdiqBsUaq83023UVAJ7f9TeluTclxbaFsxCHp49cQ66y8OuP5cY3Yw2MlEXDhweCTs34yJWTjoQ0"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">+12</div>
+</div>
+<p class="text-xs text-on-surface-variant mt-md">Currently browsing Course Unit 4</p>
+</div>
+<div class="p-md bg-white rounded-xl border border-outline-variant/30 shadow-sm">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-sm font-bold">LMS Notifications</h4>
+<ul class="space-y-base">
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">chat</span>
+<p class="text-xs text-on-surface">3 new forum replies in "Negotiation Tactics"</p>
+</li>
+<li class="flex gap-sm items-start">
+<span class="material-symbols-outlined text-[16px] text-error mt-0.5">warning</span>
+<p class="text-xs text-on-surface">Server maintenance scheduled for Sunday</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Subtle Watermark -->
+<div class="absolute bottom-[-50px] right-[-50px] opacity-[0.05] select-none pointer-events-none text-primary">
+<span class="material-symbols-outlined text-[400px]">school</span>
+</div>
+<!-- Glassmorphism Border Overlay -->
+<div class="absolute inset-0 bg-primary/5 pointer-events-none border-[12px] border-surface-container-low/30"></div>
+</div>
+<!-- Footer Tools -->
+<div class="px-md py-sm bg-surface-container-low/50 border-t border-outline-variant/10 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant/60">TutorFlow Moodle Connector v2.4.1</span>
+<div class="flex items-center gap-md">
+<button class="text-primary font-bold font-label-sm text-label-sm hover:text-on-primary-fixed-variant transition-colors">Sync Logs</button>
+<button class="text-primary font-bold font-label-sm text-label-sm hover:text-on-primary-fixed-variant transition-colors">Settings</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

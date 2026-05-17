@@ -1,79 +1,66 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>About | LinguaBridge</title>
+<title>About Us | LinguaBridge</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .image-fade-mask {
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
-            mask-image: linear-gradient(to right, transparent 0%, black 35%);
-        }
-    </style>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "secondary-fixed": "#ffdbc8",
-                        "primary-fixed": "#ffdada",
-                        "primary-fixed-dim": "#ffb2b6",
-                        "on-secondary-container": "#794e32",
-                        "error-container": "#ffdad6",
-                        "surface-tint": "#a93444",
-                        "outline": "#8a7172",
-                        "on-secondary-fixed-variant": "#653d23",
-                        "primary-container": "#ff7582",
-                        "inverse-primary": "#ffb2b6",
-                        "surface-container-highest": "#dde4e6",
-                        "on-tertiary-container": "#3c3731",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary-fixed": "#311300",
-                        "on-error": "#ffffff",
-                        "on-tertiary-fixed-variant": "#4b4640",
-                        "on-tertiary-fixed": "#1f1b16",
-                        "tertiary-fixed": "#eae1d8",
-                        "surface-variant": "#dde4e6",
-                        "on-error-container": "#93000a",
-                        "tertiary-container": "#a8a098",
-                        "surface": "#f4fafd",
-                        "on-primary": "#ffffff",
-                        "secondary": "#815438",
+                        "brand-red": "#a93444",
+                        "on-surface-variant": "#554246",
+                        "on-secondary-fixed": "#3f0018",
+                        "surface-dim": "#e1d8d9",
+                        "on-surface": "#1f1a1b",
                         "primary": "#a93444",
-                        "on-surface-variant": "#574142",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#f5eced",
+                        "surface": "#fff8f8",
+                        "on-tertiary-fixed": "#281719",
+                        "primary-fixed": "#ffd9e1",
+                        "outline-variant": "#dbc0c5",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#fbdbde",
+                        "surface-bright": "#fff8f8",
+                        "on-secondary-container": "#6b002d",
+                        "inverse-on-surface": "#f8eeef",
+                        "surface-container-highest": "#eae0e1",
+                        "inverse-primary": "#ffb1c6",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#debfc2",
+                        "surface-variant": "#eae0e1",
+                        "surface-container-low": "#fbf1f2",
+                        "secondary-fixed": "#ffd9df",
+                        "on-primary-fixed-variant": "#851c47",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb1c6",
+                        "on-tertiary-container": "#d6b8bb",
+                        "background": "#F5F5F7",
+                        "surface-container-high": "#efe6e7",
+                        "primary-container": "#a93444",
+                        "inverse-surface": "#342f30",
+                        "on-tertiary-fixed-variant": "#574144",
                         "on-secondary": "#ffffff",
-                        "tertiary-fixed-dim": "#cec5bd",
-                        "on-surface": "#161d1f",
-                        "surface-bright": "#f4fafd",
-                        "on-primary-container": "#730720",
+                        "surface-tint": "#a4355f",
+                        "secondary-fixed-dim": "#ffb1c2",
+                        "on-primary-container": "#ffa6bf",
+                        "on-secondary-fixed-variant": "#8d0840",
+                        "secondary": "#ae2957",
                         "surface-container-lowest": "#ffffff",
-                        "outline-variant": "#debfc0",
-                        "inverse-on-surface": "#ebf2f4",
-                        "on-background": "#161d1f",
-                        "surface-container-high": "#e2e9ec",
-                        "background": "#f4fafd",
-                        "surface-container-low": "#eef5f7",
-                        "surface-container": "#e8eff1",
-                        "surface-dim": "#d4dbdd",
+                        "on-primary-fixed": "#3f001c",
                         "error": "#ba1a1a",
-                        "secondary-fixed-dim": "#f5ba97",
-                        "secondary-container": "#fec29f",
-                        "on-primary-fixed": "#40000d",
-                        "inverse-surface": "#2b3234",
-                        "tertiary": "#645d57",
-                        "on-primary-fixed-variant": "#881b2e"
+                        "tertiary-container": "#5f484b",
+                        "secondary-container": "#fe6793",
+                        "outline": "#887176",
+                        "on-background": "#1f1a1b",
+                        "tertiary": "#463234"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.25rem",
@@ -82,391 +69,364 @@
                         "full": "9999px"
                     },
                     "spacing": {
-                        "stack-lg": "32px",
-                        "stack-sm": "8px",
-                        "margin": "32px",
+                        "section-gap": "100px",
+                        "container-padding-mobile": "20px",
                         "gutter": "24px",
-                        "stack-md": "16px",
-                        "section-padding": "80px",
-                        "container-max": "1200px"
+                        "container-padding-desktop": "40px",
+                        "unit": "8px"
                     },
                     "fontFamily": {
-                        "label-md": ["Be Vietnam Pro"],
-                        "body-lg": ["Be Vietnam Pro"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "h2": ["Plus Jakarta Sans"],
-                        "h3": ["Plus Jakarta Sans"],
-                        "h1": ["Plus Jakarta Sans"]
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
                     },
                     "fontSize": {
-                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
                         "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                        "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
                     }
                 },
             },
         }
     </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(169, 52, 68, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .section-gradient-light {
+            background: linear-gradient(180deg, #F5F5F7 0%, #edeef2 100%);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at center, #ffffff 0%, #F5F5F7 100%);
+        }
+        .text-brand {
+            color: #a93444;
+        }
+        .bg-brand {
+            background-color: #a93444;
+        }
+    </style>
 </head>
-<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
-<!-- Top Navigation Bar -->
-<nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 dark:border-slate-800/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_Sans'] antialiased">
-    <div class="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-     <!-- Logo points to home -->
-<a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
-    <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
-    <span>LinguaBridge</span>
-</a>
-        
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-8">
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html" data-i18n="nav.home">Home</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="languages.html" data-i18n="nav.languages">Languages</a>
-            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="about.html" data-i18n="nav.about">About</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg" href="contact.html" data-i18n="nav.contact">Contact</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="blog.html" data-i18n="nav.blog">Blog</a>
-        </div>
-
-            <div class="flex items-center gap-2 md:gap-6">
-    <!-- Desktop Enrol button -->
-    <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span></button>
-    <!-- Mobile language globe -->
-    <div class="relative">
-        <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-[#FF7582] px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
-            <span class="material-symbols-outlined text-[20px]">language</span>
-            <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
-            <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
-            <button onclick="changeGlobalLanguage('bg');closeMobileLang()" class="lang-btn lang-btn-bg flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
-            <button onclick="changeGlobalLanguage('ru');closeMobileLang()" class="lang-btn lang-btn-ru flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
-            <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
-        </div>
-    </div>
-    <!-- Mobile hamburger -->
-    <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
-        <span class="material-symbols-outlined text-[22px]">menu</span>
-    </button>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-white/20">
+<div class="flex justify-between items-center h-20 px-container-padding-desktop w-full max-w-7xl mx-auto">
+<div class="font-display-lg text-headline-md font-bold text-brand tracking-tight">LinguaBridge</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Languages</a>
+<a class="text-brand font-bold" href="#">About</a>
+<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Contact</a>
+<a class="text-on-surface-variant font-medium hover:text-brand transition-colors duration-300" href="#">Blog</a>
 </div>
-    </div>
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-50 px-4 py-3">
-    <nav class="flex flex-col gap-1">
-        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.home">Home</a>
-        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.languages">Languages</a>
-        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.about">About</a>
-        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
-        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.blog">Blog</a>
-        <div class="pt-2 border-t border-rose-50 mt-1">
-            <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span></button>
-        </div>
-    </nav>
+<button class="bg-brand text-on-primary px-6 py-3 rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all shadow-md shadow-brand/10">
+                Start Learning
+            </button>
 </div>
 </nav>
-
-<!-- Main Content -->
-<main class="mt-20">
-
-    <!-- Hero -->
-    <section class="relative py-12 md:py-20 px-4 md:px-8 overflow-hidden bg-white">
-        <!-- Decorative blobs -->
-        <div class="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-bl from-rose-50 to-transparent rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-amber-50/60 to-transparent rounded-full translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-            <div class="space-y-8">
-                <div>
-                    <span class="inline-block py-1.5 px-4 rounded-full bg-rose-50 text-[#FF7582] font-bold text-[11px] tracking-[0.2em] uppercase mb-5" data-i18n="about.badge">Our Story</span>
-                    <h1 class="font-[‘Plus_Jakarta_Sans’] text-3xl md:text-5xl font-bold text-slate-900 leading-tight" data-i18n="about.title">
-                        Where Languages<br/><span class="text-[#FF7582]">Come to Life</span>
-                    </h1>
-                </div>
-                <p class="text-lg text-slate-500 leading-relaxed max-w-lg" data-i18n="about.intro">
-                    LinguaBridge is more than a language center — it’s a space where languages come to life through people, culture, and real connection.
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative pt-32 pb-24 px-container-padding-desktop flex flex-col items-center text-center hero-gradient">
+<div class="max-w-4xl relative z-10">
+<h1 class="font-display-lg text-display-lg text-brand mb-6 leading-tight">Bridging Cultures Through Mastery</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    We believe language is more than words—it's a gateway to empathy, understanding, and global harmony. LinguaBridge connects hearts and minds through refined academic excellence.
                 </p>
-
-                <!-- Mini stats -->
-                <div class="flex flex-wrap gap-8 pt-2">
-                    <div>
-                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat1.num">5</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat1.label">Languages</div>
-                    </div>
-                    <div class="border-l border-slate-100 pl-8">
-                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat2.num">152+</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat2.label">Students</div>
-                    </div>
-                    <div class="border-l border-slate-100 pl-8">
-                        <div class="text-3xl font-black text-[#FF7582]" data-i18n="about.stat3.num">95%</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-1" data-i18n="about.stat3.label">Completion</div>
-                    </div>
-                </div>
-
-                <div class="flex gap-4 flex-wrap pt-2">
-                    <a href="enrol.html" class="bg-[#FF7582] text-white px-7 py-3.5 rounded-full font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95" data-i18n="about.cta.start">Get Started</a>
-                    <a href="contact.html" class="border-2 border-slate-200 text-slate-600 px-7 py-3.5 rounded-full font-bold hover:border-[#FF7582] hover:text-[#FF7582] transition-all" data-i18n="about.cta.contact">Contact Us</a>
-                </div>
-            </div>
-
-            <div class="relative">
-                <img alt="LinguaBridge Learning Environment" class="w-full h-[420px] object-cover rounded-r-[2rem] image-fade-mask" src="Media/about_intro.png"/>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Philosophy -->
-    <section class="py-16 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="text-center mb-12">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.philosophy.badge">What Drives Us</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold mt-3 text-white" data-i18n="about.philosophy.title">Our Philosophy</h2>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
-                    <span class="material-symbols-outlined text-[#FF7582] text-[36px] mb-5 block">handshake</span>
-                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card1.title">Connection</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card1.desc">Building real bonds between students, tutors, and cultures across the world.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
-                    <span class="material-symbols-outlined text-amber-400 text-[36px] mb-5 block">public</span>
-                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card2.title">Culture</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card2.desc">Language learning rooted in authentic cultural understanding and real-world context.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
-                    <span class="material-symbols-outlined text-emerald-400 text-[36px] mb-5 block">school</span>
-                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card3.title">Expertise</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card3.desc">PhD-level academic rigor combined with years of proven teaching experience.</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-[1.5rem] p-7 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
-                    <span class="material-symbols-outlined text-sky-400 text-[36px] mb-5 block">trending_up</span>
-                    <h3 class="font-bold text-lg mb-2" data-i18n="about.philosophy.card4.title">Progress</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed" data-i18n="about.philosophy.card4.desc">Measurable improvement through structured lessons tailored to your personal goals.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Learning Formats Section -->
-    <section class="py-16 px-4 md:px-8 bg-white border-t border-slate-100">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-10">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.formats.badge">How We Teach</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-3xl font-bold text-slate-900 mt-2" data-i18n="about.formats.title">Three Ways to Learn</h2>
-                <p class="text-slate-500 mt-3 max-w-2xl mx-auto" data-i18n="about.formats.desc">Whether you prefer live instruction or flexible self-paced study, we have a format that fits your life.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="p-7 rounded-[2rem] border border-slate-100 bg-slate-50 hover:shadow-lg transition-all">
-                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">group</span>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.group.title">Group Lessons</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.group.text">Learn alongside peers in a collaborative environment. Ideal for building conversational confidence and keeping motivation high.</p>
-                </div>
-                <div class="p-7 rounded-[2rem] border border-slate-100 bg-slate-50 hover:shadow-lg transition-all">
-                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">person</span>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.individual.title">Individual Lessons</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.individual.text">One-on-one sessions fully tailored to your goals, level, and schedule — maximum focus, faster progress.</p>
-                </div>
-                <div class="p-7 rounded-[2rem] border border-rose-100 bg-rose-50/40 hover:shadow-lg transition-all">
-                    <span class="material-symbols-outlined text-primary mb-4 block" style="font-size:32px">self_improvement</span>
-                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-i18n="teach.format.sp.title">Self-Paced Learning</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="teach.format.sp.text">Study at your own pace over 3 months. Each course is split into 2 monthly modules and includes 4 × 30-min online tutor consultations (2h total).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Meet our Tutors -->
-    <section class="py-16 px-8 bg-slate-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-[#FF7582] font-bold text-[11px] uppercase tracking-[0.2em]" data-i18n="about.tutors.badge">Expert Instruction</span>
-                <h2 class="font-[‘Plus_Jakarta_Sans’] text-4xl font-bold text-slate-900 mt-3" data-i18n="about.tutors.title">Meet our Tutors</h2>
-                <div class="w-12 h-1 bg-[#FF7582]/30 mx-auto mt-5 rounded-full"></div>
-            </div>
-
-            <div id="tutors-grid" class="space-y-16">
-                <div class="text-center py-14 text-slate-400 text-sm font-semibold">Loading tutors...</div>
-            </div>
-        </div>
-    </section>
-
-</main>
-
-<!-- Footer -->
-<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
-    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
-        
-<!-- Brand Section -->
-<div class="flex flex-col items-center md:items-start">
-    <div class="flex items-center gap-3 mb-2">
-        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
-        <div class="flex items-baseline gap-2">
-            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
-            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
-        </div>
-    </div>
-    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
 </div>
-
-        <!-- Legal Links & Privacy Action -->
-        <div class="flex flex-wrap justify-center gap-6">
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
-            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
-                <span class="material-symbols-outlined text-[16px]">delete_history</span>
-                <span data-i18n="footer.deleteData">Delete Data</span>
-            </a>
+</section>
+<!-- Story Section -->
+<section class="py-section-gap px-container-padding-desktop max-w-7xl mx-auto relative">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<span class="inline-block px-4 py-1 rounded-full bg-brand/10 text-brand font-label-md">Our Journey</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface leading-snug">The Evolution of Global Communication</h2>
+<div class="space-y-4">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            Founded in 2018, LinguaBridge began with a simple observation: digital language learning had become robotic. We set out to restore the "Humanism" in education, blending state-of-the-art tech with the warmth of expert-led instruction.
+                        </p>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            Our method doesn't just teach you how to speak; it teaches you how to belong. From the cobblestones of Paris to the neon streets of Tokyo, we prepare our students for real-world nuance.
+                        </p>
+</div>
+</div>
+<div class="glass-panel p-10 rounded-[40px] shadow-xl shadow-black/5 border border-white/40">
+<div class="mb-6">
+<span class="material-symbols-outlined text-brand text-5xl" data-icon="diversity_3">diversity_3</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-brand mb-4">Human-Centered Approach</h3>
+<p class="text-on-surface-variant mb-6">Every curriculum is hand-crafted by linguists who understand that learning a language is a deeply emotional experience.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 group">
+<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Personalized Learning Paths</span>
+</li>
+<li class="flex items-center gap-3 group">
+<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Empathy-Driven Feedback</span>
+</li>
+<li class="flex items-center gap-3 group">
+<span class="material-symbols-outlined text-brand bg-brand/10 p-1 rounded-full text-xl" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Cultural Immersion Modules</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Core Values -->
+<section class="py-section-gap px-container-padding-desktop section-gradient-light">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Values that Guide Us</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">The pillars of our luminous community.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter"><!-- Authenticity -->
+<div class="p-10 rounded-[32px] text-center flex flex-col items-center group bg-surface-container-low shadow-sm border border-outline-variant/30">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-brand">Authenticity</h4>
+<p class="text-on-surface-variant font-body-md leading-relaxed">We focus on local idioms, accents, and the social context that textbooks often miss.</p>
+</div>
+<!-- Innovation -->
+<div class="p-10 rounded-[32px] text-center flex flex-col items-center group bg-surface-container-low shadow-sm border border-outline-variant/30">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined text-3xl">lightbulb</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-brand">Innovation</h4>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Our adaptive platform supplements human instruction with intelligent feedback loops.</p>
+</div>
+<!-- Connection -->
+<div class="p-10 rounded-[32px] text-center flex flex-col items-center group bg-surface-container-low shadow-sm border border-outline-variant/30">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined text-3xl">public</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-brand">Connection</h4>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Fostering a global community where borders dissolve through meaningful conversation.</p>
+</div></div>
+</div>
+</section>
+<!-- Methodology Spotlight -->
+<section class="py-section-gap px-container-padding-desktop max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-16">
+<div class="lg:w-1/3">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">How We Teach</h2>
+<p class="text-on-surface-variant font-body-md mb-10 leading-relaxed">A rigorous yet flexible framework designed for the modern learner.</p>
+<div class="p-10 bg-brand rounded-[40px] text-on-primary shadow-2xl shadow-brand/20 transition-transform hover:scale-[1.02]">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-4xl" data-icon="auto_stories">auto_stories</span>
+<span class="font-headline-md">7-Level Path</span>
+</div>
+<p class="font-body-md opacity-90 leading-relaxed">From absolute beginner to native-like fluency, mapped to CEFR standards. Experience a journey of constant growth.</p>
+</div>
+</div>
+<div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="glass-panel p-8 rounded-[32px] flex flex-col">
+<h5 class="font-headline-md text-brand mb-3">24/7 LMS Access</h5>
+<p class="text-on-surface-variant mb-6 text-sm">Practice anytime with interactive exercises and curated media.</p>
+<div class="mt-auto overflow-hidden rounded-2xl border border-white/20">
+<img alt="LMS Interface" class="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX4w7-uvb2aya-9w-G_5X_uuBxQuEYJiptPWISaxHF6KfIoFO7w6T8dEL_gfjFvsEDQirrGy_ftMgcrqS0MQJErUufcrL_Dtqr0S97ElPkoolQa4a4qVmU6xPnwzUtYM_a09S8aKT7Xlw657UGNi12Dkya5FHY_1TRPBLr8-vhPlAw1tzk0JbBDbRyK7q_ov66Dv8kI5AFmAN17Be57DM8JjlUwV881B_oVGefufv0xsryCZOjUJoq9HPNqhnDomDF1MoUEPshm5uX"/>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-[32px] flex flex-col">
+<h5 class="font-headline-md text-brand mb-3">Live Masterclasses</h5>
+<p class="text-on-surface-variant mb-6 text-sm">Weekly sessions with leads to dive deep into grammar and culture.</p>
+<div class="mt-auto overflow-hidden rounded-2xl border border-white/20">
+<img alt="Live Session" class="w-full h-48 object-cover transform hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMqWcorNfUjUPd52qnVyzQ0qDVe380_QbMaStRndqyDgLK_bpFG3gyctjp6SIYpNkkr-iAC-9RP6iQ8fU9aHWwoSaozwR1RX8QGXBYG1o2ou9_8b6eu-X9O5RIcUTJeSEJdIG4b21L2qcksoEoqHpYGa7jSTp7yDOAdkr0ZbRD4sLSLicD3SWDG7kL8J7nmQi1d2jxxS2yiw62U2fx23UIqui_7dBTkvI_oEVinN4Av8WC7KLaQl40jnN9TeeuDEhZxLwJvAK0bmE5"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section (Restructured Z-Layout) -->
+<section class="py-section-gap px-container-padding-desktop section-gradient-light">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Our Academic Leads</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Expert linguists and dedicated researchers driving our pedagogical standards.</p>
+</div>
+<div class="space-y-16 lg:space-y-24"><!-- Academic 1: Dr. Elena Rossi -->
+<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row gap-12 items-center">
+<div class="w-full lg:w-[40%] shrink-0">
+<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
+<img alt="Dr. Elena Rossi" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvbtXR-nEk-i84eC5upKo_RkoDy5js1D62AGcix59JYw-77soSJ3JHiYxR893JkSlAhnupMTmaElLL7cnxjcMm9ChzxZcl1gGrqXC8a3NW1qLk_mCIhmQKYD6xsWNObmAgl6IbOFchPPkg7NScyBvMGqGJWvElO32v8qkld_ey9csEav1drp0F_w3NkwBFAVgIR6cQCuRSZk5HRbD2GOtYRU-yGJKuxQYKZM7HRZSNGSwyXC9M6Vq2h-8q702LZ5vDNmRNyGYSXwfe"/>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="space-y-3">
+<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
+<h3 class="text-display-lg font-bold text-on-surface">Dr. Elena Rossi</h3>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Italian" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKd8EQnYQF-lIcvNeLdwVMBzvojV-uEs7rpWe_wjvcuWYHr3tasX-qG1VCKVXYcEmOEm0azuvjh6uyXUrm28QzYZQkITw8cduW_DzBoSjXKGjpcmN02uv_zCwuNSoovdqSSAW1EyUNpnC7nlyOa4cbT-EAtlPNk8wVHVSZ80-mzeuunl2UWZl6sCx3KyvQCWLpnK9___WhX0I2DUy4_dkODKNHkOlU4lflcVV6WOvzpDccsX_nnOnsCn2MIuM9ZaYuBAfH_y8ZJAgV"/>Italian</span>
+<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="French" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOD7ZqQAv-YdQzUD4xGZ3jKsBY9ujeIAjctjgjJdlAyBZkruKCwLZeURnnkSGnzCne8QXZLGQZiv7sq0BKayFRdw7w6lSEt1rIVnXFhraODyvlalxe-RjvP0lcc8GOArQjMKYqlQ1nsD_exJokNePASn7gKxpK1NZcq9p5hhCpKYnbDHIbcWEk7mCPglnWb2GusHbCYAPjBkYma-azywchHvb96hdJr68moRnguWT4PP4MhxT8sJr02UH-9_Eiv4wfS2km-QHWmMhO"/>French</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZNaTG2iHPsxI7gDUTKT_4Zy193VYMPvF5LV1dQ9ELLSqjw4MS6OGV3FIfWMy_3RZ8l9YBatHdJzVh_ll-IMKSCF7hYfyBcp4eG8Szox4PEK90Jxp0UAoXjCChNOXsEwHFPpeP-spOJ8-Yp41BZgJMJHMTWHoEgJdXgMSmiC0-x-KfDiq2cvWvVr-jTMPhyb69zMnNquTJJpSZ7x8o2kJtn6-tx0Nf5EGOrosc2Euy2EzSTqL-6jXKOTYByE-piS2sK5NM8XNEOYVf"/>Spanish</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqNEHRIjySr930gV13WZR5sbkrX---ITAHAEy5JUlLjn1_6kaVBeTKbnMlLtauN09VOviQGm40s8rJo2_8h2uUVNucmKz3pDSo4R_hq2Da-2DRdagLr3ZRExfYlGkeY5Uo2bCVph6ZIfLrLU5U6Ee-gAPPhjx9p6fo1H2wudHQsfoS2FihyIr0bHULEvSLN_ZOUpd3jm8n7GUxqUjT_zaTKYYNBHTf-t8nk26tlLa2x_suVliJY-cd0wDEENigK6qAVW_5clwSAgAC"/>English</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6f5CKdmQoE_UXYJ_m8IXnvPXZGEAY6IBKIPwaMVcTJnP-U71XZYzf2GQKWBJHzrGE2I5L8mW8Q08-v0VHB72C-1phEcoQXhqQl7x7gGDXqrVqHbgecNQeBjVzMVwvHJkGb3oyXgxHrJ4PB4xUrXtserkFO8JuHVCk7pV3GMb2bNYcYeAbcndjK0TxQXZd8c9y02wN_-Z8lV4kzO3_znXKG7u6Lkmk7iyZBSjhZwEMHQ8gIAcVqnIMUvcJu9Gbqm5vfdccJzZd3f8K"/>German</span>
+</div>
+</div>
+<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
+            "I love teaching languages through real-life travel experiences, making lessons practical, engaging, and connected to the world."
         </div>
-
-        <!-- Tutor Action -->
-        <div class="flex items-center">
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
-                Become Tutor
-            </a>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>PhD in Linguistics, Sapienza University</li>
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>Philology Master</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Academic 2: Prof. Julian Chen -->
+<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row-reverse gap-12 items-center">
+<div class="w-full lg:w-[40%] shrink-0">
+<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
+<img alt="Prof. Julian Chen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2OWahoo9_xCAnpTOJxHlf0OMMiZeOpB65TKcHwWdqh1FgGCNHzWQF9HyzwpySC2MHLpoVKcgV65eP-mxHaNVmrFznYy8bo0lHhwsLRTWm19zYTC8JxRMetIecB2JDtyYRH4pBFF6kYVcwafiNivAnqbE4b1LsEyRX5UYAy3763gIwc3ivsc62cOGDAnta2ZYITjj6DphX8KwZUO-dYyu4YDkobGVDUlwcW8hce3w2zFxnPkm1FHHhD_Ln7j9ZfjyW_TZ1mC5X3c6W"/>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="space-y-3">
+<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
+<h3 class="text-display-lg font-bold text-on-surface">Prof. Julian Chen</h3>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Mandarin" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAarivs0_VYDUnMoTX-4weUF5wlwR4FreguEEZ8i_aazev_G-8Z8S71xsKelLd-pG_SOWYFZeYRKPVjcmUtTJYpPdoJlJRQEqZI_HimhpTHK2WjGuTklT5NG0dr0XpEemvn_9XmmIRzgumB7fu7QlK-e2Oe6YZDP1WtDzWnvcjnq0ngZAY4PG6URV58RgkbA6AaWoKwVz4_CmWsRYGCl_Axk562MwWenWy_oSwpaWyjdSdwAUtdpzJewRcVDs4taa0Yq-Bist6GqGzK"/>Mandarin</span>
+<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Cantonese" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCvIGysJqyX6t1Oehnl0FAUfXK4sNVquM9oAaxaXobAbPg64jiFOGY45q-Dp4nqoyxLjPUruLSDsU4UoU4FoisSfZWA8b8RDqQt4fTr_MVQ42bKlsvuDe39JviY_lnnozt2Gd8GkKEeXSlDjxsFX5p_s0nIGeU3dgRtOsPyYB1GWIx9DwLxJjDe5YIMVZrD1m6DunJNaWF-h_ilFZxGKePgX76SiB11GNe4EZ4fuC3soJyahEe8vumGg0Wn5ZXDhtLsC9IsPqLeSO0"/>Cantonese</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWaQaI3tZUsIhc1Fxk4KVWE44z-05O0lg_2zX4puRxqQLJ6Yn-l9tmW_3P99fG-vLsMJu4CqQ5ywfx-LBXXAe5SV9dKXUJt0smzhSDtWpPvpD7qJCqS31yASQWZKskFyK6AQ8ol2srRhJIzYZ3dvRSSmVPKXPygQETZK7fksi9ND__4GAVH_JiV6_tFcf--Xocq-NGse1LsiyOekd3WWubiQIrfqnS9_Ah1E9wJolgLIN999ihkFTFgiBYnJFG-R37EgqaDqYFvetR"/>English</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAVdpATQ1tyki2CE99VO6ZYlucNKbSzPRByhKT7sqvGhgpdgftPjqadN8crhnyOxl6-7MTVZGYR5WLrKsJNh3s8bXZJQL8d-yVigyUjHSnYR4lYqbbeIYmECXpkYpQ8blsxGOz1GMP2L8pnAdawHe3_5bMbaQkMRAo7qQ9FAuoTFt4yUx7fPM48meykXpktWjf5TmfFfreOswnAeWWjd3Pa7MTUBBgxhnVY9cDx-QEDdBJj6Wn-Qo7Rk-jnoCmlpSR9JYP-bVPSjHS"/>Japanese</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6bwlLN_z7UHeIM-eYlpi_IKuN1Dze8F_Xvug3tnNcYO-gLJfhkBKe_9NJW6FPD3i4f2N258XqCFhLKPZBNMcjXT_Wt52zIJ4hWbH7U0m7CYZ4rz5vlP3WInjYbaGH46ZaErcM007TSu0-8pizXBsidMM4rQ1BDbjKnfFSaH0WBukCRhASQ4aEWH3X7xtU_Zdhu8M57vphCwX8ExlUo_3ig1I9-9yoiudmGCihJ5xgX9MQH74OUr4ePcaQMO6VFE4XeyraiJsi420a"/>Korean</span>
+</div>
+</div>
+<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
+            "Developed our proprietary 'Visual Sound' mapping system, helping learners master the nuances of tonal languages through intuitive visualization."
         </div>
-    </div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>Master of Education, HKU</li>
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>HSK Level 6 Examiner</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Academic 3: Dr. Sarah Thompson -->
+<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row gap-12 items-center">
+<div class="w-full lg:w-[40%] shrink-0">
+<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
+<img alt="Dr. Sarah Thompson" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7f_FgpcFJ0TwTao1N8tdxKM647ZxkHQb-jWjhhYw3_emZ0Rj07v14MvnxCSAN8MJ7bPiBNN_97Lrp0DDE3pcvB_OLFmXhpn5pe9jnAYWHR9Qt8xObof9jsR-BCdU6eC-EEl2y6WcqxV8RQe0Brx6Ml2lBo-6n68SnHVdcOZV10D96q5hhj5qSShntx0DXiVBJm8IioHWnF_LSs2Wm-0TWCFGAtFgu3vR5KeSNzZoHBtyrGeWzosqYA6qiQHvHa6Kq7H4QMScgQg_F"/>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="space-y-3">
+<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
+<h3 class="text-display-lg font-bold text-on-surface">Dr. Sarah Thompson</h3>
+<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="English" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY5IthPUo2Evx7r7tTdeYWp-vtr9pvU_1kqGqELVce3hW_AKUtdOplKLWwocuCOVyu8jrQ34JtVEy_-Wd4jbosckUXru57wEP-3BVXS1g99rZrviHgNhEgNV0K4GT9haZkR-bf9NByLX64O9AyUSO6tSa2jX6cSZoVzSzBNSEO_bEsQmhrswPL_wyb4iALnazbXLN_Pn07YcIyzWzKT9IrXvvsHUeth4PvXdL6E2r5yFZNBuv4S8LMA90_7uUitktPjTnjq0Qv2u8z"/>English (ESL)</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABCcAqPHOK2uQPor8_gqeWOkQZMdfr-H832E0SM-Z7BLaKXiHM-ySCYbZXYypoidh4D00Or7CLcMDiUlPlQ5kGWSDN8NzGnzg8s8qtPiitaOEpTpmLPiQCxlyVBNmP6Hb_5a4_uQ4RfZ0k6aZ7pbxLvdyYAMkp21wmFV4e423qjPE7RV-E_sudPPGuUNRoDRKQyV4fi8e_Ifkkb1i9eBbkMizRF9_bv2kt-KVw0OBz-gC93enaGqd6JSS924dtVdxtCYuIoYiK2Hra"/>English</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjHQnxWVl2YPImVCKC4TI-BEVwaVlAbkus34uskvXopQReUM83PF2siEcNL_MkO644Tpxdkr9xAah6yijerNp42lXGNA5Btz25n4Lo-TUbhL7OSbpGIDL181mKqjRMuGQUKqNC7xN0flvqnB060Cqa14jW076URHPBsLOl5HdmaxPV4L48AMbW-5Rqv4X7oFO-J7NgAwwlfrAIMpj1hq4-VefE76cbcUqQrkcCxPxGHs9xFVt6fWPECxwqSOMn8gYTIVp9_zM1D37U"/>Portuguese</span>
+<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu8pTUTMTSiVzB8dJ5M-swQbQMKu0k42YL_-DqXXuzyKup6JVJOaWxO70Uw7gN40yYlWfrL15K_R5g0r120Y33j_vmBqGAEBsPVQjnGK8htWmSOBntXQJ5mZvKpjTVCQDtj55SWVGVPMoC14h8mc8niBV9ihAT-yAKltSK8wbz6Ga7zXbr2tuVGRP5q_q1gIMbgrrm79FhQkmSX-duMJCRBNnI5lleDZSHRtwtLU2GyxwXCSYTExFsEb2UWPpEinbMs9mifG45jwZW"/>Spanish</span>
+</div>
+</div>
+<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
+            "Sarah ensures our curriculum remains accessible, effective, and neurologically optimized for retention through cognitive load theory."
+        </div>
+<div class="space-y-4">
+<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>PhD EdTech, Stanford</li>
+<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>CELTA Qualified</li>
+</ul>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-container-padding-desktop">
+<div class="max-w-7xl mx-auto glass-panel p-16 rounded-[64px] text-center border-white/40 shadow-2xl shadow-brand/10 relative overflow-hidden">
+<div class="absolute inset-0 bg-brand/5 opacity-50 pointer-events-none"></div>
+<h2 class="font-display-lg text-headline-lg text-brand mb-6 relative z-10">Ready to Start Your Journey?</h2>
+<p class="text-on-surface-variant font-body-lg max-w-2xl mx-auto mb-12 relative z-10">Join a community of global communicators dedicated to mastery and cultural understanding.</p>
+<button class="bg-brand text-on-primary px-12 py-5 rounded-full font-headline-md hover:opacity-90 transition-all duration-300 active:scale-95 transform shadow-xl shadow-brand/30 relative z-10">
+                    Join the Community
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 bg-white/50 border-t border-black/5 mt-10">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-container-padding-desktop max-w-7xl mx-auto">
+<div class="space-y-6">
+<div class="font-display-lg text-headline-md font-bold text-brand">LinguaBridge</div>
+<p class="font-body-md text-on-surface-variant leading-relaxed">Luminous Humanism in global communication. Bridging cultures since 2018.</p>
+</div>
+<div>
+<h6 class="font-headline-md text-brand mb-8">Company</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-headline-md text-brand mb-8">Support</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Language Partners</a></li>
+<li><a class="text-on-surface-variant hover:text-brand transition-colors duration-200 font-label-md" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-headline-md text-brand mb-8">Follow Us</h6>
+<div class="flex gap-4">
+<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-brand hover:bg-brand hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</a>
+<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-brand hover:bg-brand hover:text-white transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-container-padding-desktop mt-20 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-label-sm text-on-surface-variant/60">© 2024 LinguaBridge. Luminous Humanism in global communication.</p>
+<div class="flex gap-8">
+<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-brand transition-colors">English (US)</span>
+<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-brand transition-colors">Global Community</span>
+</div>
+</div>
 </footer>
-<script src="language-manager.js"></script>
-
-<!-- Firestore real-time sync: loads tutor profiles managed in the Admin Portal -->
-<script type="module">
-import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const LANG_FLAG = {
-    'English':'gb','German':'de','Bulgarian':'bg','Russian':'ru',
-    'Chinese':'cn','Japanese':'jp','Spanish':'es','French':'fr',
-    'Italian':'it','Portuguese':'pt','Arabic':'sa','Korean':'kr',
-    'Ukrainian':'ua'
-};
-
-function esc(str) {
-    const d = document.createElement('div');
-    d.textContent = String(str || '');
-    return d.innerHTML;
-}
-
-function buildTutorCard(t, i) {
-    const alt       = i % 2 !== 0;
-    const row       = alt ? 'lg:flex-row-reverse' : 'lg:flex-row';
-    const accText   = alt ? 'text-secondary' : 'text-primary';
-    const accBorder = alt ? 'border-secondary/20' : 'border-primary/20';
-    const bOff      = alt ? '-bottom-4 -left-4'  : '-bottom-4 -right-4';
-    const bHov      = alt ? 'group-hover:-bottom-2 group-hover:-left-2' : 'group-hover:-bottom-2 group-hover:-right-2';
-    const bg        = alt ? 'bg-slate-50'  : 'bg-rose-50';
-
-    // Teaching language flags (lang_teached)
-    const teachLangs = (t.lang_teached || '').split(',').map(s => s.trim()).filter(Boolean);
-    const flags = teachLangs.map(l => {
-        const code = LANG_FLAG[l] || l.slice(0,2).toLowerCase();
-        return `<span class="flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold shadow-sm">
-            <img src="https://flagcdn.com/w40/${esc(code)}.png" class="w-5 h-auto rounded-sm" alt="${esc(l)}"> ${esc(l)}
-        </span>`;
-    }).join('');
-
-    // Spoken language badges (lang_spoken)
-    const spokenLangs = (t.lang_spoken || '').split(',').map(s => s.trim()).filter(Boolean);
-    const spokenBadges = spokenLangs.map(l => {
-        const code = LANG_FLAG[l] || l.slice(0,2).toLowerCase();
-        return `<span class="flex items-center gap-1.5 px-2 py-1 bg-slate-100 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600">
-            <img src="https://flagcdn.com/w40/${esc(code)}.png" class="w-4 h-auto rounded-sm" alt="${esc(l)}"> ${esc(l)}
-        </span>`;
-    }).join('');
-
-    // Credential bullets from new schema fields
-    const credentialRows = [
-        { icon: 'school',             text: t.phd },
-        { icon: 'school',             text: t.school_1 },
-        { icon: 'school',             text: t.school_2 },
-        { icon: 'verified',           text: t.specialisation_1 },
-        { icon: 'verified',           text: t.specialisation_2 }
-    ].filter(row => row.text && String(row.text).trim());
-
-    const bullets = credentialRows.map(b =>
-        `<li class="flex items-start gap-3 text-on-surface-variant text-sm">
-            <span class="material-symbols-outlined ${accText} text-[20px]">${b.icon}</span>
-            <span>${esc(b.text)}</span>
-        </li>`
-    ).join('');
-
-    const photo = t.photoUrl
-        ? `<div class="lg:w-2/5 relative group">
-            <div class="absolute ${bOff} w-full h-full border-2 ${accBorder} rounded-3xl transition-all duration-500 ${bHov}"></div>
-            <div class="relative rounded-3xl overflow-hidden shadow-xl h-[380px]">
-              <img alt="${esc(t.name)}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${esc(t.photoUrl)}" style="object-position:${t.photoX !== undefined ? t.photoX : 50}% ${t.photoY !== undefined ? t.photoY : 50}%"/>
-            </div>
-          </div>`
-        : '';
-
-    return `<div class="flex flex-col ${row} items-center gap-10">
-      ${photo}
-      <div class="${photo ? 'lg:w-3/5' : 'lg:w-full'} bg-white p-6 lg:p-8 rounded-[2rem] shadow-sm border border-slate-100 space-y-6">
-        <div>
-          ${t.role ? `<span class="inline-block py-1 px-3 rounded-full ${bg} ${accText} font-bold text-[10px] uppercase tracking-widest mb-4">${esc(t.role)}</span>` : ''}
-          <h3 class="text-3xl font-['Plus_Jakarta_Sans'] text-on-surface mb-4">${esc(t.name)}</h3>
-          ${teachLangs.length ? `<div class="inline-flex items-center bg-slate-50 border border-slate-100 rounded-2xl p-2 gap-2 mb-2">
-            <span class="text-[10px] font-extrabold text-slate-400 uppercase px-3">Teaching:</span>
-            <div class="flex flex-wrap gap-2">${flags}</div>
-          </div>` : ''}
-          ${spokenLangs.length ? `<div class="flex items-center gap-2 flex-wrap mt-1">
-            <span class="text-[10px] font-extrabold text-slate-400 uppercase">Speaks:</span>
-            ${spokenBadges}
-          </div>` : ''}
-        </div>
-        ${t.bio_quote ? `<p class="text-lg text-on-surface-variant italic leading-relaxed border-l-4 ${accBorder} pl-6">${esc(t.bio_quote)}</p>` : ''}
-        ${bullets ? `<div class="space-y-4 pt-2">
-          <h4 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Academic Specialization</h4>
-          <ul class="space-y-3">${bullets}</ul>
-        </div>` : ''}
-      </div>
-    </div>`;
-}
-
-(async () => {
-    const grid = document.getElementById('tutors-grid');
-    if (!grid) return;
-
-    // Mobile-aware loading state
-    grid.style.opacity = '0.4';
-    const isMobile = /Mobi/i.test(navigator.userAgent);
-    const isSlow   = navigator.connection?.effectiveType === '2g';
-    const TIMEOUT  = (isMobile || isSlow) ? 8000 : 4000;
-
-    try {
-        const app = initializeApp({
-            apiKey:            "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
-            authDomain:        "linguabridge-2574f.firebaseapp.com",
-            projectId:         "linguabridge-2574f",
-            storageBucket:     "linguabridge-2574f.firebasestorage.app",
-            messagingSenderId: "640116284028",
-            appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
-        }, 'about-reader');
-
-        const db = getFirestore(app);
-
-        // Timeout-wrapped fetch
-        const snap = await Promise.race([
-            getDocs(collection(db, 'tutors')),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), TIMEOUT))
-        ]);
-
-        const activeTutors = snap.docs
-            .map(d => ({ _id: d.id, ...d.data() }))
-            .filter(t => t.active === true)
-            .sort((a, b) => (Number(a.order) || 9999) - (Number(b.order) || 9999) || String(a.name || '').localeCompare(String(b.name || '')));
-
-        grid.innerHTML = activeTutors.length
-            ? activeTutors.map((t, i) => buildTutorCard(t, i)).join('')
-            : '<div class="text-center py-14 text-slate-400 text-sm font-semibold">No tutors are currently listed.</div>';
-        console.info('[LinguaBridge] Loaded', activeTutors.length, 'active tutors from Firestore.');
-    } catch (e) {
-        // Static fallback cards remain — just restore opacity
-        console.info('[LinguaBridge] Tutor load unavailable:', e.message);
-    } finally {
-        grid.style.opacity = '';
-    }
-})();
-</script>
-</body>
-</html>
+</body></html>

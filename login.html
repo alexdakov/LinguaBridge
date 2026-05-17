@@ -1,572 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login | LinguaBridge</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet"/>
-    <style>
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | LinguaBridge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#ae2957",
+                      "on-secondary-fixed-variant": "#8d0840",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#a4355f",
+                      "secondary-fixed-dim": "#ffb1c2",
+                      "on-primary-container": "#ffa6bf",
+                      "inverse-surface": "#342f30",
+                      "surface-container-high": "#efe6e7",
+                      "primary-container": "#8e244e",
+                      "on-tertiary-fixed-variant": "#574144",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#ffb1c6",
+                      "on-tertiary-container": "#d6b8bb",
+                      "background": "#fff8f8",
+                      "outline": "#887176",
+                      "tertiary": "#463234",
+                      "on-background": "#1f1a1b",
+                      "tertiary-container": "#5f484b",
+                      "secondary-container": "#fe6793",
+                      "on-primary-fixed": "#3f001c",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#f5eced",
+                      "surface": "#fff8f8",
+                      "on-tertiary-fixed": "#281719",
+                      "on-surface": "#1f1a1b",
+                      "primary": "#6f0737",
+                      "on-secondary-fixed": "#3f0018",
+                      "on-surface-variant": "#554246",
+                      "surface-dim": "#e1d8d9",
+                      "surface-variant": "#eae0e1",
+                      "tertiary-fixed-dim": "#debfc2",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#fbf1f2",
+                      "secondary-fixed": "#ffd9df",
+                      "on-primary-fixed-variant": "#851c47",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#fff8f8",
+                      "on-secondary-container": "#6b002d",
+                      "inverse-on-surface": "#f8eeef",
+                      "surface-container-highest": "#eae0e1",
+                      "inverse-primary": "#ffb1c6",
+                      "primary-fixed": "#ffd9e1",
+                      "outline-variant": "#dbc0c5",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#fbdbde"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "container-padding-desktop": "40px",
+                      "section-gap": "80px",
+                      "container-padding-mobile": "20px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+              }
+            },
+          },
         }
-        .shake { animation: shake 0.4s ease-in-out; }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .organic-gradient {
+            background: radial-gradient(circle at top left, #FADADD 0%, #ffffff 50%, #fbf1f2 100%);
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
     </style>
 </head>
-<body class="bg-[#f4fafd] flex items-center justify-center min-h-screen p-6 font-['Be_Vietnam_Pro']">
-
-<div class="glass max-w-md w-full p-5 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-white">
-
-    <!-- Language Switcher -->
-    <div class="flex justify-center mb-8">
-        <div class="relative">
-            <button id="login-lang-btn" onclick="toggleLoginLang(event)"
-                    class="flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50/80 border border-rose-100/60 text-sm font-semibold text-slate-600 hover:bg-rose-100/60 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#FF7582]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-            <div id="login-lang-dropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[120px]">
-                <button onclick="setLang('en')" id="lang-en" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left">
-                    <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN
-                </button>
-                <button onclick="setLang('bg')" id="lang-bg" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left opacity-60 text-slate-600">
-                    <img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG
-                </button>
-                <button onclick="setLang('ru')" id="lang-ru" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left opacity-60 text-slate-600">
-                    <img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU
-                </button>
-                <button onclick="setLang('zh')" id="lang-zh" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left opacity-60 text-slate-600">
-                    <img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Back to Home -->
-    <div class="text-center mb-8">
-        <a href="index.html" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#FF7582] hover:border-[#FF7582] transition-all mb-6 px-5 py-2.5 rounded-full border-2 border-slate-200 bg-white shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-            <span id="txt-back">Back to Home</span>
-        </a>
-        <img src="Media/linguabridge_logo.png" alt="Logo" class="h-12 mx-auto mb-4">
-        <h1 class="text-3xl font-bold font-['Plus_Jakarta_Sans'] text-[#161d1f]" id="txt-title">Welcome Back</h1>
-        <p class="text-slate-500 text-sm mt-2" id="txt-subtitle">Log in to access your learning bridge</p>
-    </div>
-
-    <!-- LOGIN PANEL -->
-    <div id="login-panel">
-        <form id="login-form" class="space-y-5" onsubmit="return false;">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-nickname">Nickname</label>
-                <input type="text" id="nickname" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" id="txt-placeholder-nick">
-            </div>
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-password">Password</label>
-                <div class="relative">
-                    <input type="password" id="password" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50 pr-14" placeholder="••••••••">
-                    <button type="button" id="toggle-password" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#FF7582] transition-colors">
-                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                        </svg>
-                        <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.186-3.411M6.53 6.53A9.97 9.97 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.97 9.97 0 01-1.357 2.674M6.53 6.53L3 3m3.53 3.53l11.94 11.94M3 3l18 18"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Error -->
-            <div id="error-msg" class="hidden flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm font-semibold px-4 py-3 rounded-2xl">
-                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                <span id="error-text"></span>
-            </div>
-
-            <button id="login-btn" type="button" class="w-full bg-[#FF7582] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-rose-200 transition-all active:scale-95 flex items-center justify-center gap-2">
-                <span id="txt-signin">Sign In</span>
-            </button>
-
-            <!-- Forgot password link -->
-            <p class="text-center text-sm text-slate-400 pt-1">
-                <button type="button" onclick="showResetPanel()" class="text-[#FF7582] font-semibold hover:underline transition-colors" id="txt-forgot">Forgot your password?</button>
-            </p>
-        </form>
-    </div>
-
-    <!-- RESET PASSWORD PANEL -->
-    <div id="reset-panel" class="hidden">
-        <div id="reset-form-wrap" class="space-y-5">
-            <p class="text-sm text-slate-500 text-center leading-relaxed" id="txt-reset-desc">
-                Enter your nickname and we'll notify the admin to reset your password. You will be contacted once it's done.
-            </p>
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-reset-nick">Your Nickname</label>
-                <input type="text" id="reset-nickname" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50">
-            </div>
-            <!-- Contact method toggle -->
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-contact-method">Contact Method (optional)</label>
-                <div class="flex gap-2 mb-3">
-                    <button type="button" id="contact-tab-email" onclick="switchContactTab('email')" class="flex-1 py-2 rounded-xl text-xs font-bold border border-[#FF7582] bg-[#FF7582] text-white transition-all">
-                        <span id="txt-tab-email">Email</span>
-                    </button>
-                    <button type="button" id="contact-tab-phone" onclick="switchContactTab('phone')" class="flex-1 py-2 rounded-xl text-xs font-bold border border-slate-200 text-slate-500 hover:border-[#FF7582] hover:text-[#FF7582] transition-all">
-                        <span id="txt-tab-phone">Phone</span>
-                    </button>
-                </div>
-                <!-- Email input -->
-                <div id="contact-email-wrap">
-                    <input type="email" id="reset-email" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" id="input-email">
-                </div>
-                <!-- Phone input -->
-                <div id="contact-phone-wrap" class="hidden space-y-3">
-                    <input type="tel" id="reset-phone" class="w-full px-5 py-4 rounded-2xl border border-slate-100 focus:ring-[#FF7582] focus:border-[#FF7582] transition-all bg-white/50" id="input-phone">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2" id="lbl-messenger">Messenger</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button type="button" onclick="selectMessenger('WhatsApp')" id="msg-whatsapp" class="messenger-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all flex items-center gap-2">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                                WhatsApp
-                            </button>
-                            <button type="button" onclick="selectMessenger('Telegram')" id="msg-telegram" class="messenger-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all flex items-center gap-2">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                                Telegram
-                            </button>
-                            <button type="button" onclick="selectMessenger('Viber')" id="msg-viber" class="messenger-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all flex items-center gap-2">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.398.002C9.473.028 5.331.344 3.014 2.467 1.294 4.177.693 6.698.623 9.82c-.07 3.123-.14 8.973 5.5 10.56v2.42s-.038.98.61.98c.79 0 1.262-1.022 2.022-1.86.42-.455.993-1.104 1.41-1.59 3.888.327 6.874-.42 7.217-.53.785-.255 5.225-.822 5.948-6.71.747-6.073-.366-9.908-2.986-11.64 0 0-1.476-1.094-4.492-1.373a17.73 17.73 0 00-4.454.325zm.108 1.71c.944-.01 2.31.085 3.755.5.84.24 3.997.768 5.41 4.654.883 2.423.87 5.32.104 7.61a5.826 5.826 0 01-4.226 4.017c-.274.086-2.865.73-6.283.505-.036 0-.07.015-.095.04L8.13 20.8c-.41.464-.815.93-1.23 1.39-.093.103-.154.126-.155.093v-2.91a.208.208 0 00-.157-.203C2.152 17.812 2.2 13.01 2.258 10.3c.075-2.57.534-4.628 1.96-6.064C5.79 2.606 8.64 1.74 11.506 1.712zm1.17 3.253c-.37-.006-.37.553 0 .556 1.71.055 3.19.71 4.284 1.896.994 1.07 1.547 2.51 1.537 3.982 0 .37.563.37.563 0 .014-1.62-.59-3.23-1.682-4.41-1.194-1.29-2.84-2.01-4.702-2.024zm-3.07.944c-.204.01-.412.07-.6.193a1.776 1.776 0 00-.207.16c-.42.41-.776.84-.856 1.34-.08.5.1 1.02.39 1.54.593 1.07 1.41 2.08 2.42 2.84.512.38 1.08.73 1.714.94.63.21 1.33.28 2.03.02.34-.13.64-.34.86-.62.108-.14.2-.31.22-.48.02-.17-.04-.33-.15-.45-.49-.56-1-.94-1.44-1.17-.14-.07-.29-.08-.43-.03-.35.12-.67.41-.96.6-.12.08-.25.11-.37.08-.11-.03-.22-.1-.31-.19a9.36 9.36 0 01-2.14-2.9c-.07-.16-.07-.3.01-.43.09-.13.24-.23.37-.34.27-.22.6-.49.73-.85.06-.18.05-.37-.03-.55-.3-.73-.6-1.3-.83-1.46-.18-.12-.4-.21-.64-.22-.02-.01-.04-.01-.06-.01zm3.48 1.75a.278.278 0 00-.27.282.278.278 0 00.283.27c.677.03 1.26.28 1.72.76.43.44.67 1.04.65 1.64a.278.278 0 00.272.28.278.278 0 00.283-.267c.025-.76-.27-1.5-.79-2.05-.545-.56-1.273-.88-2.148-.915zm-.93 1.462a.278.278 0 00-.27.285.278.278 0 00.285.27c.28.01.5.12.68.3.16.16.25.38.25.6a.278.278 0 00.277.278.278.278 0 00.278-.278 1.35 1.35 0 00-.408-.96 1.374 1.374 0 00-1.092-.495z"/></svg>
-                                Viber
-                            </button>
-                            <button type="button" onclick="selectMessenger('Other')" id="msg-other" class="messenger-btn py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582] transition-all flex items-center gap-2">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                                <span id="txt-other">Other</span>
-                            </button>
-                        </div>
+<body class="bg-surface font-body-md text-on-surface organic-gradient min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation (Reduced/Modified for Login Context) -->
+<header class="fixed top-0 w-full z-50 bg-white/20 backdrop-blur-md border-b border-white/30">
+<div class="flex justify-between items-center max-w-[1440px] mx-auto px-gutter h-20">
+<div class="font-headline-lg text-headline-lg font-extrabold text-primary">LinguaBridge</div>
+<a class="flex items-center gap-2 glass-panel px-6 py-2 rounded-full font-label-md text-label-md text-primary hover:bg-white/60 transition-all duration-300" href="home.html">
+<span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                Back to Home
+            </a>
+</div>
+</header>
+<main class="flex-grow flex items-stretch pt-20">
+<div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-[1440px] mx-auto px-gutter md:px-0">
+<!-- Side A: High-Fidelity Interactive Visual -->
+<div class="hidden md:flex flex-col justify-center items-center relative overflow-hidden p-container-padding-desktop">
+<div class="relative z-10 text-center max-w-lg">
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Hello. <span class="text-secondary">Bonjour.</span> <span class="text-tertiary">Hola.</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">Bridging cultures through human connection and digital precision. Your journey to global fluency starts here.</p>
+</div>
+<!-- Glassmorphic Visual Element -->
+<div class="relative w-[400px] h-[400px] flex items-center justify-center floating-element">
+<!-- Decorative blur circles -->
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary/10 rounded-full blur-2xl"></div>
+<!-- Glass Globe/Abstract Core -->
+<div class="glass-panel w-80 h-80 rounded-full shadow-[0_20px_60px_rgba(111,7,55,0.15)] flex items-center justify-center border-white/60 relative overflow-hidden">
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="w-full h-full border border-dashed border-primary rounded-full animate-spin-slow"></div>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-size: 120px; font-variation-settings: 'wght' 200;">language</span>
+</div>
+<!-- Floating Language Chips -->
+<div class="absolute top-4 left-4 glass-panel px-4 py-2 rounded-full text-primary font-label-md flex items-center gap-2 shadow-sm">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+                        Mandarin
                     </div>
-                </div>
-            </div>
-
-            <!-- Reset error -->
-            <div id="reset-error" class="hidden flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm font-semibold px-4 py-3 rounded-2xl">
-                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                <span id="reset-error-text"></span>
-            </div>
-
-            <button id="reset-btn" type="button" onclick="sendResetRequest()" class="w-full bg-[#FF7582] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-rose-200 transition-all active:scale-95">
-                <span id="txt-reset-send">Send Reset Request</span>
-            </button>
-            <p class="text-center">
-                <button type="button" onclick="showLoginPanel()" class="text-sm text-slate-400 hover:text-[#FF7582] font-semibold transition-colors" id="txt-back-login">← Back to Login</button>
-            </p>
-        </div>
-
-        <!-- Reset success -->
-        <div id="reset-success" class="hidden text-center space-y-4 py-4">
-            <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
-                <svg class="w-8 h-8 text-[#FF7582]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <h3 class="font-bold text-lg text-slate-800" id="txt-success-title">Request Sent!</h3>
-            <p class="text-sm text-slate-500 leading-relaxed" id="txt-success-msg">
-                Your request has been sent to our admin. Once they process it, you will be contacted with your new password.
-            </p>
-            <button type="button" onclick="showLoginPanel()" class="mt-2 text-sm text-[#FF7582] font-semibold hover:underline" id="txt-back-login2">← Back to Login</button>
-        </div>
-    </div>
-
-</div><!-- end card -->
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const app = initializeApp({
-        apiKey: "AIzaSyDbHTDjWNbskpZ8rDcws5qwRvh-BM2RKgQ",
-        authDomain: "linguabridge-2574f.firebaseapp.com",
-        projectId: "linguabridge-2574f",
-        storageBucket: "linguabridge-2574f.firebasestorage.app",
-        messagingSenderId: "640116284028",
-        appId: "1:640116284028:web:06a1747abc8db8db20c7f9"
-    });
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const btn = document.getElementById('login-btn');
-    const errorMsg = document.getElementById('error-msg');
-    const errorText = document.getElementById('error-text');
-    const form = document.getElementById('login-form');
-
-    function setLoading(loading) {
-        if (loading) {
-            btn.disabled = true;
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>`;
-            btn.classList.add('opacity-80');
-        } else {
-            btn.disabled = false;
-            btn.innerHTML = `<span id="txt-signin">${translations[currentLang].signin}</span>`;
-            btn.classList.remove('opacity-80');
-        }
-    }
-
-    function showError(msg) {
-        errorText.textContent = msg;
-        errorMsg.classList.remove('hidden');
-        form.classList.add('shake');
-        form.addEventListener('animationend', () => form.classList.remove('shake'), { once: true });
-    }
-
-    async function handleLogin() {
-        const nickname = document.getElementById('nickname').value.trim();
-        const password = document.getElementById('password').value;
-        const t = translations[currentLang];
-
-        errorMsg.classList.add('hidden');
-        if (!nickname || !password) { showError(t.errEmpty); return; }
-
-        setLoading(true);
-        const shadowEmail = `${nickname.toLowerCase()}@linguabridge.com`;
-
-        let userCredential;
-        try {
-            userCredential = await signInWithEmailAndPassword(auth, shadowEmail, password);
-        } catch (err) {
-            setLoading(false);
-            const code = err.code;
-            if (['auth/user-not-found','auth/wrong-password','auth/invalid-credential','auth/invalid-login-credentials','auth/invalid-email'].includes(code)) {
-                showError(t.errWrong);
-            } else if (code === 'auth/too-many-requests') {
-                showError(t.errTooMany);
-            } else if (code === 'auth/network-request-failed') {
-                showError(t.errNetwork);
-            } else {
-                showError(`${t.errGeneric} (${code})`);
-            }
-            return;
-        }
-
-        try {
-            const userSnap = await getDoc(doc(db, "users", userCredential.user.uid));
-            if (!userSnap.exists()) { setLoading(false); showError(t.errProfile); return; }
-            const role = userSnap.data().role;
-            window.location.href = role === 'admin' ? 'admin.html' : role === 'tutor' ? 'tutor-portal.html' : 'student-portal.html';
-        } catch (err) {
-            setLoading(false);
-            showError(`${t.errProfileLoad} (${err.code})`);
-        }
-    }
-
-    document.getElementById('toggle-password').addEventListener('click', () => {
-        const pwd = document.getElementById('password');
-        const isHidden = pwd.type === 'password';
-        pwd.type = isHidden ? 'text' : 'password';
-        document.getElementById('eye-icon').classList.toggle('hidden', isHidden);
-        document.getElementById('eye-off-icon').classList.toggle('hidden', !isHidden);
-    });
-
-    btn.addEventListener('click', handleLogin);
-    document.getElementById('password').addEventListener('keydown', e => {
-        if (e.key === 'Enter') handleLogin();
-    });
-</script>
-
-<script>
-// ── Translations ─────────────────────────────────────────────────────────────
-const translations = {
-    en: {
-        back: 'Back to Home',
-        title: 'Welcome Back',
-        subtitle: 'Log in to access your learning bridge',
-        lblNick: 'Nickname',
-        nickPlaceholder: 'e.g., john_doe',
-        lblPass: 'Password',
-        signin: 'Sign In',
-        forgot: 'Forgot your password?',
-        resetDesc: 'Enter your nickname and we\'ll notify the admin to reset your password. You will be contacted once it\'s done.',
-        lblResetNick: 'Your Nickname',
-        lblContactMethod: 'Contact Method (optional)',
-        tabEmail: 'Email',
-        tabPhone: 'Phone',
-        lblMessenger: 'Messenger',
-        txtOther: 'Other',
-        resetSend: 'Send Reset Request',
-        backLogin: '← Back to Login',
-        successTitle: 'Request Sent!',
-        successMsg: 'Your request has been sent to our admin. Once they process it, you will be contacted with your new password.',
-        errEmpty: 'Please enter your nickname and password.',
-        errWrong: 'Wrong nickname or password.',
-        errTooMany: 'Too many attempts. Please try again later.',
-        errNetwork: 'No connection. Check your internet and try again.',
-        errGeneric: 'Login error. Please try again.',
-        errProfile: 'Profile not found. Please contact support.',
-        errProfileLoad: 'Could not load profile. Please try again.',
-        errResetNick: 'Please enter your nickname.',
-        errResetFail: 'Could not send request. Please try again.'
-    },
-    bg: {
-        back: 'Обратно към началото',
-        title: 'Добре дошли',
-        subtitle: 'Влезте, за да получите достъп до вашия портал',
-        lblNick: 'Потребителско име',
-        nickPlaceholder: 'напр. ivan_petrov',
-        lblPass: 'Парола',
-        signin: 'Вход',
-        forgot: 'Забравена парола?',
-        resetDesc: 'Въведете потребителското си име и ние ще уведомим администратора да нулира паролата ви. Ще бъдете уведомени веднага щом е готово.',
-        lblResetNick: 'Вашето потребителско име',
-        lblContactMethod: 'Начин за връзка (по желание)',
-        tabEmail: 'Имейл',
-        tabPhone: 'Телефон',
-        lblMessenger: 'Месинджър',
-        txtOther: 'Друг',
-        resetSend: 'Изпрати заявка',
-        backLogin: '← Обратно към вход',
-        successTitle: 'Заявката е изпратена!',
-        successMsg: 'Вашата заявка беше изпратена до нашия администратор. Ще бъдете уведомени с новата парола.',
-        errEmpty: 'Моля, въведете потребителско име и парола.',
-        errWrong: 'Грешно потребителско име или парола.',
-        errTooMany: 'Твърде много опити. Моля, опитайте по-късно.',
-        errNetwork: 'Няма връзка. Проверете интернета и опитайте отново.',
-        errGeneric: 'Грешка при вход. Моля, опитайте отново.',
-        errProfile: 'Профилът не е намерен. Свържете се с поддръжката.',
-        errProfileLoad: 'Профилът не може да бъде зареден. Опитайте отново.',
-        errResetNick: 'Моля, въведете потребителско име.',
-        errResetFail: 'Заявката не можа да бъде изпратена. Опитайте отново.'
-    },
-    ru: {
-        back: 'На главную страницу',
-        title: 'Добро пожаловать',
-        subtitle: 'Войдите для доступа к порталу',
-        lblNick: 'Имя пользователя',
-        nickPlaceholder: 'напр. ivan_petrov',
-        lblPass: 'Пароль',
-        signin: 'Войти',
-        forgot: 'Забыли пароль?',
-        resetDesc: 'Введите ваше имя пользователя, и мы уведомим администратора о сбросе пароля. Вы получите новый пароль после обработки.',
-        lblResetNick: 'Ваше имя пользователя',
-        lblContactMethod: 'Способ связи (необязательно)',
-        tabEmail: 'Email',
-        tabPhone: 'Телефон',
-        lblMessenger: 'Мессенджер',
-        txtOther: 'Другой',
-        resetSend: 'Отправить запрос',
-        backLogin: '← Назад к входу',
-        successTitle: 'Запрос отправлен!',
-        successMsg: 'Ваш запрос отправлен администратору. После обработки вы будете уведомлены о новом пароле.',
-        errEmpty: 'Пожалуйста, введите имя пользователя и пароль.',
-        errWrong: 'Неверное имя пользователя или пароль.',
-        errTooMany: 'Слишком много попыток. Повторите позже.',
-        errNetwork: 'Нет соединения. Проверьте интернет и повторите.',
-        errGeneric: 'Ошибка входа. Пожалуйста, попробуйте снова.',
-        errProfile: 'Профиль не найден. Обратитесь в поддержку.',
-        errProfileLoad: 'Не удалось загрузить профиль. Попробуйте снова.',
-        errResetNick: 'Пожалуйста, введите имя пользователя.',
-        errResetFail: 'Не удалось отправить запрос. Попробуйте снова.'
-    },
-    zh: {
-        back: '返回首页',
-        title: '欢迎回来',
-        subtitle: '登录以访问您的学习门户',
-        lblNick: '用户名',
-        nickPlaceholder: '例如：zhang_san',
-        lblPass: '密码',
-        signin: '登录',
-        forgot: '忘记密码？',
-        resetDesc: '请输入您的用户名，我们将通知管理员重置您的密码。完成后您将收到通知。',
-        lblResetNick: '您的用户名',
-        lblContactMethod: '联系方式（可选）',
-        tabEmail: '邮件',
-        tabPhone: '电话',
-        lblMessenger: '通讯软件',
-        txtOther: '其他',
-        resetSend: '发送重置请求',
-        backLogin: '← 返回登录',
-        successTitle: '请求已发送！',
-        successMsg: '您的请求已发送给我们的管理员。处理完成后，您将收到新密码的通知。',
-        errEmpty: '请输入用户名和密码。',
-        errWrong: '用户名或密码错误。',
-        errTooMany: '尝试次数过多，请稍后再试。',
-        errNetwork: '无连接，请检查网络后重试。',
-        errGeneric: '登录错误，请重试。',
-        errProfile: '未找到个人资料，请联系支持。',
-        errProfileLoad: '无法加载个人资料，请重试。',
-        errResetNick: '请输入您的用户名。',
-        errResetFail: '无法发送请求，请重试。'
-    }
-};
-
-let currentLang = localStorage.getItem('preferredLang') || 'en';
-
-function setLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('preferredLang', lang);
-    applyTranslations();
-    updateLangButtons();
-    document.getElementById('login-lang-dropdown')?.classList.add('hidden');
-}
-
-function applyTranslations() {
-    const t = translations[currentLang];
-    document.getElementById('txt-back').textContent = t.back;
-    document.getElementById('txt-title').textContent = t.title;
-    document.getElementById('txt-subtitle').textContent = t.subtitle;
-    document.getElementById('lbl-nickname').textContent = t.lblNick;
-    document.getElementById('nickname').placeholder = t.nickPlaceholder;
-    document.getElementById('lbl-password').textContent = t.lblPass;
-    document.getElementById('txt-signin').textContent = t.signin;
-    document.getElementById('txt-forgot').textContent = t.forgot;
-    document.getElementById('txt-reset-desc').textContent = t.resetDesc;
-    document.getElementById('lbl-reset-nick').textContent = t.lblResetNick;
-    document.getElementById('lbl-contact-method').textContent = t.lblContactMethod;
-    document.getElementById('txt-tab-email').textContent = t.tabEmail;
-    document.getElementById('txt-tab-phone').textContent = t.tabPhone;
-    document.getElementById('lbl-messenger').textContent = t.lblMessenger;
-    document.getElementById('txt-other').textContent = t.txtOther;
-    document.getElementById('txt-reset-send').textContent = t.resetSend;
-    document.getElementById('txt-back-login').textContent = t.backLogin;
-    document.getElementById('txt-success-title').textContent = t.successTitle;
-    document.getElementById('txt-success-msg').textContent = t.successMsg;
-    document.getElementById('txt-back-login2').textContent = t.backLogin;
-}
-
-
-function updateLangButtons() {
-    ['en','bg','ru','zh'].forEach(l => {
-        const btn = document.getElementById('lang-' + l);
-        if (!btn) return;
-        if (l === currentLang) {
-            btn.classList.add('bg-rose-50', 'text-[#FF7582]');
-            btn.classList.remove('opacity-60', 'text-slate-600');
-        } else {
-            btn.classList.remove('bg-rose-50', 'text-[#FF7582]');
-            btn.classList.add('opacity-60', 'text-slate-600');
-        }
-    });
-}
-
-function toggleLoginLang(e) {
-    if (e) e.stopPropagation();
-    document.getElementById('login-lang-dropdown').classList.toggle('hidden');
-}
-
-document.addEventListener('click', function(e) {
-    const btn = document.getElementById('login-lang-btn');
-    const drop = document.getElementById('login-lang-dropdown');
-    if (drop && !drop.classList.contains('hidden') && !btn?.contains(e.target) && !drop?.contains(e.target)) {
-        drop.classList.add('hidden');
-    }
-});
-
-// ── Contact method tab & messenger ───────────────────────────────────────────
-let activeContactTab = 'email';
-let selectedMessenger = '';
-
-function switchContactTab(tab) {
-    activeContactTab = tab;
-    selectedMessenger = '';
-    const emailWrap = document.getElementById('contact-email-wrap');
-    const phoneWrap = document.getElementById('contact-phone-wrap');
-    const tabEmail = document.getElementById('contact-tab-email');
-    const tabPhone = document.getElementById('contact-tab-phone');
-    const activeClass = 'flex-1 py-2 rounded-xl text-xs font-bold border border-[#FF7582] bg-[#FF7582] text-white transition-all';
-    const inactiveClass = 'flex-1 py-2 rounded-xl text-xs font-bold border border-slate-200 text-slate-500 hover:border-[#FF7582] hover:text-[#FF7582] transition-all';
-    if (tab === 'email') {
-        emailWrap.classList.remove('hidden');
-        phoneWrap.classList.add('hidden');
-        tabEmail.className = activeClass;
-        tabPhone.className = inactiveClass;
-    } else {
-        emailWrap.classList.add('hidden');
-        phoneWrap.classList.remove('hidden');
-        tabEmail.className = inactiveClass;
-        tabPhone.className = activeClass;
-    }
-    document.querySelectorAll('.messenger-btn').forEach(b => {
-        b.classList.remove('border-[#FF7582]', 'text-[#FF7582]', 'bg-rose-50');
-    });
-}
-
-function selectMessenger(name) {
-    selectedMessenger = name;
-    document.querySelectorAll('.messenger-btn').forEach(b => {
-        b.classList.remove('border-[#FF7582]', 'text-[#FF7582]', 'bg-rose-50');
-    });
-    const idMap = { WhatsApp: 'msg-whatsapp', Telegram: 'msg-telegram', Viber: 'msg-viber', Other: 'msg-other' };
-    const btn = document.getElementById(idMap[name]);
-    if (btn) btn.classList.add('border-[#FF7582]', 'text-[#FF7582]', 'bg-rose-50');
-}
-
-// ── Panel switching ───────────────────────────────────────────────────────────
-function showResetPanel() {
-    document.getElementById('login-panel').classList.add('hidden');
-    document.getElementById('reset-panel').classList.remove('hidden');
-    document.getElementById('reset-form-wrap').classList.remove('hidden');
-    document.getElementById('reset-success').classList.add('hidden');
-    document.getElementById('reset-error').classList.add('hidden');
-    document.getElementById('reset-nickname').value = '';
-    document.getElementById('reset-email').value = '';
-    if (document.getElementById('reset-phone')) document.getElementById('reset-phone').value = '';
-    switchContactTab('email');
-}
-
-function showLoginPanel() {
-    document.getElementById('reset-panel').classList.add('hidden');
-    document.getElementById('login-panel').classList.remove('hidden');
-    document.getElementById('error-msg').classList.add('hidden');
-}
-
-// ── Reset request ─────────────────────────────────────────────────────────────
-async function sendResetRequest() {
-    const t = translations[currentLang];
-    const nickname = document.getElementById('reset-nickname').value.trim();
-    const resetBtn = document.getElementById('reset-btn');
-    const resetError = document.getElementById('reset-error');
-
-    resetError.classList.add('hidden');
-
-    if (!nickname) {
-        document.getElementById('reset-error-text').textContent = t.errResetNick;
-        resetError.classList.remove('hidden');
-        return;
-    }
-
-    resetBtn.disabled = true;
-    resetBtn.textContent = '...';
-
-    try {
-        const email = activeContactTab === 'email' ? document.getElementById('reset-email').value.trim() : '';
-        const phone = activeContactTab === 'phone' ? document.getElementById('reset-phone').value.trim() : '';
-        let contactLine = '';
-        if (email) contactLine = `\nContact email: ${email}`;
-        if (phone) contactLine = `\nPhone: ${phone}${selectedMessenger ? ' (' + selectedMessenger + ')' : ''}`;
-        const body = {
-            name: nickname,
-            email: 'hello.linguabridge@gmail.com',
-            subject: `Password Reset Request – ${nickname}`,
-            message: `A password reset has been requested for the account:\n\nNickname: ${nickname}${contactLine}\n\nPlease reset the password and contact the student.`
-        };
-
-        await fetch('https://linguabridge-email-form-handler.alextdakov.workers.dev', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        document.getElementById('reset-form-wrap').classList.add('hidden');
-        document.getElementById('reset-success').classList.remove('hidden');
-    } catch (err) {
-        document.getElementById('reset-error-text').textContent = t.errResetFail;
-        resetError.classList.remove('hidden');
-    } finally {
-        resetBtn.disabled = false;
-        document.getElementById('txt-reset-send').textContent = t.resetSend;
-    }
-}
-
-// Init
-applyTranslations();
-updateLangButtons();
-</script>
-</body>
-</html>
+<div class="absolute bottom-10 right-0 glass-panel px-4 py-2 rounded-full text-primary font-label-md flex items-center gap-2 shadow-sm">
+<span class="w-2 h-2 bg-primary rounded-full"></span>
+                        Arabic
+                    </div>
+<div class="absolute bottom-20 -left-10 glass-panel px-4 py-2 rounded-full text-primary font-label-md flex items-center gap-2 shadow-sm">
+<span class="w-2 h-2 bg-tertiary rounded-full"></span>
+                        German
+                    </div>
+</div>
+</div>
+<!-- Side B: Login Form -->
+<div class="flex flex-col justify-center items-center py-12 md:py-0">
+<div class="glass-panel p-10 md:p-12 rounded-[32px] w-full max-w-[480px] shadow-[0_32px_64px_rgba(0,0,0,0.05)] border-white/40">
+<div class="mb-10 text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Welcome Back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to continue your linguistic adventure.</p>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<!-- Nickname/Email Field -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface px-1" for="nickname">Nickname or Email</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
+<input class="w-full bg-white/40 border-none rounded-2xl py-4 pl-12 pr-4 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary focus:bg-white/80 transition-all outline-none" id="nickname" name="nickname" placeholder="Enter your nickname" required="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center px-1">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-secondary hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full bg-white/40 border-none rounded-2xl py-4 pl-12 pr-12 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary focus:bg-white/80 transition-all outline-none" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined" style="font-size: 20px;">visibility</span>
+</button>
+</div>
+</div>
+<!-- Error Message (Placeholder) -->
+<div class="hidden flex items-center gap-2 p-4 rounded-xl bg-error-container text-on-error-container font-label-md">
+<span class="material-symbols-outlined text-[18px]">error</span>
+<span>Invalid credentials. Please try again.</span>
+</div>
+<!-- Login Button -->
+<button class="w-full bg-primary text-white py-4 rounded-full font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:bg-secondary hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" type="submit">
+                            Log In
+                        </button>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-outline-variant/30"></div>
+<span class="flex-shrink mx-4 text-outline font-label-sm">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant/30"></div>
+</div>
+<!-- Social Login Buttons -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 py-3 px-4 glass-panel rounded-2xl hover:bg-white/80 transition-all font-label-md text-on-surface" type="button">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwf_0AuW70W-V15H_EQXQAIm_7bPR1ScjZ-bwBHa7JT_j8YQNGxqIdmTkkGbFqeMsskHJQqycwJdhoj-6HOzs-Im_sAxmt7iol3FZe36AGdukaaLbQfzRxsrrGYs-uUoAKOKz2Cz7QRWCFVEjA7VDThRn6FJ8zJ2m6uJ6DDGcrprSLE5mYTPf6aaaUrzz1fkPbOZId0Y5Jt5veLFMewY4vHSq1X53WIehmcL_KlOwQGorBVBgGeAtnBFmd6RXsLjXqx7qXm0H2Kdmm"/>
+                                Google
+                            </button>
+<button class="flex items-center justify-center gap-3 py-3 px-4 glass-panel rounded-2xl hover:bg-white/80 transition-all font-label-md text-on-surface" type="button">
+<span class="material-symbols-outlined text-[#1877F2]" data-weight="fill">social_leaderboard</span>
+                                Facebook
+                            </button>
+</div>
+</form>
+<div class="mt-10 text-center">
+<p class="font-body-md text-on-surface-variant">
+                            Don't have an account? 
+                            <a class="text-primary font-bold hover:underline" href="#">Create Account</a>
+</p>
+</div>
+<!-- Language Switcher Small -->
+<div class="mt-8 flex justify-center gap-4 border-t border-white/20 pt-6">
+<button class="text-primary font-bold font-label-sm">English</button>
+<button class="text-on-surface-variant font-label-sm hover:text-primary">Français</button>
+<button class="text-on-surface-variant font-label-sm hover:text-primary">Español</button>
+<button class="text-on-surface-variant font-label-sm hover:text-primary">Deutsch</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container-low border-t border-outline-variant/30">
+<div class="max-w-[1440px] mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-lg text-headline-lg font-extrabold text-primary mb-4">LinguaBridge</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm max-w-xs">
+                    Building bridges across borders through the power of language and luminous human connection.
+                </p>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Company</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Careers</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Press</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Resources</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Blog</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Support</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Tutorials</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-md text-label-md text-primary font-bold mb-4 uppercase tracking-wider">Legal</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-gutter mt-12 pt-8 border-t border-outline-variant/20 text-center">
+<p class="text-on-surface-variant font-body-sm text-body-sm">© 2024 LinguaBridge Global. All rights reserved.</p>
+</div>
+</footer>
+<!-- Background Images / Contextual Prompts -->
+<img class="hidden" data-alt="A high-fidelity digital rendering of a soft, glassmorphic globe floating in a minimalist, luminous space. The lighting is ethereal and soft, reflecting off translucent layers of pink and white. The background is a clean, creamy white with subtle organic gradients. The overall mood is peaceful, human-centric, and technologically advanced, perfectly capturing the Luminous Humanism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzvmlOkEgUCvd7iqh4vMXwnRGv4CiHXx7kvidEgmIsqNf97HLtnUASu9l3fLaIrvF-dQFBPQFFZcgyXi6wmFz82BuPCuWOzzcJGjyjecydYdJhPeOuNilTxLEgbLszEyvnBb6RV62_o0jBNe7x1bVXvEEe-7F21Ua9qzD0MB5-FCurc6sTMBNEreM3a8wi22fHENmD2x_JsLBuuuqKsv9JDw8m_vmSpwyiy4nmwfl8B_7775RL4iMcC8BsBG8chyk1dpgf3_j2CyVH"/>
+</body></html>

@@ -1,460 +1,336 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
-<head>
+
+<html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Blog | LinguaBridge</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: { extend: { colors: { "primary": "#a93444", "primary-container": "#ff7582", "secondary": "#815438" } } }
-    }
-</script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#3f0018",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb1c2",
+                      "tertiary": "#463234",
+                      "on-surface": "#1f1a1b",
+                      "surface-container-highest": "#eae0e1",
+                      "on-primary-fixed": "#3f001c",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#efe6e7",
+                      "outline-variant": "#dbc0c5",
+                      "background": "#f8f6f7",
+                      "secondary-fixed": "#ffd9df",
+                      "secondary": "#ae2957",
+                      "surface": "#f8f6f7",
+                      "primary-fixed": "#ffd9e1",
+                      "secondary-container": "#fe6793",
+                      "outline": "#887176",
+                      "primary": "#6f0737",
+                      "surface-bright": "#f8f6f7",
+                      "on-primary-fixed-variant": "#851c47",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#8d0840",
+                      "inverse-surface": "#342f30",
+                      "on-secondary-container": "#6b002d",
+                      "tertiary-container": "#5f484b",
+                      "surface-container-low": "#fbf1f2",
+                      "tertiary-fixed": "#fbdbde",
+                      "surface-variant": "#eae0e1",
+                      "inverse-on-surface": "#f8eeef",
+                      "on-tertiary-fixed-variant": "#574144",
+                      "on-tertiary-fixed": "#281719",
+                      "on-surface-variant": "#554246",
+                      "on-primary-container": "#ffa6bf",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#a4355f",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#f5eced",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#d6b8bb",
+                      "primary-container": "#8e244e",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#debfc2",
+                      "inverse-primary": "#ffb1c6",
+                      "primary-fixed-dim": "#ffb1c6",
+                      "surface-dim": "#e1d8d9",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#1f1a1b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-padding-desktop": "40px",
+                      "container-padding-mobile": "20px",
+                      "unit": "8px",
+                      "section-gap": "80px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-md": ["26px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
 <style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .fade-up { animation: fadeUp .5s ease forwards; }
-    .card-hover { transition: transform .2s ease, box-shadow .2s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(255,117,130,.15); }
-    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-    .shimmer { background: linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; }
-</style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .organic-gradient {
+            background: radial-gradient(circle at top right, rgba(250, 218, 221, 0.3), transparent),
+                        radial-gradient(circle at bottom left, rgba(142, 36, 78, 0.03), transparent);
+        }
+    </style>
 </head>
-<body class="bg-[#f4fafd] font-['Be_Vietnam_Pro'] text-[#161d1f] antialiased">
-
-<!-- ── Header ── -->
-<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_Sans'] antialiased">
-    <div class="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-        <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
-            <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
-            <span>LinguaBridge</span>
-        </a>
-        <div class="hidden md:flex items-center gap-8">
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg" href="index.html" data-i18n="nav.home">Home</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg" href="languages.html" data-i18n="nav.languages">Languages</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg" href="about.html" data-i18n="nav.about">About</a>
-            <a class="text-slate-600 hover:text-[#FF7582] transition-colors rounded-lg" href="contact.html" data-i18n="nav.contact">Contact</a>
-            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1" href="blog.html" data-i18n="nav.blog">Blog</a>
-        </div>
-        <div class="flex items-center gap-2 md:gap-6">
-            <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
-                <span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span>
+<body class="bg-[#f8f6f7] font-body-md text-on-surface antialiased organic-gradient min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f6f7]/60 backdrop-blur-[20px] border-b border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+<nav class="flex justify-between items-center h-20 px-container-padding-desktop w-full max-w-7xl mx-auto">
+<div class="font-display-lg text-headline-md font-bold text-primary tracking-tight">LinguaBridge</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="#">Home</a>
+<a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="#">Languages</a>
+<a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="#">About</a>
+<a class="text-on-surface-variant font-medium pb-1 hover:text-primary transition-all duration-300" href="#">Contact</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 transition-all duration-300" href="#">Blog</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all">
+                Start Learning
             </button>
-            <div class="relative">
-                <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-[#FF7582] px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
-                    <span class="material-symbols-outlined text-[20px]">language</span>
-                    <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
-                    <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
-                    <button onclick="changeGlobalLanguage('bg');closeMobileLang()" class="lang-btn lang-btn-bg flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
-                    <button onclick="changeGlobalLanguage('ru');closeMobileLang()" class="lang-btn lang-btn-ru flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
-                    <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
-                </div>
-            </div>
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
-                <span class="material-symbols-outlined text-[22px]">menu</span>
-            </button>
-        </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-50 px-4 py-3">
-        <nav class="flex flex-col gap-1">
-            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.home">Home</a>
-            <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.languages">Languages</a>
-            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.about">About</a>
-            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
-            <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-[#FF7582] font-semibold bg-rose-50" data-i18n="nav.blog">Blog</a>
-            <div class="pt-2 border-t border-rose-50 mt-1">
-                <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all">
-                    <span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span>
-                </button>
-            </div>
-        </nav>
-    </div>
+</nav>
 </header>
-
-<main class="pt-24">
-
-    <!-- ── Hero ── -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-white via-rose-50/40 to-white py-16 px-4 md:px-8 border-b border-rose-100/50">
-        <div class="absolute -top-20 -right-20 w-72 h-72 bg-rose-100/30 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-orange-100/20 rounded-full blur-2xl pointer-events-none"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-100 text-[#FF7582] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-                <span class="material-symbols-outlined text-[14px]">auto_stories</span>
-                <span data-i18n="blog.hero.badge">LinguaBridge Blog</span>
-            </span>
-            <h1 class="font-['Plus_Jakarta_Sans'] text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4" data-i18n="blog.hero.title">
-                Language Tips, Stories &amp; Learning Insights
-            </h1>
-            <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed" data-i18n="blog.hero.subtitle">
-                Practical guides, cultural deep-dives, and expert advice to help you on your language journey.
+<main class="pt-32 pb-section-gap">
+<!-- Hero Section -->
+<section class="px-container-padding-desktop max-w-7xl mx-auto mb-16 text-center">
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Language Tips, Stories &amp; <br class="hidden md:block"/>Learning Insights</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Explore a world of linguistic mastery. From cultural nuances to technical grammar guides, our experts bridge the gap between speaking and understanding.
             </p>
-        </div>
-    </section>
-
-    <!-- ── Category Filter ── -->
-    <section class="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-4">
-        <div id="category-filters" class="flex flex-wrap gap-2">
-            <!-- Built dynamically from fetched posts -->
-            <div class="shimmer h-9 w-24 rounded-full"></div>
-            <div class="shimmer h-9 w-32 rounded-full"></div>
-            <div class="shimmer h-9 w-28 rounded-full"></div>
-        </div>
-    </section>
-
-    <!-- ── Posts Grid ── -->
-    <section class="max-w-7xl mx-auto px-4 md:px-8 py-8">
-
-        <!-- Loading skeletons -->
-        <div id="posts-loading" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 h-64 md:h-72 shimmer"></div>
-            <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 h-64 shimmer"></div>
-            <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 h-64 shimmer"></div>
-            <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 h-64 shimmer"></div>
-            <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 h-64 shimmer"></div>
-        </div>
-
-        <!-- Live posts injected here -->
-        <div id="posts-grid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-        <!-- Error state -->
-        <div id="posts-error" class="hidden text-center py-20">
-            <span class="material-symbols-outlined text-[48px] text-rose-300 mb-4 block">error_outline</span>
-            <p class="text-slate-500 font-semibold mb-2" data-i18n="blog.error.posts">Could not load posts</p>
-            <p id="posts-error-msg" class="text-slate-400 text-sm"></p>
-        </div>
-
-        <!-- Empty state -->
-        <div id="posts-empty" class="hidden text-center py-20">
-            <span class="material-symbols-outlined text-[48px] text-slate-300 mb-4 block">auto_stories</span>
-            <p class="text-slate-400 font-semibold" data-i18n="blog.empty">No posts yet — check back soon!</p>
-        </div>
-
-        <!-- No category results -->
-        <div id="no-results" class="hidden text-center py-16">
-            <span class="material-symbols-outlined text-[48px] text-slate-300 mb-4 block">search_off</span>
-            <p class="text-slate-400 font-semibold" data-i18n="blog.noResults">No posts in this category yet.</p>
-        </div>
-
-    </section>
-
-    <!-- ── Newsletter CTA ── -->
-    <section class="bg-gradient-to-br from-[#FF7582] to-[#a93444] text-white py-14 px-4 md:px-8 mt-8">
-        <div class="max-w-2xl mx-auto text-center">
-            <span class="material-symbols-outlined text-[40px] mb-3 block opacity-80">mail</span>
-            <h2 class="font-['Plus_Jakarta_Sans'] text-2xl md:text-3xl font-bold mb-3" data-i18n="blog.newsletter.title">Stay in the Loop</h2>
-            <p class="text-white/80 text-sm mb-6 leading-relaxed" data-i18n="blog.newsletter.subtitle">Get new articles, language tips, and course updates delivered straight to your inbox.</p>
-            <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-[#FF7582] px-8 py-3.5 rounded-full font-bold hover:bg-rose-50 hover:shadow-lg transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[18px]">send</span><span data-i18n="blog.newsletter.cta">Contact Us to Subscribe</span>
-            </a>
-        </div>
-    </section>
-
+</section>
+<!-- Category Filters -->
+<section class="px-container-padding-desktop max-w-7xl mx-auto mb-12">
+<div class="flex flex-wrap justify-center gap-3">
+<button class="px-6 py-2 rounded-full glass-panel border-primary text-primary font-label-md bg-primary text-white shadow-sm">All Stories</button>
+<button class="px-6 py-2 rounded-full glass-panel border-outline-variant/30 text-on-surface-variant font-label-md hover:border-primary/50 transition-colors">Grammar</button>
+<button class="px-6 py-2 rounded-full glass-panel border-outline-variant/30 text-on-surface-variant font-label-md hover:border-primary/50 transition-colors">Culture</button>
+<button class="px-6 py-2 rounded-full glass-panel border-outline-variant/30 text-on-surface-variant font-label-md hover:border-primary/50 transition-colors">Study Tips</button>
+<button class="px-6 py-2 rounded-full glass-panel border-outline-variant/30 text-on-surface-variant font-label-md hover:border-primary/50 transition-colors">Career</button>
+<button class="px-6 py-2 rounded-full glass-panel border-outline-variant/30 text-on-surface-variant font-label-md hover:border-primary/50 transition-colors">News</button>
+</div>
+</section>
+<!-- Blog Grid -->
+<section class="px-container-padding-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Blog Post 1 (Previously Featured, now Vertical) -->
+<article class="group relative flex flex-col rounded-[32px] glass-panel shadow-[0_15px_30px_rgba(142,36,78,0.05)] hover:shadow-[0_30px_60px_rgba(142,36,78,0.15)] hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A diverse group of university students from different global backgrounds collaborating in a bright, modern glass-walled library." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXLYOWSyYH0HgULoNb5ObFFRvCrxe68Gw4UBVyUlXm9PKzh-M5f9ml6w5XL1k003HmYV_yBp5oVZkiLz_nD2wE6oPcy3HY8McY7YFvU6-cHyMVKSZDWRwWjhu88aJBKwJ1jUQF2xF1zArztxJRcXOfRptEM4g5uoV0645OGqlytyG5MsxueSXAcxgB4jEUkOEeeBaAr7QfO-l_vVQbEnPs6G1f9sxvX94JZ5Hn_qtqDl-Vgy_WWXmvZ3bGP_X5JJago1ci7ILXllHe"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-white text-label-sm px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">Featured</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex items-center gap-2 mb-4 text-primary font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>May 24, 2024</span>
+<span class="mx-2">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 8 min read</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors leading-tight">The Art of Code-Switching: Navigating Multiple Cultural Identities</h2>
+<p class="text-on-surface-variant font-body-md mb-8 line-clamp-3">
+                            Discover how millions of global citizens seamlessly transition between languages and cultures every day, and why this skill is becoming the ultimate superpower.
+                        </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed overflow-hidden ring-2 ring-white">
+<img alt="Elena Rodriguez" class="w-full h-full object-cover" data-alt="Elena Rodriguez professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBt5uTwOTPl5OWxppBcp4JsYWUwTj0vf2XL69pJxri_H_UIpRRx7116-fZx-6dhFO7SJhB1hTiIOLiHnQrSTOXWQDASdOHQX9PGy9JwR3ECos4Z9g_hBWqzzzs41GeUzPiUKTENDuXBMJNtnysRkOMUB2vS6dum53R_zJGt3AJxm6pJZ5d2k1sDDit6LRLC9t3BvUpsSsdcRDwgqGi7ol7r8Yb-r9GaFU9ViXYOt7w2hQBERAo3kDP7a_6rm1GbvNUvShVWTlTWWBU"/>
+</div>
+<span class="font-label-md font-semibold text-on-surface">Elena Rodriguez</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Regular Post 1 -->
+<article class="group relative flex flex-col rounded-[32px] glass-panel shadow-[0_15px_30px_rgba(142,36,78,0.05)] hover:shadow-[0_30px_60px_rgba(142,36,78,0.15)] hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A serene workspace with a minimalist wooden desk and warm morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuwGsUX8I_-wZkR2UfRip6qWS2eoKXnLPjndJf3Fml2D3exUXxWfBbVu2Bl8JoECxvowaEj8Lct5r4DTlacQp5qIu2Q6_3BXPeqNBe46L8q09JeiXV3_IU35xj2YMFz2jStlgR9ZKgf_qmlNhG3OfZ5gAVV13d5o2e2ZTibD-vO5Db33ezVJ33vGKofgKKMzxSANJ6MFHyTM7Him8ISrgzAaBcGNjp77TGE4EXbekTkNByxguBwXTXHgvN02cBGFnj3isf2KL2NNaC"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-fixed text-primary text-label-sm px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">Study Tips</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex items-center gap-2 mb-4 text-primary font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>May 20, 2024</span>
+<span class="mx-2">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 12 min read</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors leading-tight">Mastering Japanese Particles: A Visual Guide</h2>
+<p class="text-on-surface-variant font-body-md mb-8 line-clamp-3">
+                            End the confusion between 'wa' and 'ga' with our comprehensive breakdown using native examples and mnemonic visuals.
+                        </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed overflow-hidden ring-2 ring-white">
+<img alt="Kenji Tanaka" class="w-full h-full object-cover" data-alt="Kenji Tanaka professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB31sFW0w6bxZll4h2_uJf7MuhBDN9BGSea52lJB3LnMe1WdEdL8ZLOE1Lm2VFAwDXYp1UTsC6kzOEtx3sNq1nG8goErCqpFNvcUrCi6gK7V8tAIMjlajZd5Da6oA20eq8DcaM7sNKEKqrnymQeNDIgZPpKUvSa-auPzS07Fk6q2aoFk5qh1OgJOfF4bBQQZGtW7yCxze2gpn4EkuCQ7usz0H1mQPMeMt2f29EoO90wvEuGlWM2IRXhAhFitFrpb91JOT8l1bm9dUBf"/>
+</div>
+<span class="font-label-md font-semibold text-on-surface">Kenji Tanaka</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Regular Post 2 -->
+<article class="group relative flex flex-col rounded-[32px] glass-panel shadow-[0_15px_30px_rgba(142,36,78,0.05)] hover:shadow-[0_30px_60px_rgba(142,36,78,0.15)] hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A bustling Parisian cafe scene at twilight with warm golden lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUV9CD9B0oBmRQy2jg4RQi81gkIfXD-X8WXOu3YsyabT7h6GzRX4HF_q19ANXxcufqR3xkD4eMywGuhtzWD6H_rQDhq4C7QtZtot7pgFrAuhRfzYmj6pzuYFPQGCSwggPoS7dcgNViL-322jlSTL8Dana_grtV8oMJJHuFP_X6TTbB8D_6Me9jr1zEdmXWXPlphM35LHOgTpLc6cOgrK2f9-NMGPCdNMqfzWiNhd19M5Yh7zK-fCeQXgtrmhmjCwfVwq2HTpDkUoG6"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-fixed text-primary text-label-sm px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">Culture</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex items-center gap-2 mb-4 text-primary font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>May 18, 2024</span>
+<span class="mx-2">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 5 min read</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors leading-tight">Untranslatable French Words for Every Emotion</h2>
+<p class="text-on-surface-variant font-body-md mb-8 line-clamp-3">
+                            Explore the depth of the French language through words that describe feelings English can't quite capture, from 'flâner' to 'retrouvailles'.
+                        </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed overflow-hidden ring-2 ring-white">
+<img alt="Chloé Dubois" class="w-full h-full object-cover" data-alt="Chloé Dubois professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZJyddyC3JCvw0u3Umr8dRN34Gw_MCmYc2resHEOekRddOb_A1HG7MqMYoV-B_0XVfgb7vQ9nR6RM26LaOl3DUHI3-v9L9Gr8o1or5G9f7LFngMOkHwp9SZ62pDd2czfeOcSHNYOEQYe77HM0qxz8-x0k4N7mr2FoXSTWeow3IEf4LE1AXNWglHxboSsUlKyZh1lZu6IkjZJdddVYxUgJjDtJUECSHglEe0jyhSx7K7e9dvAGz2alS_vkC04S4fS8a8G0HBz18Puw2"/>
+</div>
+<span class="font-label-md font-semibold text-on-surface">Chloé Dubois</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Regular Post 3 -->
+<article class="group relative flex flex-col rounded-[32px] glass-panel shadow-[0_15px_30px_rgba(142,36,78,0.05)] hover:shadow-[0_30px_60px_rgba(142,36,78,0.15)] hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A modern office where professionals use language learning apps." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx2_kxyQ4qbI5VRU88d_YsloGruCwkgIkKUz0WnfV--Nv0erZBQQVN0BXwEw-izEF5TOuq8Xfw2fnFM9rwycFa0E7P3OEHPi4RfBC4MwLd9pcD-3-tdfioHGKZ0DOAXxebOoQ2qCWAtqXCsDeM8cYS7cMHjjoyzt8JXT64LrjtvyKk3nQmMNx17YBqdmqwH58avDSFlr4m29mOU94CmiCQuFqHCZYYoTgBfVc-WJhUWNsm8IR2LwClYKKA-2Qku33a80eSWPoqQ7Kw"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-fixed text-primary text-label-sm px-4 py-1.5 rounded-full font-bold uppercase tracking-wider">Career</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex items-center gap-2 mb-4 text-primary font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>May 15, 2024</span>
+<span class="mx-2">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 15 min read</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 group-hover:text-primary transition-colors leading-tight">How Bilingualism Increases Earning Potential</h2>
+<p class="text-on-surface-variant font-body-md mb-8 line-clamp-3">
+                            Statistical insights into how fluency in a second language impacts your global career trajectory, professional networking, and salary benchmarks.
+                        </p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed overflow-hidden ring-2 ring-white">
+<img alt="Marcus Chen" class="w-full h-full object-cover" data-alt="Marcus Chen professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7zny6PXr5AAVqxmzpcbaOHELvsR3U5spYqnuch5Gav8AjsztxESOUqZ_lr2aem_ToZ9Bnon-xsTsYxVPPVbxJ93XcwI2cvgPI75CeYd47INm8yiygCTPlc0H-8AiRcx5G67Br4MYwG9yxMZBqBD-5fR9LSXrNYbdDiKm4tY0_Uud-sH45llYPi3E-4U3GFoTuMNzX3kqGzS6kGdgO-f0_ulvJdQ3hOgpulb27PsSbC-Kups8pYtFEAT0oer1bOOyZfYbHuGXjdCXp"/>
+</div>
+<span class="font-label-md font-semibold text-on-surface">Marcus Chen</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1">arrow_forward</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Load More -->
+<div class="mt-16 text-center">
+<button class="px-10 py-4 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all active:scale-95 shadow-md">
+                    View All Insights
+                </button>
+</div>
+</section>
+<!-- Newsletter Strip -->
+<section class="mt-section-gap px-container-padding-desktop max-w-7xl mx-auto">
+<div class="rounded-[40px] bg-primary p-12 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12 shadow-2xl">
+<!-- Decorative Glows -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary-container rounded-full blur-[100px] opacity-40 -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary-container rounded-full blur-[80px] opacity-30 translate-y-1/2 -translate-x-1/2"></div>
+<div class="relative z-10 text-center md:text-left max-w-xl">
+<h2 class="font-display-lg text-headline-lg text-white mb-4">Never miss a breakthrough.</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed opacity-90">
+                        Subscribe to our monthly newsletter for curated language guides, cultural deep-dives, and exclusive platform updates.
+                    </p>
+</div>
+<form class="relative z-10 w-full md:w-auto flex flex-col sm:flex-row gap-4">
+<input class="bg-white/10 border border-white/20 text-white placeholder:text-white/60 rounded-full px-8 py-4 focus:outline-none focus:ring-2 focus:ring-primary-fixed-dim w-full sm:w-80 backdrop-blur-sm" placeholder="Your email address" type="email"/>
+<button class="bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-primary-fixed transition-colors whitespace-nowrap active:scale-95 shadow-lg" type="submit">
+                        Keep Me Updated
+                    </button>
+</form>
+</div>
+</section>
 </main>
-
-<!-- ── Footer ── -->
-<footer class="w-full py-12 bg-slate-50 border-t border-rose-100">
-    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
-        <div class="flex flex-col items-center md:items-start">
-            <div class="flex items-center gap-3 mb-2">
-                <img src="Media/linguabridge_logo.png" alt="LinguaBridge" class="h-8 w-auto">
-                <div class="flex items-baseline gap-2">
-                    <span class="text-lg font-bold text-slate-900">LinguaBridge</span>
-                    <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
-                </div>
-            </div>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
-        </div>
-        <div class="flex flex-wrap justify-center gap-6">
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
-            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
-                <span class="material-symbols-outlined text-[16px]">delete_history</span>
-                <span data-i18n="footer.deleteData">Delete Data</span>
-            </a>
-        </div>
-        <div>
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">Become Tutor</a>
-        </div>
-    </div>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface-container-low border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-container-padding-desktop max-w-7xl mx-auto">
+<div class="flex flex-col gap-6">
+<div class="font-display-lg text-headline-md font-bold text-primary">LinguaBridge</div>
+<p class="font-body-md text-on-surface-variant">© 2024 LinguaBridge. Luminous Humanism in global communication.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-primary font-bold">Resources</h4>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Cookie Policy</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-primary font-bold">Partnerships</h4>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Language Partners</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Affiliate Program</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Corporate Training</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-primary font-bold">Support</h4>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Help Center</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">Contact Us</a>
+<a class="text-on-surface-variant/70 hover:text-primary transition-colors font-label-md" href="#">System Status</a>
+</div>
+</div>
 </footer>
-
-<!-- ── Scripts ── -->
-<script src="sanity.js"></script>
-<script src="translate.js"></script>
-<script>
-    // ── Mobile menu ──────────────────────────────────────────────────────────
-    function toggleMobileMenu(e) {
-        e.stopPropagation();
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-        document.getElementById('mobile-lang-dropdown').classList.add('hidden');
-    }
-    function toggleMobileLang(e) {
-        e.stopPropagation();
-        document.getElementById('mobile-lang-dropdown').classList.toggle('hidden');
-        document.getElementById('mobile-menu').classList.add('hidden');
-    }
-    function closeMobileLang() { document.getElementById('mobile-lang-dropdown').classList.add('hidden'); }
-    document.addEventListener('click', () => {
-        document.getElementById('mobile-menu').classList.add('hidden');
-        document.getElementById('mobile-lang-dropdown').classList.add('hidden');
-    });
-
-    // ── Post state ───────────────────────────────────────────────────────────
-    let allPosts     = [];
-    let activeFilter = 'all';
-
-    // ── Category colours (cycles through palette) ────────────────────────────
-    const CAT_COLORS = [
-        { bg:'bg-rose-50',   text:'text-[#FF7582]',  border:'border-rose-100'  },
-        { bg:'bg-violet-50', text:'text-violet-600',  border:'border-violet-100'},
-        { bg:'bg-emerald-50',text:'text-emerald-700', border:'border-emerald-100'},
-        { bg:'bg-amber-50',  text:'text-amber-700',   border:'border-amber-100' },
-        { bg:'bg-sky-50',    text:'text-sky-700',     border:'border-sky-100'   },
-        { bg:'bg-pink-50',   text:'text-pink-700',    border:'border-pink-100'  },
-    ];
-    const catColorMap = {};
-    let colorIdx = 0;
-    function catColor(title) {
-        if (!catColorMap[title]) {
-            catColorMap[title] = CAT_COLORS[colorIdx % CAT_COLORS.length];
-            colorIdx++;
-        }
-        return catColorMap[title];
-    }
-
-    // ── Render category filter buttons ───────────────────────────────────────
-    function buildCategoryFilter(posts) {
-        const cats = ['all'];
-        posts.forEach(p => (p.categories || []).forEach(c => { if (!cats.includes(c.title)) cats.push(c.title); }));
-
-        const container = document.getElementById('category-filters');
-        container.innerHTML = cats.map(cat => {
-            const isAll = cat === 'all';
-            // Use i18n() if available (language-manager loaded), else fall back to English
-            const label = isAll
-                ? (typeof i18n === 'function' ? i18n('blog.filter.all') : 'All Posts')
-                : cat;
-            const activeClass  = 'bg-[#FF7582] text-white border-[#FF7582]';
-            const defaultClass = 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582]';
-            return `<button onclick="filterPosts('${escHtml(cat)}')" data-cat="${escHtml(cat)}"
-                class="cat-btn px-4 py-2 rounded-full text-sm font-semibold border transition-all ${isAll ? activeClass : defaultClass}"
-                >${escHtml(label)}</button>`;
-        }).join('');
-    }
-
-    // ── Filter posts by category ─────────────────────────────────────────────
-    function filterPosts(cat) {
-        activeFilter = cat;
-
-        // Update button styles
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-            const active = btn.dataset.cat === cat;
-            btn.className = `cat-btn px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
-                active ? 'bg-[#FF7582] text-white border-[#FF7582]'
-                       : 'bg-white border-slate-200 text-slate-600 hover:border-[#FF7582] hover:text-[#FF7582]'}`;
-        });
-
-        const filtered = cat === 'all'
-            ? allPosts
-            : allPosts.filter(p => (p.categories || []).some(c => c.title === cat));
-
-        renderPostCards(filtered);
-    }
-
-    // ── Render post cards ────────────────────────────────────────────────────
-    function renderPostCards(posts) {
-        const grid    = document.getElementById('posts-grid');
-        const noRes   = document.getElementById('no-results');
-        const empty   = document.getElementById('posts-empty');
-
-        if (!posts.length && allPosts.length) {
-            grid.innerHTML = '';
-            noRes.classList.remove('hidden');
-            empty.classList.add('hidden');
-            return;
-        }
-        noRes.classList.add('hidden');
-
-        if (!posts.length) {
-            empty.classList.remove('hidden');
-            grid.innerHTML = '';
-            return;
-        }
-        empty.classList.add('hidden');
-
-        grid.innerHTML = posts.map((post, i) => {
-            const slug      = post.slug?.current || '';
-            const title     = escHtml(post.title || 'Untitled');
-            const date      = formatDate(post.publishedAt);
-            const imgSrc    = urlFor(post.mainImage, 900);
-            const author    = post.author?.name ? escHtml(post.author.name) : null;
-            const authorImg = post.author?.image ? urlFor(post.author.image, 80) : null;
-            const cats      = (post.categories || []);
-            const featured  = i === 0; // First post gets wide card
-
-            const catBadges = cats.slice(0, 2).map(c => {
-                const col = catColor(c.title);
-                return `<span class="inline-block ${col.bg} ${col.text} text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">${escHtml(c.title)}</span>`;
-            }).join('');
-
-            const imagePart = imgSrc
-                ? `<img src="${imgSrc}" alt="${title}" loading="lazy" class="w-full h-full object-cover">`
-                : `<div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center"><span class="material-symbols-outlined text-[60px] text-[#FF7582]/30">auto_stories</span></div>`;
-
-            const authorPart = author
-                ? `<div class="flex items-center gap-2">
-                    ${authorImg
-                        ? `<img src="${authorImg}" alt="${author}" class="w-6 h-6 rounded-full object-cover">`
-                        : `<div class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center"><span class="material-symbols-outlined text-[13px] text-[#FF7582]">person</span></div>`}
-                    <span class="text-xs text-slate-500 font-semibold">${author}</span>
-                   </div>`
-                : '';
-
-            if (featured) {
-                // Wide featured card (lg:col-span-2)
-                return `
-                <article class="post-card lg:col-span-2 card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up cursor-pointer"
-                         style="animation-delay:${i*60}ms"
-                         onclick="window.location.href='blog-post.html?slug=${slug}'">
-                    <div class="md:flex h-full">
-                        <div class="md:w-1/2 h-52 md:h-auto overflow-hidden relative">
-                            ${imagePart}
-                        </div>
-                        <div class="p-7 md:w-1/2 flex flex-col justify-between">
-                            <div>
-                                <div class="flex flex-wrap gap-2 mb-3">${catBadges}</div>
-                                <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-bold text-slate-900 mb-3 leading-snug">${title}</h2>
-                            </div>
-                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                                ${authorPart}
-                                <span class="text-xs text-slate-400">${date}</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>`;
-            }
-
-            // Standard card
-            return `
-            <article class="post-card card-hover bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 fade-up cursor-pointer"
-                     style="animation-delay:${i*60}ms"
-                     onclick="window.location.href='blog-post.html?slug=${slug}'">
-                <div class="h-44 overflow-hidden relative">
-                    ${imagePart}
-                </div>
-                <div class="p-6">
-                    <div class="flex flex-wrap gap-2 mb-3">${catBadges || ''}</div>
-                    <h2 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900 mb-2 leading-snug">${title}</h2>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                        ${authorPart}
-                        <span class="text-xs text-slate-400">${date}</span>
-                    </div>
-                </div>
-            </article>`;
-        }).join('');
-    }
-
-    // ── Translation state ─────────────────────────────────────────────────────
-    let _sourcePosts  = [];   // original EN posts — never mutated
-    let _pendingLang  = null; // latest requested language not yet applied
-    let _isApplying   = false;
-
-    // ── Translation spinner ───────────────────────────────────────────────────
-    function setSpinner(on) {
-        let badge = document.getElementById('trans-badge');
-        const grid = document.getElementById('posts-grid');
-        if (on) {
-            if (!badge) {
-                badge = document.createElement('div');
-                badge.id = 'trans-badge';
-                badge.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-white border border-rose-100 shadow-lg rounded-full px-4 py-2.5 text-sm font-semibold text-[#FF7582]';
-                badge.innerHTML = `<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FF7582" stroke-width="3" stroke-dasharray="31" stroke-dashoffset="10"/></svg>Translating…`;
-                document.body.appendChild(badge);
-            }
-            badge.style.display = 'flex';
-            if (grid) { grid.style.opacity = '0.45'; grid.style.transition = 'opacity .2s'; }
-        } else {
-            if (badge) badge.style.display = 'none';
-            if (grid) grid.style.opacity = '';
-        }
-    }
-
-    // ── Core: render posts in given language ──────────────────────────────────
-    async function _renderListInLang(lang) {
-        if (lang === 'en') {
-            allPosts = _sourcePosts;
-            buildCategoryFilter(allPosts);
-            filterPosts(activeFilter);
-            return;
-        }
-        setSpinner(true);
-        const titles = _sourcePosts.map(p => p.title || '');
-        const translatedTitles = await translateStrings(titles, lang, 'list_titles');
-        allPosts = _sourcePosts.map((p, i) => ({ ...p, title: translatedTitles[i] || p.title }));
-        buildCategoryFilter(allPosts);
-        filterPosts(activeFilter);
-        setSpinner(false);
-    }
-
-    // ── Pending-language queue: latest language always wins ───────────────────
-    async function applyListLanguage(lang) {
-        if (!_sourcePosts.length) { _pendingLang = lang; return; }
-        _pendingLang = lang;
-        if (_isApplying) return;   // current run will pick up _pendingLang when done
-
-        while (_pendingLang !== null) {
-            const target = _pendingLang;
-            _pendingLang = null;
-            _isApplying  = true;
-            try { await _renderListInLang(target); }
-            catch (e) { console.warn('Blog list translation error:', e); setSpinner(false); }
-            _isApplying = false;
-        }
-    }
-
-    // ── Bootstrap ────────────────────────────────────────────────────────────
-    async function init() {
-        try {
-            const fetched = await sanityFetch(QUERY_ALL_POSTS);
-
-            document.getElementById('posts-loading').classList.add('hidden');
-            document.getElementById('posts-grid').classList.remove('hidden');
-
-            if (!fetched || !fetched.length) {
-                document.getElementById('posts-empty').classList.remove('hidden');
-                document.getElementById('category-filters').innerHTML = '';
-                return;
-            }
-
-            _sourcePosts = fetched;
-            allPosts = fetched;
-
-            // Apply whatever language is pending (set by languageChanged before
-            // data arrived) or fall back to saved preference.
-            const targetLang = _pendingLang || localStorage.getItem('preferredLang') || 'en';
-            _pendingLang = null;
-            await _renderListInLang(targetLang);
-
-        } catch (err) {
-            console.error('Blog fetch error:', err);
-            document.getElementById('posts-loading').classList.add('hidden');
-            document.getElementById('posts-error').classList.remove('hidden');
-            document.getElementById('posts-error-msg').textContent = err.message;
-            document.getElementById('category-filters').innerHTML = '';
-        }
-    }
-
-    // ── Language change hook ──────────────────────────────────────────────────
-    document.addEventListener('languageChanged', e => {
-        applyListLanguage(e.detail.lang);
-    });
-
-    init();
-</script>
-<script src="language-manager.js"></script>
-</body>
-</html>
+</body></html>

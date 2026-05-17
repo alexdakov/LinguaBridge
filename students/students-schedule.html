@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Linguista - My Schedule</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c3c8bf",
+                    "on-primary-fixed-variant": "#334d36",
+                    "primary-fixed-dim": "#b1ceb1",
+                    "secondary-container": "#feb9a5",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#794738",
+                    "on-surface-variant": "#434842",
+                    "on-secondary-fixed-variant": "#6a3a2b",
+                    "secondary-fixed-dim": "#fbb6a2",
+                    "outline": "#737971",
+                    "surface-tint": "#4a654d",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "on-primary-container": "#efffec",
+                    "tertiary-container": "#797268",
+                    "surface-container-highest": "#d5e3fd",
+                    "on-error-container": "#93000a",
+                    "secondary": "#855141",
+                    "tertiary": "#605a50",
+                    "primary": "#47614a",
+                    "primary-fixed": "#cceacc",
+                    "on-tertiary-fixed": "#1f1b13",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#ebf1ff",
+                    "surface-container-low": "#eff4ff",
+                    "on-surface": "#0d1c2f",
+                    "inverse-primary": "#b1ceb1",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ebe1d4",
+                    "surface-variant": "#d5e3fd",
+                    "on-tertiary-container": "#fff9f6",
+                    "on-secondary-fixed": "#341005",
+                    "background": "#f8f9ff",
+                    "surface-container": "#e6eeff",
+                    "surface-dim": "#ccdbf4",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-fixed": "#07200e",
+                    "primary-container": "#5f7a61",
+                    "surface-container-high": "#dde9ff",
+                    "on-background": "#0d1c2f",
+                    "secondary-fixed": "#ffdbd0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8f9ff; }
+        .calendar-grid { display: grid; grid-template-columns: 80px repeat(7, 1fr); }
+        .time-slot { height: 80px; border-bottom: 1px solid rgba(195, 200, 191, 0.2); }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full p-gutter flex flex-col gap-base bg-surface-container-lowest shadow-[4px_0_20px_0_rgba(0,0,0,0.04)] w-64 z-50">
+<div class="mb-8 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Linguista</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Language Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">My Courses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-md text-label-md font-bold">Schedule</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+<span class="font-label-md text-label-md">Digital Campus</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+<span class="font-label-md text-label-md">Classroom</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 border-t border-outline-variant/20 pt-4">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                Join Next Class
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen p-8 max-w-[1440px] mx-auto">
+<!-- Header -->
+<header class="flex justify-between items-end mb-10">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Weekly Learning Schedule</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Focus on your progress. 4 classes booked this week.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-2 rounded-2xl shadow-sm">
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<span class="font-label-md text-label-md px-4">Oct 21 — Oct 27, 2023</span>
+<button class="p-2 hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Calendar Section (Bento Main) -->
+<div class="col-span-12 lg:col-span-9 bg-surface-container-lowest rounded-[32px] p-8 shadow-sm border border-outline-variant/10">
+<div class="calendar-grid mb-4 text-center">
+<div class="w-20"></div>
+<div class="font-label-md text-on-surface-variant py-2">MON <br/><span class="text-on-surface font-bold">21</span></div>
+<div class="font-label-md text-on-surface-variant py-2 bg-primary/5 rounded-xl">TUE <br/><span class="text-primary font-bold">22</span></div>
+<div class="font-label-md text-on-surface-variant py-2">WED <br/><span class="text-on-surface font-bold">23</span></div>
+<div class="font-label-md text-on-surface-variant py-2">THU <br/><span class="text-on-surface font-bold">24</span></div>
+<div class="font-label-md text-on-surface-variant py-2">FRI <br/><span class="text-on-surface font-bold">25</span></div>
+<div class="font-label-md text-on-surface-variant py-2">SAT <br/><span class="text-on-surface font-bold">26</span></div>
+<div class="font-label-md text-on-surface-variant py-2">SUN <br/><span class="text-on-surface font-bold">27</span></div>
+</div>
+<div class="calendar-grid overflow-y-auto max-h-[600px] relative">
+<!-- Time Column -->
+<div class="flex flex-col">
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">09:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">10:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">11:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">12:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">13:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">14:00</div>
+<div class="time-slot font-label-sm text-outline flex justify-center items-start pt-2">15:00</div>
+</div>
+<!-- Day Columns with Grid Lines -->
+<div class="relative col-span-7 grid grid-cols-7 border-l border-outline-variant/20">
+<!-- Horizontal Grid Lines Layer -->
+<div class="absolute inset-0 flex flex-col pointer-events-none">
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+<div class="time-slot w-full"></div>
+</div>
+<!-- Slots Column for MON -->
+<div class="relative border-r border-outline-variant/10"></div>
+<!-- TUE (Active Day) -->
+<div class="relative border-r border-outline-variant/10 bg-primary/5">
+<!-- Lesson Card: Confirmed -->
+<div class="absolute top-[80px] left-1 right-1 h-[78px] bg-primary-container text-on-primary-container rounded-xl p-3 shadow-md z-10 flex flex-col justify-between border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Confirmed</span>
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-label-md text-on-primary-container font-bold leading-tight">Advanced French</p>
+<p class="text-[11px] opacity-80">Room 402 • Prof. Dubois</p>
+</div>
+</div>
+</div>
+<!-- WED -->
+<div class="relative border-r border-outline-variant/10">
+<!-- Lesson Card: Pending -->
+<div class="absolute top-[240px] left-1 right-1 h-[78px] bg-secondary-container/30 text-on-secondary-container rounded-xl p-3 border border-secondary/20 z-10 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Pending</span>
+<span class="material-symbols-outlined text-sm" data-icon="pending">pending</span>
+</div>
+<div>
+<p class="font-label-md font-bold leading-tight">Latin Roots II</p>
+<p class="text-[11px] opacity-70">Online Session</p>
+</div>
+</div>
+</div>
+<!-- THU -->
+<div class="relative border-r border-outline-variant/10">
+<!-- Available Slot -->
+<div class="absolute top-[400px] left-1 right-1 h-[78px] rounded-xl border-2 border-dashed border-outline-variant/40 flex items-center justify-center hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary" data-icon="add_circle">add_circle</span>
+</div>
+</div>
+<!-- FRI -->
+<div class="relative border-r border-outline-variant/10">
+<!-- Lesson Card: Confirmed -->
+<div class="absolute top-[80px] left-1 right-1 h-[158px] bg-tertiary-container text-on-tertiary-container rounded-xl p-3 shadow-md z-10 flex flex-col justify-between border-l-4 border-tertiary">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Intensive</span>
+<span class="material-symbols-outlined text-sm" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<p class="font-label-md font-bold leading-tight">Cultural Seminar</p>
+<p class="text-[11px] opacity-80">Main Auditorium</p>
+</div>
+</div>
+</div>
+<!-- SAT -->
+<div class="relative border-r border-outline-variant/10"></div>
+<!-- SUN -->
+<div class="relative"></div>
+</div>
+</div>
+</div>
+<!-- Sidebar Highlights (Bento Right) -->
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-gutter">
+<!-- Card 1: Weekly Progress -->
+<div class="bg-surface-container-low rounded-[32px] p-6 shadow-sm">
+<h3 class="font-label-md text-label-md font-bold text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+                        Weekly Highlights
+                    </h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-white rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="schedule">schedule</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">12.5 hrs</p>
+<p class="text-[11px] text-on-surface-variant">Learning Time</p>
+</div>
+</div>
+<span class="text-xs text-primary font-bold">+20%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-xl" data-icon="military_tech">military_tech</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">88% Score</p>
+<p class="text-[11px] text-on-surface-variant">Quiz Average</p>
+</div>
+</div>
+<span class="text-xs text-secondary font-bold">Top 5%</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Upcoming Class -->
+<div class="bg-primary text-on-primary rounded-[32px] p-6 shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<span class="font-label-sm text-[10px] uppercase tracking-[0.2em] opacity-80">Up Next</span>
+<h4 class="font-headline-md text-headline-md mt-1 mb-4 leading-tight">Advanced French Phonetics</h4>
+<div class="flex items-center gap-2 text-primary-fixed mb-6">
+<span class="material-symbols-outlined text-sm" data-icon="alarm">alarm</span>
+<span class="font-label-md text-label-md">Starts in 45 mins</span>
+</div>
+<button class="w-full bg-on-primary text-primary py-3 rounded-xl font-bold font-label-md hover:bg-primary-fixed transition-colors">
+                            Enter Classroom
+                        </button>
+</div>
+<!-- Subtle Background Decoration -->
+<div class="absolute -bottom-8 -right-8 w-32 h-32 bg-on-primary-fixed-variant/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Card 3: Mentor Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-[32px] p-6 shadow-sm">
+<h3 class="font-label-md text-label-md font-bold text-on-surface mb-4">Top Rated Mentor</h3>
+<div class="flex items-center gap-4 mb-4">
+<img alt="Mentor" class="w-14 h-14 rounded-2xl object-cover" data-alt="A professional portrait of a French language instructor in her early 40s. She has a warm, inviting smile and is wearing a soft sage green linen blazer. The background is a blurred study filled with linguistic books and natural sunlight streaming through a window. The overall aesthetic is calm, academic, and high-end, utilizing the Linguista color palette of soft greens and warm sands." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHYThvaQp_JaULdS2C9PK9JbPrrEq8Y1iNfJvFRp_JG_tXzLfNLzJpy1SyarMD2h8c2GkbH1EMfD_kfUFxZ77utSzeueB_zY_qHoHlFnjMdiyUo-mgujLSyHVOdaK7pJ20NqRqwACL5vhOB56m2vtQxQ8kXaYwnZF6nHFoweCdMPRIKNMmLrUDPAzyOUBpTcRC0VHO6J8klkvzPr-mZrBBNR6lmAxLbkxv3DhpUEaQFMgn9QH3N9KoDNT_k3syshlDI_iwGUuU3JfN"/>
+<div>
+<p class="font-label-md text-label-md font-bold">Elena Rodriguez</p>
+<p class="text-[12px] text-on-surface-variant italic">Hispanic Culture Expert</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-xl border border-primary text-primary text-xs font-bold hover:bg-primary/5 transition-colors">View Profile</button>
+<button class="flex-1 py-2 rounded-xl bg-secondary-container text-on-secondary-container text-xs font-bold hover:opacity-90 transition-opacity">Book Slot</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Contextual) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-xl flex items-center justify-center hover:scale-105 transition-transform group">
+<span class="material-symbols-outlined text-3xl" data-icon="add" style="font-variation-settings: 'wght' 500;">add</span>
+<span class="absolute right-20 bg-on-surface text-on-primary-container px-4 py-2 rounded-lg font-label-md text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Book New Lesson</span>
+</button>
+</body></html>

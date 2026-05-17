@@ -1,483 +1,380 @@
-<!DOCTYPE html>
-
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>LinguaBridge | Your Bridge to the World</title>
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary-container": "#ff7582",
-                        "secondary": "#815438",
-                        "surface-container-low": "#eef5f7",
-                        "error": "#ba1a1a",
-                        "on-primary-fixed": "#40000d",
-                        "on-error": "#ffffff",
-                        "surface-container-highest": "#dde4e6",
-                        "on-secondary": "#ffffff",
-                        "on-primary-container": "#730720",
-                        "tertiary": "#645d57",
-                        "primary": "#a93444",
-                        "outline-variant": "#debfc0",
-                        "on-background": "#161d1f",
-                        "background": "#f4fafd",
-                        "tertiary-fixed-dim": "#cec5bd",
-                        "primary-fixed": "#ffdada",
-                        "on-secondary-fixed-variant": "#653d23",
-                        "surface-container-high": "#e2e9ec",
-                        "secondary-container": "#fec29f",
-                        "secondary-fixed": "#ffdbc8",
-                        "on-primary": "#ffffff",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#a93444",
-                        "inverse-on-surface": "#ebf2f4",
-                        "error-container": "#ffdad6",
-                        "on-surface-variant": "#574142",
-                        "on-tertiary-fixed-variant": "#4b4640",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary-container": "#3c3731",
-                        "primary-fixed-dim": "#ffb2b6",
-                        "secondary-fixed-dim": "#f5ba97",
-                        "on-tertiary-fixed": "#1f1b16",
-                        "outline": "#8a7172",
-                        "on-secondary-container": "#794e32",
-                        "inverse-surface": "#2b3234",
-                        "on-primary-fixed-variant": "#881b2e",
-                        "tertiary-container": "#a8a098",
-                        "inverse-primary": "#ffb2b6",
-                        "surface-bright": "#f4fafd",
-                        "surface-container": "#e8eff1",
-                        "surface-variant": "#dde4e6",
-                        "tertiary-fixed": "#eae1d8",
-                        "surface": "#f4fafd",
-                        "on-secondary-fixed": "#311300",
-                        "surface-dim": "#d4dbdd",
-                        "on-surface": "#161d1f"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "stack-md": "16px",
-                        "margin": "32px",
-                        "gutter": "24px",
-                        "stack-sm": "8px",
-                        "section-padding": "80px",
-                        "container-max": "1200px",
-                        "stack-lg": "32px"
-                    },
-                    "fontFamily": {
-                        "h2": ["Plus Jakarta Sans"],
-                        "body-lg": ["Be Vietnam Pro"],
-                        "label-md": ["Be Vietnam Pro"],
-                        "h1": ["Plus Jakarta Sans"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "h3": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "h2": ["36px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
-                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}]
-                    }
-                },
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#5f484b",
+                    "primary-fixed": "#ffd9e1",
+                    "surface-dim": "#e1d8d9",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#eae0e1",
+                    "inverse-surface": "#342f30",
+                    "on-surface": "#1f1a1b",
+                    "inverse-primary": "#ffb1c6",
+                    "on-secondary-container": "#6b002d",
+                    "on-primary-fixed-variant": "#851c47",
+                    "surface-tint": "#a4355f",
+                    "surface-container-highest": "#eae0e1",
+                    "on-tertiary-fixed-variant": "#574144",
+                    "surface-container-low": "#fbf1f2",
+                    "surface-container": "#f5eced",
+                    "outline-variant": "#dbc0c5",
+                    "secondary-fixed-dim": "#ffb1c2",
+                    "on-primary-container": "#ffa6bf",
+                    "surface-container-high": "#efe6e7",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fe6793",
+                    "inverse-on-surface": "#f8eeef",
+                    "secondary": "#ae2957",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#3f0018",
+                    "on-background": "#1f1a1b",
+                    "tertiary": "#463234",
+                    "on-primary-fixed": "#3f001c",
+                    "on-error-container": "#93000a",
+                    "background": "#f5f5f7",
+                    "on-tertiary-container": "#d6b8bb",
+                    "surface": "#ffffff",
+                    "on-tertiary-fixed": "#281719",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#ffd9df",
+                    "primary-fixed-dim": "#ffb1c6",
+                    "tertiary-fixed-dim": "#debfc2",
+                    "primary-container": "#8e244e",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#8d0840",
+                    "primary": "#a93444",
+                    "outline": "#887176",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#554246",
+                    "surface-bright": "#f5f5f7",
+                    "tertiary-fixed": "#fbdbde",
+                    "on-primary": "#ffffff"
             },
-        }
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding-mobile": "20px",
+                    "gutter": "24px",
+                    "container-padding-desktop": "40px",
+                    "unit": "8px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
     </script>
 <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .organic-shape-1 {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .coral-glow {
-            box-shadow: 0 10px 40px -10px rgba(255, 117, 130, 0.2);
+        .animate-bounce-slow {
+            animation: bounce 4s infinite;
         }
-        .image-fade-mask {
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 72%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0%, black 30%, black 72%, transparent 100%);
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 117, 130, 0.1);
-        }
-        
     </style>
 </head>
-<body class="bg-surface font-body-md text-on-surface">
-
-<!-- TopAppBar -->
-<!-- Header - EXACTLY AS PROVIDED -->
-<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-rose-50/50 dark:border-slate-800/50 shadow-sm shadow-[#FF7582]/5 font-['Plus_Jakarta_SANS'] antialiased">
-    <div class="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-        <a href="index.html" class="flex items-center gap-3 text-2xl font-bold tracking-tight text-[#FF7582]">
-            <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-10 w-auto">
-            <span>LinguaBridge</span>
-        </a>
-        
-        <div class="hidden md:flex items-center gap-8">
-            <a class="text-[#FF7582] font-semibold border-b-2 border-[#FF7582] pb-1 transition-all" href="index.html" data-i18n="nav.home">Home</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="languages.html" data-i18n="nav.languages">Languages</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="about.html" data-i18n="nav.about">About</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="contact.html" data-i18n="nav.contact">Contact</a>
-            <a class="text-slate-600 dark:text-slate-400 hover:text-[#FF7582] transition-colors rounded-lg transition-all" href="blog.html" data-i18n="nav.blog">Blog</a>
-        </div>
-<div class="flex items-center gap-2 md:gap-6">
-    <!-- Desktop Enrol button -->
-    <button onclick="window.location.href='e-portal.html'" class="hidden md:flex items-center gap-2 bg-[#FF7582] text-white px-6 py-2.5 rounded-full font-semibold active:scale-95 duration-200 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span></button>
-    <!-- Mobile language globe -->
-    <div class="relative">
-        <button id="mobile-lang-btn" onclick="toggleMobileLang(event)" class="flex items-center gap-1 bg-rose-50 border border-rose-100 text-[#FF7582] px-3 py-2 rounded-full hover:bg-rose-100 transition-all" title="Language">
-            <span class="material-symbols-outlined text-[20px]">language</span>
-            <svg class="w-3 h-3 shrink-0" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="mobile-lang-dropdown" class="hidden absolute right-0 top-11 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 min-w-[110px]">
-            <button onclick="changeGlobalLanguage('en');closeMobileLang()" class="lang-btn lang-btn-en flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all w-full text-left"><img src="https://flagcdn.com/w40/gb.png" alt="EN" class="w-4 h-auto"> EN</button>
-            <button onclick="changeGlobalLanguage('bg');closeMobileLang()" class="lang-btn lang-btn-bg flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/bg.png" alt="BG" class="w-4 h-auto"> BG</button>
-            <button onclick="changeGlobalLanguage('ru');closeMobileLang()" class="lang-btn lang-btn-ru flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/ru.png" alt="RU" class="w-4 h-auto"> RU</button>
-            <button onclick="changeGlobalLanguage('zh');closeMobileLang()" class="lang-btn lang-btn-zh flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold hover:bg-rose-50 transition-all opacity-70 w-full text-left text-slate-600"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" class="w-4 h-auto"> 中文</button>
-        </div>
-    </div>
-    <!-- Mobile hamburger -->
-    <button id="mobile-menu-btn" onclick="toggleMobileMenu(event)" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-slate-600 hover:bg-rose-50 transition-all">
-        <span class="material-symbols-outlined text-[22px]">menu</span>
-    </button>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-primary">
+<!-- Top Navigation -->
+<header class="sticky top-0 w-full z-50 glass-panel border-b border-white/30 shadow-sm">
+<nav class="flex justify-between items-center max-w-6xl mx-auto px-container-desktop py-4">
+<div class="text-headline-md font-headline-md font-extrabold text-primary tracking-tight">LinguaBridge</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary font-bold border-b-2 border-primary font-label-md text-label-md transition-colors duration-300" href="#">Home</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="#">Languages</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="#">About</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="#">Contact</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-300" href="#">Blog</a>
 </div>
-    </div>
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-rose-50 px-4 py-3">
-    <nav class="flex flex-col gap-1">
-        <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.home">Home</a>
-        <a href="languages.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.languages">Languages</a>
-        <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.about">About</a>
-        <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.contact">Contact</a>
-        <a href="blog.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-rose-50 hover:text-[#FF7582] transition-all" data-i18n="nav.blog">Blog</a>
-        <div class="pt-2 border-t border-rose-50 mt-1">
-            <button onclick="window.location.href='e-portal.html'" class="w-full flex items-center justify-center gap-2 bg-[#FF7582] text-white px-6 py-3 rounded-full font-semibold active:scale-95 hover:shadow-lg transition-all"><span class="material-symbols-outlined text-[18px]">school</span><span data-i18n="nav.portal">e-Portal</span></button>
-        </div>
-    </nav>
-</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md active:scale-95 transition-transform shadow-md">ePortal</button>
+</nav>
 </header>
-
 <main>
-
 <!-- Hero Section -->
-<section class="relative pt-20 pb-10 overflow-hidden">
-<div class="px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center">
-    <div class="flex-1 space-y-6 text-center md:text-left relative z-10">
-        <h1 class="font-h1 text-h1 leading-tight" data-i18n="hero.headline">Master any <span class="text-[#ff7582]">language</span> with ease.</h1>
-        <p class="font-body-lg text-body-lg text-tertiary max-w-md mx-auto md:mx-0" data-i18n="hero.subheadline">
-            Learn foreign languages online with private lessons — it's easy and affordable. Study with the best teachers and native speakers.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button onclick="window.location.href='enrol.html'" class="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full coral-glow hover:scale-[1.02] active:scale-95 transition-all" data-i18n="hero.enrol">
-                Enrol Now
-            </button>
-            <button onclick="window.location.href='languages.html'" class="border-2 border-slate-200 text-slate-600 font-label-md px-8 py-4 rounded-full hover:border-primary-container hover:text-primary-container active:scale-95 transition-all" data-i18n="hero.cta">
-                View All Courses
-            </button>
-        </div>
-    </div>
-    <div class="flex-[1.4] relative -mr-8 md:-mr-0">
-        <img alt="Home Page Hero" class="relative w-full object-cover aspect-[4/3] image-fade-mask" src="Media/main_intro.png"/>
-    </div>
+<section class="relative overflow-hidden pt-12 pb-16 px-container-desktop max-w-6xl mx-auto bg-surface-bright">
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-primary-fixed/20 rounded-full blur-3xl"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+<div class="relative z-10">
+<h1 class="font-display-lg text-display-lg text-primary mb-4 leading-tight">Master any language with <span class="text-secondary italic">effortless grace.</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-lg">Experience language learning as a journey of discovery. Our smooth interface and expert tutors bridge the gap between curiosity and fluency.</p>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary text-on-primary px-7 py-3 rounded-full font-label-md text-label-md font-bold shadow-lg shadow-primary/15 hover:opacity-90 transition-all">Start Your Journey</button>
+<button class="glass-panel text-primary border-primary px-7 py-3 rounded-full font-label-md text-label-md font-bold hover:bg-white/50 transition-all">View Methods</button>
+</div>
+<div class="mt-8 glass-panel p-3 rounded-2xl inline-flex items-center gap-3 border border-white/60">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Female learner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWE76NxnWW_ogfTgV9Wx5hVRKbcvSLS1fcmayTOWvQuvi0ER5yVaJhXUshzA6q9yuFlrRdwAC12Jn9JnUSsZFrFPIyuZ3xjS1mpEGtqpb_YB6_swMry3Uob2NWh1q-ScHcezXTRAAFNUvfpiS_T0E7TvVlwv6oC5_plcFRrUy1RduGFSszUbDTYzHKwPZUCK9ULdes7G5Fodqs4kJqpUUv2wPgHOAT_tc28_I5cuieFtyXkfT6ZpkVpnck1NZqxCumncss4SR_GFmc">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg_EheEMlT_gkCIzbmc8wjZzJ3FCG1NBcHmHtRkKHqK88w4OYG8FFjJrivcgmcZ59M-qSlBtDsm_yMJ7ZdEM_bPC8nsf9SVfg57p4WoEosl2HXxi4CSMu5ImxV7rnFnoPpca-naNYwbaFoYfFM90nfiaa4yqyEr6yOXp1blC7OBinxTvTWXpj8PkepHbOdDIzJosSCVCChfkSJEtUsdPOYPd92DCI4-lINl8V4MwI9lFItHsryVnTXi0fWkTRbwa0tzrz_MiWwuRjW">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="International student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRlHsN-JFY3VN21kqcjx1s0oBUBWSOvYBHLNGk_d6dJ9QN-nyCiYEasW4CBdAC4q0BdUd5L0BeoIAFsWoKYlh4BuMrr_dKfqKt6t1uPrAnDZ7PyWzMmSdhAWPE02L7XJNpSs6BZHtl07ATN06x3G2IP34A55dLDa7TQV5UF1DO8ZRhLr6QuvmOyZO7B8Qj-wd8JSqcVBrH-mot1bK2yQnajl_Twy_BMs-EMes25lXtHBW3q2N-nDfHlVJY2GCVKFXe2SL5J_H0jb7L">
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Join 12,000+ global learners</span>
+</div>
+</div>
+<div class="relative">
+<div class="organic-shape-1 w-full aspect-square bg-gradient-to-br from-primary-fixed/60 to-secondary-fixed/20 overflow-hidden shadow-xl relative">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="People in conversation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARrVnsgMjc4TXYUF_MLu9qQxxtc8XQi0rEUu3G45UfmEkAOetHRIYiVeRbiYGvtNfMjbjrKAz_ve13uhWPw10A-7DCMn3itFk6RodEa8HlqRu0cBBZSulxywXDi5u5KYTpn3KFFfIeJ7vi91w-JRhgkq8_SynZaxnGlsW9cgK785L8iWRy8jcrCLCyrt6ASCq5EeHDsVbcf4pnBp1Hzkm4W_hDgasLryEBcyuKce2VR9C4KU_JsXuGe3OpPoNRIzt5ax8_KeP-W2e7">
+</div>
+<!-- Layered Glass Cards -->
+<div class="absolute -bottom-4 -left-4 glass-panel p-4 rounded-2xl w-40 shadow-lg animate-bounce-slow">
+<span class="material-symbols-outlined text-primary text-xl mb-1">trending_up</span>
+<div class="text-headline-md font-bold text-primary">94%</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">Fluency Rate</div>
+</div>
+<div class="absolute top-8 -right-4 glass-panel p-4 rounded-2xl w-48 shadow-lg">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface text-label-md">Live Tutors</span>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant">24/7 Global Access</div>
+</div>
+</div>
 </div>
 </section>
-
-<!-- How do we teach section -->
-<section class="py-10 px-8 bg-white">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-8">
-            <h2 class="text-4xl font-bold text-slate-900 mb-6" data-i18n="teach.title">How do we teach?</h2>
-            <p class="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed" data-i18n="teach.intro">
-                We are a leading language education team, dedicated to delivering quality and value through innovative and engaging teaching methods.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Flexible Timing - Blue/Cyan Gradient -->
-            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-cyan-50 to-blue-50 border border-blue-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-500 mb-5 shadow-sm">
-                    <span class="material-symbols-outlined">schedule</span>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature1.title">Flexible Timing</h3>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature1.text">Flexible scheduling designed to fit your routine, including evening and weekend options.</p>
-            </div>
-
-            <!-- Anywhere Access - Rose/Orange Gradient -->
-            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#FF7582] mb-8 shadow-sm">
-                    <span class="material-symbols-outlined">location_on</span>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature2.title">Anywhere Access</h3>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature2.text">Join your lessons from anywhere in the world without disrupting your daily commitments.</p>
-            </div>
-
-            <!-- Maximum Efficiency - Purple/Indigo Gradient -->
-            <div class="p-8 rounded-[2rem] bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-purple-500 mb-8 shadow-sm">
-                    <span class="material-symbols-outlined">bolt</span>
-                </div>
-                <h3 class="text-xl font-bold mb-4 text-slate-900" data-i18n="teach.feature3.title">Maximum Efficiency</h3>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.feature3.text">Focused, practical lessons built around real-life situations to achieve measurable progress.</p>
-            </div>
-        </div>
-
-        <!-- Learning Format Cards -->
-        <div class="mt-12 grid md:grid-cols-3 gap-6">
-            <!-- Group -->
-            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm">
-                    <span class="material-symbols-outlined">group</span>
-                </div>
-                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.group.title">Group Lessons</h4>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.group.text">Learn alongside peers in a collaborative environment. Ideal for building conversational confidence and keeping motivation high.</p>
-            </div>
-            <!-- Individual -->
-            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-violet-500 shadow-sm">
-                    <span class="material-symbols-outlined">person</span>
-                </div>
-                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.individual.title">Individual Lessons</h4>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.individual.text">One-on-one sessions fully tailored to your goals, level, and schedule — maximum focus, faster progress.</p>
-            </div>
-            <!-- Self-Paced -->
-            <div class="flex flex-col gap-3 p-6 rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center text-[#FF7582] shadow-sm">
-                    <span class="material-symbols-outlined">self_improvement</span>
-                </div>
-                <h4 class="text-lg font-bold text-slate-900" data-i18n="teach.format.sp.title">Self-Paced Learning</h4>
-                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="teach.format.sp.text">Study at your own pace over 3 months. Each course is split into 2 monthly modules and includes 4 × 30-min online tutor consultations (2h total).</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Standout Stats -->
-<section class="py-10 bg-slate-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 grid md:grid-cols-3 gap-6 md:gap-12 text-center">
-        <div class="space-y-2">
-            <div class="text-4xl md:text-6xl font-black text-[#FF7582]">5</div>
-            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat1">Languages with personalized support</p>
-        </div>
-        <div class="space-y-2 border-y md:border-y-0 md:border-x border-slate-800 py-6 md:py-0">
-            <div class="text-4xl md:text-6xl font-black text-[#FF7582]">152</div>
-            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat2">Students joined via Teams & Zoom</p>
-        </div>
-        <div class="space-y-2">
-            <div class="text-4xl md:text-6xl font-black text-[#FF7582]">95%</div>
-            <p class="text-slate-400 text-xs uppercase tracking-[0.2em] font-bold" data-i18n="stats.stat3">Successful course completion</p>
-        </div>
-    </div>
-</section>
-
-<!-- Enrollment Steps Section -->
-<section class="py-10 px-4 md:px-8 bg-slate-50 border-y border-slate-200">
-    <div class="max-w-5xl mx-auto text-center">
-        <span class="text-[#FF7582] font-bold uppercase tracking-[0.2em] text-[10px] mb-3 block" data-i18n="steps.label">Get Started</span>
-        <h2 class="text-4xl font-bold text-slate-900 mb-8" data-i18n="steps.title">Start Learning in 3 Easy Steps</h2>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Step 1 -->
-            <div class="flex flex-col items-center">
-                <div class="w-16 h-16 bg-[#ffccd1] text-[#730720] rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-md">1</div>
-                <div class="flex items-center gap-2 mb-3">
-                    <h4 class="text-lg font-bold text-slate-900" data-i18n="steps.step1.title">Choose your format</h4>
-                </div>
-                <p class="text-slate-500 text-sm" data-i18n="steps.step1.text">Pick from Group lessons, Individual sessions, or Self-Paced online modules — all in your language of choice.</p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="flex flex-col items-center">
-                <div class="w-16 h-16 bg-[#FF7582] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-lg">2</div>
-                <h4 class="text-lg font-bold mb-3 text-slate-900" data-i18n="steps.step2.title">Enrol &amp; get access</h4>
-                <p class="text-slate-500 text-sm" data-i18n="steps.step2.text">Book a scheduled session or unlock your self-paced module — we'll set up your Academy account.</p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="flex flex-col items-center">
-                <div class="w-16 h-16 bg-[#a93444] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-xl">3</div>
-                <h4 class="text-lg font-bold mb-3 text-slate-900" data-i18n="steps.step3.title">Pay &amp; start learning</h4>
-                <p class="text-slate-500 text-sm" data-i18n="steps.step3.text">Secure your place and begin your language journey immediately — online, at your own pace or with a tutor.</p>
-            </div>
-        </div>
-        
-        <button onclick="window.location.href='enrol.html'" class="mt-8 bg-[#FF7582] text-white px-12 py-4 rounded-full font-bold hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95" data-i18n="steps.cta">
-            Apply Now
-        </button>
-    </div>
-</section>
-
-<!-- Our Languages Section -->
-<section class="py-10 max-w-7xl mx-auto px-8">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
-        <div>
-            <h2 class="font-h2 text-h2 text-on-surface" data-i18n="languages.title">Our Languages</h2>
-            <p class="text-tertiary font-body-lg mt-2" data-i18n="languages.subtitle">Turn language into real results — from daily conversations to career growth.</p>
-        </div>
-        
-        <div class="flex items-center gap-6">
-            <a class="bg-white text-[#ff7582] px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-rose-50 transition-colors shadow-sm" href="languages.html">
-                <span data-i18n="languages.catalog">See all languages</span> <span class="material-symbols-outlined">arrow_forward</span>
-            </a>
-
-            <!-- Navigation Arrows -->
-            <div class="flex gap-2">
-                <button onclick="scrollLanguages(-300)" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-rose-50 transition-colors bg-white shadow-sm" aria-label="Scroll left">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button onclick="scrollLanguages(300)" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-rose-50 transition-colors bg-white shadow-sm" aria-label="Scroll right">
-                    <span class="material-symbols-outlined">chevron_right</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scrollable Container -->
-<div id="languageSlider" class="flex overflow-x-auto gap-8 scroll-smooth no-scrollbar pb-6" style="scrollbar-width: none; -ms-overflow-style: none;">
-    
-    <!-- English -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="English" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/gb.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">English</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.english">English</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
-    <!-- Bulgarian -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="Bulgarian" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/bg.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Български</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.bulgarian">Bulgarian</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
-    <!-- German -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="German" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/de.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Deutsch</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.german">German</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
-    <!-- Chinese -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="Chinese" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/cn.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">中文</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.chinese">Chinese</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
-    <!-- Russian -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="Russian" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/ru.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">Русский</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.russian">Russian</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
-    <!-- Japanese -->
-    <div class="min-w-[280px] group cursor-pointer">
-        <a href="languages.html" class="block">
-            <div class="relative overflow-hidden rounded-[1.5rem] mb-4">
-                <img alt="Japanese" class="w-full aspect-[4/5] object-cover group-hover:scale-110 transition-transform duration-700" src="https://flagcdn.com/w640/jp.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <span class="text-sm font-medium tracking-widest uppercase opacity-80">日本語</span>
-                    <h4 class="text-2xl font-bold" data-i18n="lang.japanese">Japanese</h4>
-                </div>
-            </div>
-        </a>
-        <a class="text-primary-container font-semibold inline-flex items-center gap-1 group-hover:underline" href="languages.html" data-i18n="languages.cardLink">Learn More</a>
-    </div>
-
+<!-- How we teach Bento Grid -->
+<section class="py-16 px-container-desktop max-w-6xl mx-auto bg-surface-container-low/50 border-y border-outline-variant/30">
+<div class="text-center mb-10">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-3">How We Teach</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg mx-auto">A methodology designed for the modern rhythm of life.</p>
 </div>
-
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6"><!-- Flexible Timing -->
+<div class="bg-gradient-to-br from-[#E6E6FA] to-[#C71585]/20 p-8 rounded-[32px] border border-[#C71585]/10 flex flex-col justify-between min-h-[240px] relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(199,21,133,0.3)]">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">schedule</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Flexible Timing</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Learn when you’re at your best. Our platform adapts to your schedule, whether it's a 5-minute break or deep-dive.</p>
+</div>
+<div class="absolute bottom-0 right-0 w-1/3 h-full bg-primary-fixed/10 organic-shape-1 translate-x-1/4 translate-y-1/4 group-hover:scale-110 transition-transform duration-700"></div>
+</div>
+<!-- Maximum Efficiency -->
+<div class="bg-gradient-to-br from-[#FFE4E1] to-[#FF7F50]/20 p-8 rounded-[32px] border border-[#FF7F50]/10 flex flex-col justify-between min-h-[240px] relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(255,127,80,0.3)]">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">speed</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Maximum Efficiency</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Hyper-focused learning paths that cut the fluff and prioritize conversation.</p>
+</div>
+<div class="absolute bottom-0 right-0 w-1/3 h-full bg-secondary-fixed/10 organic-shape-1 translate-x-1/4 translate-y-1/4 group-hover:scale-110 transition-transform duration-700"></div>
+</div>
+<!-- Anywhere Access -->
+<div class="bg-gradient-to-br from-[#FFDAB9] to-[#FFBF00]/20 p-8 rounded-[32px] border border-[#FFBF00]/10 flex flex-col items-start gap-3 group hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(255,191,0,0.3)]">
+<div class="bg-white/40 p-3 rounded-xl mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">language</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Anywhere Access</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Seamlessly switch between mobile, tablet, and desktop classrooms.</p>
+</div>
+<!-- Integrated LMS -->
+<div class="bg-gradient-to-br from-[#F5FFFA] to-[#87CEEB]/20 p-8 rounded-[32px] border border-[#87CEEB]/10 flex flex-col items-start gap-3 group hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(135,206,235,0.3)]">
+<div class="bg-white/40 p-3 rounded-xl mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Integrated LMS</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Access our leading LMS system 24/7 at your own pace, perfectly synced with your live sessions.</p>
+</div></div>
+</section>
+<!-- Learning Formats -->
+<section class="py-16 rounded-[40px] my-4 mx-4">
+<div class="max-w-6xl mx-auto px-container-desktop">
+<h2 class="font-headline-lg text-headline-lg text-primary text-center mb-10">Tailored Learning Paths</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+<!-- Group Cohorts -->
+<div class="glass-panel p-8 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center h-full">
+<div class="w-16 h-16 bg-primary-fixed/40 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-2xl">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Group Cohorts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm">Dynamic, collaborative learning in small groups. Practice in real-time.</p>
+<ul class="space-y-3 mb-8 w-full text-left text-sm">
+<li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> Community Support</li>
+<li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> Peer Practice Sessions</li>
+</ul>
+<button class="mt-auto w-full py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all text-sm">Join a Cohort</button>
+</div>
+<!-- Individual - Focal Point (Red background, white text) -->
+<div class="bg-[#a93444] p-8 rounded-[32px] shadow-2xl shadow-[#a93444]/20 border-2 border-[#a93444] hover:scale-[1.02] transition-all flex flex-col items-center text-center transform md:scale-110 z-10 h-full">
+<div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-white text-2xl">person</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-3">Individual</h3>
+<p class="font-body-md text-body-md text-white/90 mb-6 text-sm">1-on-1 private coaching for maximum personalization and rapid progress.</p>
+<ul class="space-y-3 mb-8 w-full text-left text-sm">
+<li class="flex items-center gap-2 text-white"><span class="material-symbols-outlined text-white text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> 100% Tutor Attention</li>
+<li class="flex items-center gap-2 text-white"><span class="material-symbols-outlined text-white text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> Custom Curriculum</li>
+</ul>
+<button class="mt-auto w-full py-3 rounded-full bg-white text-[#a93444] font-bold hover:bg-white/90 transition-all text-sm shadow-lg">Explore 1-on-1</button>
+</div>
+<!-- Self-Paced -->
+<div class="glass-panel p-8 rounded-[32px] shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center h-full">
+<div class="w-16 h-16 bg-secondary-fixed/40 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-2xl">play_circle</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-3">Self-Paced</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 text-sm">Complete modules at your own speed with interactive content.</p>
+<ul class="space-y-3 mb-8 w-full text-left text-sm">
+<li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> Access whenever you want</li>
+<li class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span> Feedback by the tutor</li>
+</ul>
+<button class="mt-auto w-full py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all text-sm">Start Modules</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Language Selection Gallery -->
+<section class="py-16 px-container-desktop max-w-6xl mx-auto overflow-hidden bg-surface-container-low/50 border-y border-outline-variant/30">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Choose Your Destination</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Where will your new language take you?</p>
+</div>
+<button class="hidden md:flex items-center gap-2 text-primary font-bold font-label-md text-sm">View all 40+ languages <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- French -->
+<div class="group relative rounded-[24px] overflow-hidden aspect-[4/5] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Paris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCKPK3QK6migFPFIpm1iMuLPA4Vf6k8nkKFiROyGDICTSZ1HqvwQUbm5Fs7_trXZQlEmIXu9nnFVZiQW1Ssgvh7_T3EMF8AKF9cfo8KvY_xDlH6RNp4fZLwqPpzrCT9ZSkt3ETNNzrd2m-pHSa99pu-cqGE2T3b5Dpk0skbjcvcvRwxZm1e8y7Sgf8-csTXKVEv3iLO7Bl5sGCIzY0DmLSiOL7kH5V6BkGJVJ4OOi529aZlVFVHv3LaB0w_tGWzwgSyLi2PH5l9rs2">
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h4 class="font-headline-md text-headline-md mb-0.5 text-lg">French</h4>
+<p class="text-xs opacity-80">24 Tutors</p>
+</div>
+</div>
+<!-- Japanese -->
+<div class="group relative rounded-[24px] overflow-hidden aspect-[4/5] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Kyoto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa4WDJhLBO6pR0GQ4oUYZSYRmXIncAgBjda3NQCKkyrKlih6j3lvRSpUkl4l7P2VWs2blBMnWlkH63xdsEXOiZYOH0t7PM6uIf-emU61QF6uIXHhQnZBZiMprcR9XqXa6DoLR7p7SxDlIUkXc1RM-p-KswIqIt0-XcEDqRQfH9_XW43uc4bDoaO855ksPwSyX3Jku7Yq4dv2BsktU5fUclyw6vbT4hQAfa-XszYFgRX9Xngt6gIzk7Sf7LK1MfAO_fKYYaFZdbK1Bc">
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h4 class="font-headline-md text-headline-md mb-0.5 text-lg">Japanese</h4>
+<p class="text-xs opacity-80">18 Tutors</p>
+</div>
+</div>
+<!-- Italian -->
+<div class="group relative rounded-[24px] overflow-hidden aspect-[4/5] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Amalfi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzDbMlsbbu9DDPSJSrETi3HCFMUPp3mntd1ONKUnKqv6UXOVI0F_br6sRhG-2N252IRrkuiyKAXlHpqEj-oRkKzIbyIfYtKofovljhXo9qjbLq6_6LRcC8Rs1t-1LFLVX1YkHRvxahJ1rvSWHwkE1pDh9ZtR5ryrSBHNO3_wSi4iW33QHVGZEULuY_CHY86cSZvJdnRx45rhVVY-r8Rk2p-wQ3-7K-od8kK-ZXSP9JoOOYEXA350G3KOsbJZjhZqz-KgE_1khNiYRJ">
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h4 class="font-headline-md text-headline-md mb-0.5 text-lg">Italian</h4>
+<p class="text-xs opacity-80">31 Tutors</p>
+</div>
+</div>
+<!-- Spanish -->
+<div class="group relative rounded-[24px] overflow-hidden aspect-[4/5] cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Barcelona" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKAwZF6jDE1dPpfbUN0YJyWPv923UBlbTDQYP8K17wmOL2b5ViZXi86gMMKS5YsPIBIpwIacn56ADNh7nbq1CQsMumUpqqhY8bgXXHut8dkY4hbltDJh9w9KCHdId-LOlY1sqXtyldGauKT_ustzyHnQWtKimZZZ4OrYG2lwESV2xwbcGpmFqafcOo9AisS_c93YJVC4_nDO6tgbduZtpu6Oc01TFdcnABFhbwy6U1KHLL8j9Pa6oTlbPR8miOfvLHsjzFk1SQ0WTJ">
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h4 class="font-headline-md text-headline-md mb-0.5 text-lg">Spanish</h4>
+<p class="text-xs opacity-80">42 Tutors</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Enrollment / 3-Step Process -->
+<section class="py-16 relative px-4 bg-surface-bright">
+<div class="max-w-6xl mx-auto">
+<div class="glass-panel p-10 lg:p-14 rounded-[48px] relative overflow-hidden text-center bg-white shadow-xl border border-outline-variant/20">
+<div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-secondary to-primary-fixed"></div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Ready to bridge the gap?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10">Your path to global communication starts with three simple steps.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+<div class="flex flex-col items-center">
+<div class="text-headline-lg font-bold text-primary-fixed mb-2 opacity-50">01</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Discovery Call</h4>
+<p class="text-on-surface-variant text-sm">Brief chat to assess your goals.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-headline-lg font-bold text-primary-fixed mb-2 opacity-50">02</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Match With Tutors</h4>
+<p class="text-on-surface-variant text-sm">Browse curated experts for you.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="text-headline-lg font-bold text-primary-fixed mb-2 opacity-50">03</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">First Lesson</h4>
+<p class="text-on-surface-variant text-sm">Start speaking immediately.</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-full font-headline-md text-headline-md font-bold shadow-xl shadow-primary/20 active:scale-95 transition-all">Get Started Now</button>
+</div>
+</div>
+</section>
 </main>
-
 <!-- Footer -->
-<footer class="w-full py-12 bg-slate-50 dark:bg-slate-900 border-t border-rose-100 dark:border-slate-800">
-    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
-        
-<!-- Brand Section -->
-<div class="flex flex-col items-center md:items-start">
-    <div class="flex items-center gap-3 mb-2">
-        <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
-        <div class="flex items-baseline gap-2">
-            <span class="text-lg font-bold text-slate-900 dark:text-white">LinguaBridge</span>
-            <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
-        </div>
-    </div>
-    <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold" data-i18n="footer.slogan">Your Bridge to the World</p>
+<footer class="bg-surface-container-low/30 w-full pt-16 pb-8">
+<div class="max-w-6xl mx-auto px-container-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+<div class="col-span-2 md:col-span-1">
+<div class="text-headline-md font-headline-md text-primary font-extrabold mb-4">LinguaBridge</div>
+<p class="text-on-surface-variant text-sm">Bridging cultures through language and technology.</p>
 </div>
-
-        <!-- Legal Links & Privacy Action -->
-        <div class="flex flex-wrap justify-center gap-6">
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="privacy_policy.html" data-i18n="footer.privacy">Privacy Policy</a>
-            <a class="font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-[#FF7582] transition-colors" href="terms.html" data-i18n="footer.terms">Terms</a>
-            
-            <!-- Privacy Action Link -->
-            <a href="delete_data.html" class="flex items-center gap-1 font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
-                <span class="material-symbols-outlined text-[16px]">delete_history</span>
-                <span data-i18n="footer.deleteData">Delete Data</span>
-            </a>
-        </div>
-
-        <!-- Tutor Action -->
-        <div class="flex items-center">
-            <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest" data-i18n="footer.tutorCta">
-                Become Tutor
-            </a>
-        </div>
-    </div>
+<div>
+<h5 class="text-primary font-bold mb-4 text-sm">Learn</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Become a Tutor</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Courses</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-primary font-bold mb-4 text-sm">Company</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Careers</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Support</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-primary font-bold mb-4 text-sm">Legal</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-6 border-t border-surface-container flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-on-surface-variant text-sm">© 2024 LinguaBridge. All rights reserved.</p>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+</div>
+</div>
+</div>
 </footer>
-<script src="language-manager.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+</body></html>

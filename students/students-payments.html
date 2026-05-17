@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "outline-variant": "#bfc8c5",
+                "on-primary-fixed": "#00201b",
+                "surface-bright": "#f7f9fb",
+                "background": "#f7f9fb",
+                "surface-tint": "#32675d",
+                "on-tertiary-fixed": "#002021",
+                "secondary-fixed-dim": "#99cfe2",
+                "secondary": "#2e6576",
+                "tertiary-container": "#4c7c7f",
+                "on-surface-variant": "#404946",
+                "tertiary-fixed-dim": "#9ecfd1",
+                "primary-fixed-dim": "#9bd1c4",
+                "surface": "#f7f9fb",
+                "surface-container": "#eceef0",
+                "tertiary-fixed": "#b9ecee",
+                "on-secondary-fixed-variant": "#0e4d5e",
+                "inverse-primary": "#9bd1c4",
+                "inverse-on-surface": "#eff1f3",
+                "surface-variant": "#e0e3e5",
+                "surface-dim": "#d8dadc",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed-variant": "#1a4e50",
+                "outline": "#707976",
+                "error-container": "#ffdad6",
+                "surface-container-highest": "#e0e3e5",
+                "tertiary": "#336366",
+                "surface-container-low": "#f2f4f6",
+                "on-secondary-container": "#336a7b",
+                "primary-fixed": "#b6eee0",
+                "on-secondary-fixed": "#001f28",
+                "inverse-surface": "#2d3133",
+                "on-primary-container": "#f4fffa",
+                "surface-container-lowest": "#ffffff",
+                "on-surface": "#191c1e"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "sm": "12px",
+                "margin-mobile": "16px",
+                "lg": "48px",
+                "margin-desktop": "64px",
+                "xs": "4px",
+                "xl": "80px",
+                "gutter": "24px",
+                "base": "8px",
+                "md": "24px"
+            },
+            "fontFamily": {
+                "label-sm": ["Manrope"], "body-lg": ["Manrope"], "label-md": ["Manrope"],
+                "headline-sm": ["Manrope"], "headline-lg": ["Manrope"], "body-md": ["Manrope"],
+                "headline-md": ["Manrope"], "headline-lg-mobile": ["Manrope"]
+            },
+            "fontSize": {
+                "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "headline-sm": ["22px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-md": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface dark:bg-on-background border-r border-outline-variant dark:border-outline flex flex-col p-md z-50">
+<div class="mb-xl px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">LinguistPortal</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Student Account</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-label-md">My Courses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Teaching Schedule</span>
+</a>
+<!-- Active State: Payments & Credits -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-label-md">Payments &amp; Credits</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+<span class="font-label-md text-label-md">Digital Campus</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Classroom</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md flex items-center gap-3 px-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a student in a bright, modern learning environment. The subject is a young adult with a friendly expression, set against a blurred background of a contemporary office or university space with soft green and blue lighting accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV9XF6V9dYig_Nh1NOq-mlEBFdw1DpE7Y8Hm3sSYtdq02A-DusXpPzfYkw_zfNrvoU-kdwq19vO0DlWocIPkknCb9pOzRbQMHFJLgEagTlk0tJaRNNrtT9eNcBeNRuj4TOJ2bnxw7tg_MOr2JtYOLxxTPjqNnsCnGrRH4_UqYMF-MOMt6ZZX_g-M6LDtKw8T-jDox5GSwq3BUM53O-Y9p9iWMYQUoH43Q6VOwBhjaJ6o_hS-LtQ1Hj6qaB3JrUc3gl35KtjCRo8dAL"/>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold">Alex Johnson</p>
+<p class="font-label-sm text-label-sm text-outline">Upper Intermediate</p>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface-bright/80 dark:bg-on-background/80 backdrop-blur-md border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center px-margin-desktop z-40">
+<div class="flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md" placeholder="Search transactions or packages..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors opacity-80 active:opacity-100">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-80 active:opacity-100">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-margin-desktop max-w-[1280px] mx-auto">
+<!-- Header Section -->
+<div class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg mb-xs">Payments &amp; Credits</h2>
+<p class="text-on-surface-variant font-body-md">Manage your lesson balance and subscription plans.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Lesson Balance Card -->
+<div class="col-span-12 lg:col-span-4 bg-primary text-on-primary p-md rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between h-64">
+<div class="relative z-10">
+<p class="font-label-md text-label-md opacity-90 uppercase tracking-wider mb-2">Available Credits</p>
+<h3 class="font-headline-lg text-headline-lg">12 Lessons</h3>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-label-md" data-icon="info">info</span>
+<p class="font-label-sm text-label-sm">Expires in 24 days</p>
+</div>
+<button class="w-full bg-white text-primary font-label-md py-3 rounded-lg font-bold hover:bg-surface-bright transition-transform active:scale-95 shadow-sm">
+                            Top Up Now
+                        </button>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-8 -bottom-8 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute -right-4 top-4">
+<span class="material-symbols-outlined text-on-primary/10 text-[120px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<!-- Next Payment / Subscription Info -->
+<div class="col-span-12 lg:col-span-8 bg-white border border-outline-variant p-md rounded-xl flex flex-col md:flex-row gap-gutter items-center">
+<div class="flex-grow w-full">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Standard Monthly</h4>
+<p class="text-on-surface-variant font-label-md">Next billing: Oct 12, 2023</p>
+</div>
+<div class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-sm">Active</div>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between font-label-sm mb-1">
+<span>Monthly Usage</span>
+<span>8 / 10 lessons used</span>
+</div>
+<div class="w-full h-2 bg-secondary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 font-label-md text-primary border-1.5 border-primary py-2 rounded-lg border hover:bg-primary/5 transition-colors">Change Plan</button>
+<button class="flex-1 font-label-md text-error border-1.5 border-error py-2 rounded-lg border hover:bg-error/5 transition-colors">Cancel</button>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-px h-full bg-outline-variant/30"></div>
+<div class="w-full md:w-48 flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="credit_card">credit_card</span>
+</div>
+<p class="font-label-md font-bold mb-1">Visa ending 4242</p>
+<button class="text-primary font-label-sm hover:underline">Update Method</button>
+</div>
+</div>
+<!-- Transaction History -->
+<div class="col-span-12 lg:col-span-7 bg-white border border-outline-variant rounded-xl flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-headline-sm text-headline-sm">Transaction History</h4>
+<button class="text-primary font-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                            Statement
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="px-md py-4 font-label-md text-on-surface-variant">Date</th>
+<th class="px-md py-4 font-label-md text-on-surface-variant">Description</th>
+<th class="px-md py-4 font-label-md text-on-surface-variant">Status</th>
+<th class="px-md py-4 font-label-md text-on-surface-variant text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 text-label-md">Sep 12, 2023</td>
+<td class="px-md py-4 text-body-md font-medium">Standard Monthly Plan</td>
+<td class="px-md py-4">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-label-sm">Completed</span>
+</td>
+<td class="px-md py-4 text-right font-bold">$149.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 text-label-md">Aug 28, 2023</td>
+<td class="px-md py-4 text-body-md font-medium">Extra Credits (5 Pack)</td>
+<td class="px-md py-4">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-label-sm">Completed</span>
+</td>
+<td class="px-md py-4 text-right font-bold">$65.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-4 text-label-md">Aug 12, 2023</td>
+<td class="px-md py-4 text-body-md font-medium">Standard Monthly Plan</td>
+<td class="px-md py-4">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-label-sm">Completed</span>
+</td>
+<td class="px-md py-4 text-right font-bold">$149.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md text-center">
+<button class="text-on-surface-variant font-label-md hover:text-primary">View All Transactions</button>
+</div>
+</div>
+<!-- Top-Up Packages -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-gutter">
+<div class="bg-white border border-outline-variant p-md rounded-xl">
+<h4 class="font-headline-sm text-headline-sm mb-md">Buy Lesson Packages</h4>
+<div class="space-y-4">
+<!-- Package 1 -->
+<div class="group p-4 border border-outline-variant rounded-lg flex justify-between items-center hover:border-primary transition-all cursor-pointer bg-surface-bright">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="filter_5">filter_5</span>
+</div>
+<div>
+<p class="font-body-md font-bold">5 Lesson Pack</p>
+<p class="text-label-sm text-on-surface-variant">$13.00 per lesson</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm font-bold text-primary">$65</p>
+<button class="font-label-sm text-primary group-hover:underline">Select</button>
+</div>
+</div>
+<!-- Package 2 (Best Value) -->
+<div class="group p-4 border-2 border-primary rounded-lg flex justify-between items-center relative cursor-pointer bg-primary-container/5">
+<span class="absolute -top-3 left-4 bg-primary text-on-primary text-[10px] uppercase font-bold px-2 py-0.5 rounded">Best Value</span>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-on-primary shadow-md">
+<span class="material-symbols-outlined" data-icon="filter_9_plus">filter_9_plus</span>
+</div>
+<div>
+<p class="font-body-md font-bold">10 Lesson Pack</p>
+<p class="text-label-sm text-on-surface-variant">$11.50 per lesson</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm font-bold text-primary">$115</p>
+<button class="font-label-sm text-primary font-bold">Select</button>
+</div>
+</div>
+<!-- Custom -->
+<div class="p-4 border border-dashed border-outline-variant rounded-lg flex justify-between items-center hover:border-primary transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</div>
+<p class="font-body-md font-bold">Custom Amount</p>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Help Card -->
+<div class="glass-card p-md rounded-xl flex items-center gap-md">
+<div class="w-12 h-12 bg-tertiary-container rounded-lg flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</div>
+<div>
+<h5 class="font-label-md font-bold">Need assistance?</h5>
+<p class="font-label-sm text-on-surface-variant">Chat with our billing support team for any credit issues.</p>
+</div>
+<button class="ml-auto text-primary">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Promotional Section -->
+<section class="ml-64 px-margin-desktop pb-xl">
+<div class="relative w-full h-64 rounded-3xl overflow-hidden shadow-2xl flex items-center">
+<img alt="Referral Program" class="absolute inset-0 w-full h-full object-cover" data-alt="A candid, high-quality photograph of three diverse students laughing and studying together in a modern, sun-drenched library lounge. The scene is characterized by soft natural light, clean minimalist furniture, and a cool-toned color palette of seafoam green and soft blue. The atmosphere is optimistic, collaborative, and academically sophisticated, representing a premium learning community." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd7T7pWfmubDPjS5d8_12hR-vGBUIxnsxQQWN1fniW32zr-ZAkSmCTRSdu-AvVpLn9vlTE-CZQEN9q3I04hKgBUtjKRxoIjJ3XH_OaJIvPfQspvPCHqcDEz8teJ3wZqG2fj4lsFIJz2JTaIGN93u4QUbrnLzEhBcnDuX6A05noLwst8cCRI0T8GkSPhm1miBrNRcxIC2tJCcx0Zlw9sLkI_Q6ZL1496z4o59VzRxtQyio-d7OgISS_W6FYIBFwddR_3ZaQThsDjB86"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-transparent"></div>
+<div class="relative z-10 p-xl max-w-lg text-on-primary">
+<h3 class="font-headline-md text-headline-md mb-2">Invite a friend, get 2 lessons</h3>
+<p class="font-body-md mb-md opacity-90">Spread the love for language learning. When your friend signs up for a package, both of you get extra credits.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-full font-bold font-label-md flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+                    Share Referral Link
+                    <span class="material-symbols-outlined text-[18px]" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</section>
+</body></html>
