@@ -422,9 +422,7 @@
 <script src="language-manager.js"></script>
 
 <script type="module">
-import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 // ── Firebase init ──────────────────────────────────────────────
 const firebaseConfig = {
@@ -435,9 +433,7 @@ const firebaseConfig = {
     messagingSenderId: "640116284028",
     appId:             "1:640116284028:web:06a1747abc8db8db20c7f9"
 };
-const app     = initializeApp(firebaseConfig);
-const db      = getFirestore(app);
-const storage = getStorage(app);
+initializeApp(firebaseConfig);
 
 // ── CV file state ──────────────────────────────────────────────
 let _cvFile = null;
@@ -545,49 +541,26 @@ document.getElementById('tutor-form').addEventListener('submit', async (e) => {
     icon.classList.add('hidden');
 
     try {
-        // Check for existing application
-        const existing = await getDoc(doc(db, 'jobApplications', docId));
-        if (existing.exists()) {
-            showError('An application with this name and language already exists. Please contact us if you need to update your application.');
-            resetBtn();
-            return;
-        }
+        label.textContent = 'Submitting…';
 
-        // Upload CV to Firebase Storage (optional)
-        let cvUrl = '';
-        if (_cvFile) {
-            label.textContent = 'Uploading CV…';
-            try {
-                const cvPath = `cvs/${docId}_${Date.now()}.pdf`;
-                const cvRef  = storageRef(storage, cvPath);
-                await uploadBytes(cvRef, _cvFile);
-                cvUrl = await getDownloadURL(cvRef);
-            } catch (uploadErr) {
-                console.warn('CV upload failed (Storage rules?), continuing without CV:', uploadErr);
-            }
-        }
+        const fd = new FormData();
+        fd.append('name',             name);
+        fd.append('email',            email);
+        fd.append('phone_number',     phone);
+        fd.append('main_language',    langTeached);
+        fd.append('education',        education);
+        fd.append('certificates',     certificates || '');
+        fd.append('experience',       experience);
+        fd.append('availability',     availability);
+        fd.append('bio',              bio);
+        fd.append('source',           'tutor_signup_form');
+        if (_cvFile) fd.append('cv', _cvFile, _cvFile.name);
 
-        // Save application to Firestore
-        label.textContent = 'Saving…';
-        const now = new Date().toISOString();
-
-        await setDoc(doc(db, 'jobApplications', docId), {
-            name,
-            email,
-            phone,
-            lang_teached:   langTeached,
-            education,
-            certificates,
-            experience,
-            availability,
-            bio_quote:      bio,
-            cvUrl,
-            status:         'pending',
-            active:         false,
-            submittedAt:    now,
-            agreedToTerms:  true,
-            source:         'tutor_signup_form'
-        });
+        const resp = await fetch(
+            'https://us-central1-linguabridge-2574f.cloudfunctions.net/submitTutorApplication',
+            { method: 'POST', body: fd }
+        );
+        if (!resp.ok) throw new Error(await resp.text());
 
         // Show success state
         document.getElementById('tutor-form').classList.add('hidden');

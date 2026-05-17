@@ -1283,35 +1283,27 @@ async function handleEnrol() {
   }
   if (errEl) errEl.classList.add('hidden');
 
-  if (!window._fbDb) {
-    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.classList.remove('hidden'); }
-    return;
-  }
-
   setButtonLoading('btn-enrol', true);
 
   const finalPrice = getFinalPrice();
   const basePrice  = getBasePrice();
 
   try {
-    await window._fbAddDoc(window._fbCollection(window._fbDb, 'studentRequests'), {
-      // Contact
+    const payload = {
       name,
       email,
-      phone,
-      // Student background
+      phone_number:    phone,
+      requested_course_id: state.selectedCourse?.id || null,
+      // Extra intake fields stored as JSON notes on the server
       nativeLanguage:  nativeLang,
-      currentLevel:    level,
+      currentLevel:    state.selectedCourse?.level || level,
       lessonTypes,
       schedule,
       referral,
-      // Selected course (from multi-step flow)
       language:        state.selectedLang?.id || null,
       languageLabel:   state.selectedLang?.title || null,
       flagCode:        state.selectedLang?.flag_code || null,
-      courseId:        state.selectedCourse?.id || null,
       courseName:      state.selectedCourse?.name || null,
-      level:           state.selectedCourse?.level || level,
       learningType:    state.selectedFormat || (lessonTypes[0] || null),
       modules:         state.selectedModule === 'module1' ? 1 : state.selectedModule === 'module2' ? 2 : null,
       paymentPlan:     state.selectedPlan || null,
@@ -1322,8 +1314,12 @@ async function handleEnrol() {
       finalPrice:      finalPrice || null,
       message:         message || null,
       source:          'enrol_form',
-      submittedAt:     window._fbServerTimestamp()
-    });
+    };
+    const resp = await fetch(
+      'https://us-central1-linguabridge-2574f.cloudfunctions.net/submitStudentEnrollment',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }
+    );
+    if (!resp.ok) throw new Error(await resp.text());
     setButtonLoading('btn-enrol', false);
     showSuccess("You're enrolled!", "We'll be in touch within 24 hours to confirm your spot.");
   } catch (e) {
@@ -1348,18 +1344,14 @@ async function handleRequest() {
   }
   if (errEl) errEl.classList.add('hidden');
 
-  if (!window._fbDb) {
-    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.classList.remove('hidden'); }
-    return;
-  }
-
   setButtonLoading('btn-request', true);
 
   try {
-    await window._fbAddDoc(window._fbCollection(window._fbDb, 'studentRequests'), {
+    const payload = {
       name,
       email,
-      phone,
+      phone_number:    phone,
+      requested_course_id: state.selectedCourse?.id || null,
       nativeLanguage:  nativeLang || null,
       currentLevel:    level || null,
       lessonTypes:     lessonTypes.length ? lessonTypes : null,
@@ -1367,13 +1359,16 @@ async function handleRequest() {
       referral:        referral || null,
       language:        state.selectedLang?.id || null,
       languageLabel:   state.selectedLang?.title || null,
-      courseId:        state.selectedCourse?.id || null,
       courseName:      state.selectedCourse?.name || null,
       learningType:    state.selectedFormat || (lessonTypes[0] || null),
       message:         message || null,
       source:          'enrol_request',
-      submittedAt:     window._fbServerTimestamp()
-    });
+    };
+    const resp = await fetch(
+      'https://us-central1-linguabridge-2574f.cloudfunctions.net/submitStudentEnrollment',
+      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }
+    );
+    if (!resp.ok) throw new Error(await resp.text());
     setButtonLoading('btn-request', false);
     showSuccess("Request received!", "We'll reach out soon to help you find the perfect course.");
   } catch (e) {
