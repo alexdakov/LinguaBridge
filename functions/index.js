@@ -564,6 +564,8 @@ exports.sendPasswordResetLink = onCall(async (request) => {
 // Returns all active courses with title/description in the requested locale,
 // falling back to the English translation when the locale is absent.
 // ─────────────────────────────────────────────────────────────────────────────
+const ORDS_BASE = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
+
 exports.getCourses = onRequest(
   { cors: false },
   async (req, res) => {
@@ -572,37 +574,21 @@ exports.getCourses = onRequest(
 
     const lang = (req.query.lang || 'en').toLowerCase().trim();
 
-    const result = await db.execute(
-      `SELECT
-           c.id,
-           c.language,
-           c.course_level,
-           c.format,
-           c.price_monthly,
-           c.duration_min,
-           COALESCE(t_loc.title,       t_en.title)       AS title,
-           COALESCE(t_loc.description, t_en.description) AS description
-         FROM courses c
-         LEFT JOIN courses_translations t_loc
-           ON t_loc.course_id = c.id
-          AND t_loc.locale    = :lang
-         LEFT JOIN courses_translations t_en
-           ON t_en.course_id  = c.id
-          AND t_en.locale     = 'en'
-        WHERE c.is_active = 1
-        ORDER BY c.language, c.course_level`,
-      { lang },
-    );
+    const ordsRes = await fetch(`${ORDS_BASE}/api/courses?lang=${encodeURIComponent(lang)}`);
+    if (!ordsRes.ok) {
+      return res.status(502).json({ error: 'ORDS request failed', status: ordsRes.status });
+    }
+    const data = await ordsRes.json();
 
-    const courses = result.rows.map(r => ({
-      id:          r.ID,
-      language:    r.LANGUAGE,
-      level:       r.COURSE_LEVEL,
-      format:      r.FORMAT,
-      priceMonthly:r.PRICE_MONTHLY,
-      durationMin: r.DURATION_MIN || 60,
-      title:       r.TITLE,
-      description: r.DESCRIPTION,
+    const courses = (data.items || []).map(r => ({
+      id:           r.id,
+      language:     r.language,
+      level:        r.course_level,
+      format:       r.format,
+      priceMonthly: r.price_monthly,
+      durationMin:  r.duration_min || 60,
+      title:        r.title,
+      description:  r.description,
     }));
     return res.json({ courses, locale: lang });
   },
