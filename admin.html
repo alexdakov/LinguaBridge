@@ -1639,6 +1639,8 @@ const _updateApplicationStatus= httpsCallable(functions, 'updateApplicationStatu
 const _approveStudent             = httpsCallable(functions, 'approveStudent');
 const _approveTutor               = httpsCallable(functions, 'approveTutor');
 const _sendPasswordResetLink      = httpsCallable(functions, 'sendPasswordResetLink');
+const _getUsers               = httpsCallable(functions, 'getUsers');
+const _createUser             = httpsCallable(functions, 'createUser');
 
 let languages      = [];
 let pricingPlans   = [];
@@ -2590,28 +2592,47 @@ window.importFromPrices = async function() {
 //  TUTORS
 // ══════════════════════════════════════════════════════════════════════════════
 async function loadTutors() {
-    if (tutorsUnsubscribe) tutorsUnsubscribe();
+    if (tutorsUnsubscribe) { tutorsUnsubscribe(); tutorsUnsubscribe = null; }
     const grid  = document.getElementById('tutor-grid');
     const empty = document.getElementById('tutor-empty');
-    grid.innerHTML = '<div class="md:col-span-2 text-center py-16 text-slate-400 text-sm font-semibold">Loading tutors from Firebase...</div>';
+    grid.innerHTML = '<div class="md:col-span-2 text-center py-16 text-slate-400 text-sm font-semibold">Loading tutors…</div>';
     empty.classList.add('hidden');
-
-    tutorsUnsubscribe = onSnapshot(collection(db, 'tutors'), snap => {
-        tutors = dedupeTutorDocs(snap.docs.map(d => ({ _id: d.id, ...d.data() })));
+    try {
+        const res  = await fetch('https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin/api/tutors?limit=200');
+        const data = await res.json();
+        tutors = (data.items || []).map(t => {
+            const bios = (t.bio_points || '').split('|').map(s => s.trim()).filter(Boolean);
+            return {
+                _id:              String(t.id),
+                name:             `${t.first_name || ''} ${t.last_name || ''}`.trim(),
+                role:             t.role_title || '',
+                lang_teached:     t.languages  || '',
+                bio_quote:        t.quote      || '',
+                active:           t.is_active  !== 0,
+                order:            t.display_order || 1,
+                photoUrl:         t.photo_url  || '',
+                phd:              bios[0] || '',
+                school_1:         bios[1] || '',
+                school_2:         bios[2] || '',
+                certificate_1:    bios[3] || '',
+                certificate_2:    bios[4] || '',
+                specialisation_1: bios[5] || '',
+                specialisation_2: bios[6] || '',
+            };
+        });
         sortTutors();
         renderTutorGrid();
         updateStats();
-    }, err => {
+    } catch (err) {
         tutors = [];
-        grid.innerHTML = `
-          <div class="md:col-span-2 bg-white border border-red-200 rounded-2xl p-6 text-center">
+        grid.innerHTML = `<div class="md:col-span-2 bg-white border border-red-200 rounded-2xl p-6 text-center">
             <span class="material-symbols-outlined text-red-400 text-[42px] mb-2 block">error</span>
-            <p class="font-bold text-slate-800 mb-1">Could not load tutors from Firebase.</p>
+            <p class="font-bold text-slate-800 mb-1">Could not load tutors.</p>
             <p class="text-sm text-slate-500">${esc(err.message)}</p>
           </div>`;
         empty.classList.add('hidden');
         toast('Could not load tutors: ' + err.message, 'error');
-    });
+    }
 }
 
 function tutorDocId(name) {
@@ -3425,8 +3446,18 @@ async function logAudit(action, targetCollection, targetId, targetName, details)
 let _users = [];
 window.loadUsers = async function() {
     try {
-        const snap = await getDocs(collection(db, 'users'));
-        _users = snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+        const res = await _getUsers();
+        _users = (res.data.users || []).map(u => ({
+            _id:       u.id,
+            email:     u.email,
+            firstName: u.first_name,
+            lastName:  u.last_name,
+            displayName: `${u.first_name || ''} ${u.last_name || ''}`.trim(),
+            nickname:  u.nickname || '',
+            role:      u.role,
+            disabled:  u.is_active === 0,
+            createdAt: u.created_at,
+        }));
         renderUsersTable(_users);
         document.getElementById('users-perm-warning')?.classList.add('hidden');
     } catch(e) {
@@ -3451,30 +3482,16 @@ window.submitCreateUser = async function() {
     const firstName = document.getElementById('cu-firstname').value.trim();
     const lastName  = document.getElementById('cu-lastname').value.trim();
     const email     = document.getElementById('cu-email').value.trim();
+    const nickname  = document.getElementById('cu-username')?.value.trim() || '';
+    const role      = document.getElementById('cu-role').value;
     if (!firstName || !email) { toast('First name and email are required', 'error'); return; }
-    const displayName = lastName ? `${firstName} ${lastName}` : firstName;
-    const userData = {
-        displayName,
-        firstName,
-        lastName,
-        email,
-        phone:     document.getElementById('cu-phone').value.trim(),
-        username:  document.getElementById('cu-username').value.trim(),
-        role:      document.getElementById('cu-role').value,
-        notes:     document.getElementById('cu-notes').value.trim(),
-        disabled:  false,
-        tag:       'new',
-        status:    'active',
-        createdAt: new Date().toISOString(),
-        source:    'admin_created'
-    };
     try {
-        await addDoc(collection(db, 'users'), userData);
-        logAudit('create_user', 'users', email, displayName, userData.role);
+        const res = await _createUser({ email, firstName, lastName, nickname, role });
+        logAudit('create_user', 'users', email, `${firstName} ${lastName}`.trim(), role);
         closeCreateUserModal();
         await loadUsers();
-        toast('User created ✓');
-    } catch(e) { toast('Failed: ' + e.message, 'error'); }
+        toast(`User created ✓${res.data.resetLink ? ' — password reset link generated' : ''}`);
+    } catch(e) { toast('Failed: ' + (e.message || e.details || 'Unknown error'), 'error'); }
 };
 function renderUsersTable(list) {
     const body = document.getElementById('users-table-body');
@@ -3693,19 +3710,25 @@ window.submitAddStudent = async function() {
 let _students = [];
 window.loadStudents = async function() {
     try {
-        const snap = await getDocs(collection(db, 'users'));
-        _students = snap.docs
-            .map(d => ({ _id: d.id, ...d.data() }))
-            .filter(u => u.role === 'student');
+        const res = await _getUsers();
+        const allUsers = res.data.users || [];
+        _students = allUsers
+            .filter(u => u.role === 'student')
+            .map(u => ({
+                _id:         u.id,
+                email:       u.email,
+                displayName: `${u.first_name || ''} ${u.last_name || ''}`.trim(),
+                role:        u.role,
+                disabled:    u.is_active === 0,
+                createdAt:   u.created_at,
+            }));
         renderStudentsTable(_students);
-        // stats
         const total  = _students.length;
         const active = _students.filter(s => !s.disabled).length;
-        const newS   = _students.filter(s => s.tag === 'new').length;
         const setEl  = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
         setEl('stat-total-students', total);
         setEl('stat-active-students', active);
-        setEl('stat-new-students', newS);
+        setEl('stat-new-students', 0);
         setEl('stat-enrollments', total);
         document.getElementById('students-perm-warning')?.classList.add('hidden');
     } catch(e) {

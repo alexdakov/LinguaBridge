@@ -251,77 +251,42 @@ exports.approveStudent = onCall(async (request) => {
     throw new HttpsError('invalid-argument', 'enrollmentId and chosenNickname are required.');
   }
 
-  // ── Fetch enrollment row ──────────────────────────────────────────────────
-  const rows = await db.execute(
-    `SELECT id, first_name, last_name, email, status
-       FROM student_enrollments
-      WHERE id = :id`,
-    [enrollmentId],
-  );
-
-  if (!rows.rows.length) {
-    throw new HttpsError('not-found', `No enrollment found with id ${enrollmentId}.`);
-  }
-  const enrol = rows.rows[0];
-  if (enrol.STATUS !== 'pending') {
-    throw new HttpsError('failed-precondition', `Enrollment is already '${enrol.STATUS}'.`);
+  // ── Fetch enrollment row from ORDS ───────────────────────────────────────
+  const enrollRes = await fetch(`${ORDS_BASE}/api/enrollments/${enrollmentId}`);
+  if (!enrollRes.ok) throw new HttpsError('not-found', `No enrollment found with id ${enrollmentId}.`);
+  const enrol = await enrollRes.json();
+  if (enrol.status !== 'pending') {
+    throw new HttpsError('failed-precondition', `Enrollment is already '${enrol.status}'.`);
   }
 
   // ── Provision Firebase Auth user ─────────────────────────────────────────
   let uid;
   try {
     const userRecord = await getAuth().createUser({
-      email:         enrol.EMAIL,
+      email:         enrol.email,
       password:      tmpPassword(),
-      displayName:   `${enrol.FIRST_NAME} ${enrol.LAST_NAME}`,
+      displayName:   `${enrol.first_name} ${enrol.last_name}`,
       emailVerified: false,
       disabled:      false,
     });
     uid = userRecord.uid;
-    await getAuth().setCustomUserClaims(uid, { role: 'student' });
   } catch (authErr) {
-    throw new HttpsError('already-exists',
-      `Firebase Auth: ${authErr.message}`, { code: authErr.code });
+    throw new HttpsError('already-exists', `Firebase Auth: ${authErr.message}`);
   }
 
-  // ── Oracle writes (transactional) ─────────────────────────────────────────
-  try {
-    await db.executeTransaction([
-      {
-        sql: `INSERT INTO users
-                (id, nickname, first_name, last_name, email, role, is_active)
-              VALUES
-                (:id, :nickname, :first_name, :last_name, :email, 'student', 1)`,
-        binds: {
-          id:         uid,
-          nickname:   chosenNickname,
-          first_name: enrol.FIRST_NAME,
-          last_name:  enrol.LAST_NAME,
-          email:      enrol.EMAIL,
-        },
-      },
-      {
-        sql: `UPDATE student_enrollments
-                 SET status = 'approved', firebase_uid = :uid
-               WHERE id = :id`,
-        binds: { uid, id: enrollmentId },
-      },
-    ]);
-  } catch (dbErr) {
-    // ── Rollback: delete the just-created Firebase Auth account ─────────────
+  // ── Oracle writes via ORDS (atomic PL/SQL block) ──────────────────────────
+  const approveRes = await fetch(`${ORDS_BASE}/api/enrollments/${enrollmentId}/approve`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ uid, nickname: chosenNickname }),
+  });
+  if (!approveRes.ok) {
     await getAuth().deleteUser(uid).catch(() => {});
-    throw new HttpsError('internal',
-      `Oracle write failed; Firebase Auth account rolled back. Detail: ${dbErr.message}`);
+    throw new HttpsError('internal', `Oracle write failed; Firebase Auth account rolled back.`);
   }
 
-  // Send password-reset email so the student can set their own password
-  const resetLink = await getAuth().generatePasswordResetLink(enrol.EMAIL).catch(() => null);
-
-  return {
-    success:    true,
-    uid,
-    resetLink,  // pass this to your email service / admin UI
-  };
+  const resetLink = await getAuth().generatePasswordResetLink(enrol.email).catch(() => null);
+  return { success: true, uid, resetLink };
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -344,71 +309,41 @@ exports.approveTutor = onCall(async (request) => {
     throw new HttpsError('invalid-argument', 'applicationId and chosenNickname are required.');
   }
 
-  // ── Fetch application row ─────────────────────────────────────────────────
-  const rows = await db.execute(
-    `SELECT id, first_name, last_name, email, status
-       FROM tutor_applications
-      WHERE id = :id`,
-    [applicationId],
-  );
-
-  if (!rows.rows.length) {
-    throw new HttpsError('not-found', `No application found with id ${applicationId}.`);
-  }
-  const app = rows.rows[0];
-  if (app.STATUS !== 'pending') {
-    throw new HttpsError('failed-precondition', `Application is already '${app.STATUS}'.`);
+  // ── Fetch application row from ORDS ──────────────────────────────────────
+  const appRes = await fetch(`${ORDS_BASE}/api/applications/${applicationId}`);
+  if (!appRes.ok) throw new HttpsError('not-found', `No application found with id ${applicationId}.`);
+  const application = await appRes.json();
+  if (application.status !== 'pending') {
+    throw new HttpsError('failed-precondition', `Application is already '${application.status}'.`);
   }
 
   // ── Provision Firebase Auth user ─────────────────────────────────────────
   let uid;
   try {
     const userRecord = await getAuth().createUser({
-      email:         app.EMAIL,
+      email:         application.email,
       password:      tmpPassword(),
-      displayName:   `${app.FIRST_NAME} ${app.LAST_NAME}`,
+      displayName:   `${application.first_name} ${application.last_name}`,
       emailVerified: false,
       disabled:      false,
     });
     uid = userRecord.uid;
-    await getAuth().setCustomUserClaims(uid, { role: 'tutor' });
   } catch (authErr) {
-    throw new HttpsError('already-exists',
-      `Firebase Auth: ${authErr.message}`, { code: authErr.code });
+    throw new HttpsError('already-exists', `Firebase Auth: ${authErr.message}`);
   }
 
-  // ── Oracle writes (transactional) ─────────────────────────────────────────
-  try {
-    await db.executeTransaction([
-      {
-        sql: `INSERT INTO users
-                (id, nickname, first_name, last_name, email, role, is_active)
-              VALUES
-                (:id, :nickname, :first_name, :last_name, :email, 'tutor', 1)`,
-        binds: {
-          id:         uid,
-          nickname:   chosenNickname,
-          first_name: app.FIRST_NAME,
-          last_name:  app.LAST_NAME,
-          email:      app.EMAIL,
-        },
-      },
-      {
-        sql: `UPDATE tutor_applications
-                 SET status = 'approved'
-               WHERE id = :id`,
-        binds: { id: applicationId },
-      },
-    ]);
-  } catch (dbErr) {
-    // ── Rollback: delete the just-created Firebase Auth account ─────────────
+  // ── Oracle writes via ORDS (atomic PL/SQL block) ──────────────────────────
+  const approveRes = await fetch(`${ORDS_BASE}/api/applications/${applicationId}/approve`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ uid, nickname: chosenNickname }),
+  });
+  if (!approveRes.ok) {
     await getAuth().deleteUser(uid).catch(() => {});
-    throw new HttpsError('internal',
-      `Oracle write failed; Firebase Auth account rolled back. Detail: ${dbErr.message}`);
+    throw new HttpsError('internal', `Oracle write failed; Firebase Auth account rolled back.`);
   }
 
-  const resetLink = await getAuth().generatePasswordResetLink(app.EMAIL).catch(() => null);
-
+  const resetLink = await getAuth().generatePasswordResetLink(application.email).catch(() => null);
   return { success: true, uid, resetLink };
 });
 
@@ -418,23 +353,20 @@ exports.approveTutor = onCall(async (request) => {
 // ─────────────────────────────────────────────────────────────────────────────
 exports.getEnrollments = onCall(async (request) => {
   if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
-  const result = await db.execute(
-    `SELECT id, first_name, last_name, email, phone_number,
-            requested_course_id, status, firebase_uid, notes, created_at
-       FROM student_enrollments
-      ORDER BY created_at DESC`,
-  );
-  const enrollments = result.rows.map(r => {
-    const extra = safeParseJSON(r.NOTES);
+  const ordsRes = await fetch(`${ORDS_BASE}/api/enrollments?limit=500`);
+  if (!ordsRes.ok) throw new HttpsError('internal', `ORDS error: ${ordsRes.status}`);
+  const data = await ordsRes.json();
+  const enrollments = (data.items || []).map(r => {
+    const extra = safeParseJSON(r.notes);
     return {
-      id:              r.ID,
-      name:            `${r.FIRST_NAME || ''} ${r.LAST_NAME || ''}`.trim(),
-      email:           r.EMAIL,
-      phone:           r.PHONE_NUMBER,
-      courseId:        r.REQUESTED_COURSE_ID,
-      status:          r.STATUS,
-      firebaseUid:     r.FIREBASE_UID,
-      createdAt:       r.CREATED_AT,
+      id:          r.id,
+      name:        `${r.first_name || ''} ${r.last_name || ''}`.trim(),
+      email:       r.email,
+      phone:       r.phone_number,
+      courseId:    r.requested_course_id,
+      status:      r.status,
+      firebaseUid: r.firebase_uid,
+      createdAt:   r.created_at,
       ...extra,
     };
   });
@@ -447,23 +379,20 @@ exports.getEnrollments = onCall(async (request) => {
 // ─────────────────────────────────────────────────────────────────────────────
 exports.getApplications = onCall(async (request) => {
   if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
-  const result = await db.execute(
-    `SELECT id, first_name, last_name, email, experience_years,
-            main_language, cv_url, status, notes, created_at
-       FROM tutor_applications
-      ORDER BY created_at DESC`,
-  );
-  const applications = result.rows.map(r => {
-    const extra = safeParseJSON(r.NOTES);
+  const ordsRes = await fetch(`${ORDS_BASE}/api/applications?limit=500`);
+  if (!ordsRes.ok) throw new HttpsError('internal', `ORDS error: ${ordsRes.status}`);
+  const data = await ordsRes.json();
+  const applications = (data.items || []).map(r => {
+    const extra = safeParseJSON(r.notes);
     return {
-      id:              r.ID,
-      name:            `${r.FIRST_NAME || ''} ${r.LAST_NAME || ''}`.trim(),
-      email:           r.EMAIL,
-      experienceYears: r.EXPERIENCE_YEARS,
-      mainLanguage:    r.MAIN_LANGUAGE,
-      cvUrl:           r.CV_URL,
-      status:          r.STATUS,
-      createdAt:       r.CREATED_AT,
+      id:              r.id,
+      name:            `${r.first_name || ''} ${r.last_name || ''}`.trim(),
+      email:           r.email,
+      experienceYears: r.experience_years,
+      mainLanguage:    r.main_language,
+      cvUrl:           r.cv_url,
+      status:          r.status,
+      createdAt:       r.created_at,
       ...extra,
     };
   });
@@ -480,10 +409,12 @@ exports.updateEnrollmentStatus = onCall(async (request) => {
   if (!enrollmentId || !VALID.includes(status)) {
     throw new HttpsError('invalid-argument', `status must be one of: ${VALID.join(', ')}`);
   }
-  await db.execute(
-    `UPDATE student_enrollments SET status = :status WHERE id = :id`,
-    { status, id: enrollmentId },
-  );
+  const ordsRes = await fetch(`${ORDS_BASE}/api/enrollments/${enrollmentId}/status`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status }),
+  });
+  if (!ordsRes.ok) throw new HttpsError('internal', `ORDS error: ${ordsRes.status}`);
   return { success: true };
 });
 
@@ -497,10 +428,12 @@ exports.updateApplicationStatus = onCall(async (request) => {
   if (!applicationId || !VALID.includes(status)) {
     throw new HttpsError('invalid-argument', `status must be one of: ${VALID.join(', ')}`);
   }
-  await db.execute(
-    `UPDATE tutor_applications SET status = :status WHERE id = :id`,
-    { status, id: applicationId },
-  );
+  const ordsRes = await fetch(`${ORDS_BASE}/api/applications/${applicationId}/status`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status }),
+  });
+  if (!ordsRes.ok) throw new HttpsError('internal', `ORDS error: ${ordsRes.status}`);
   return { success: true };
 });
 
@@ -1218,6 +1151,18 @@ exports.enrolStudent = onCallV2(
     }
   },
 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// getUsers  (admin-only callable)
+// Returns all rows from the Oracle users table.
+// ─────────────────────────────────────────────────────────────────────────────
+exports.getUsers = onCall(async (request) => {
+  if (!request.auth?.token.admin) throw new HttpsError('permission-denied', 'Admins only.');
+  const ordsRes = await fetch(`${ORDS_BASE}/api/users?limit=500`);
+  if (!ordsRes.ok) throw new HttpsError('internal', `ORDS error: ${ordsRes.status}`);
+  const data = await ordsRes.json();
+  return { users: data.items || [] };
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // bootstrapAdmin

@@ -222,8 +222,10 @@
             <div class="flex items-center gap-3">
                 <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Currency</span>
                 <div class="flex glass-panel rounded-full p-1 border border-white/60">
-                    <button onclick="setCurrency('eur')" data-cur="eur" class="cur-pill active-cur px-4 py-1 text-label-md rounded-full transition-all">€</button>
-                    <button onclick="setCurrency('usd')" data-cur="usd" class="cur-pill px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">$</button>
+                    <button onclick="setCurrency('eur')" data-cur="eur" class="cur-pill active-cur px-4 py-1 text-label-md rounded-full transition-all">EUR</button>
+                    <button onclick="setCurrency('usd')" data-cur="usd" class="cur-pill px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">USD</button>
+                    <button onclick="setCurrency('rub')" data-cur="rub" class="cur-pill px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">RUB</button>
+                    <button onclick="setCurrency('cny')" data-cur="cny" class="cur-pill px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">CNY</button>
                 </div>
             </div>
         </div>
@@ -308,8 +310,8 @@ document.addEventListener('click', function(e) {
 
 // ── Course catalog ────────────────────────────────────────────────────────────
 const FUNCTIONS_BASE = 'https://us-central1-linguabridge-2574f.cloudfunctions.net';
-const CURRENCY_RATES = { eur: 1, usd: 1.10, gbp: 0.86 };
-const CURRENCY_SYM   = { eur: '€', usd: '$', gbp: '£' };
+const CURRENCY_RATES = { eur: 1, usd: 1.10, gbp: 0.86, rub: 100, cny: 7.9 };
+const CURRENCY_SYM   = { eur: '€', usd: '$', gbp: '£', rub: '₽', cny: '¥' };
 const LANG_FLAGS = {
     english: '🇬🇧', spanish: '🇪🇸', french: '🇫🇷', german: '🇩🇪',
     italian: '🇮🇹', portuguese: '🇧🇷', japanese: '🇯🇵', chinese: '🇨🇳',
