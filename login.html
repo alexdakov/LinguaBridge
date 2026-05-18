@@ -186,10 +186,10 @@
 <form id="login-form" class="space-y-6" onsubmit="handleLogin(event)">
 <!-- Nickname/Email Field -->
 <div class="space-y-2">
-<label class="font-label-md text-label-md text-on-surface px-1" for="nickname">Nickname or Email</label>
+<label class="font-label-md text-label-md text-on-surface px-1" for="nickname">Email address</label>
 <div class="relative group">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
-<input class="w-full bg-white/40 border-none rounded-2xl py-4 pl-12 pr-4 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary focus:bg-white/80 transition-all outline-none" id="nickname" name="nickname" placeholder="Enter your nickname" required="" type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full bg-white/40 border-none rounded-2xl py-4 pl-12 pr-4 font-body-md text-on-surface ring-1 ring-white/60 focus:ring-2 focus:ring-primary focus:bg-white/80 transition-all outline-none" id="nickname" name="nickname" placeholder="Enter your email address" required="" type="email"/>
 </div>
 </div>
 <!-- Password Field -->
@@ -335,6 +335,8 @@ window.submitForgotPassword = async function() {
     }
 };
 
+const ORDS_BASE = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
+
 window.handleLogin = async function(e) {
     e.preventDefault();
     const emailInput = document.getElementById('nickname').value.trim();
@@ -348,19 +350,28 @@ window.handleLogin = async function(e) {
     btn.textContent = 'Signing in…';
 
     try {
-        const cred       = await signInWithEmailAndPassword(auth, emailInput, password);
-        const tokenResult = await cred.user.getIdTokenResult();
-        const claims      = tokenResult.claims;
+        const cred = await signInWithEmailAndPassword(auth, emailInput, password);
+        const uid  = cred.user.uid;
 
-        if (claims.admin) {
+        // Look up role from Oracle users table (source of truth)
+        const resp = await fetch(`${ORDS_BASE}/api/users/${uid}`);
+        if (!resp.ok) {
+            throw { code: 'auth/no-db-account', message: 'Account not found in database. Contact your administrator.' };
+        }
+        const user = await resp.json();
+        const role = (user.role || '').toLowerCase();
+
+        if (role === 'admin') {
             window.location.href = 'admin.html';
-        } else if (claims.role === 'tutor') {
+        } else if (role === 'tutor') {
             window.location.href = 'tutors/tutor-portal.html';
-        } else {
+        } else if (role === 'student') {
             window.location.href = 'students/student-portal.html';
+        } else {
+            throw { code: 'auth/unknown-role', message: 'Your account role is not recognised. Contact your administrator.' };
         }
     } catch (err) {
-        const msg = ERROR_MESSAGES[err.code] || 'Sign-in failed. Please try again.';
+        const msg = err.message || ERROR_MESSAGES[err.code] || 'Sign-in failed. Please try again.';
         errText.textContent = msg;
         errDiv.classList.remove('hidden');
         btn.disabled = false;

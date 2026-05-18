@@ -1218,3 +1218,95 @@ exports.enrolStudent = onCallV2(
     }
   },
 );
+
+// ─────────────────────────────────────────────────────────────────────────────
+// bootstrapAdmin
+// One-time HTTP endpoint to grant admin claims to the first admin account.
+// Requires header  X-Bootstrap-Secret: <value of BOOTSTRAP_SECRET env var>
+// Safe to call repeatedly — only promotes the target email, never demotes.
+// ─────────────────────────────────────────────────────────────────────────────
+const BOOTSTRAP_SECRET = defineString('BOOTSTRAP_SECRET', { default: '' });
+
+exports.bootstrapAdmin = onRequest({ cors: false }, async (req, res) => {
+  setCors(req, res);
+  if (req.method === 'OPTIONS') { res.status(204).send(''); return; }
+  if (req.method !== 'POST') { res.status(405).json({ error: 'POST only' }); return; }
+
+  const secret = req.headers['x-bootstrap-secret'] || '';
+  const expected = BOOTSTRAP_SECRET.value();
+  if (!expected || secret !== expected) {
+    return res.status(403).json({ error: 'Invalid or missing bootstrap secret.' });
+  }
+
+  const { email, firstName = '', lastName = '', nickname = '' } = req.body || {};
+  if (!email) return res.status(400).json({ error: 'email is required' });
+
+  try {
+    const user = await getAuth().getUserByEmail(email);
+    const uid  = user.uid;
+
+    // Write to Oracle users table (upsert via ORDS)
+    await fetch(`${ORDS_BASE}/api/users`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ id: uid, email, first_name: firstName, last_name: lastName, nickname, role: 'admin' }),
+    });
+
+    return res.json({ success: true, uid, message: `${email} is now an admin. Sign in to access the admin portal.` });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// createUser  (admin-only callable)
+// Creates a Firebase Auth account and sets role claims.
+// Roles: 'admin' → { admin: true }
+//        'tutor' → { role: 'tutor' }
+//        'student' → { role: 'student' }
+// Returns a password-reset link so the new user can set their own password.
+//
+// Request data: { email, firstName, lastName, nickname, role }
+// ─────────────────────────────────────────────────────────────────────────────
+exports.createUser = onCall(async (request) => {
+  if (!request.auth) throw new HttpsError('unauthenticated', 'Must be signed in.');
+  if (!request.auth.token.admin) throw new HttpsError('permission-denied', 'Requires admin privileges.');
+
+  const { email, firstName, lastName, nickname = '', role } = request.data;
+  if (!email || !firstName || !lastName || !role) {
+    throw new HttpsError('invalid-argument', 'email, firstName, lastName and role are required.');
+  }
+  if (!['admin', 'tutor', 'student'].includes(role)) {
+    throw new HttpsError('invalid-argument', 'role must be admin, tutor, or student.');
+  }
+
+  // Create Firebase Auth account
+  let uid;
+  try {
+    const userRecord = await getAuth().createUser({
+      email,
+      displayName:   `${firstName} ${lastName}`,
+      emailVerified: false,
+      disabled:      false,
+      password:      tmpPassword(),
+    });
+    uid = userRecord.uid;
+  } catch (err) {
+    throw new HttpsError('already-exists', `Firebase Auth: ${err.message}`);
+  }
+
+  // Write to Oracle users table (source of truth for role)
+  const ordsRes = await fetch(`${ORDS_BASE}/api/users`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ id: uid, email, first_name: firstName, last_name: lastName, nickname, role }),
+  });
+  if (!ordsRes.ok) {
+    await getAuth().deleteUser(uid).catch(() => {});
+    const detail = await ordsRes.text();
+    throw new HttpsError('internal', `Oracle write failed; Firebase Auth account rolled back. ${detail}`);
+  }
+
+  const resetLink = await getAuth().generatePasswordResetLink(email).catch(() => null);
+  return { success: true, uid, resetLink };
+});
