@@ -229,6 +229,9 @@
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs')">
         <span class="material-symbols-outlined text-[20px]">work</span>Jobs
       </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('promocodes')">
+        <span class="material-symbols-outlined text-[20px]">sell</span>Promo Codes
+      </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('pwreset')">
         <span class="material-symbols-outlined text-[20px]">lock_reset</span>PW Requests
       </button>
@@ -266,6 +269,9 @@
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('jobs');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">work</span>Jobs
+      </button>
+      <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('promocodes');toggleSidebar()">
+        <span class="material-symbols-outlined text-[20px]">sell</span>Promo Codes
       </button>
       <button class="nav-item flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm text-left" onclick="showSection('pwreset');toggleSidebar()">
         <span class="material-symbols-outlined text-[20px]">lock_reset</span>PW Requests
@@ -1021,6 +1027,67 @@
         </div>
       </section><!-- end settings -->
 
+      <!-- ── PROMO CODES ── -->
+      <section id="section-promocodes" class="hidden fade-up">
+        <div class="flex items-center justify-between mb-1">
+          <div>
+            <h1 class="font-['Plus_Jakarta_Sans'] text-2xl font-extrabold text-slate-800">Promo Codes</h1>
+            <p class="text-slate-500 text-sm mt-0.5">Create and manage discount codes for students.</p>
+          </div>
+          <button onclick="openPromoModal()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[18px]">add</span>New Code
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-3 my-6">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-slate-800" id="promo-stat-total">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Total Codes</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-emerald-600" id="promo-stat-active">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Active</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+            <p class="text-2xl font-extrabold text-[#a93444]" id="promo-stat-uses">—</p>
+            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Total Uses</p>
+          </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="flex gap-2 mb-4">
+          <input id="promo-search" type="text" placeholder="Search by code…" oninput="filterPromoCodes()"
+            class="field-input max-w-xs text-sm py-2">
+          <select id="promo-status-filter" onchange="filterPromoCodes()" class="field-input max-w-[160px] text-sm py-2 appearance-none cursor-pointer">
+            <option value="">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-100 bg-slate-50">
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Code</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Discount</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Uses</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3 hidden md:table-cell">Valid Until</th>
+                  <th class="text-left text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-5 py-3">Status</th>
+                  <th class="px-5 py-3"></th>
+                </tr>
+              </thead>
+              <tbody id="promo-table-body">
+                <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section><!-- end promocodes -->
+
     </main>
   </div>
 </div><!-- end admin-app -->
@@ -1077,6 +1144,75 @@
     <button onclick="saveModule()" class="flex items-center gap-2 bg-[#a93444] text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
       <span class="material-symbols-outlined text-[15px]">save</span>Save
     </button>
+  </div>
+</div>
+
+<!-- ══ PROMO CODE MODAL ════════════════════════════════════════════════════════ -->
+<div id="promo-modal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm pt-6 pb-6 px-3">
+  <div class="bg-white border border-slate-200 w-full max-w-lg rounded-3xl shadow-2xl flex flex-col max-h-[calc(100vh-3rem)]">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-slate-100 shrink-0">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold text-slate-800" id="promo-modal-title">New Promo Code</h2>
+      <button onclick="closePromoModal()" class="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-all">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+    <div class="modal-scroll px-7 py-6 flex-1 space-y-5">
+      <!-- Code -->
+      <div>
+        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Code <span class="text-red-400">*</span></label>
+        <input id="promo-code" type="text" placeholder="e.g. SUMMER20" maxlength="50"
+          class="field-input uppercase" oninput="this.value=this.value.toUpperCase()">
+        <p class="text-[11px] text-slate-400 mt-1">Code is automatically uppercased. Students enter this at checkout.</p>
+      </div>
+      <!-- Discount type + value -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Discount Type <span class="text-red-400">*</span></label>
+          <select id="promo-type" class="field-input appearance-none cursor-pointer" onchange="updatePromoValueLabel()">
+            <option value="percent">Percentage (%)</option>
+            <option value="fixed">Fixed Amount (€)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block" id="promo-value-label">Value (%) <span class="text-red-400">*</span></label>
+          <input id="promo-value" type="number" min="0" step="0.01" placeholder="20" class="field-input">
+        </div>
+      </div>
+      <!-- Max uses -->
+      <div>
+        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Max Uses</label>
+        <input id="promo-max-uses" type="number" min="1" placeholder="Leave blank for unlimited" class="field-input">
+      </div>
+      <!-- Valid from / until -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Valid From</label>
+          <input id="promo-valid-from" type="date" class="field-input">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Valid Until</label>
+          <input id="promo-valid-until" type="date" placeholder="Leave blank = no expiry" class="field-input">
+        </div>
+      </div>
+      <!-- Active toggle -->
+      <div class="flex items-center gap-3">
+        <input id="promo-active" type="checkbox" checked class="w-4 h-4 accent-[#a93444] cursor-pointer">
+        <label for="promo-active" class="text-sm font-semibold text-slate-700 cursor-pointer">Active (students can use this code)</label>
+      </div>
+      <!-- Notes -->
+      <div>
+        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">Notes</label>
+        <textarea id="promo-notes" rows="2" placeholder="Internal note (not shown to students)" class="field-input resize-none"></textarea>
+      </div>
+      <!-- Error -->
+      <div id="promo-modal-error" class="hidden text-sm text-red-600 font-semibold px-4 py-3 bg-red-50 rounded-xl border border-red-200"></div>
+    </div>
+    <div class="flex gap-3 px-7 py-5 border-t border-slate-100 shrink-0">
+      <button onclick="closePromoModal()" class="flex-1 py-2.5 rounded-full border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="submitPromoModal()" id="promo-save-btn" class="flex-1 flex items-center justify-center gap-2 bg-[#a93444] text-white py-2.5 rounded-full text-sm font-bold hover:bg-[#7e2334] active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[17px]">save</span>Save
+      </button>
+    </div>
   </div>
 </div>
 
@@ -1804,9 +1940,9 @@ document.getElementById('logout-btn').addEventListener('click', () =>
 );
 
 // ── Section switching ─────────────────────────────────────────────────────────
-const _sectionLoaded = { audit: false, pwreset: false };
+const _sectionLoaded = { audit: false, pwreset: false, promocodes: false };
 window.showSection = function(name) {
-    ['dashboard','languages','tutors','students','users','requests','jobs','pwreset','audit','wiki','settings'].forEach(s => {
+    ['dashboard','languages','tutors','students','users','requests','jobs','promocodes','pwreset','audit','wiki','settings'].forEach(s => {
         const el = document.getElementById(`section-${s}`);
         if (el) {
             el.classList.toggle('hidden', s !== name);
@@ -1827,8 +1963,9 @@ window.showSection = function(name) {
     if (name === 'users'    && !_sectionLoaded.users)    { _sectionLoaded.users    = true; loadUsers(); }
     if (name === 'requests' && !_sectionLoaded.requests) { _sectionLoaded.requests = true; loadRequests(); }
     if (name === 'jobs'     && !_sectionLoaded.jobs)     { _sectionLoaded.jobs     = true; loadJobs(); }
-    if (name === 'audit'    && !_sectionLoaded.audit)    { _sectionLoaded.audit    = true; loadAuditLog(); }
-    if (name === 'pwreset'  && !_sectionLoaded.pwreset)  { _sectionLoaded.pwreset  = true; loadPwResetRequests(); }
+    if (name === 'audit'      && !_sectionLoaded.audit)      { _sectionLoaded.audit      = true; loadAuditLog(); }
+    if (name === 'pwreset'    && !_sectionLoaded.pwreset)    { _sectionLoaded.pwreset    = true; loadPwResetRequests(); }
+    if (name === 'promocodes' && !_sectionLoaded.promocodes) { _sectionLoaded.promocodes = true; loadPromoCodes(); }
 };
 
 window.toggleSidebar = function() {
@@ -2608,7 +2745,7 @@ async function loadTutors() {
                 role:             t.role_title || '',
                 lang_teached:     t.languages  || '',
                 bio_quote:        t.quote      || '',
-                active:           t.is_active  !== 0,
+                active:           t.status === 'approved',
                 order:            t.display_order || 1,
                 photoUrl:         t.photo_url  || '',
                 phd:              bios[0] || '',
@@ -4570,6 +4707,188 @@ async function loadDashboard() {
         if (jobList) jobList.innerHTML = `<div class="px-5 py-6 text-center text-red-400 text-xs">${esc(e.message)}</div>`;
     }
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  PROMO CODES
+// ══════════════════════════════════════════════════════════════════════════════
+const ORDS_PROMO = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin/api/promo_codes';
+let _promoCodes  = [];
+let _editingPromoId = null;
+
+async function loadPromoCodes() {
+    const tbody = document.getElementById('promo-table-body');
+    tbody.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">Loading…</td></tr>';
+    try {
+        const res  = await fetch(`${ORDS_PROMO}?limit=500`);
+        const data = await res.json();
+        _promoCodes = data.items || [];
+        renderPromoTable(_promoCodes);
+        updatePromoStats(_promoCodes);
+    } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-5 py-8 text-center text-red-400 text-sm font-semibold">${esc(err.message)}</td></tr>`;
+    }
+}
+
+function updatePromoStats(list) {
+    document.getElementById('promo-stat-total').textContent  = list.length;
+    document.getElementById('promo-stat-active').textContent = list.filter(p => p.is_active === 1).length;
+    document.getElementById('promo-stat-uses').textContent   = list.reduce((s, p) => s + (p.uses_count || 0), 0);
+}
+
+function renderPromoTable(list) {
+    const tbody = document.getElementById('promo-table-body');
+    if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="px-5 py-10 text-center text-slate-400 text-sm">No promo codes yet.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = list.map(p => {
+        const discountLabel = p.discount_type === 'percent'
+            ? `${p.discount_value}%`
+            : `€${parseFloat(p.discount_value).toFixed(2)}`;
+        const usesLabel = p.max_uses
+            ? `${p.uses_count} / ${p.max_uses}`
+            : `${p.uses_count} / ∞`;
+        const expiry = p.valid_until ? p.valid_until : '—';
+        const expired = p.valid_until && new Date(p.valid_until) < new Date();
+        const statusBadge = !p.is_active
+            ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-500">Inactive</span>'
+            : expired
+            ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-600">Expired</span>'
+            : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Active</span>';
+        return `<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+            <td class="px-5 py-3 font-mono font-bold text-slate-800">${esc(p.code)}</td>
+            <td class="px-5 py-3 font-semibold text-slate-700">${esc(discountLabel)}</td>
+            <td class="px-5 py-3 text-slate-600">${esc(usesLabel)}</td>
+            <td class="px-5 py-3 text-slate-500 hidden md:table-cell">${esc(expiry)}</td>
+            <td class="px-5 py-3">${statusBadge}</td>
+            <td class="px-5 py-3">
+                <div class="flex gap-2 justify-end">
+                    <button onclick="openPromoModal(${p.id})" class="px-3 py-1.5 rounded-full border border-slate-200 text-xs font-bold text-slate-600 hover:border-[#a93444] hover:text-[#a93444] transition-all">Edit</button>
+                    <button onclick="deletePromoCode(${p.id}, '${esc(p.code)}')" class="px-3 py-1.5 rounded-full border border-slate-200 text-xs font-bold text-slate-400 hover:border-red-300 hover:text-red-500 transition-all">Delete</button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+window.filterPromoCodes = function() {
+    const q      = (document.getElementById('promo-search').value || '').toLowerCase();
+    const status = document.getElementById('promo-status-filter').value;
+    const filtered = _promoCodes.filter(p => {
+        const matchQ = !q || p.code.toLowerCase().includes(q);
+        const matchS = !status
+            || (status === 'active'   && p.is_active === 1)
+            || (status === 'inactive' && p.is_active === 0);
+        return matchQ && matchS;
+    });
+    renderPromoTable(filtered);
+};
+
+window.updatePromoValueLabel = function() {
+    const type = document.getElementById('promo-type').value;
+    document.getElementById('promo-value-label').innerHTML =
+        `Value (${type === 'percent' ? '%' : '€'}) <span class="text-red-400">*</span>`;
+};
+
+window.openPromoModal = function(id) {
+    _editingPromoId = id || null;
+    document.getElementById('promo-modal-title').textContent = id ? 'Edit Promo Code' : 'New Promo Code';
+    document.getElementById('promo-modal-error').classList.add('hidden');
+
+    if (id) {
+        const p = _promoCodes.find(x => x.id === id);
+        if (!p) return;
+        document.getElementById('promo-code').value        = p.code || '';
+        document.getElementById('promo-type').value        = p.discount_type || 'percent';
+        document.getElementById('promo-value').value       = p.discount_value ?? '';
+        document.getElementById('promo-max-uses').value    = p.max_uses ?? '';
+        document.getElementById('promo-valid-from').value  = p.valid_from  || '';
+        document.getElementById('promo-valid-until').value = p.valid_until || '';
+        document.getElementById('promo-active').checked    = p.is_active === 1;
+        document.getElementById('promo-notes').value       = p.notes || '';
+    } else {
+        document.getElementById('promo-code').value        = '';
+        document.getElementById('promo-type').value        = 'percent';
+        document.getElementById('promo-value').value       = '';
+        document.getElementById('promo-max-uses').value    = '';
+        document.getElementById('promo-valid-from').value  = new Date().toISOString().slice(0, 10);
+        document.getElementById('promo-valid-until').value = '';
+        document.getElementById('promo-active').checked    = true;
+        document.getElementById('promo-notes').value       = '';
+    }
+    updatePromoValueLabel();
+    document.getElementById('promo-modal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closePromoModal = function() {
+    document.getElementById('promo-modal').classList.add('hidden');
+    document.body.style.overflow = '';
+};
+
+window.submitPromoModal = async function() {
+    const code  = document.getElementById('promo-code').value.trim().toUpperCase();
+    const type  = document.getElementById('promo-type').value;
+    const value = parseFloat(document.getElementById('promo-value').value);
+    const errEl = document.getElementById('promo-modal-error');
+    errEl.classList.add('hidden');
+
+    if (!code)        { errEl.textContent = 'Code is required.'; errEl.classList.remove('hidden'); return; }
+    if (isNaN(value) || value < 0) { errEl.textContent = 'Enter a valid discount value.'; errEl.classList.remove('hidden'); return; }
+    if (type === 'percent' && value > 100) { errEl.textContent = 'Percentage cannot exceed 100.'; errEl.classList.remove('hidden'); return; }
+
+    const maxUses   = document.getElementById('promo-max-uses').value;
+    const validFrom = document.getElementById('promo-valid-from').value;
+    const validUntil= document.getElementById('promo-valid-until').value;
+    const payload   = {
+        code,
+        discount_type:  type,
+        discount_value: value,
+        max_uses:       maxUses  ? parseInt(maxUses, 10)  : null,
+        valid_from:     validFrom  || null,
+        valid_until:    validUntil || null,
+        is_active:      document.getElementById('promo-active').checked ? 1 : 0,
+        notes:          document.getElementById('promo-notes').value.trim() || null,
+    };
+
+    const btn = document.getElementById('promo-save-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[17px] animate-spin">progress_activity</span>Saving…';
+
+    try {
+        const url = _editingPromoId ? `${ORDS_PROMO}/${_editingPromoId}` : ORDS_PROMO;
+        const res = await fetch(url, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(`Oracle error: ${res.status}`);
+        closePromoModal();
+        _sectionLoaded.promocodes = false;
+        await loadPromoCodes();
+        toast(_editingPromoId ? 'Promo code updated ✓' : 'Promo code created ✓');
+    } catch (err) {
+        errEl.textContent = err.message;
+        errEl.classList.remove('hidden');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[17px]">save</span>Save';
+    }
+};
+
+window.deletePromoCode = function(id, code) {
+    confirmDelete(`Delete promo code "${code}"? This cannot be undone.`, async () => {
+        try {
+            const res = await fetch(`${ORDS_PROMO}/${id}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+            _sectionLoaded.promocodes = false;
+            await loadPromoCodes();
+            toast(`Code "${code}" deleted`);
+        } catch (err) {
+            toast(err.message, 'error');
+        }
+    });
+};
 
 // ── Live currency rates ───────────────────────────────────────────────────────
 (async function fetchLiveRates() {
