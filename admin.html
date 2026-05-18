@@ -3288,14 +3288,33 @@ window.deleteTutor = function(id, name) {
 };
 
 window.importSeedTutors = async function() {
+    const ORDS = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin/api/tutors';
     try {
         let count = 0;
         for (const t of SEED_TUTORS) {
-            const id = tutorDocId(t.name);
-            await setDoc(doc(db, 'tutors', id), t);
+            const nameParts = t.name.trim().split(/\s+/);
+            const bioPoints = [t.phd, t.school_1, t.school_2, t.specialisation_1, t.specialisation_2]
+                .filter(Boolean).join('|');
+            const payload = {
+                first_name:  nameParts[0] || '',
+                last_name:   nameParts.slice(1).join(' ') || '',
+                role_title:  t.role   || '',
+                languages:   t.lang_teached || '',
+                quote:       t.bio_quote    || '',
+                bio_points:  bioPoints,
+                photo_url:   t.photoUrl     || '',
+                status:      t.active ? 'approved' : 'inactive',
+            };
+            const res = await fetch(ORDS, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload),
+            });
+            if (!res.ok) throw new Error(`Oracle error ${res.status} on "${t.name}"`);
             count++;
         }
-        toast(`Imported ${count} tutors from website ✓`);
+        await loadTutors();
+        toast(`Imported ${count} tutors ✓`);
     } catch (err) { toast('Import failed: ' + err.message, 'error'); }
 };
 
