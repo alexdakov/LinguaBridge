@@ -299,125 +299,82 @@
 </div>
 </div>
 </section>
-<!-- Team Section (Restructured Z-Layout) -->
+<!-- Team Section (Dynamic from Oracle ORDS) -->
 <section class="py-section-gap px-container-padding-desktop section-gradient-light">
 <div class="max-w-7xl mx-auto">
 <div class="text-center mb-20">
-<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Our Academic Leads</h2>
-<p class="text-on-surface-variant max-w-xl mx-auto">Expert linguists and dedicated researchers driving our pedagogical standards.</p>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Meet Our Tutors</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Expert linguists and dedicated teachers driving our pedagogical standards.</p>
 </div>
-<div class="space-y-16 lg:space-y-24"><!-- Academic 1: Dr. Elena Rossi -->
-<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row gap-12 items-center">
-<div class="w-full lg:w-[40%] shrink-0">
-<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
-<img alt="Dr. Elena Rossi" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvbtXR-nEk-i84eC5upKo_RkoDy5js1D62AGcix59JYw-77soSJ3JHiYxR893JkSlAhnupMTmaElLL7cnxjcMm9ChzxZcl1gGrqXC8a3NW1qLk_mCIhmQKYD6xsWNObmAgl6IbOFchPPkg7NScyBvMGqGJWvElO32v8qkld_ey9csEav1drp0F_w3NkwBFAVgIR6cQCuRSZk5HRbD2GOtYRU-yGJKuxQYKZM7HRZSNGSwyXC9M6Vq2h-8q702LZ5vDNmRNyGYSXwfe"/>
+<div id="tutors-loading" class="text-center py-16 text-on-surface-variant">
+<span class="material-symbols-outlined text-5xl text-primary/40" style="animation:pulse 2s infinite">group</span>
+<p class="mt-4 text-sm">Loading tutors…</p>
 </div>
+<div id="tutors-error" class="hidden text-center py-16 text-error">
+<span class="material-symbols-outlined text-5xl">error_outline</span>
+<p class="mt-4 text-sm font-medium">Could not load tutors. Please try again later.</p>
 </div>
-<div class="flex-1 space-y-6">
-<div class="space-y-3">
-<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
-<h3 class="text-display-lg font-bold text-on-surface">Dr. Elena Rossi</h3>
-<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Italian" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKd8EQnYQF-lIcvNeLdwVMBzvojV-uEs7rpWe_wjvcuWYHr3tasX-qG1VCKVXYcEmOEm0azuvjh6uyXUrm28QzYZQkITw8cduW_DzBoSjXKGjpcmN02uv_zCwuNSoovdqSSAW1EyUNpnC7nlyOa4cbT-EAtlPNk8wVHVSZ80-mzeuunl2UWZl6sCx3KyvQCWLpnK9___WhX0I2DUy4_dkODKNHkOlU4lflcVV6WOvzpDccsX_nnOnsCn2MIuM9ZaYuBAfH_y8ZJAgV"/>Italian</span>
-<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="French" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOD7ZqQAv-YdQzUD4xGZ3jKsBY9ujeIAjctjgjJdlAyBZkruKCwLZeURnnkSGnzCne8QXZLGQZiv7sq0BKayFRdw7w6lSEt1rIVnXFhraODyvlalxe-RjvP0lcc8GOArQjMKYqlQ1nsD_exJokNePASn7gKxpK1NZcq9p5hhCpKYnbDHIbcWEk7mCPglnWb2GusHbCYAPjBkYma-azywchHvb96hdJr68moRnguWT4PP4MhxT8sJr02UH-9_Eiv4wfS2km-QHWmMhO"/>French</span>
+<div id="tutors-body" class="space-y-16 lg:space-y-24"><!-- Dynamic from ORDS -->
 </div>
-</div>
-<div class="flex flex-wrap items-center gap-3">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZNaTG2iHPsxI7gDUTKT_4Zy193VYMPvF5LV1dQ9ELLSqjw4MS6OGV3FIfWMy_3RZ8l9YBatHdJzVh_ll-IMKSCF7hYfyBcp4eG8Szox4PEK90Jxp0UAoXjCChNOXsEwHFPpeP-spOJ8-Yp41BZgJMJHMTWHoEgJdXgMSmiC0-x-KfDiq2cvWvVr-jTMPhyb69zMnNquTJJpSZ7x8o2kJtn6-tx0Nf5EGOrosc2Euy2EzSTqL-6jXKOTYByE-piS2sK5NM8XNEOYVf"/>Spanish</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqNEHRIjySr930gV13WZR5sbkrX---ITAHAEy5JUlLjn1_6kaVBeTKbnMlLtauN09VOviQGm40s8rJo2_8h2uUVNucmKz3pDSo4R_hq2Da-2DRdagLr3ZRExfYlGkeY5Uo2bCVph6ZIfLrLU5U6Ee-gAPPhjx9p6fo1H2wudHQsfoS2FihyIr0bHULEvSLN_ZOUpd3jm8n7GUxqUjT_zaTKYYNBHTf-t8nk26tlLa2x_suVliJY-cd0wDEENigK6qAVW_5clwSAgAC"/>English</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6f5CKdmQoE_UXYJ_m8IXnvPXZGEAY6IBKIPwaMVcTJnP-U71XZYzf2GQKWBJHzrGE2I5L8mW8Q08-v0VHB72C-1phEcoQXhqQl7x7gGDXqrVqHbgecNQeBjVzMVwvHJkGb3oyXgxHrJ4PB4xUrXtserkFO8JuHVCk7pV3GMb2bNYcYeAbcndjK0TxQXZd8c9y02wN_-Z8lV4kzO3_znXKG7u6Lkmk7iyZBSjhZwEMHQ8gIAcVqnIMUvcJu9Gbqm5vfdccJzZd3f8K"/>German</span>
-</div>
-</div>
-<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
-            "I love teaching languages through real-life travel experiences, making lessons practical, engaging, and connected to the world."
-        </div>
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
-<ul class="space-y-3">
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>PhD in Linguistics, Sapienza University</li>
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>Philology Master</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Academic 2: Prof. Julian Chen -->
-<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row-reverse gap-12 items-center">
-<div class="w-full lg:w-[40%] shrink-0">
-<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
-<img alt="Prof. Julian Chen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2OWahoo9_xCAnpTOJxHlf0OMMiZeOpB65TKcHwWdqh1FgGCNHzWQF9HyzwpySC2MHLpoVKcgV65eP-mxHaNVmrFznYy8bo0lHhwsLRTWm19zYTC8JxRMetIecB2JDtyYRH4pBFF6kYVcwafiNivAnqbE4b1LsEyRX5UYAy3763gIwc3ivsc62cOGDAnta2ZYITjj6DphX8KwZUO-dYyu4YDkobGVDUlwcW8hce3w2zFxnPkm1FHHhD_Ln7j9ZfjyW_TZ1mC5X3c6W"/>
-</div>
-</div>
-<div class="flex-1 space-y-6">
-<div class="space-y-3">
-<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
-<h3 class="text-display-lg font-bold text-on-surface">Prof. Julian Chen</h3>
-<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Mandarin" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAarivs0_VYDUnMoTX-4weUF5wlwR4FreguEEZ8i_aazev_G-8Z8S71xsKelLd-pG_SOWYFZeYRKPVjcmUtTJYpPdoJlJRQEqZI_HimhpTHK2WjGuTklT5NG0dr0XpEemvn_9XmmIRzgumB7fu7QlK-e2Oe6YZDP1WtDzWnvcjnq0ngZAY4PG6URV58RgkbA6AaWoKwVz4_CmWsRYGCl_Axk562MwWenWy_oSwpaWyjdSdwAUtdpzJewRcVDs4taa0Yq-Bist6GqGzK"/>Mandarin</span>
-<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="Cantonese" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCvIGysJqyX6t1Oehnl0FAUfXK4sNVquM9oAaxaXobAbPg64jiFOGY45q-Dp4nqoyxLjPUruLSDsU4UoU4FoisSfZWA8b8RDqQt4fTr_MVQ42bKlsvuDe39JviY_lnnozt2Gd8GkKEeXSlDjxsFX5p_s0nIGeU3dgRtOsPyYB1GWIx9DwLxJjDe5YIMVZrD1m6DunJNaWF-h_ilFZxGKePgX76SiB11GNe4EZ4fuC3soJyahEe8vumGg0Wn5ZXDhtLsC9IsPqLeSO0"/>Cantonese</span>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-3">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWaQaI3tZUsIhc1Fxk4KVWE44z-05O0lg_2zX4puRxqQLJ6Yn-l9tmW_3P99fG-vLsMJu4CqQ5ywfx-LBXXAe5SV9dKXUJt0smzhSDtWpPvpD7qJCqS31yASQWZKskFyK6AQ8ol2srRhJIzYZ3dvRSSmVPKXPygQETZK7fksi9ND__4GAVH_JiV6_tFcf--Xocq-NGse1LsiyOekd3WWubiQIrfqnS9_Ah1E9wJolgLIN999ihkFTFgiBYnJFG-R37EgqaDqYFvetR"/>English</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAVdpATQ1tyki2CE99VO6ZYlucNKbSzPRByhKT7sqvGhgpdgftPjqadN8crhnyOxl6-7MTVZGYR5WLrKsJNh3s8bXZJQL8d-yVigyUjHSnYR4lYqbbeIYmECXpkYpQ8blsxGOz1GMP2L8pnAdawHe3_5bMbaQkMRAo7qQ9FAuoTFt4yUx7fPM48meykXpktWjf5TmfFfreOswnAeWWjd3Pa7MTUBBgxhnVY9cDx-QEDdBJj6Wn-Qo7Rk-jnoCmlpSR9JYP-bVPSjHS"/>Japanese</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6bwlLN_z7UHeIM-eYlpi_IKuN1Dze8F_Xvug3tnNcYO-gLJfhkBKe_9NJW6FPD3i4f2N258XqCFhLKPZBNMcjXT_Wt52zIJ4hWbH7U0m7CYZ4rz5vlP3WInjYbaGH46ZaErcM007TSu0-8pizXBsidMM4rQ1BDbjKnfFSaH0WBukCRhASQ4aEWH3X7xtU_Zdhu8M57vphCwX8ExlUo_3ig1I9-9yoiudmGCihJ5xgX9MQH74OUr4ePcaQMO6VFE4XeyraiJsi420a"/>Korean</span>
-</div>
-</div>
-<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
-            "Developed our proprietary 'Visual Sound' mapping system, helping learners master the nuances of tonal languages through intuitive visualization."
-        </div>
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
-<ul class="space-y-3">
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>Master of Education, HKU</li>
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>HSK Level 6 Examiner</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Academic 3: Dr. Sarah Thompson -->
-<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col lg:flex-row gap-12 items-center">
-<div class="w-full lg:w-[40%] shrink-0">
-<div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
-<img alt="Dr. Sarah Thompson" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7f_FgpcFJ0TwTao1N8tdxKM647ZxkHQb-jWjhhYw3_emZ0Rj07v14MvnxCSAN8MJ7bPiBNN_97Lrp0DDE3pcvB_OLFmXhpn5pe9jnAYWHR9Qt8xObof9jsR-BCdU6eC-EEl2y6WcqxV8RQe0Brx6Ml2lBo-6n68SnHVdcOZV10D96q5hhj5qSShntx0DXiVBJm8IioHWnF_LSs2Wm-0TWCFGAtFgu3vR5KeSNzZoHBtyrGeWzosqYA6qiQHvHa6Kq7H4QMScgQg_F"/>
-</div>
-</div>
-<div class="flex-1 space-y-6">
-<div class="space-y-3">
-<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">Language Specialist</span>
-<h3 class="text-display-lg font-bold text-on-surface">Dr. Sarah Thompson</h3>
-<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>
-<div class="flex gap-2">
-<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img alt="English" class="w-4 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY5IthPUo2Evx7r7tTdeYWp-vtr9pvU_1kqGqELVce3hW_AKUtdOplKLWwocuCOVyu8jrQ34JtVEy_-Wd4jbosckUXru57wEP-3BVXS1g99rZrviHgNhEgNV0K4GT9haZkR-bf9NByLX64O9AyUSO6tSa2jX6cSZoVzSzBNSEO_bEsQmhrswPL_wyb4iALnazbXLN_Pn07YcIyzWzKT9IrXvvsHUeth4PvXdL6E2r5yFZNBuv4S8LMA90_7uUitktPjTnjq0Qv2u8z"/>English (ESL)</span>
-</div>
-</div>
-<div class="flex flex-wrap items-center gap-3">
-<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Speaks:</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABCcAqPHOK2uQPor8_gqeWOkQZMdfr-H832E0SM-Z7BLaKXiHM-ySCYbZXYypoidh4D00Or7CLcMDiUlPlQ5kGWSDN8NzGnzg8s8qtPiitaOEpTpmLPiQCxlyVBNmP6Hb_5a4_uQ4RfZ0k6aZ7pbxLvdyYAMkp21wmFV4e423qjPE7RV-E_sudPPGuUNRoDRKQyV4fi8e_Ifkkb1i9eBbkMizRF9_bv2kt-KVw0OBz-gC93enaGqd6JSS924dtVdxtCYuIoYiK2Hra"/>English</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjHQnxWVl2YPImVCKC4TI-BEVwaVlAbkus34uskvXopQReUM83PF2siEcNL_MkO644Tpxdkr9xAah6yijerNp42lXGNA5Btz25n4Lo-TUbhL7OSbpGIDL181mKqjRMuGQUKqNC7xN0flvqnB060Cqa14jW076URHPBsLOl5HdmaxPV4L48AMbW-5Rqv4X7oFO-J7NgAwwlfrAIMpj1hq4-VefE76cbcUqQrkcCxPxGHs9xFVt6fWPECxwqSOMn8gYTIVp9_zM1D37U"/>Portuguese</span>
-<span class="px-3 py-1 bg-surface-variant/50 rounded-lg text-xs font-medium flex items-center gap-2"><img class="w-3.5 h-2.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu8pTUTMTSiVzB8dJ5M-swQbQMKu0k42YL_-DqXXuzyKup6JVJOaWxO70Uw7gN40yYlWfrL15K_R5g0r120Y33j_vmBqGAEBsPVQjnGK8htWmSOBntXQJ5mZvKpjTVCQDtj55SWVGVPMoC14h8mc8niBV9ihAT-yAKltSK8wbz6Ga7zXbr2tuVGRP5q_q1gIMbgrrm79FhQkmSX-duMJCRBNnI5lleDZSHRtwtLU2GyxwXCSYTExFsEb2UWPpEinbMs9mifG45jwZW"/>Spanish</span>
-</div>
-</div>
-<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">
-            "Sarah ensures our curriculum remains accessible, effective, and neurologically optimized for retention through cognitive load theory."
-        </div>
-<div class="space-y-4">
-<p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p>
-<ul class="space-y-3">
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>PhD EdTech, Stanford</li>
-<li class="flex items-center gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>CELTA Qualified</li>
-</ul>
-</div>
-</div>
-</div></div>
 </div>
 </section>
+<script>
+(function() {
+  const ORDS = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin/api/tutors';
+  const LANG_FLAG = { russian:'ru', bulgarian:'bg', english:'gb', chinese:'cn', japanese:'jp', german:'de', spanish:'es', french:'fr', italian:'it', portuguese:'pt' };
+
+  function initials(first, last) {
+    return (first[0] + (last[0] || '')).toUpperCase();
+  }
+
+  function langTags(langsStr) {
+    return (langsStr || '').split(',').map(function(l) {
+      var name = l.trim();
+      var code = LANG_FLAG[name.toLowerCase()] || 'un';
+      return '<span class="px-3 py-1 bg-white border border-outline-variant/30 rounded-lg flex items-center gap-2 text-sm font-semibold"><img src="https://flagcdn.com/w40/' + code + '.png" class="w-4 h-auto rounded-sm" alt="' + name + '">' + name + '</span>';
+    }).join('');
+  }
+
+  function bioList(bioStr) {
+    return (bioStr || '').split('|').filter(Boolean).map(function(b) {
+      return '<li class="flex items-start gap-3 text-sm font-medium text-on-surface"><span class="material-symbols-outlined text-primary text-xl">school</span>' + b.trim() + '</li>';
+    }).join('');
+  }
+
+  function renderTutor(t, idx) {
+    var reverse = idx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row';
+    var avatar = '<div class="w-full h-full flex items-center justify-center bg-primary/10 text-primary text-6xl font-bold">' + initials(t.first_name, t.last_name) + '</div>';
+    return '<div class="glass-panel p-8 md:p-10 rounded-[40px] flex flex-col ' + reverse + ' gap-12 items-center">' +
+      '<div class="w-full lg:w-[40%] shrink-0"><div class="aspect-square rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">' + avatar + '</div></div>' +
+      '<div class="flex-1 space-y-6">' +
+        '<div class="space-y-3">' +
+          '<span class="inline-block px-3 py-1 rounded-full bg-primary-fixed text-primary text-[10px] font-bold uppercase tracking-wider">' + (t.role_title || 'Language Specialist') + '</span>' +
+          '<h3 class="text-display-lg font-bold text-on-surface">' + t.first_name + ' ' + t.last_name + '</h3>' +
+          '<div class="bg-surface-container p-4 rounded-2xl flex flex-wrap items-center gap-4">' +
+            '<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Teaching:</span>' +
+            '<div class="flex flex-wrap gap-2">' + langTags(t.languages) + '</div>' +
+          '</div>' +
+        '</div>' +
+        (t.quote ? '<div class="border-l-4 border-primary-fixed-dim pl-6 py-2 italic text-on-surface-variant font-body-lg">&ldquo;' + t.quote + '&rdquo;</div>' : '') +
+        '<div class="space-y-4"><p class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">Academic Specialization</p><ul class="space-y-3">' + bioList(t.bio_points) + '</ul></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  fetch(ORDS)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var tutors = data.items || [];
+      document.getElementById('tutors-loading').classList.add('hidden');
+      if (!tutors.length) { document.getElementById('tutors-error').classList.remove('hidden'); return; }
+      document.getElementById('tutors-body').innerHTML = tutors.map(function(t, i) { return renderTutor(t, i); }).join('');
+    })
+    .catch(function() {
+      document.getElementById('tutors-loading').classList.add('hidden');
+      document.getElementById('tutors-error').classList.remove('hidden');
+    });
+})();
+</script>
 <!-- CTA Section -->
 <section class="py-24 px-container-padding-desktop">
 <div class="max-w-7xl mx-auto glass-panel p-16 rounded-[64px] text-center border-white/40 shadow-2xl shadow-primary/10 relative overflow-hidden">
