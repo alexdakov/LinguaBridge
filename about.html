@@ -431,46 +431,30 @@
 </section>
 </main>
 <!-- Footer -->
-<footer class="w-full py-20 bg-white/50 border-t border-black/5 mt-10">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter px-container-padding-desktop max-w-7xl mx-auto">
-<div class="space-y-6">
-<div class="font-display-lg text-headline-md font-bold text-primary">LinguaBridge</div>
-<p class="font-body-md text-on-surface-variant leading-relaxed">Luminous Humanism in global communication. Bridging cultures since 2018.</p>
-</div>
-<div>
-<h6 class="font-headline-md text-primary mb-8">Company</h6>
-<ul class="space-y-4">
-<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Privacy Policy</a></li>
-<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Terms of Service</a></li>
-<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Cookie Policy</a></li>
-</ul>
-</div>
-<div>
-<h6 class="font-headline-md text-primary mb-8">Support</h6>
-<ul class="space-y-4">
-<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Language Partners</a></li>
-<li><a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-md" href="#">Help Center</a></li>
-</ul>
-</div>
-<div>
-<h6 class="font-headline-md text-primary mb-8">Follow Us</h6>
-<div class="flex gap-4">
-<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="share">share</span>
-</a>
-<a class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="mail">mail</span>
-</a>
-</div>
-</div>
-</div>
-<div class="max-w-7xl mx-auto px-container-padding-desktop mt-20 pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-label-sm text-on-surface-variant/60">© 2024 LinguaBridge. Luminous Humanism in global communication.</p>
-<div class="flex gap-8">
-<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-primary transition-colors">English (US)</span>
-<span class="font-label-sm text-on-surface-variant/60 cursor-pointer hover:text-primary transition-colors">Global Community</span>
-</div>
-</div>
+<footer class="w-full py-12 glass-panel border-t border-white/30 shadow-sm">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        <div class="flex flex-col items-center md:items-start">
+            <div class="flex items-center gap-3 mb-2">
+                <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-lg font-bold text-slate-900">LinguaBridge</span>
+                    <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+                </div>
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            <a href="delete_data.html" class="flex items-center gap-1 text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                Delete Data
+            </a>
+        </div>
+        <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+            Become Tutor
+        </a>
+    </div>
 </footer>
 <script>
 function toggleMobileLang(e) { if (e) e.stopPropagation(); document.getElementById('mobile-lang-dropdown').classList.toggle('hidden'); }

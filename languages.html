@@ -195,230 +195,100 @@
 </div>
 </header>
 <main>
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="relative py-16 md:py-24 overflow-hidden bg-surface-bright">
 <div class="max-w-6xl mx-auto px-container-desktop text-center">
 <h1 class="font-display-lg text-display-lg text-primary mb-4 leading-tight">Course Catalog</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-                    Explore our meticulously crafted curriculum designed to bridge cultures through mastery. From intensive sessions to self-paced growth, find your perfect path.
-                </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Explore our meticulously crafted curriculum designed to bridge cultures through mastery. From intensive sessions to self-paced growth, find your perfect path.</p>
 </div>
 </section>
-<!-- Filters & Language Bar (Glassy Effects) -->
+
+<!-- Filters -->
 <section class="max-w-6xl mx-auto px-container-desktop -mt-8 relative z-20">
-<div class="glass-panel rounded-full p-2 mb-8 flex items-center gap-2 overflow-x-auto no-scrollbar shadow-sm border border-white/60">
-<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-2 shadow-lg shadow-primary/15 hover:opacity-90 transition-all">
-<span class="material-symbols-outlined text-sm">public</span> All Languages
-                </button>
-<button class="px-6 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/60 transition-colors whitespace-nowrap flex items-center gap-2">
-<span>🇬🇧</span> English
-                </button>
-<button class="px-6 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/60 transition-colors whitespace-nowrap flex items-center gap-2">
-<span>🇪🇸</span> Spanish
-                </button>
-<button class="px-6 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/60 transition-colors whitespace-nowrap flex items-center gap-2 font-bold">
-<span>🇫🇷</span> French
-                </button>
-<button class="px-6 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/60 transition-colors whitespace-nowrap flex items-center gap-2">
-<span>🇯🇵</span> Japanese
-                </button>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center mb-12">
-<div class="lg:col-span-5 glass-panel p-1.5 rounded-full flex border border-white/60 shadow-sm">
-<button class="flex-1 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all">Group</button>
-<button class="flex-1 py-2.5 rounded-full font-label-md text-label-md bg-primary text-white shadow-lg shadow-primary/20">Individual</button>
-<button class="flex-1 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all">Self-Paced</button>
-</div>
-<div class="hidden lg:block lg:col-span-1"></div>
-<div class="lg:col-span-6 flex flex-wrap items-center justify-end gap-6">
-<div class="flex items-center gap-3">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Currency</span>
-<div class="flex glass-panel rounded-full p-1 border border-white/60">
-<button class="px-4 py-1 text-label-md bg-white rounded-full shadow-sm text-primary font-bold">$</button>
-<button class="px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">€</button>
-</div>
-</div>
-</div>
-</div>
+    <div id="lang-pills" class="glass-panel rounded-full p-2 mb-8 flex items-center gap-2 overflow-x-auto no-scrollbar shadow-sm border border-white/60">
+        <button onclick="filterLang('all')" data-lang="all" class="lang-pill active-pill px-6 py-2.5 rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-2 shadow-lg shadow-primary/15 transition-all">
+            <span class="material-symbols-outlined text-sm">public</span> All Languages
+        </button>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center mb-12">
+        <div class="lg:col-span-6 glass-panel p-1.5 rounded-full flex border border-white/60 shadow-sm">
+            <button onclick="filterFormat('all')"        data-fmt="all"        class="fmt-pill active-fmt flex-1 py-2.5 rounded-full font-label-md text-label-md transition-all">All Types</button>
+            <button onclick="filterFormat('group')"      data-fmt="group"      class="fmt-pill flex-1 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all">Group</button>
+            <button onclick="filterFormat('individual')" data-fmt="individual" class="fmt-pill flex-1 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all">Individual</button>
+            <button onclick="filterFormat('self-paced')" data-fmt="self-paced" class="fmt-pill flex-1 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all">Self-Paced</button>
+        </div>
+        <div class="hidden lg:block lg:col-span-1"></div>
+        <div class="lg:col-span-5 flex flex-wrap items-center justify-end gap-6">
+            <div class="flex items-center gap-3">
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Currency</span>
+                <div class="flex glass-panel rounded-full p-1 border border-white/60">
+                    <button onclick="setCurrency('eur')" data-cur="eur" class="cur-pill active-cur px-4 py-1 text-label-md rounded-full transition-all">€</button>
+                    <button onclick="setCurrency('usd')" data-cur="usd" class="cur-pill px-4 py-1 text-label-md text-on-surface-variant hover:text-primary transition-colors">$</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<!-- Catalog Sections -->
+
+<!-- Catalog -->
 <section class="max-w-6xl mx-auto px-container-desktop pb-section-gap">
-<!-- French Section -->
-<div class="mb-20">
-<div class="flex items-center gap-4 mb-8">
-<div class="text-5xl drop-shadow-sm">🇫🇷</div>
-<div>
-<h2 class="text-headline-lg font-headline-lg text-primary">French</h2>
-<p class="text-on-surface-variant max-w-3xl">A language of diplomacy, gastronomy, and literature, spoken across five continents and carrying a legacy of artistic innovation.</p>
-</div>
-</div>
-<!-- Glassy Table Container inspired by Homepage Individual Card styling -->
-<div class="glass-panel rounded-[32px] shadow-xl shadow-primary/5 border border-white/60 overflow-hidden">
-<table class="w-full text-left">
-<thead class="bg-primary text-on-primary">
-<tr>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Course</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Level</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Type</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Duration</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider text-right border-b border-primary-container">Price</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant/10">
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Spoken Mastery</td>
-<td class="p-6 text-on-surface-variant font-medium">Spoken</td>
-<td class="p-6 text-on-surface-variant">Conversation</td>
-<td class="p-6 text-on-surface-variant">Ongoing</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$350 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Advanced Academic</td>
-<td class="p-6 text-on-surface-variant font-medium">C1–C2</td>
-<td class="p-6 text-on-surface-variant">Intensive</td>
-<td class="p-6 text-on-surface-variant">13 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$328 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Business Fluency</td>
-<td class="p-6 text-on-surface-variant font-medium">B1–B2</td>
-<td class="p-6 text-on-surface-variant">Corporate</td>
-<td class="p-6 text-on-surface-variant">13 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$304 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Foundations Path</td>
-<td class="p-6 text-on-surface-variant font-medium">A1–A2</td>
-<td class="p-6 text-on-surface-variant">Essentials</td>
-<td class="p-6 text-on-surface-variant">13 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$288 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- Spanish Section -->
-<div class="mb-20">
-<div class="flex items-center gap-4 mb-8">
-<div class="text-5xl drop-shadow-sm">🇪🇸</div>
-<div>
-<h2 class="text-headline-lg font-headline-lg text-primary">Spanish</h2>
-<p class="text-on-surface-variant max-w-3xl">The second most spoken native language in the world, vibrant with passion, history, and a rich tapestry of cultural diversity.</p>
-</div>
-</div>
-<div class="glass-panel rounded-[32px] shadow-xl shadow-primary/5 border border-white/60 overflow-hidden">
-<table class="w-full text-left">
-<thead class="bg-primary text-on-primary">
-<tr>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Course</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Level</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Type</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Duration</th>
-<th class="p-6 font-label-md text-label-md uppercase tracking-wider text-right border-b border-primary-container">Price</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant/10">
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Conversational Spanish</td>
-<td class="p-6 text-on-surface-variant font-medium">Spoken</td>
-<td class="p-6 text-on-surface-variant">Immersion</td>
-<td class="p-6 text-on-surface-variant">Ongoing</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$320 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Advanced DELE Prep</td>
-<td class="p-6 text-on-surface-variant font-medium">C1–C2</td>
-<td class="p-6 text-on-surface-variant">Certification</td>
-<td class="p-6 text-on-surface-variant">15 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$340 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Intermediate Mastery</td>
-<td class="p-6 text-on-surface-variant font-medium">B1–B2</td>
-<td class="p-6 text-on-surface-variant">Foundations</td>
-<td class="p-6 text-on-surface-variant">13 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$295 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-<tr class="hover:bg-white/40 transition-colors">
-<td class="p-6 font-bold text-on-surface">Beginner Essentials</td>
-<td class="p-6 text-on-surface-variant font-medium">A1–A2</td>
-<td class="p-6 text-on-surface-variant">Foundations</td>
-<td class="p-6 text-on-surface-variant">13 weeks</td>
-<td class="p-6 text-right">
-<div class="text-primary font-bold text-lg">$265 <span class="text-on-surface-variant/60 font-normal text-sm">/ module</span></div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+    <div id="catalog-loading" class="text-center py-24 text-on-surface-variant">
+        <span class="material-symbols-outlined text-5xl text-primary/40" style="animation:pulse 2s infinite">language</span>
+        <p class="mt-4 text-sm">Loading courses…</p>
+    </div>
+    <div id="catalog-error" class="hidden text-center py-24 text-error">
+        <span class="material-symbols-outlined text-5xl">error_outline</span>
+        <p class="mt-4 text-sm font-medium">Could not load courses. Please try again later.</p>
+    </div>
+    <div id="catalog-body"></div>
 </section>
-<!-- Enrollment / Bottom CTA (Matching Homepage) -->
+
+<!-- Bottom CTA -->
 <section class="py-16 relative px-4 bg-surface-bright">
 <div class="max-w-6xl mx-auto">
 <div class="glass-panel p-10 lg:p-14 rounded-[48px] relative overflow-hidden text-center bg-white shadow-xl border border-outline-variant/20">
 <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-secondary to-primary-fixed"></div>
 <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Don't see your language?</h2>
 <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mb-10">We are constantly expanding our curriculum. Contact us for custom learning paths or upcoming course releases.</p>
-<button class="bg-primary text-on-primary px-10 py-4 rounded-full font-headline-md text-headline-md font-bold shadow-xl shadow-primary/20 active:scale-95 transition-all">Request a Language</button>
+<a href="contact.html" class="inline-block bg-primary text-on-primary px-10 py-4 rounded-full font-headline-md text-headline-md font-bold shadow-xl shadow-primary/20 active:scale-95 transition-all">Request a Language</a>
 </div>
 </div>
 </section>
 </main>
 <!-- Footer (Matching Homepage) -->
-<footer class="bg-surface-container-low/30 w-full pt-16 pb-8 border-t border-outline-variant/10">
-<div class="max-w-6xl mx-auto px-container-desktop">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-<div class="col-span-2 md:col-span-1">
-<div class="text-headline-md font-headline-md text-primary font-extrabold mb-4">LinguaBridge</div>
-<p class="text-on-surface-variant text-sm">Bridging cultures through language and technology.</p>
-</div>
-<div>
-<h5 class="text-primary font-bold mb-4 text-sm">Learn</h5>
-<ul class="space-y-2 text-sm">
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Become a Tutor</a></li>
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Courses</a></li>
-</ul>
-</div>
-<div>
-<h5 class="text-primary font-bold mb-4 text-sm">Company</h5>
-<ul class="space-y-2 text-sm">
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Careers</a></li>
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Support</a></li>
-</ul>
-</div>
-<div>
-<h5 class="text-primary font-bold mb-4 text-sm">Legal</h5>
-<ul class="space-y-2 text-sm">
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms</a></li>
-<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy</a></li>
-</ul>
-</div>
-</div>
-<div class="pt-6 border-t border-surface-container flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-on-surface-variant text-sm">© 2024 LinguaBridge. All rights reserved.</p>
-<div class="flex gap-4">
-<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
-<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
-</div>
-</div>
-</div>
+<footer class="w-full py-12 glass-panel border-t border-white/30 shadow-sm">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-8">
+        <div class="flex flex-col items-center md:items-start">
+            <div class="flex items-center gap-3 mb-2">
+                <img src="Media/linguabridge_logo.png" alt="LinguaBridge Logo" class="h-8 w-auto">
+                <div class="flex items-baseline gap-2">
+                    <span class="text-lg font-bold text-slate-900">LinguaBridge</span>
+                    <span class="text-slate-400 text-[10px] uppercase tracking-widest">2026</span>
+                </div>
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-[#FF7582] font-extrabold">Your Bridge to the World</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="privacy_policy.html">Privacy Policy</a>
+            <a class="text-xs uppercase tracking-widest text-slate-500 hover:text-[#FF7582] transition-colors" href="terms.html">Terms</a>
+            <a href="delete_data.html" class="flex items-center gap-1 text-xs uppercase tracking-widest text-slate-400 hover:text-red-500 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">delete_history</span>
+                Delete Data
+            </a>
+        </div>
+        <a href="tutor_signup.html" class="inline-flex items-center px-5 py-2 border-2 border-[#FF7582] text-[#FF7582] hover:bg-[#FF7582] hover:text-white transition-all duration-300 rounded-full text-xs font-bold uppercase tracking-widest">
+            Become Tutor
+        </a>
+    </div>
 </footer>
+<style>
+  .active-pill { background: #a93444; color: #fff; box-shadow: 0 4px 12px rgba(169,52,68,.15); }
+  .active-fmt  { background: #a93444; color: #fff; box-shadow: 0 4px 12px rgba(169,52,68,.2); }
+  .active-cur  { background: #fff; color: #a93444; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+</style>
 <script>
+// ── Nav helpers ───────────────────────────────────────────────────────────────
 function toggleMobileLang(e) { if (e) e.stopPropagation(); document.getElementById('mobile-lang-dropdown').classList.toggle('hidden'); }
 function closeMobileLang() { document.getElementById('mobile-lang-dropdown').classList.add('hidden'); }
 function changeGlobalLanguage(lang) {
@@ -435,5 +305,180 @@ document.addEventListener('click', function(e) {
     if (mm && !mm.classList.contains('hidden') && !mb?.contains(e.target) && !mm?.contains(e.target)) mm.classList.add('hidden');
 });
 (function(){ const lang = localStorage.getItem('preferredLang') || 'en'; const a = document.querySelector('.lang-btn-' + lang); if (a) { a.classList.add('text-primary','bg-rose-50'); a.classList.remove('opacity-70','text-slate-600'); } })();
+
+// ── Course catalog ────────────────────────────────────────────────────────────
+const FUNCTIONS_BASE = 'https://us-central1-linguabridge-2574f.cloudfunctions.net';
+const CURRENCY_RATES = { eur: 1, usd: 1.10, gbp: 0.86 };
+const CURRENCY_SYM   = { eur: '€', usd: '$', gbp: '£' };
+const LANG_FLAGS = {
+    english: '🇬🇧', spanish: '🇪🇸', french: '🇫🇷', german: '🇩🇪',
+    italian: '🇮🇹', portuguese: '🇧🇷', japanese: '🇯🇵', chinese: '🇨🇳',
+    mandarin: '🇨🇳', russian: '🇷🇺', arabic: '🇸🇦', bulgarian: '🇧🇬',
+};
+const LANG_DESC = {
+    english:    'A language shaped by diversity — blending traditions, accents, and influences from across the globe.',
+    spanish:    'The second most spoken native language in the world, vibrant with passion, history, and cultural diversity.',
+    french:     'A language of diplomacy, gastronomy, and literature, spoken across five continents.',
+    german:     'Rooted in precision and depth, reflecting a culture known for philosophy, engineering, and classical music.',
+    italian:    'The language of art, opera, and cuisine — a bridge to one of the world\'s richest cultural heritages.',
+    portuguese: 'Spoken across four continents, a language of exploration, music, and warm human connection.',
+    japanese:   'A language of elegance and precision, blending three writing systems with deep tradition and innovation.',
+    chinese:    'Carrying thousands of years of history — where tradition meets modern innovation and global influence.',
+    russian:    'A Slavic language of extraordinary literary depth, spoken across 11 time zones.',
+    arabic:     'One of the world\'s oldest languages, rich in poetry, science, and cultural heritage.',
+    bulgarian:  'The first Slavic language to be written — the foundation of the Cyrillic alphabet.',
+};
+
+let _allCourses = [];
+let _activeLang = 'all';
+let _activeFmt  = 'all';
+let _activeCur  = 'eur';
+
+async function loadCourses() {
+    try {
+        const res  = await fetch(`${FUNCTIONS_BASE}/getCourses?lang=en`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        _allCourses = (data.courses || []).map(r => ({
+            id:          r.id,
+            language:    (r.language || '').toLowerCase(),
+            level:       r.level    || '—',
+            format:      (r.format  || '').toLowerCase(),
+            price:       r.priceMonthly || 0,
+            durationMin: r.durationMin  || 60,
+            title:       r.title    || r.id,
+            desc:        r.description || '',
+        }));
+        document.getElementById('catalog-loading').classList.add('hidden');
+        buildLangPills();
+        renderCatalog();
+    } catch (e) {
+        document.getElementById('catalog-loading').classList.add('hidden');
+        document.getElementById('catalog-error').classList.remove('hidden');
+        console.error('getCourses failed:', e);
+    }
+}
+
+function buildLangPills() {
+    const langs = [...new Set(_allCourses.map(c => c.language))].sort();
+    const container = document.getElementById('lang-pills');
+    langs.forEach(lang => {
+        const flag = LANG_FLAGS[lang] || '🌐';
+        const label = lang.charAt(0).toUpperCase() + lang.slice(1);
+        const btn = document.createElement('button');
+        btn.dataset.lang = lang;
+        btn.className = 'lang-pill px-6 py-2.5 rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-white/60 transition-colors whitespace-nowrap flex items-center gap-2';
+        btn.innerHTML = `<span>${flag}</span> ${label}`;
+        btn.onclick = () => filterLang(lang);
+        container.appendChild(btn);
+    });
+}
+
+function filterLang(lang) {
+    _activeLang = lang;
+    document.querySelectorAll('.lang-pill').forEach(b => {
+        b.classList.toggle('active-pill', b.dataset.lang === lang);
+        if (b.dataset.lang !== lang) b.classList.add('text-on-surface-variant');
+        else b.classList.remove('text-on-surface-variant');
+    });
+    renderCatalog();
+}
+
+function filterFormat(fmt) {
+    _activeFmt = fmt;
+    document.querySelectorAll('.fmt-pill').forEach(b => {
+        const active = b.dataset.fmt === fmt;
+        b.classList.toggle('active-fmt', active);
+        b.classList.toggle('text-on-surface-variant', !active);
+    });
+    renderCatalog();
+}
+
+function setCurrency(cur) {
+    _activeCur = cur;
+    document.querySelectorAll('.cur-pill').forEach(b => {
+        b.classList.toggle('active-cur', b.dataset.cur === cur);
+        b.classList.toggle('text-on-surface-variant', b.dataset.cur !== cur);
+    });
+    renderCatalog();
+}
+
+function formatPrice(baseEur) {
+    if (!baseEur) return '—';
+    const rate = CURRENCY_RATES[_activeCur] || 1;
+    const sym  = CURRENCY_SYM[_activeCur] || '€';
+    return `${sym}${Math.round(baseEur * rate)}`;
+}
+
+function renderCatalog() {
+    const body = document.getElementById('catalog-body');
+    const filtered = _allCourses.filter(c =>
+        (_activeLang === 'all' || c.language === _activeLang) &&
+        (_activeFmt  === 'all' || c.format   === _activeFmt)
+    );
+
+    if (!filtered.length) {
+        body.innerHTML = `<div class="text-center py-20 text-on-surface-variant">
+            <span class="material-symbols-outlined text-4xl">search_off</span>
+            <p class="mt-3 text-sm">No courses match the selected filters.</p>
+        </div>`;
+        return;
+    }
+
+    const grouped = {};
+    filtered.forEach(c => {
+        if (!grouped[c.language]) grouped[c.language] = [];
+        grouped[c.language].push(c);
+    });
+
+    body.innerHTML = Object.entries(grouped).map(([lang, courses]) => {
+        const flag  = LANG_FLAGS[lang] || '🌐';
+        const label = lang.charAt(0).toUpperCase() + lang.slice(1);
+        const desc  = LANG_DESC[lang] || '';
+        const rows  = courses.map(c => `
+            <tr class="hover:bg-white/40 transition-colors">
+                <td class="p-6 font-bold text-on-surface">${c.title}</td>
+                <td class="p-6 text-on-surface-variant font-medium">${c.level}</td>
+                <td class="p-6 text-on-surface-variant capitalize">${c.format || '—'}</td>
+                <td class="p-6 text-on-surface-variant">${c.durationMin} min</td>
+                <td class="p-6 text-right">
+                    <div class="text-primary font-bold text-lg">${formatPrice(c.price)} <span class="text-on-surface-variant/60 font-normal text-sm">/ mo</span></div>
+                </td>
+                <td class="p-6 text-right">
+                    <a href="enrol.html?lang=${encodeURIComponent(c.language)}&course=${encodeURIComponent(c.id)}&format=${encodeURIComponent(c.format)}"
+                       class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-sm shadow-primary/20">
+                        Enrol
+                    </a>
+                </td>
+            </tr>`).join('');
+        return `
+        <div class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="text-5xl drop-shadow-sm">${flag}</div>
+                <div>
+                    <h2 class="text-headline-lg font-headline-lg text-primary">${label}</h2>
+                    ${desc ? `<p class="text-on-surface-variant max-w-3xl">${desc}</p>` : ''}
+                </div>
+            </div>
+            <div class="glass-panel rounded-[32px] shadow-xl shadow-primary/5 border border-white/60 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-primary text-on-primary">
+                        <tr>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Course</th>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Level</th>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Format</th>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider border-b border-primary-container">Duration</th>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider text-right border-b border-primary-container">Price / mo</th>
+                            <th class="p-6 font-label-md text-label-md uppercase tracking-wider text-right border-b border-primary-container"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/10">${rows}</tbody>
+                </table>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+loadCourses();
 </script>
 </body></html>
