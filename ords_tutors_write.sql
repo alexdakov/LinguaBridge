@@ -26,12 +26,12 @@ DECLARE
   v_status VARCHAR2(20)  := NVL(JSON_VALUE(v_body, '$.status'), 'approved');
   v_id     NUMBER;
 BEGIN
-  v_mang := NVL(TRIM(REGEXP_SUBSTR(v_langs, '[^,]+', 1, 1)), 'Unknown');
+  v_mlang := NVL(TRIM(REGEXP_SUBSTR(v_langs, '[^,]+', 1, 1)), 'Unknown');
   INSERT INTO tutor_applications
     (first_name, last_name, email, main_language, cv_url, status,
      role_title, languages, quote, bio_points, photo_url)
   VALUES
-    (v_fn, v_ln, v_email, v_mang, 'n/a', v_status,
+    (v_fn, v_ln, v_email, v_mlang, 'n/a', v_status,
      v_role, v_langs, v_quote, v_bio, v_photo)
   RETURNING id INTO v_id;
 
