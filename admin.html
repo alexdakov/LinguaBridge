@@ -3094,26 +3094,38 @@ window.submitTutorModal = async function() {
             photoY: _photoPos.y,
             customFields,
         };
-        if (!editingTutorId || editingTutorId !== nextId) {
-            const existingSnap = await getDoc(doc(db, 'tutors', nextId));
-            if (existingSnap.exists() && !editingTutorId) { toast(`Tutor document "${nextId}" already exists`, 'error'); return; }
-        }
-        if (editingTutorId) {
-            if (editingTutorId !== nextId) {
-                await setDoc(doc(db, 'tutors', nextId), tutorData);
-                await deleteDoc(doc(db, 'tutors', editingTutorId));
-            } else {
-                await setDoc(doc(db, 'tutors', editingTutorId), tutorData);
-            }
-        } else {
-            await setDoc(doc(db, 'tutors', nextId), tutorData);
-        }
+        const ORDS = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
+        const nameParts  = name.trim().split(/\s+/);
+        const firstName  = nameParts[0] || '';
+        const lastName   = nameParts.slice(1).join(' ') || '';
+        const bioPoints  = [tutorData.phd, tutorData.school_1, tutorData.school_2,
+                            tutorData.specialisation_1, tutorData.specialisation_2]
+                           .filter(Boolean).join('|');
+
+        const payload = {
+            first_name: firstName,
+            last_name:  lastName,
+            role_title: tutorData.role,
+            languages:  tutorData.lang_teached,
+            quote:      tutorData.bio_quote,
+            bio_points: bioPoints,
+            photo_url:  tutorData.photoUrl || '',
+            status:     tutorData.active ? 'approved' : 'inactive',
+        };
+
+        const url = editingTutorId
+            ? `${ORDS}/api/tutors/${editingTutorId}`
+            : `${ORDS}/api/tutors`;
+        const res = await fetch(url, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(`Oracle save failed: ${res.status}`);
+
         closeTutorModal();
-        if (editingTutorId) {
-            logAudit('update_tutor', 'tutors', editingTutorId, name, '');
-        } else {
-            logAudit('add_tutor', 'tutors', nextId, name, '');
-        }
+        logAudit(editingTutorId ? 'update_tutor' : 'add_tutor', 'tutors', editingTutorId || 'new', name, '');
+        await loadTutors();
         toast(editingTutorId ? 'Tutor updated ✓' : 'Tutor added ✓');
     } catch (err) {
         const prefix = err.code?.startsWith('storage/') ? 'Photo upload failed: ' : 'Save failed: ';
@@ -3128,8 +3140,11 @@ window.submitTutorModal = async function() {
 window.deleteTutor = function(id, name) {
     confirmDelete(`Delete tutor "${name}"?`, async () => {
         try {
-            await deleteDoc(doc(db, 'tutors', id));
+            const ORDS = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
+            const res = await fetch(`${ORDS}/api/tutors/${id}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error(`Oracle delete failed: ${res.status}`);
             logAudit('delete_tutor', 'tutors', id, name, '');
+            await loadTutors();
             toast('Tutor deleted');
         } catch (err) { toast('Delete failed: ' + err.message, 'error'); }
     });
