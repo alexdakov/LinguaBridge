@@ -22,6 +22,8 @@ const db                                = require('./lib/db');
 // ── Firebase Admin init (idempotent) ─────────────────────────────────────────
 if (!getApps().length) initializeApp();
 
+const ORDS_BASE = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
+
 // ── Secrets / params ─────────────────────────────────────────────────────────
 const MOODLE_TOKEN    = defineSecret('MOODLE_TOKEN');
 const ALLOWED_ORIGIN  = defineString('ALLOWED_ORIGIN', { default: '*' });
@@ -122,25 +124,24 @@ exports.submitStudentEnrollment = onRequest(
     const { name: _n, email: _e, phone_number: _p, requested_course_id: _c, ...extra } = body;
     const notes = Object.keys(extra).length ? JSON.stringify(extra) : null;
 
-    const result = await db.execute(
-      `INSERT INTO student_enrollments
-         (first_name, last_name, email, phone_number, requested_course_id, status, notes)
-       VALUES
-         (:first_name, :last_name, :email, :phone_number, :course_id, 'pending', :notes)
-       RETURNING id INTO :inserted_id`,
-      {
+    const ordsRes = await fetch(`${ORDS_BASE}/api/enrollments`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
         first_name,
         last_name,
         email,
-        phone_number: phone_number || null,
-        course_id:    requested_course_id || null,
-        notes:        notes || null,
-        inserted_id:  { dir: require('oracledb').BIND_OUT, type: require('oracledb').NUMBER },
-      },
-    );
-
-    const enrollmentId = result.outBinds.inserted_id[0];
-    return res.status(201).json({ success: true, enrollmentId });
+        phone_number:        phone_number || null,
+        requested_course_id: requested_course_id || null,
+        notes:               notes || null,
+      }),
+    });
+    if (!ordsRes.ok) {
+      const errText = await ordsRes.text();
+      throw new Error(`ORDS enrollment insert failed: ${ordsRes.status} ${errText}`);
+    }
+    const data = await ordsRes.json();
+    return res.status(201).json({ success: true, enrollmentId: data.enrollmentId });
   },
 );
 
@@ -206,27 +207,25 @@ exports.submitTutorApplication = onRequest(
     // ── Serialise extra intake fields as JSON notes ─────────────────────────
     const notes = Object.keys(extra).length ? JSON.stringify(extra) : null;
 
-    const oracledb = require('oracledb');
-    const result = await db.execute(
-      `INSERT INTO tutor_applications
-         (first_name, last_name, email, experience_years, main_language, cv_url, status, notes)
-       VALUES
-         (:first_name, :last_name, :email, :exp_years, :main_lang, :cv_url, 'pending', :notes)
-       RETURNING id INTO :inserted_id`,
-      {
+    const ordsRes = await fetch(`${ORDS_BASE}/api/applications`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
         first_name,
         last_name,
         email,
-        exp_years: expYears,
-        main_lang: main_language || null,
-        cv_url:    cvUrl,
-        notes:     notes || null,
-        inserted_id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER },
-      },
-    );
-
-    const applicationId = result.outBinds.inserted_id[0];
-    return res.status(201).json({ success: true, applicationId, cvUploaded: !!cvUrl });
+        experience_years: expYears,
+        main_language:    main_language || null,
+        cv_url:           cvUrl,
+        notes:            notes || null,
+      }),
+    });
+    if (!ordsRes.ok) {
+      const errText = await ordsRes.text();
+      throw new Error(`ORDS application insert failed: ${ordsRes.status} ${errText}`);
+    }
+    const data = await ordsRes.json();
+    return res.status(201).json({ success: true, applicationId: data.applicationId, cvUploaded: !!cvUrl });
   },
 );
 
@@ -564,8 +563,6 @@ exports.sendPasswordResetLink = onCall(async (request) => {
 // Returns all active courses with title/description in the requested locale,
 // falling back to the English translation when the locale is absent.
 // ─────────────────────────────────────────────────────────────────────────────
-const ORDS_BASE = 'https://g328014ebe6dc91-linguabridgedb.adb.uk-london-1.oraclecloudapps.com/ords/admin';
-
 exports.getCourses = onRequest(
   { cors: false },
   async (req, res) => {
